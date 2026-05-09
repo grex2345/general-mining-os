@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: rgb(2, 6, 23);
+    color: rgb(248, 250, 252);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+}
+
+/* ═══════════════════════════════════════════ */
+/* 🎨 Custom Animations - General Mining OS    */
+/* ═══════════════════════════════════════════ */
+
+/* 🔔 رجة الجرس */
+@keyframes bell-shake {
+  0%, 100% { transform: rotate(0); }
+  10%, 30%, 50% { transform: rotate(-15deg); }
+  20%, 40%, 60% { transform: rotate(15deg); }
+  70% { transform: rotate(0); }
+}
+
+.animate-bell-shake {
+  animation: bell-shake 1.5s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+/* 💓 نبض قوي */
+@keyframes pulse-strong {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
+  }
+}
+
+.animate-pulse-strong {
+  animation: pulse-strong 1.5s ease-in-out infinite;
+}
+
+/* ⬇️ نزول من فوق */
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-down {
+  animation: slide-down 0.2s ease-out;
+}
+
+/* ✨ Glow effect */
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(168, 85, 247, 0.5), 0 0 10px rgba(168, 85, 247, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.8), 0 0 30px rgba(168, 85, 247, 0.5);
+  }
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* 🎯 Slide from right */
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s ease-out;
+}
+
+/* 📈 رقم يكبر */
+@keyframes number-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); color: rgb(34, 197, 94); }
+  100% { transform: scale(1); }
+}
+
+.animate-number-pop {
+  animation: number-pop 0.4s ease-out;
+}
+
+/* 🌟 Shine effect */
+@keyframes shine {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.animate-shine {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: shine 3s linear infinite;
+}
+
+/* 🎨 Smooth scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(15, 23, 42);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(51, 65, 85);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(71, 85, 105);
+}

@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model DecisionLog {
+  id          Int      @id @default(autoincrement())
+  timestamp   DateTime @default(now())
+  coin        String
+  action      String   // "switch", "stay", "wait"
+  score       Float
+  risk        String   // "low", "medium", "high"
+  reason      String
+  fromCoin    String?
+  toCoin      String?
+}
+
+model ProfitLog {
+  id          Int      @id @default(autoincrement())
+  timestamp   DateTime @default(now())
+  coin        String
+  hashrate    Float
+  power       Float
+  revenue     Float
+  cost        Float
+  profit      Float
+}
+
+model AlertLog {
+  id          Int      @id @default(autoincrement())
+  timestamp   DateTime @default(now())
+  type        String   // "opportunity", "warning", "info"
+  title       String
+  message     String
+  coin        String?
+  read        Boolean  @default(false)
+}
+
+model SwitchHistory {
+  id          Int      @id @default(autoincrement())
+  timestamp   DateTime @default(now())
+  fromCoin    String
+  toCoin      String
+  reason      String
+  profitDiff  Float
+}
+
+model UserSettings {
+  id                Int      @id @default(1)
+  currentMiningCoin String   @default("KAS")
+  electricityCost   Float    @default(0.12)
+  safeMode          Boolean  @default(true)
+  minSwitchProfit   Float    @default(8.0)
+  updatedAt         DateTime @updatedAt
+}
