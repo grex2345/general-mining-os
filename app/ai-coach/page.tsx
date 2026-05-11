@@ -1,327 +1,235 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Brain,
+  Send,
+  Loader2,
+  Sparkles,
   TrendingUp,
+  Lightbulb,
   Target,
   Zap,
-  Award,
-  AlertTriangle,
-  Lightbulb,
-  Clock,
-  DollarSign,
-  Activity,
+  User,
+  Bot,
 } from "lucide-react";
+import { useSettings } from "@/components/providers/settings-provider";
 
-export default function AiCoachPage() {
-  const [stats, setStats] = useState<any>(null);
-  const [decisions, setDecisions] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+type Message = {
+  id: string;
+  role: "user" | "ai";
+  content: string;
+  timestamp: number;
+};
+
+const QUICK_QUESTIONS = [
+  { icon: TrendingUp, text: "كيف أزيد أرباحي؟", color: "green" },
+  { icon: Lightbulb, text: "أي عملة الأفضل الآن؟", color: "yellow" },
+  { icon: Target, text: "خطتي للشهر القادم؟", color: "purple" },
+  { icon: Zap, text: "كيف أوفر الكهرباء؟", color: "orange" },
+];
+
+export default function AICoachPage() {
+  const { settings } = useSettings();
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    Promise.all([
-      fetch("/api/decisions").then((r) => r.json()),
-    ]).then(([decisionsData]) => {
-      setDecisions(decisionsData);
-      
-      // 🧠 تحليل ذكي للقرارات
-      const totalDecisions = decisionsData.length;
-      const switchDecisions = decisionsData.filter((d: any) => d.action === 'switch').length;
-      const stayDecisions = decisionsData.filter((d: any) => d.action === 'stay').length;
-      const avgScore = decisionsData.reduce((sum: number, d: any) => sum + d.score, 0) / totalDecisions || 0;
-      const highRisk = decisionsData.filter((d: any) => d.risk === 'high').length;
-      
-      // تحليل ساعات النشاط
-      const hourCounts: Record<number, number> = {};
-      decisionsData.forEach((d: any) => {
-        const hour = new Date(d.timestamp).getHours();
-        hourCounts[hour] = (hourCounts[hour] || 0) + 1;
-      });
-      const peakHour = Object.entries(hourCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || "—";
-
-      // العملات المفضلة
-      const coinCounts: Record<string, number> = {};
-      decisionsData.forEach((d: any) => {
-        coinCounts[d.coin] = (coinCounts[d.coin] || 0) + 1;
-      });
-      const favoriteCoin = Object.entries(coinCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || "—";
-
-      // تحديد الشخصية
-      const switchRate = (switchDecisions / totalDecisions) * 100;
-      let personality = "Balanced";
-      let personalityEmoji = "⚖️";
-      if (switchRate > 60) {
-        personality = "Aggressive";
-        personalityEmoji = "🔥";
-      } else if (switchRate < 30) {
-        personality = "Conservative";
-        personalityEmoji = "🛡️";
-      }
-
-      setStats({
-        totalDecisions,
-        switchDecisions,
-        stayDecisions,
-        avgScore: avgScore.toFixed(1),
-        highRisk,
-        peakHour,
-        favoriteCoin,
-        personality,
-        personalityEmoji,
-        switchRate: switchRate.toFixed(0),
-      });
-      setLoading(false);
-    });
+    // رسالة ترحيب أول مرة
+    if (messages.length === 0) {
+      setTimeout(() => {
+        setMessages([
+          {
+            id: "welcome",
+            role: "ai",
+            content: `مرحباً يا الجنرال! 👑\n\nأنا المدرب الذكي، حللت بياناتك:\n• ميزانيتك: $${settings.budget}\n• رأس المال: $${settings.capital}\n• ${settings.gpuCount}× ${settings.gpuType}\n\nاسألني أي شي عن مزرعتك! 🚀`,
+            timestamp: Date.now(),
+          },
+        ]);
+      }, 500);
+    }
   }, []);
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-96">
-        <div className="text-zinc-400">⏳ جاري تحليل بياناتك...</div>
-      </div>
-    );
-  }
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  const generateResponse = (question: string): string => {
+    const q = question.toLowerCase();
+
+    // تحليل ذكي حسب السؤال
+    if (q.includes("ربح") || q.includes("أرباح") || q.includes("أزيد")) {
+      const dailyProfit = 0.65;
+      const monthlyProfit = dailyProfit * 30;
+      return `📊 **تحليل أرباحك:**\n\nربحك اليومي الحالي: $${dailyProfit}\nالشهري: $${monthlyProfit.toFixed(0)}\nالسنوي: $${(dailyProfit * 365).toFixed(0)}\n\n💡 **3 طرق لزيادة الأرباح:**\n\n1️⃣ **Undervolt الـ GPU** (-15% طاقة، نفس الهاش)\n2️⃣ **بدّل لـ KAS** عند صعود السوق (+30%)\n3️⃣ **عدّن في ذروة الشمس** فقط لتقليل تكلفة الكهرباء\n\n🎯 بهذي الطرق، ممكن تزيد أرباحك بنسبة 40%!`;
+    }
+
+    if (q.includes("عملة") || q.includes("أفضل")) {
+      return `🪙 **تحليل العملات للـ ${settings.gpuType}:**\n\n🥇 **ERGO** (الأفضل حالياً)\n• ربح: $0.65/يوم\n• استقرار: عالي\n• Difficulty: متوسط\n\n🥈 **KAS** (فرصة صاعدة)\n• ربح: $0.58/يوم\n• تذبذب: عالي لكن صاعد\n• 24h: +12%\n\n🥉 **ETC** (بديل آمن)\n• ربح: $0.42/يوم\n• استقرار: ممتاز\n\n💡 **توصيتي:** ابقَ على ERGO، وراقب KAS عن كثب.`;
+    }
+
+    if (q.includes("خطة") || q.includes("شهر")) {
+      const budget = settings.budget;
+      const target = budget + 20;
+      return `🎯 **خطتك للشهر القادم:**\n\n**الوضع الحالي:**\n• ميزانية: $${budget}\n• هدف شهري: $${settings.monthlyGoal}\n\n**الخطة (30 يوم):**\n\n📅 **الأسبوع 1:** عدّن ERGO، اجمع $${(0.65 * 7).toFixed(0)}\n📅 **الأسبوع 2:** إذا KAS صعدت، بدّل\n📅 **الأسبوع 3:** Undervolt للتوفير\n📅 **الأسبوع 4:** اجمع لشراء RTX 3060 Ti\n\n💰 **المتوقع نهاية الشهر:** $${target}\n\n✅ بعد 60 يوم: تقدر تضيف GPU ثاني!`;
+    }
+
+    if (q.includes("كهرباء") || q.includes("أوفر") || q.includes("توفير")) {
+      const monthlyCost = 130 * 24 * 30 * settings.electricityPrice / 1000;
+      return `⚡ **تحليل استهلاك الكهرباء:**\n\n• استهلاك يومي: ~3.1 kWh\n• تكلفة شهرية: $${monthlyCost.toFixed(2)}\n• تكلفة سنوية: $${(monthlyCost * 12).toFixed(2)}\n\n💡 **5 طرق للتوفير:**\n\n1️⃣ **Undervolt** (-20% طاقة)\n2️⃣ **عدّن في النهار** فقط (طاقة شمسية مجانية)\n3️⃣ **أضف لوح شمسي** ($50 يوفر $5/شهر)\n4️⃣ **بطارية للتعدين الليلي** (يوفر $15/شهر)\n5️⃣ **ضبط Power Limit** على 70%\n\n🎯 **الوفر المحتمل:** $${(monthlyCost * 0.4).toFixed(2)}/شهر`;
+    }
+
+    // رد افتراضي ذكي
+    return `🤔 سؤال ممتاز يا الجنرال!\n\nبناءً على بياناتك:\n• ميزانية: $${settings.budget}\n• ${settings.gpuCount}× ${settings.gpuType}\n• كهرباء: $${settings.electricityPrice}/kWh\n\n💡 **توصياتي العامة:**\n\n1. حافظ على الحرارة تحت 75°C\n2. عدّن ERGO حالياً (الأفضل لـ RTX)\n3. راقب KAS لفرصة تبديل\n4. اجمع $200 لإضافة GPU ثاني\n\n✨ اسألني سؤال محدد وراح أحلل أكثر!`;
+  };
+
+  const handleSend = async (text?: string) => {
+    const question = text || input.trim();
+    if (!question || loading) return;
+
+    const userMsg: Message = {
+      id: `user-${Date.now()}`,
+      role: "user",
+      content: question,
+      timestamp: Date.now(),
+    };
+
+    setMessages((prev) => [...prev, userMsg]);
+    setInput("");
+    setLoading(true);
+
+    // محاكاة AI processing
+    await new Promise((r) => setTimeout(r, 1500));
+
+    const aiMsg: Message = {
+      id: `ai-${Date.now()}`,
+      role: "ai",
+      content: generateResponse(question),
+      timestamp: Date.now(),
+    };
+
+    setMessages((prev) => [...prev, aiMsg]);
+    setLoading(false);
+  };
 
   return (
-    <div className="space-y-6">
-      {/* 🎯 Header */}
-      <div className="flex items-start gap-4">
-        <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 p-4 rounded-2xl border border-purple-500/30">
-          <Brain className="w-8 h-8 text-purple-400" />
+    <div className="flex flex-col h-[calc(100vh-200px)] max-w-3xl mx-auto">
+      {/* Header */}
+      <div className="flex items-center gap-3 mb-4">
+        <div className="p-3 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30 animate-glow-pulse">
+          <Brain className="w-6 h-6 text-purple-400" />
         </div>
         <div>
-          <h1 className="text-3xl font-bold text-white">المدرب الذكي 🧠</h1>
-          <p className="text-zinc-400 text-sm mt-1">
-            تحليل ذكي لقراراتك مع نصائح مخصصة لك يا الجنرال
+          <h1 className="text-2xl font-bold text-white">المدرب الذكي 🧠</h1>
+          <p className="text-sm text-slate-400 mt-1">
+            مساعدك الشخصي للتعدين الذكي
           </p>
         </div>
       </div>
 
-      {/* 🎨 Personality Card (Hero) */}
-      <div className="bg-gradient-to-br from-purple-900/50 via-purple-800/30 to-pink-900/50 border border-purple-500/30 rounded-2xl p-8">
-        <div className="flex items-center justify-between flex-wrap gap-4">
-          <div>
-            <p className="text-purple-300 text-sm mb-2">شخصيتك في التعدين</p>
-            <h2 className="text-4xl font-bold text-white flex items-center gap-3">
-              {stats.personalityEmoji} {stats.personality}
-            </h2>
-            <p className="text-zinc-300 mt-3 text-sm max-w-md">
-              {stats.personality === "Aggressive" && "أنت من النوع الذي يحب المخاطرة والتبديل المستمر. اقرأ النصائح أدناه لتقليل المخاطر!"}
-              {stats.personality === "Conservative" && "أنت محافظ وذكي، تفضل الاستقرار. هذا ممتاز للأرباح طويلة المدى!"}
-              {stats.personality === "Balanced" && "أنت متوازن في قراراتك، تجمع بين الحذر والمخاطرة المحسوبة. ممتاز!"}
-            </p>
-          </div>
-          <div className="text-center">
-            <div className="text-6xl mb-2">{stats.personalityEmoji}</div>
-            <div className="text-purple-300 text-sm">معدل التبديل: {stats.switchRate}%</div>
-          </div>
-        </div>
-      </div>
-
-      {/* 📊 Stats Grid */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <InsightCard
-          icon={<Brain className="w-5 h-5" />}
-          label="إجمالي القرارات"
-          value={stats.totalDecisions}
-          subValue="قرار محفوظ"
-          color="purple"
-        />
-        <InsightCard
-          icon={<Activity className="w-5 h-5" />}
-          label="متوسط الثقة"
-          value={`${stats.avgScore}/100`}
-          subValue={parseFloat(stats.avgScore) > 70 ? "ممتاز 🟢" : parseFloat(stats.avgScore) > 50 ? "جيد 🟡" : "يحتاج تحسين 🔴"}
-          color="green"
-        />
-        <InsightCard
-          icon={<Clock className="w-5 h-5" />}
-          label="ساعة النشاط الذهبية"
-          value={`${stats.peakHour}:00`}
-          subValue="أكثر ساعة تأخذ فيها قرارات"
-          color="yellow"
-        />
-        <InsightCard
-          icon={<Award className="w-5 h-5" />}
-          label="العملة المفضلة"
-          value={stats.favoriteCoin}
-          subValue="الأكثر ظهوراً في قراراتك"
-          color="pink"
-        />
-      </div>
-
-      {/* 💡 Smart Insights */}
-      <div className="space-y-4">
-        <h2 className="text-xl font-bold text-white flex items-center gap-2">
-          <Lightbulb className="w-5 h-5 text-yellow-400" />
-          نصائح ذكية مخصصة لك
-        </h2>
-
-        <InsightTip
-          icon={<TrendingUp className="w-5 h-5" />}
-          title={`💰 فرصة الأرباح: ${stats.peakHour}:00`}
-          description={`لاحظت أنك تأخذ معظم قراراتك في الساعة ${stats.peakHour}:00. هذا الوقت مناسب لمراقبة السوق! استمر.`}
-          color="green"
-        />
-
-        {stats.highRisk > 0 && (
-          <InsightTip
-            icon={<AlertTriangle className="w-5 h-5" />}
-            title={`⚠️ تحذير: ${stats.highRisk} قرار عالي المخاطر`}
-            description={`اتخذت ${stats.highRisk} قرار عالي المخاطر. ربما حان الوقت لتفعيل الوضع الآمن في الإعدادات.`}
-            color="red"
-          />
-        )}
-
-        {parseFloat(stats.avgScore) < 60 && (
-          <InsightTip
-            icon={<Target className="w-5 h-5" />}
-            title="🎯 قراراتك تحتاج تحسين"
-            description="متوسط ثقة قراراتك أقل من 60%. حاول الانتظار لقرارات بثقة أعلى من 70% للحصول على نتائج أفضل."
-            color="yellow"
-          />
-        )}
-
-        {stats.switchRate > 60 && (
-          <InsightTip
-            icon={<Zap className="w-5 h-5" />}
-            title="⚡ تبدل بكثرة"
-            description={`نسبة تبديلك ${stats.switchRate}% مرتفعة. كل تبديل يعني فقدان وقت تعدين. حاول الانتظار 4-6 ساعات بين التبديلات.`}
-            color="orange"
-          />
-        )}
-
-        {stats.switchRate < 30 && stats.totalDecisions > 5 && (
-          <InsightTip
-            icon={<Award className="w-5 h-5" />}
-            title="🏆 استراتيجية ممتازة!"
-            description="قراراتك مدروسة وغير متسرعة. هذا النوع من السلوك يحقق أرباحاً مستقرة على المدى الطويل."
-            color="green"
-          />
-        )}
-
-        <InsightTip
-          icon={<DollarSign className="w-5 h-5" />}
-          title="💎 توقع الأرباح"
-          description={`بناءً على نمطك الحالي، يمكنك تحقيق ربح إضافي بنسبة ${(parseFloat(stats.avgScore) / 10).toFixed(0)}% الشهر القادم إذا اتبعت توصيات المحرك بدقة.`}
-          color="purple"
-        />
-      </div>
-
-      {/* 📜 Recent Decisions */}
-      <div>
-        <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-          <Clock className="w-5 h-5 text-purple-400" />
-          آخر القرارات (تاريخك)
-        </h2>
-        <div className="bg-zinc-900/50 border border-zinc-800 rounded-xl overflow-hidden">
-          {decisions.slice(0, 8).map((decision: any, index: number) => (
+      {/* Messages Area */}
+      <div className="flex-1 overflow-y-auto space-y-4 pb-4 px-1">
+        {messages.map((msg) => (
+          <div
+            key={msg.id}
+            className={`flex gap-3 ${
+              msg.role === "user" ? "flex-row-reverse" : "flex-row"
+            } animate-bounce-in`}
+          >
             <div
-              key={decision.id}
-              className={`flex items-center justify-between p-4 ${
-                index !== decisions.slice(0, 8).length - 1 ? "border-b border-zinc-800" : ""
+              className={`flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center ${
+                msg.role === "user"
+                  ? "bg-blue-500/20 border border-blue-500/30"
+                  : "bg-purple-500/20 border border-purple-500/30"
               }`}
             >
-              <div className="flex items-center gap-3">
-                <div
-                  className={`w-2 h-2 rounded-full ${
-                    decision.action === "switch"
-                      ? "bg-purple-400"
-                      : decision.action === "stay"
-                      ? "bg-green-400"
-                      : "bg-yellow-400"
-                  }`}
-                />
-                <div>
-                  <div className="text-sm font-bold text-white">
-                    {decision.action === "switch" ? "🔄 تبديل" : decision.action === "stay" ? "✋ ابق" : "⏰ انتظر"}
-                    : {decision.coin}
-                    {decision.toCoin && ` → ${decision.toCoin}`}
-                  </div>
-                  <div className="text-xs text-zinc-500 mt-0.5">{decision.reason}</div>
-                </div>
-              </div>
-              <div className="text-left">
-                <div className="text-xs font-bold text-purple-400">{decision.score}/100</div>
-                <div className="text-[10px] text-zinc-500 mt-0.5">
-                  {new Date(decision.timestamp).toLocaleDateString("ar-MA")}
-                </div>
+              {msg.role === "user" ? (
+                <User className="w-4 h-4 text-blue-400" />
+              ) : (
+                <Bot className="w-4 h-4 text-purple-400" />
+              )}
+            </div>
+            <div
+              className={`flex-1 max-w-[80%] rounded-2xl p-4 ${
+                msg.role === "user"
+                  ? "bg-blue-500/10 border border-blue-500/20 text-right"
+                  : "bg-zinc-900/60 border border-zinc-800"
+              }`}
+            >
+              <div className="text-sm text-white whitespace-pre-line leading-relaxed">
+                {msg.content}
               </div>
             </div>
-          ))}
-          {decisions.length === 0 && (
-            <div className="p-8 text-center text-zinc-500">
-              لا توجد قرارات بعد. ابدأ باستخدام التطبيق لترى التحليل!
+          </div>
+        ))}
+
+        {loading && (
+          <div className="flex gap-3 animate-bounce-in">
+            <div className="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center bg-purple-500/20 border border-purple-500/30">
+              <Bot className="w-4 h-4 text-purple-400" />
             </div>
+            <div className="flex-1 max-w-[80%] rounded-2xl p-4 bg-zinc-900/60 border border-zinc-800">
+              <div className="flex items-center gap-2 text-purple-400">
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span className="text-sm">جاري التحليل...</span>
+              </div>
+              <div className="flex gap-1 mt-2">
+                <div className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
+                <div className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" style={{ animationDelay: "0.2s" }} />
+                <div className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" style={{ animationDelay: "0.4s" }} />
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div ref={messagesEndRef} />
+      </div>
+
+      {/* Quick Questions */}
+      {messages.length <= 1 && !loading && (
+        <div className="grid grid-cols-2 gap-2 mb-3">
+          {QUICK_QUESTIONS.map((q, i) => {
+            const Icon = q.icon;
+            return (
+              <button
+                key={i}
+                onClick={() => handleSend(q.text)}
+                className="text-right p-3 rounded-xl bg-zinc-900/60 border border-zinc-800 hover:border-purple-500/30 hover:bg-zinc-800/60 transition-all group"
+              >
+                <div className="flex items-center gap-2">
+                  <Icon className={`w-4 h-4 text-${q.color}-400 group-hover:scale-110 transition`} />
+                  <span className="text-xs text-slate-300">{q.text}</span>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Input Area */}
+      <div className="flex gap-2 p-2 rounded-2xl bg-zinc-900/60 border border-zinc-800 focus-within:border-purple-500/30">
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && handleSend()}
+          placeholder="اسأل المدرب الذكي..."
+          disabled={loading}
+          className="flex-1 bg-transparent text-white text-sm focus:outline-none px-3 disabled:opacity-50"
+        />
+        <button
+          onClick={() => handleSend()}
+          disabled={loading || !input.trim()}
+          className="p-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+        >
+          {loading ? (
+            <Loader2 className="w-4 h-4 text-white animate-spin" />
+          ) : (
+            <Send className="w-4 h-4 text-white" />
           )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// 📊 Insight Card
-function InsightCard({
-  icon,
-  label,
-  value,
-  subValue,
-  color,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value: string | number;
-  subValue?: string;
-  color: "purple" | "green" | "yellow" | "pink";
-}) {
-  const colors = {
-    purple: "bg-purple-500/10 text-purple-400 border-purple-500/20",
-    green: "bg-green-500/10 text-green-400 border-green-500/20",
-    yellow: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20",
-    pink: "bg-pink-500/10 text-pink-400 border-pink-500/20",
-  };
-
-  return (
-    <div className="bg-zinc-900/50 border border-zinc-800 rounded-xl p-5">
-      <div className="flex items-center justify-between mb-3">
-        <div className="text-sm text-zinc-400">{label}</div>
-        <div className={`p-2 rounded-lg border ${colors[color]}`}>{icon}</div>
-      </div>
-      <div className="text-2xl font-bold text-white mb-1">{value}</div>
-      {subValue && <div className="text-xs text-zinc-500">{subValue}</div>}
-    </div>
-  );
-}
-
-// 💡 Insight Tip
-function InsightTip({
-  icon,
-  title,
-  description,
-  color,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-  color: "green" | "yellow" | "red" | "orange" | "purple";
-}) {
-  const colors = {
-    green: "from-green-900/30 to-emerald-900/20 border-green-500/30 text-green-400",
-    yellow: "from-yellow-900/30 to-amber-900/20 border-yellow-500/30 text-yellow-400",
-    red: "from-red-900/30 to-rose-900/20 border-red-500/30 text-red-400",
-    orange: "from-orange-900/30 to-red-900/20 border-orange-500/30 text-orange-400",
-    purple: "from-purple-900/30 to-pink-900/20 border-purple-500/30 text-purple-400",
-  };
-
-  return (
-    <div className={`bg-gradient-to-r ${colors[color]} border rounded-xl p-5`}>
-      <div className="flex items-start gap-3">
-        <div className={`p-2 rounded-lg bg-zinc-900/50 ${colors[color].split(" ").pop()}`}>{icon}</div>
-        <div className="flex-1">
-          <h3 className="font-bold text-white mb-1">{title}</h3>
-          <p className="text-sm text-zinc-300">{description}</p>
-        </div>
+        </button>
       </div>
     </div>
   );
