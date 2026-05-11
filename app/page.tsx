@@ -142,12 +142,15 @@ export default async function Home() {
       <div className="mb-6 flex items-start justify-between flex-wrap gap-3">
         <div>
           <h1 className="text-2xl font-bold text-white">نظرة عامة على المزرعة</h1>
+
+          {/* ✅ هنا التعديل */}
           <div className="flex items-center gap-2 mt-1 flex-wrap">
             <p className="text-sm text-slate-400">آخر تحديث: {lastUpdate}</p>
             <span className="text-slate-500">•</span>
             <p className="text-sm text-slate-400">العملة الحالية:</p>
             <CurrentCoinBadge />
           </div>
+
         </div>
         <Badge variant={source === "coingecko" ? "default" : "secondary"} className="text-xs">
           {source === "coingecko" ? "🟢 بيانات حية" : "🟡 بيانات تجريبية"}
@@ -158,7 +161,6 @@ export default async function Home() {
         <div className="lg:col-span-2">
           <LiveRigStats />
         </div>
-
         <div>
           <DecisionCard decision={decision} />
         </div>
@@ -212,10 +214,35 @@ export default async function Home() {
       </div>
 
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard label="أفضل عملة الآن" value={decision.recommendedCoin} subValue={`Score: ${decision.confidence}/100`} iconName="coins" status="good" />
-        <StatCard label="استرداد رأس المال" value="3%" subValue="من أصل 6,850 MAD" iconName="target" status="warning" badgeText="بداية" />
-        <StatCard label="عدد العملات المحللة" value={decision.scores.length.toString()} subValue="عملات نشطة" iconName="coins" status="neutral" />
-        <StatCard label="حالة المحرك" value={decision.action === "switch" ? "بدّل" : decision.action === "stay" ? "ابقَ" : "انتظر"} subValue={`ثقة: ${decision.confidence}%`} iconName="check" status={decision.action === "switch" ? "good" : decision.action === "wait" ? "warning" : "neutral"} />
+        <StatCard 
+          label="أفضل عملة الآن" 
+          value={decision.recommendedCoin} 
+          subValue={`Score: ${decision.confidence}/100`} 
+          iconName="coins" 
+          status="good" 
+        />
+        <StatCard 
+          label="استرداد رأس المال" 
+          value="3%" 
+          subValue="من أصل 6,850 MAD" 
+          iconName="target" 
+          status="warning" 
+          badgeText="بداية" 
+        />
+        <StatCard 
+          label="عدد العملات المحللة" 
+          value={decision.scores.length.toString()} 
+          subValue="عملات نشطة" 
+          iconName="coins" 
+          status="neutral" 
+        />
+        <StatCard 
+          label="حالة المحرك" 
+          value={decision.action === "switch" ? "بدّل" : decision.action === "stay" ? "ابقَ" : "انتظر"} 
+          subValue={`ثقة: ${decision.confidence}%`} 
+          iconName="check" 
+          status={decision.action === "switch" ? "good" : decision.action === "wait" ? "warning" : "neutral"} 
+        />
       </section>
     </>
   );
