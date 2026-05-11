@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Sparkles } from "lucide-react";
 import { prisma } from "@/lib/db/client";
 import LiveRigStats from "@/components/cards/LiveRigStats";
+import CurrentCoinBadge from "@/components/CurrentCoinBadge";
 
 // 🪙 جلب العملات من API
 async function getCoins(): Promise<{ coins: CoinData[]; source: string; timestamp: string }> {
@@ -141,9 +142,12 @@ export default async function Home() {
       <div className="mb-6 flex items-start justify-between flex-wrap gap-3">
         <div>
           <h1 className="text-2xl font-bold text-white">نظرة عامة على المزرعة</h1>
-          <p className="text-sm text-slate-400 mt-1">
-            آخر تحديث: {lastUpdate} • العملة الحالية: <span className="text-purple-400 font-bold">{currentCoin}</span>
-          </p>
+          <div className="flex items-center gap-2 mt-1 flex-wrap">
+            <p className="text-sm text-slate-400">آخر تحديث: {lastUpdate}</p>
+            <span className="text-slate-500">•</span>
+            <p className="text-sm text-slate-400">العملة الحالية:</p>
+            <CurrentCoinBadge />
+          </div>
         </div>
         <Badge variant={source === "coingecko" ? "default" : "secondary"} className="text-xs">
           {source === "coingecko" ? "🟢 بيانات حية" : "🟡 بيانات تجريبية"}
