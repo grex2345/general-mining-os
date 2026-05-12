@@ -12,6 +12,7 @@ import { Sparkles } from "lucide-react";
 import { prisma } from "@/lib/db/client";
 import LiveRigStats from "@/components/cards/LiveRigStats";
 import CurrentCoinBadge from "@/components/CurrentCoinBadge";
+import QuickSwitchPanel from "@/components/QuickSwitchPanel";
 
 // 🪙 جلب العملات من API
 async function getCoins(): Promise<{ coins: CoinData[]; source: string; timestamp: string }> {
@@ -81,7 +82,6 @@ async function saveDecision(decision: any, currentCoin: string) {
 }
 
 export default async function Home() {
-  // 📊 جلب البيانات بالتوازي
   const [{ coins, source, timestamp }, currentCoin] = await Promise.all([
     getCoins(),
     getCurrentCoin(),
@@ -90,7 +90,6 @@ export default async function Home() {
   const decision = makeDecision(coins, currentCoin);
   const opportunities = detectOpportunities(coins);
 
-  // 📊 إحصائيات
   const totalDecisions = await prisma.decisionLog.count();
   const switchCount = await prisma.decisionLog.count({
     where: { action: 'switch' }
@@ -100,7 +99,6 @@ export default async function Home() {
     orderBy: { timestamp: 'desc' },
   });
 
-  // 💾 حفظ القرار تلقائياً
   await saveDecision(decision, currentCoin);
 
   const lastUpdate = new Date(timestamp).toLocaleTimeString("ar-MA", {
@@ -108,19 +106,16 @@ export default async function Home() {
     minute: "2-digit",
   });
 
-  // 🚨 شروط التنبيه الذكي
   const shouldShowAlert = 
     decision.action === "switch" && 
     decision.recommendedCoin !== currentCoin &&
     decision.confidence >= 60;
 
-  // استخراج نسبة الفرق من السبب
   const profitDiffMatch = decision.reason?.match(/(\d+\.?\d*)%/);
   const profitDiff = profitDiffMatch ? parseFloat(profitDiffMatch[1]) : 0;
 
   return (
     <>
-      {/* 🚨 التنبيه الذكي */}
       <SmartAlert
         shouldShow={shouldShowAlert}
         fromCoin={currentCoin}
@@ -129,7 +124,6 @@ export default async function Home() {
         reason={decision.reason || "فرصة محتملة"}
       />
 
-      {/* 🔘 زر التبديل بضغطة واحدة */}
       {shouldShowAlert && (
         <SwitchCoinButton
           fromCoin={currentCoin}
@@ -142,25 +136,25 @@ export default async function Home() {
       <div className="mb-6 flex items-start justify-between flex-wrap gap-3">
         <div>
           <h1 className="text-2xl font-bold text-white">نظرة عامة على المزرعة</h1>
-
-          {/* ✅ هنا التعديل */}
           <div className="flex items-center gap-2 mt-1 flex-wrap">
             <p className="text-sm text-slate-400">آخر تحديث: {lastUpdate}</p>
             <span className="text-slate-500">•</span>
             <p className="text-sm text-slate-400">العملة الحالية:</p>
             <CurrentCoinBadge />
           </div>
-
         </div>
         <Badge variant={source === "coingecko" ? "default" : "secondary"} className="text-xs">
           {source === "coingecko" ? "🟢 بيانات حية" : "🟡 بيانات تجريبية"}
         </Badge>
       </div>
 
+      <QuickSwitchPanel />
+
       <div className="grid gap-4 lg:grid-cols-3 mb-6">
         <div className="lg:col-span-2">
           <LiveRigStats />
         </div>
+
         <div>
           <DecisionCard decision={decision} />
         </div>
@@ -182,7 +176,6 @@ export default async function Home() {
         </div>
       )}
 
-      {/* 📊 إحصائيات الذكاء */}
       <div className="mb-6">
         <div className="flex items-center gap-2 mb-3">
           <span className="text-lg">📊</span>
@@ -214,35 +207,10 @@ export default async function Home() {
       </div>
 
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard 
-          label="أفضل عملة الآن" 
-          value={decision.recommendedCoin} 
-          subValue={`Score: ${decision.confidence}/100`} 
-          iconName="coins" 
-          status="good" 
-        />
-        <StatCard 
-          label="استرداد رأس المال" 
-          value="3%" 
-          subValue="من أصل 6,850 MAD" 
-          iconName="target" 
-          status="warning" 
-          badgeText="بداية" 
-        />
-        <StatCard 
-          label="عدد العملات المحللة" 
-          value={decision.scores.length.toString()} 
-          subValue="عملات نشطة" 
-          iconName="coins" 
-          status="neutral" 
-        />
-        <StatCard 
-          label="حالة المحرك" 
-          value={decision.action === "switch" ? "بدّل" : decision.action === "stay" ? "ابقَ" : "انتظر"} 
-          subValue={`ثقة: ${decision.confidence}%`} 
-          iconName="check" 
-          status={decision.action === "switch" ? "good" : decision.action === "wait" ? "warning" : "neutral"} 
-        />
+        <StatCard label="أفضل عملة الآن" value={decision.recommendedCoin} subValue={`Score: ${decision.confidence}/100`} iconName="coins" status="good" />
+        <StatCard label="استرداد رأس المال" value="3%" subValue="من أصل 6,850 MAD" iconName="target" status="warning" badgeText="بداية" />
+        <StatCard label="عدد العملات المحللة" value={decision.scores.length.toString()} subValue="عملات نشطة" iconName="coins" status="neutral" />
+        <StatCard label="حالة المحرك" value={decision.action === "switch" ? "بدّل" : decision.action === "stay" ? "ابقَ" : "انتظر"} subValue={`ثقة: ${decision.confidence}%`} iconName="check" status={decision.action === "switch" ? "good" : decision.action === "wait" ? "warning" : "neutral"} />
       </section>
     </>
   );
