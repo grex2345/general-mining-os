@@ -4,126 +4,189 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
+  Radar,
   TrendingUp,
-  Sun,
-  Wallet,
-  Rocket,
-  Bell,
-  Calculator,
-  Scale,
-  Cpu,
-  Bot,
   Settings,
-  Brain,
-  X,
+  Activity,
+  Zap,
+  ChevronLeft,
 } from "lucide-react";
 
-const menuItems = [
-  { href: "/", label: "لوحة التحكم", icon: LayoutDashboard },
-  { href: "/coins", label: "مركز الأرباح", icon: TrendingUp },
-  { href: "/workers", label: "الأجهزة", icon: Cpu },
-  { href: "/solar", label: "الطاقة الشمسية", icon: Sun },
-  { href: "/wallet", label: "المحفظة", icon: Wallet },
-  { href: "/growth", label: "خطة النمو", icon: Rocket },
-  { href: "/alerts", label: "التنبيهات", icon: Bell },
-  { href: "/calculator", label: "دراسة الجدوى", icon: Calculator },
-  { href: "/compare", label: "مقارنة الأسعار", icon: Scale },
-  { href: "/ai-comparison", label: "AI vs Mining", icon: Bot },
-  { href: "/ai-coach", label: "المدرب الذكي 🧠", icon: Brain },
+// ═══════════════════════════════════════════════════════════════
+// 📋 NAVIGATION ITEMS
+// ═══════════════════════════════════════════════════════════════
+const navItems = [
+  {
+    href: "/",
+    label: "لوحة التحكم",
+    icon: LayoutDashboard,
+    badge: null,
+  },
+  {
+    href: "/radar",
+    label: "رادار الفرص",
+    icon: Radar,
+    badge: "جديد",
+    badgeColor: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
+  },
+  {
+    href: "/trends",
+    label: "الاتجاهات",
+    icon: TrendingUp,
+    badge: "قريباً",
+    badgeColor: "bg-amber-500/20 text-amber-400 border-amber-500/30",
+  },
+  {
+    href: "/settings",
+    label: "الإعدادات",
+    icon: Settings,
+    badge: null,
+  },
 ];
 
-type SidebarProps = {
-  isOpen: boolean;
-  onClose: () => void;
-};
-
-export default function Sidebar({ isOpen, onClose }: SidebarProps) {
+// ═══════════════════════════════════════════════════════════════
+// 🎨 SIDEBAR COMPONENT
+// ═══════════════════════════════════════════════════════════════
+export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <>
-      {/* 📱 Overlay على الموبايل (يغلق Sidebar عند الضغط) */}
-      {isOpen && (
-        <div
-          onClick={onClose}
-          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
-        />
-      )}
+    <aside
+      className="
+        flex flex-col
+        w-64 shrink-0
+        bg-[#0d0d14]/80 backdrop-blur-xl
+        border-l border-white/[0.06]
+        relative
+      "
+    >
+      {/* ═══════════════════════════════════════════════════════ */}
+      {/* 🌟 GLOW EFFECT (top)                                      */}
+      {/* ═══════════════════════════════════════════════════════ */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent" />
 
-      {/* 🎯 Sidebar */}
-      <aside
-        className={`
-          fixed lg:sticky top-0 right-0 z-50
-          w-64 h-screen bg-slate-900 border-l border-slate-800
-          p-4 flex flex-col
-          transition-transform duration-300 ease-in-out
-          ${isOpen ? "translate-x-0" : "translate-x-full"}
-          lg:translate-x-0
-        `}
-      >
-        {/* Header مع زر الإغلاق على الموبايل */}
-        <div className="mb-8 px-2 flex items-start justify-between">
-          <div>
-            <h1 className="text-xl font-bold text-green-400">
-              ⛏️ General Mining OS
-            </h1>
-            <p className="text-xs text-slate-500 mt-1">v0.2 — Gojo 👑</p>
+      {/* ═══════════════════════════════════════════════════════ */}
+      {/* 🎯 LOGO SECTION                                           */}
+      {/* ═══════════════════════════════════════════════════════ */}
+      <div className="p-6 border-b border-white/[0.06]">
+        <Link href="/" className="group flex items-center gap-3">
+          {/* Logo icon with glow */}
+          <div className="relative">
+            <div className="absolute inset-0 bg-emerald-500/30 blur-xl group-hover:bg-emerald-500/50 transition-all duration-300" />
+            <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/30">
+              <Zap className="w-5 h-5 text-black" strokeWidth={2.5} />
+            </div>
           </div>
-          {/* زر الإغلاق - يظهر فقط على الموبايل */}
-          <button
-            onClick={onClose}
-            className="lg:hidden p-1 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition"
-          >
-            <X className="w-5 h-5" />
-          </button>
+
+          {/* Brand name */}
+          <div className="flex flex-col">
+            <span className="text-[15px] font-bold text-white tracking-tight">
+              Mining OS
+            </span>
+            <span className="text-[10px] text-slate-500 uppercase tracking-widest font-medium">
+              Pro Terminal
+            </span>
+          </div>
+        </Link>
+      </div>
+
+      {/* ═══════════════════════════════════════════════════════ */}
+      {/* 📍 NAVIGATION                                             */}
+      {/* ═══════════════════════════════════════════════════════ */}
+      <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
+        <div className="mb-3 px-3">
+          <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest">
+            القائمة
+          </span>
         </div>
 
-        <nav className="flex flex-col gap-1 flex-1 overflow-y-auto">
-          {menuItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = pathname === item.href;
+        {navItems.map((item) => {
+          const isActive = pathname === item.href;
+          const Icon = item.icon;
 
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={onClose}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-right transition-all ${
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`
+                group relative flex items-center justify-between
+                px-3 py-2.5 rounded-lg
+                transition-all duration-200
+                ${
                   isActive
-                    ? "bg-green-500/10 text-green-400 border border-green-500/20"
-                    : "text-slate-400 hover:bg-slate-800 hover:text-white"
-                }`}
-              >
-                <Icon className="w-5 h-5 flex-shrink-0" />
-                <span className="text-sm font-medium">{item.label}</span>
-              </Link>
-            );
-          })}
-        </nav>
+                    ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+                    : "text-slate-400 hover:text-white hover:bg-white/[0.04] border border-transparent"
+                }
+              `}
+            >
+              {/* Active indicator (left bar) */}
+              {isActive && (
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-emerald-400 rounded-l-full shadow-lg shadow-emerald-400/50" />
+              )}
 
-        {/* ⚙️ زر الإعدادات */}
-        <div className="mt-4 mb-3">
-          <Link
-            href="/settings"
-            onClick={onClose}
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-right transition-all ${
-              pathname === "/settings"
-                ? "bg-purple-500/10 text-purple-400 border border-purple-500/20"
-                : "text-slate-400 hover:bg-slate-800 hover:text-white border border-slate-700"
-            }`}
-          >
-            <Settings className="w-5 h-5 flex-shrink-0" />
-            <span className="text-sm font-medium">⚙️ الإعدادات</span>
-          </Link>
-        </div>
+              <div className="flex items-center gap-3">
+                <Icon
+                  className={`
+                    w-[18px] h-[18px]
+                    ${isActive ? "text-emerald-400" : "text-slate-500 group-hover:text-slate-300"}
+                  `}
+                  strokeWidth={2}
+                />
+                <span className="text-[13px] font-medium">{item.label}</span>
+              </div>
 
-        <div className="p-3 rounded-lg bg-slate-800/50 border border-slate-700">
+              {/* Badge */}
+              {item.badge && (
+                <span
+                  className={`
+                    text-[10px] font-semibold px-2 py-0.5 rounded-md border
+                    ${item.badgeColor || "bg-slate-500/20 text-slate-400 border-slate-500/30"}
+                  `}
+                >
+                  {item.badge}
+                </span>
+              )}
+
+              {/* Hover arrow */}
+              {!isActive && (
+                <ChevronLeft className="w-4 h-4 text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+              )}
+            </Link>
+          );
+        })}
+      </nav>
+
+      {/* ═══════════════════════════════════════════════════════ */}
+      {/* 📊 STATUS PANEL (bottom)                                  */}
+      {/* ═══════════════════════════════════════════════════════ */}
+      <div className="p-4 border-t border-white/[0.06] space-y-3">
+        {/* Live status */}
+        <div className="flex items-center justify-between p-3 rounded-lg bg-white/[0.02] border border-white/[0.04]">
           <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-            <p className="text-xs text-slate-300">المزرعة شغالة</p>
+            <div className="relative">
+              <div className="absolute inset-0 bg-emerald-400 blur-sm animate-pulse" />
+              <div className="relative w-2 h-2 rounded-full bg-emerald-400" />
+            </div>
+            <span className="text-[11px] font-medium text-slate-300">
+              النظام نشط
+            </span>
           </div>
+          <Activity className="w-3.5 h-3.5 text-emerald-400" strokeWidth={2.5} />
         </div>
-      </aside>
-    </>
+
+        {/* Version */}
+        <div className="flex items-center justify-between px-1">
+          <span className="text-[10px] text-slate-600 font-mono">v0.3.0</span>
+          <span className="text-[10px] text-slate-600 font-medium">
+            Pro Edition
+          </span>
+        </div>
+      </div>
+
+      {/* ═══════════════════════════════════════════════════════ */}
+      {/* 🌟 GLOW EFFECT (bottom)                                   */}
+      {/* ═══════════════════════════════════════════════════════ */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent" />
+    </aside>
   );
 }
