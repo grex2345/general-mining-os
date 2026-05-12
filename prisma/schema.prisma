@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
   output   = "../lib/generated/prisma"
 }
 
@@ -7,53 +7,136 @@ datasource db {
   provider = "sqlite"
 }
 
+// ═══════════════════════════════════════════
+// 📊 EXISTING MODELS
+// ═══════════════════════════════════════════
+
+model UserSettings {
+  id                  Int      @id @default(1)
+  currentMiningCoin   String   @default("KAS")
+  electricityPrice    Float    @default(0.12)
+  switchThreshold     Float    @default(8.0)
+  safeMode            Boolean  @default(true)
+  updatedAt           DateTime @updatedAt
+}
+
 model DecisionLog {
-  id          Int      @id @default(autoincrement())
+  id          String   @id @default(cuid())
   timestamp   DateTime @default(now())
   coin        String
-  action      String   // "switch", "stay", "wait"
+  action      String
   score       Float
-  risk        String   // "low", "medium", "high"
+  risk        String
   reason      String
   fromCoin    String?
   toCoin      String?
-}
 
-model ProfitLog {
-  id          Int      @id @default(autoincrement())
-  timestamp   DateTime @default(now())
-  coin        String
-  hashrate    Float
-  power       Float
-  revenue     Float
-  cost        Float
-  profit      Float
+  @@index([timestamp])
+  @@index([action])
 }
 
 model AlertLog {
-  id          Int      @id @default(autoincrement())
+  id          String   @id @default(cuid())
   timestamp   DateTime @default(now())
-  type        String   // "opportunity", "warning", "info"
+  type        String
   title       String
   message     String
   coin        String?
   read        Boolean  @default(false)
+
+  @@index([timestamp])
+  @@index([read])
 }
 
-model SwitchHistory {
-  id          Int      @id @default(autoincrement())
-  timestamp   DateTime @default(now())
-  fromCoin    String
-  toCoin      String
-  reason      String
-  profitDiff  Float
+model ProfitLog {
+  id          String   @id @default(cuid())
+  date        DateTime @default(now())
+  coin        String
+  amountUSD   Float
+  hashrate    Float?
+  power       Float?
+
+  @@index([date])
 }
 
-model UserSettings {
-  id                Int      @id @default(1)
-  currentMiningCoin String   @default("KAS")
-  electricityCost   Float    @default(0.12)
-  safeMode          Boolean  @default(true)
-  minSwitchProfit   Float    @default(8.0)
-  updatedAt         DateTime @updatedAt
+// ═══════════════════════════════════════════
+// 🎯 RADAR MODULE - New Coin Discovery
+// ═══════════════════════════════════════════
+
+model MineableCoin {
+  id                String   @id @default(cuid())
+  symbol            String   @unique
+  name              String
+  algorithm         String
+
+  gpuMineable       Boolean  @default(true)
+  minVramGB         Int?
+
+  price             Float?
+  marketCap         Float?
+  volume24h         Float?
+  priceChange24h    Float?
+
+  networkHashrate   Float?
+  difficulty        Float?
+  blockReward       Float?
+  blockTimeSeconds  Int?
+
+  liquidityScore    Float?
+  listingCount      Int?
+  status            String   @default("active")
+
+  dataSource        String
+  reliability       String
+  lastUpdated       DateTime @default(now())
+  firstSeenAt       DateTime @default(now())
+
+  snapshots         CoinSnapshot[]
+  opportunities     Opportunity[]
+
+  @@index([status])
+  @@index([gpuMineable])
+}
+
+model CoinSnapshot {
+  id              String       @id @default(cuid())
+  coinSymbol      String
+  coin            MineableCoin @relation(fields: [coinSymbol], references: [symbol])
+
+  price           Float?
+  marketCap       Float?
+  volume24h       Float?
+  difficulty      Float?
+  networkHashrate Float?
+
+  source          String
+  capturedAt      DateTime     @default(now())
+
+  @@index([coinSymbol, capturedAt])
+}
+
+model Opportunity {
+  id              String       @id @default(cuid())
+  coinSymbol      String
+  coin            MineableCoin @relation(fields: [coinSymbol], references: [symbol])
+
+  type            String
+  score           Float
+  riskLevel       String
+  audience        String
+  timeframe       String
+
+  signal          String
+  reasoning       String
+  risks           String
+
+  dataSource      String
+  confidence      Float
+
+  detectedAt      DateTime     @default(now())
+  expiresAt       DateTime?
+  status          String       @default("active")
+
+  @@index([status, score])
+  @@index([type])
 }
