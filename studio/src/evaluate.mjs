@@ -168,6 +168,16 @@ export async function evaluateVideo(file, ir, { workDir, expect = {}, log = () =
     if (long.length) findings.push(finding('dead_air', 'P1', `${long.length} silent gap(s) > 1.5s: ${long.map((s) => `${s.start.toFixed(1)}-${s.end.toFixed(1)}`).join(', ')}`, 'fill with bed/SFX or cut'));
   }
 
+  // ---- 2b. voice/scene sync -------------------------------------------
+  // Measured from the same code that builds the track, so "the line does not fit
+  // its scene" cannot slip through as a subtitled-but-rushed moment.
+  if (Array.isArray(expect.overruns) && expect.overruns.length) {
+    findings.push(finding('voice_overrun', 'P1',
+      `narration runs past its scene in ${expect.overruns.length} place(s): ` +
+      expect.overruns.map((o) => `${o.sceneId} +${o.overSeconds}s`).join(', '),
+      'shorten the line or let fitScenes grow the scene'));
+  }
+
   // ---- 3. visual -------------------------------------------------------
   const times = [];
   const nSamples = 9;

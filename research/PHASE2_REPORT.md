@@ -31,13 +31,15 @@ Read this table before any other claim in this document. Nothing here is rounded
 
 | Video | Duration | Resolution | QA score | Status |
 |---|---|---|---|---|
-| `out/mining-weekly-01.mp4` | 39.8 s | 1080×1920 @30 | **100/100 (A)** | PASS |
-| `out/energy-01.mp4` | 30.7 s | 1080×1920 @30 | **100/100 (A)** | PASS |
+| `out/mining-weekly-01.mp4` | 42.5 s | 1080×1920 @30 | **100/100 (A)** | PASS |
+| `out/energy-01.mp4` | 31.6 s | 1080×1920 @30 | **100/100 (A)** | PASS |
 
-Both: h264 high / yuv420p / AAC 192 kbps 48 kHz, −14.8 LUFS integrated, true peak ≤ −1.5 dBTP.
+Both: h264 high / yuv420p / AAC 192 kbps 48 kHz, −15.1 / −14.9 LUFS integrated,
+true peak −1.72 / −1.58 dBTP, zero narration overruns, no silent gaps over 1.5 s.
 
 **Not done, and not claimed:** no upload has ever occurred (no OAuth client, no network egress
-from this sandbox); TTS quality is robotic; the music is a procedural bed, not a composed score;
+from this sandbox); TTS quality is still robotic (improved, not solved — see §9.1); the music is a
+procedural bed, not a composed score;
 no human has watched either video in real time (inspection was via extracted frames/contact
 sheets); whisper-based ASR caption verification and HyperFrames/Remotion engines are unavailable
 in this environment.
@@ -229,11 +231,40 @@ which `router.provenConfigurations()` reduces to reusable configurations. Curren
 
 ---
 
+## 8b. Voice and music work (after the first render)
+
+The first render's audio was the weakest link, so it was worked directly:
+
+**Voice.** `speakable()` now normalises text for eSpeak before synthesis — units are spelled
+(`EH/s` → "exahashes per second", `$26.16` → "26 dollars 16"), and sentence/clause breaks are
+preserved. Crucially, **pauses are real inserted silence**, not `[[slnc]]` markup: measured, that
+directive yields only ~23 % of the requested gap (1.85 s → 2.20 s for a 1.5 s request). The voice
+bus is therefore built phrase by phrase, trimmed of leading/trailing silence, faded to avoid
+clicks, and conditioned with a presence EQ + gentle compressor.
+
+**This exposed a real bug in the fit pass.** Because punctuation now adds pause time, `voiceDuration`
+had to measure the *same* chunked phrases the mixer builds; the old whole-line measurement drifted
+low and one scene overran by 0.36 s. Both paths now share one function, `fitScenes` grew 6 scenes,
+and `evaluate.mjs` gained a `voice_overrun` P1 check fed by the mixer so a line can never run past
+its scene again.
+
+**Music.** The bed had nothing above ~3 kHz, which is why it read as a game beep rather than a
+track. Three layers were added: a pink-noise air pad (breathes per bar), highpassed off-beat hats,
+and very low surface noise. Spectral inspection confirms broadband content and a visible rhythmic
+pattern.
+
+**Not claimed:** the voice is intelligible and correctly paced, but it is not natural. This is a
+formant synthesiser; §9.1 explains exactly what blocks the neural alternative here.
+
 ## 9. Known weaknesses (ranked)
 
-1. **Voice quality.** meSpeak is clearly robotic; this is the single biggest obstacle to a
-   publishable video. A hosted neural TTS (or a local VITS-family model) would transform the
-   output, and the adapter slot already exists for it.
+1. **Voice quality — the blocker, with a diagnosed cause.** A neural TTS is reachable in
+   principle via `@huggingface/transformers`, which is on npm (allowed) and pulls
+   `onnxruntime-node`, whose **postinstall script downloads the ONNX native binary** from a CDN
+   outside this sandbox's allowlist (`ECONNRESET` from `node ./script/install`; `huggingface.co`
+   is unreachable, `000`). Model weights would be blocked too. Any of these unblocks it:
+   a machine with open egress, a prebuilt `onnxruntime-node` binary, or a hosted TTS API key.
+   The `audio:voice` capability slot and `conditionVoice()` chain are already in place.
 2. **Music.** Procedural bed only — clean and licence-safe, but not a score.
 3. **Storyboard variety.** Eight scene engines and two data shapes; more shapes (before/after,
    distribution, map) would widen coverage.

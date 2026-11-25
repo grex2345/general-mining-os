@@ -88,6 +88,7 @@ export async function produce({
   const finalFile = p(OUT_DIR, `${ir.id}.mp4`);
   const fin = await finishVideo(ir, tl, r.file, { outFile: finalFile });
   log(`  voice: ${fin.audio.voiceCues.length} cues, bed ${fin.audio.bedLevel}, sfx ${fin.audio.sfx.length}`);
+  if (fin.audio.overruns?.length) log(`  ! voice overrun: ${fin.audio.overruns.map((o) => o.sceneId + " +" + o.overSeconds + "s").join(", ")}`);
 
   // --- 7. captions ------------------------------------------------------
   stage('captions');
@@ -125,7 +126,7 @@ export async function produce({
   let evaluation;
   for (let attempt = 0; attempt <= repairAttempts; attempt++) {
     stage(`eval${attempt ? `-after-repair-${attempt}` : ''}`);
-    evaluation = await evaluateVideo(finalFile, ir, { log });
+    evaluation = await evaluateVideo(finalFile, ir, { log, expect: { overruns: fin?.audio?.overruns } });
     log('  ' + summaryLine(evaluation));
     for (const f of evaluation.findings) log(`    [${f.severity}] ${f.code}: ${f.message}  -> ${f.fix}`);
     if (evaluation.passed || attempt === repairAttempts) break;

@@ -1,20 +1,50 @@
 // Fit pass: measure the REAL TTS duration and stretch scenes so voice never overruns.
-// This is the fix for "narration does not fit the scene" — validated against audio,
-// not against a words-per-second guess.
-import { synthesizeSpeech } from './audio.mjs';
+//
+// This is the fix for "narration does not fit the scene". It is validated against
+// generated audio, never against a words-per-second guess -- an earlier version
+// used a WPS constant and 4 of 7 scenes overran by 6-20%.
+//
+// The measurement MUST match how the track is actually built (chunked phrases with
+// inserted pauses), otherwise the estimate drifts low and the voice still overruns.
+// Both paths share `voiceDuration`.
 
-export function measureVoices(ir, { cache = new Map(), speed = 165 } = {}) {
+import { synthesizeSpeech, speakable } from './audio.mjs';
+
+export const VOICE_GAP = 0.22; // silence inserted between phrases in buildVoiceTrack
+
+/** Phrases the voice track will actually synthesise for a line. */
+export function voicePhrases(text) {
+  return speakable(text)
+    .split(/(?<=[.!?])\s+/)
+    .map((x) => x.trim())
+    .filter(Boolean);
+}
+
+/**
+ * Measured duration of a narration line, including the pauses between phrases.
+ * Results are memoised by (speed, voice, text) because synthesis is the slow part.
+ */
+export function voiceDuration(text, { speed = 160, voice = 'en/en-us', cache = new Map() } = {}) {
+  if (!text || !String(text).trim()) return 0;
+  const key = `${speed}|${voice}|${text}`;
+  if (cache.has(key)) return cache.get(key);
+  let total = 0;
+  const phrases = voicePhrases(text);
+  for (const [i, phrase] of phrases.entries()) {
+    if (i > 0) total += VOICE_GAP;
+    const { samples, sampleRate } = synthesizeSpeech(phrase, { speed, voice });
+    total += samples.length / sampleRate;
+  }
+  // trailing silence is trimmed by buildVoiceTrack; keep a small allowance for it
+  cache.set(key, total);
+  return total;
+}
+
+export function measureVoices(ir, { cache = new Map(), speed = 160 } = {}) {
   const out = new Map();
   for (const s of ir.scenes) {
     if (!s.narration?.trim()) continue;
-    const key = `${speed}|${s.narration}`;
-    let d = cache.get(key);
-    if (!d) {
-      const { samples, sampleRate } = synthesizeSpeech(s.narration, { speed: s.voiceSpeed || speed });
-      d = samples.length / sampleRate;
-      cache.set(key, d);
-    }
-    out.set(s.id, d);
+    out.set(s.id, voiceDuration(s.narration, { speed: s.voiceSpeed || speed, cache }));
   }
   return out;
 }
@@ -36,7 +66,11 @@ export function fitScenes(ir, { pad = 0.55, maxTotal = null, cache = new Map() }
   }
   if (maxTotal) {
     const total = ir.scenes.reduce((a, s) => a + s.duration, 0);
-    if (total > maxTotal) throw new Error(`fitted duration ${total.toFixed(1)}s exceeds cap ${maxTotal}s — cut lines, do not speed up`);
+    if (total > maxTotal) {
+      throw new Error(
+        `fitted duration ${total.toFixed(1)}s exceeds cap ${maxTotal}s — cut lines, do not speed up`,
+      );
+    }
   }
   return { ir, changes, voices: durs };
 }
