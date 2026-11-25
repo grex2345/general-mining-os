@@ -7,18 +7,19 @@ Generated 2026-11-25 from `research/ledger.json`. **Do not hand-edit** — run `
 | stage | count | meaning |
 |---|---:|---|
 | discovered | **6** | a URL or mention exists; nothing opened |
-| inspected | **7** | source, docs or renders actually read/looked at |
+| inspected | **8** | source, docs or renders actually read/looked at |
 | tested | **2** | executed in this environment, with evidence recorded |
-| integrated | **3** | code/technique landed in our engine, artifact on disk |
+| integrated | **4** | code/technique landed in our engine, artifact on disk |
 | rejected | **1** | deliberately not used, reason recorded |
 
-## integrated (3)
+## integrated (4)
 
 | id | name | licence | environment | source |
 |---|---|---|---|---|
 | `sparticuz-chromium` | @sparticuz/chromium — Chromium binary shipped inside the npm tarball | MIT | ✔ runs here | https://github.com/Sparticuz/chromium |
 | `studio-render3d` | studio/src/render3d.mjs — software 3D on the Skia canvas | ours | ✔ runs here | studio/src/render3d.mjs |
 | `studio-lookdev` | Look-dev layer: LIGHT_RIG specular, lathe volumes, bloom, grade, impact rings | ours | · untested | studio/src/render3d.mjs |
+| `bean-cartoon-engine` | bean-cartoon 2D vector character engine (studio/src/cartoon.mjs) | ours | · untested | studio/src/cartoon.mjs |
 
 ## tested (2)
 
@@ -27,7 +28,7 @@ Generated 2026-11-25 from `research/ledger.json`. **Do not hand-edit** — run `
 | `vsim` | vsim — "Remotion for real 3D" (pure-TS software rasteriser) | MIT | ✔ runs here | https://github.com/kunalkushwaha/vsim |
 | `kokoro-js` | kokoro-js — neural TTS on onnxruntime-node | Apache-2.0 | ✘ cannot run here | https://github.com/hexgrad/kokoro |
 
-## inspected (7)
+## inspected (8)
 
 | id | name | licence | environment | source |
 |---|---|---|---|---|
@@ -38,6 +39,7 @@ Generated 2026-11-25 from `research/ledger.json`. **Do not hand-edit** — run `
 | `style-references` | zach-3d-films / five-styles contact sheets (11 skills) | n/a | ✔ runs here | research/STYLE_REFERENCE_NOTES.md |
 | `qa-defects-001` | Visual QA gates: caption collision + motion-energy floor | ours | ✔ runs here | research/INSPECTION_CAPABILITIES.md |
 | `zach-df-engine` | zach-d-films engine: PMREM softbox, Bokeh, Bloom, grade, lathe humans | MIT | · untested | https://github.com/artemnovitckii/claude-animation-skills/tree/main/skills/zach-d-films/engine |
+| `cartoon-short-kit` | jonhelpangan-jpg/cartoon-short-kit — '2D look, 3D motion' house style (rig3d.js, stick.js) | MIT | · untested | https://github.com/jonhelpangan-jpg/cartoon-short-kit |
 
 ## discovered (6)
 
@@ -240,4 +242,30 @@ Generated 2026-11-25 from `research/ledger.json`. **Do not hand-edit** — run `
 - bloomPass brightness-filter approach blows out mid-grey metal; needs threshold above 2 to be a real bright-pass
 - @napi-rs/canvas ABORTS the process on NaN geometry (sk.rs unwrap) instead of throwing - the earlier 'crash in drawBoxes' was undefined width/height being passed by me
 - perspective() returns a plain array [x,y,z] and divides x by aspect, so narrow sub-panel renders squash the subject; frame full width
+
+### `bean-cartoon-engine` — bean-cartoon 2D vector character engine (studio/src/cartoon.mjs)
+
+**Evidence**:
+- charsheet.mjs renders 4 PNG contact sheets and a 150-frame 1080x1920 clip at 171-178 ms/frame
+- 9 defects found and fixed by viewing output: missing hair, torso shade spilling outside the body, crossed legs, oversized vacant skull, hidden raised arms, hands below feet, merged legs, cheek stain, wart-like nose
+- animation strip verified at 3 fps: blinks, neutral->happy walk, walk->run, impact squash with shock->angry, recovery to happy
+
+**Extracted**:
+- Style recovery: the viral reference frame (image-3.png) is 2D VECTOR, not shaded 3D. Verified by reading its construction: self-coloured outlines (darkened fill, never black ink) and flat fills with at most one hard shadow tone.
+- Key correction to round 2: skin is a FLAT fill with no shadow tone. A dark crescent across the cheek reads as a stain. Shading tones belong to clothing only.
+- Face is a data table: 9 expressions x (2 eye kinds, 2 brow offsets, 1 mouth kind). Eye kinds lid|happy|squeeze|shock|dot, mouths dash|grin|frown|o|smirk|teeth|laugh. All features derive from E = eye radius = 0.155 rx, which is why the face reads identically at 200px and 1280px.
+- Head is ~42% of total height with no neck: the single strongest style cue. Mitt hands, 2-bone IK limbs, stubby tube legs.
+- API traps fixed and recorded: (1) walkCycle must return OFFSETS not absolutes, or hands land below the feet; (2) raised arms must be drawn AFTER the head or the hands vanish behind the skull; (3) two same-coloured legs merge into one dark column in front view - the far leg needs a darker tone; (4) squish must floor at 0.70 or a front-view skull squashed sideways reads as a thin egg rather than a profile.
+
+### `cartoon-short-kit` — jonhelpangan-jpg/cartoon-short-kit — '2D look, 3D motion' house style (rig3d.js, stick.js)
+
+**Evidence**:
+- api.github.com tree listed 27 blobs; STYLE.md, rig3d.js, paint.js, framing.js, stick.js, motion.js, toonbase.js, README and SKILL.md downloaded (96 KB) and read
+- expression vocabulary extracted programmatically from the FACE table in toonbase.js
+
+**Extracted**:
+- LOOK.flat = THREE.MeshToonMaterial with a two-step gradientMap: flat colour plus exactly one hard shadow tone. LOOK.bean scales the head to [0.94, 1.12, 0.94]. This is the mechanism behind the entire look.
+- Faces are painted onto a canvas texture with plain 2D calls (drawFace3D -> faceFront), so the expression system is canvas2d code, not shader work - which is why it ports to us without WebGL.
+- FACE table: 14 expressions (neutral, stern, grin, laugh, whistle, nervous, shock, relief, relief_open, dazed, pained, smile, smile_closed, lick) over 5 eye kinds and 11 mouths. Feature positions are expressed in units of u = headWidth/100, so the face scales with the head.
+- Their rigs still need WebGL, so the reference cannot run here. Only the style and the face-table idea were carried over.
 
