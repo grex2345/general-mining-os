@@ -31,7 +31,20 @@
       "license": "MIT",
       "stack": "HyperFrames 0.8.34 + three.js 0.169 + Playwright 1.49 chromium + GSAP (cdnjs) + Kokoro/Parakeet models (GitHub releases)",
       "status": "inspected_deeply",
-      "inspected_files": ["SKILL.md", "plugin.json", "marketplace.json", "anim.py", "build.py", "build-2.py", "words.py", "setup.sh", "install.sh", "template.html", "package.json", "README.md"],
+      "inspected_files": [
+        "SKILL.md",
+        "plugin.json",
+        "marketplace.json",
+        "anim.py",
+        "build.py",
+        "build-2.py",
+        "words.py",
+        "setup.sh",
+        "install.sh",
+        "template.html",
+        "package.json",
+        "README.md"
+      ],
       "tested": false,
       "blocker": "render path is HyperFrames -> headless Chrome; no Chromium binary and cdn.playwright.dev is blocked, so a browser can never be provisioned here. GSAP CDN and model URLs are also blocked.",
       "techniques_worth_adopting": [
@@ -55,7 +68,12 @@
       "tested": true,
       "verified_results": {
         "install": "pnpm 9.15.0 via npm -g; pnpm install + pnpm build (all 12 packages) succeeded here",
-        "renders": ["examples/01-cube (90f 640x360)", "examples/09-manga (cel-shaded + ink outlines)", "examples/21-mouse (procedural character from primitives)", "1080x1920 benchmark 30 frames"],
+        "renders": [
+          "examples/01-cube (90f 640x360)",
+          "examples/09-manga (cel-shaded + ink outlines)",
+          "examples/21-mouse (procedural character from primitives)",
+          "1080x1920 benchmark 30 frames"
+        ],
         "benchmark_1080x1920": "61.2s for 30 frames = 2040 ms/frame, single worker",
         "worker_scaling_640x360_90f": "1 worker 18.7s, 2 workers 14.4s (1.30x on 2 vCPU)",
         "extrapolation": "a 30s 1080x1920@30 clip = 900 frames ~= 30 min single-worker, ~23 min with 2",
@@ -126,11 +144,31 @@
       "id": "cpu-rasterizers",
       "name": "Alternative pure-CPU software renderers",
       "members": [
-        {"id": "jtsorlinis-js-renderer", "url": "https://github.com/jtsorlinis/js-renderer", "notes": "TS CPU rasterizer: PBR, IBL, shadow mapping, normal maps, glb loading"},
-        {"id": "jdiemke-aisa", "url": "https://github.com/jdiemke/aisa", "notes": "TS software 3D engine, no WebGL"},
-        {"id": "bxzex-facet", "url": "https://github.com/bxzex/facet", "notes": "edge-function rasterizer, z-buffer, perspective-correct texturing"},
-        {"id": "Sopiro-SoftwareRenderer", "url": "https://github.com/Sopiro/SoftwareRenderer", "notes": "Phong shading, normal mapping, skybox"},
-        {"id": "ccajas-JS-TinyRenderer", "url": "https://github.com/ccajas/JS-TinyRenderer", "notes": "small programmable-pipeline renderer, SSAO"}
+        {
+          "id": "jtsorlinis-js-renderer",
+          "url": "https://github.com/jtsorlinis/js-renderer",
+          "notes": "TS CPU rasterizer: PBR, IBL, shadow mapping, normal maps, glb loading"
+        },
+        {
+          "id": "jdiemke-aisa",
+          "url": "https://github.com/jdiemke/aisa",
+          "notes": "TS software 3D engine, no WebGL"
+        },
+        {
+          "id": "bxzex-facet",
+          "url": "https://github.com/bxzex/facet",
+          "notes": "edge-function rasterizer, z-buffer, perspective-correct texturing"
+        },
+        {
+          "id": "Sopiro-SoftwareRenderer",
+          "url": "https://github.com/Sopiro/SoftwareRenderer",
+          "notes": "Phong shading, normal mapping, skybox"
+        },
+        {
+          "id": "ccajas-JS-TinyRenderer",
+          "url": "https://github.com/ccajas/JS-TinyRenderer",
+          "notes": "small programmable-pipeline renderer, SSAO"
+        }
       ],
       "status": "discovered_only",
       "decision": "REFERENCE implementations for shading math. Not adopted wholesale: we already rasterise faster via Skia."
@@ -176,5 +214,41 @@
     "Implement difflib script-alignment captions (words.py follow_script) once an ASR model is available.",
     "Evaluate @drawcall/animate verbs if a WebGL path ever becomes available.",
     "Benchmark the box rasterizer against vsim on a shared scene for a fair speed comparison."
+  ],
+  "inspection_capabilities_ref": "research/INSPECTION_CAPABILITIES.md",
+  "style_reference_ref": "research/STYLE_REFERENCE_NOTES.md",
+  "environment_constraints": [
+    "api.github.com returns 200; contents API inlines file bodies as base64 up to 1,000,000 bytes -> repo stills can be decoded to disk and viewed directly",
+    "codeload.github.com tarballs return 200 -> whole repos cloneable without git protocol",
+    "arxiv.org PDFs are text-parseable by the page fetcher (tested: 2308.04079, 11 chunks)",
+    "PDF: text yes via page fetcher; no pdftotext/pdftoppm locally, so no page-image rendering of local PDFs",
+    "SVG viewable only after rasterisation via @napi-rs/canvas loadImage(Buffer)",
+    "Audio not listenable; spectrogram/waveform images are viewable but are not hearing",
+    "Motion not watchable; frames sampled via ffmpeg -ss / fps+tile storyboard are the only motion evidence"
+  ],
+  "uploads": {
+    "2026-11-25": {
+      "dir": "research/uploads-2026-11-25",
+      "note": "13 files identical to the already-studied kit (md5 matched); new material: five-styles.jpg (5 styles), skills.jpg (6 skills at higher res), image-1.png, image-2.png, OFL licences",
+      "skills_documented": 11,
+      "skills_seen_as_still": 11,
+      "skills_seen_in_motion": 0
+    }
+  },
+  "qa_defects_found": [
+    {
+      "artifact": "studio/out/mining-weekly-01.mp4",
+      "t": 6.8,
+      "defect": "karaoke caption box overlaps chart x-axis date row",
+      "how_found": "frame extraction + viewing",
+      "auto_gate": "caption/chart bounding-box intersection test"
+    },
+    {
+      "artifact": "studio/out/mining-weekly-01.mp4",
+      "t": "0-5s",
+      "defect": "scene 02 near-static hold ~6s, frames at 1fps almost identical",
+      "how_found": "1fps storyboard contact sheet",
+      "auto_gate": "per-second frame-difference motion-energy floor"
+    }
   ]
 }
