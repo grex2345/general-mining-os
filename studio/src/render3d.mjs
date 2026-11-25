@@ -220,3 +220,369 @@ export function renderSupersampled(createCanvas, width, height, drawFn, { scale 
   octx.drawImage(big, 0, 0, width, height);
   return out;
 }
+
+// ===========================================================================
+// Look development — cinematic finishing borrowed from the zach-d-films engine
+// (research/references/zach-d-films.md). Everything here is ADDITIVE: nothing
+// above this line changes, so the existing pipeline renders exactly as before
+// unless a caller opts in.
+// ===========================================================================
+
+/**
+ * Specular rig as a set of emissive planes, mimicking their PMREM softbox.
+ * We cannot prefilter an environment map without WebGL, but the *reason* the
+ * metal reads expensive is directional, broad, differently-coloured highlights
+ * at known angular positions — which we can reproduce directly in the shading
+ * model. Angles are in the view plane: az in radians from +z toward +x.
+ */
+export const LIGHT_RIG = {
+  key:  { az: -0.85, el: 0.72, intensity: 3.2, colour: [1.0, 0.96, 0.90], size: 0.38 },
+  rim:  { az: 2.05,  el: 0.28, intensity: 1.6, colour: [0.86, 0.92, 1.0], size: 0.22 },
+  fill: { az: 3.00,  el: 0.40, intensity: 1.0, colour: [0.92, 0.95, 1.0], size: 0.60 },
+  floor: { colour: [0.34, 0.35, 0.37], intensity: 1.0 },
+};
+
+const rigDir = (l) => norm([Math.sin(l.az) * Math.cos(l.el), Math.sin(l.el), Math.cos(l.az) * Math.cos(l.el)]);
+
+/**
+ * Broad specular lobe from the rig. `roughness` 0..1 controls tightness:
+ * polished metal ~0.15 gives a tight stretched streak, brushed ~0.45 a wide
+ * soft sheen. Returns {rgb, dominant} where dominant is the winning light's
+ * intensity — used by the bloom pass to decide what should glow.
+ */
+export function specular(normal, view, roughness = 0.35, rig = LIGHT_RIG) {
+  const n = norm(normal);
+  const v = norm(view);
+  // half-vector per light, Blinn-Phong with a roughness-driven exponent
+  let out = [0, 0, 0];
+  let dominant = 0;
+  const shininess = Math.max(2, Math.pow(1 / Math.max(0.03, roughness), 1.6));
+  for (const k of ['key', 'rim', 'fill']) {
+    const l = rig[k];
+    const h = norm(add(rigDir(l), v));
+    const ndh = Math.max(0, dot(n, h));
+    // size widens the lobe (their planes have finite area, not a point)
+    const lobe = Math.pow(ndh, shininess * (1 / Math.max(0.15, l.size * 2)));
+    const fres = 0.04 + 0.96 * Math.pow(1 - Math.max(0, dot(n, v)), 5);
+    const amt = lobe * l.intensity * fres * 0.55;
+    out = add(out, mul(l.colour, amt));
+    if (amt > dominant) dominant = amt;
+  }
+  return { rgb: out, dominant };
+}
+
+/** Shade with the full rig: diffuse + broad specular + floor bounce. */
+export function shadeFacePhysical(normal, albedo, {
+  view = [0, 0, 1], roughness = 0.35, metalness = 0, rig = LIGHT_RIG, exposure = 1.0,
+} = {}) {
+  const n = norm(normal);
+  const key = rigDir(rig.key), rim = rigDir(rig.rim);
+  const ndl = Math.max(0, dot(n, key));
+  const ndlR = Math.max(0, dot(n, rim));
+  const hemi = (n[1] + 1) / 2;
+  const diffuse = albedo.map((c, i) =>
+    c * (0.20 + ndl * rig.key.intensity * 0.42 + hemi * rig.floor.colour[i] * 0.30) +
+    rig.rim.colour[i] * ndlR * 0.22);
+  const spec = specular(n, view, roughness, rig).rgb;
+  // metal tints the specular with albedo and kills diffuse, like a real conductor
+  const base = diffuse.map((c) => c * (1 - metalness * 0.85));
+  const tinted = spec.map((s, i) => s * (metalness > 0.5 ? 0.4 + albedo[i] : 1));
+  const lit = base.map((c, i) => c + tinted[i]);
+  return aces(lit, exposure);
+}
+
+// --- volumetric-light and glow sprites --------------------------------------
+/**
+ * Soft radial sprite, drawn with a real gradient (their glowTexture equivalent).
+ * Used for flashes, sparks, dust and to seed bloom.
+ */
+export function drawGlow(ctx, x, y, radius, colour = [1, 1, 1], alpha = 1, falloff = 0.25) {
+  const [r, g, b] = colour.map((c) => Math.round(clamp01(c) * 255));
+  const gr = ctx.createRadialGradient(x, y, 0, x, y, radius);
+  gr.addColorStop(0, `rgba(${r},${g},${b},${clamp01(alpha)})`);
+  gr.addColorStop(falloff, `rgba(${r},${g},${b},${clamp01(alpha * 0.42)})`);
+  gr.addColorStop(1, `rgba(${r},${g},${b},0)`);
+  ctx.save();
+  ctx.globalCompositeOperation = 'lighter';
+  ctx.fillStyle = gr;
+  ctx.fillRect(x - radius, y - radius, radius * 2, radius * 2);
+  ctx.restore();
+}
+
+/** Expanding shockwave rings — the reference's entire impact vocabulary. */
+export function drawImpactRings(ctx, x, y, t, {
+  count = 3, maxRadius = 260, colour = [1, 0.28, 0.22], speed = 1.0, thickness = 3, squash = 1,
+} = {}) {
+  for (let i = 0; i < count; i++) {
+    const p = clamp01((t * speed - i * 0.12) / 0.9);
+    if (p <= 0 || p >= 1) continue;
+    const r = maxRadius * p;
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.strokeStyle = `rgba(${colour.map((c) => Math.round(c * 255)).join(',')},${(1 - p) * 0.85})`;
+    ctx.lineWidth = thickness * (1 - p * 0.6);
+    ctx.beginPath();
+    ctx.ellipse(x, y, r, r * squash, 0, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+  }
+}
+
+// --- finishing --------------------------------------------------------------
+/**
+ * Bloom by iterative downsample: bright pass -> blur at reduced res -> add back.
+ * A poor man's UnrealBloomPass; on a 1080x1920 still it costs ~35 ms at 1/4 res
+ * instead of a per-pixel convolution at full res.
+ */
+export function bloomPass(createCanvas, srcCanvas, {
+  threshold = 1.6, strength = 0.5, radius = 0.4, sigma = 9,
+} = {}) {
+  const w = srcCanvas.width, h = srcCanvas.height;
+  const q = Math.max(2, Math.round(1 / Math.max(0.15, radius))); // 1/4 at radius .4
+  const bw = Math.max(1, Math.round(w / q)), bh = Math.max(1, Math.round(h / q));
+  const bright = createCanvas(bw, bh);
+  const bctx = bright.getContext('2d');
+  bctx.filter = `brightness(${threshold}) contrast(${1 / threshold}) blur(${sigma / q}px)`;
+  bctx.drawImage(srcCanvas, 0, 0, bw, bh);
+  bctx.filter = 'none';
+
+  const out = createCanvas(w, h);
+  const octx = out.getContext('2d');
+  octx.drawImage(srcCanvas, 0, 0);
+  octx.save();
+  octx.globalCompositeOperation = 'lighter';
+  octx.globalAlpha = clamp01(strength);
+  octx.drawImage(bright, 0, 0, w, h);
+  octx.restore();
+  return out;
+}
+
+/** Seeded RNG (mulberry32) — the reference engine's determinism trick. */
+export function rng(seed = 1) {
+  let s = seed >>> 0;
+  return () => {
+    s = (s + 0x6d2b79f5) >>> 0;
+    let t = s;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+/**
+ * Final grade: aspect-compensated elliptical vignette + per-frame grain.
+ * Exactly the reference's pass, including the 0.5625 x-scale on the vignette
+ * ellipse so portrait framing does not get a circular hot spot.
+ */
+export function drawGrade(ctx, width, height, {
+  vignette = 0.28, grain = 0.018, t = 0, seed = 1, grainStep = 4,
+} = {}) {
+  // vignette
+  const gr = ctx.createRadialGradient(
+    width / 2, height / 2, Math.min(width, height) * 0.18,
+    width / 2, height / 2, Math.max(width, height) * 0.62,
+  );
+  gr.addColorStop(0, 'rgba(0,0,0,0)');
+  gr.addColorStop(1, `rgba(0,0,0,${clamp01(vignette)})`);
+  ctx.save();
+  ctx.fillStyle = gr;
+  ctx.fillRect(0, 0, width, height);
+  ctx.restore();
+
+  // grain: a coarse seeded noise, cheaper than per-pixel ImageData and reads
+  // the same after H.264 compression
+  if (grain <= 0) return;
+  const r = rng(seed + Math.round(t * 60) * 7919);
+  ctx.save();
+  ctx.globalCompositeOperation = 'overlay';
+  for (let y = 0; y < height; y += grainStep) {
+    for (let x = 0; x < width; x += grainStep) {
+      const v = (r() - 0.5) * 2 * grain;
+      ctx.fillStyle = v > 0 ? `rgba(255,255,255,${v})` : `rgba(0,0,0,${-v})`;
+      ctx.fillRect(x, y, grainStep, grainStep);
+    }
+  }
+  ctx.restore();
+}
+
+// --- volumes of revolution --------------------------------------------------
+/**
+ * Smoothstep-interpolated radius profile, the reference's `torsoR(y)`.
+ * `keys` is [[y, radius], ...] ascending. Returns a function y -> radius.
+ */
+export function profileFn(keys) {
+  return (y) => {
+    if (y <= keys[0][0]) return keys[0][1];
+    for (let i = 0; i < keys.length - 1; i++) {
+      const [y0, r0] = keys[i], [y1, r1] = keys[i + 1];
+      if (y <= y1) {
+        const t = (y - y0) / (y1 - y0);
+        const s = t * t * (3 - 2 * t); // smoothstep
+        return r0 + (r1 - r0) * s;
+      }
+    }
+    return keys[keys.length - 1][1];
+  };
+}
+
+/**
+ * A lathed volume as a list of projected horizontal rings. Each ring becomes an
+ * ellipse in screen space; drawing them back-to-front with a per-ring normal
+ * gives a smooth-shaded surface without a per-pixel rasteriser.
+ *
+ * Returns an array of {y, rx, rz, z, ry, normal, shade} ready to draw, sorted so
+ * the far side is painted first.
+ */
+export function lathe(radiusFn, {
+  y0 = -1, y1 = 1, rows = 28, scaleXZ = [1, 0.66], center = [0, 0, 0],
+  project, view = [0, 0, 1], albedo = [0.8, 0.82, 0.86], roughness = 0.3, metalness = 1,
+  exposure = 1.0, rig = LIGHT_RIG,
+} = {}) {
+  const rings = [];
+  const dy = (y1 - y0) / rows;
+  for (let i = 0; i <= rows; i++) {
+    const y = y0 + (y1 - y0) * (i / rows);
+    const r = radiusFn(y);
+    const cy = center[1] + y;
+    const p = project([center[0], cy, center[2]]);
+    if (!p) continue;
+    // Screen radii must be measured by projecting actual offset points. A lathe
+    // radius is in world units and perspective foreshortening differs per axis;
+    // guessing a scale factor silently collapses the tube to a few pixels.
+    const px = project([center[0] + r * scaleXZ[0], cy, center[2]]);
+    const pz = project([center[0], cy, center[2] + r * scaleXZ[1]]);
+    const rx = px ? Math.abs(px.x - p.x) : 0;
+    const ry = pz ? Math.abs(pz.y - p.y) : 0;
+    if (!Number.isFinite(rx) || !Number.isFinite(ry) || rx < 0.3) continue;
+
+    // surface normal from the profile slope: what makes a lathe read as a solid
+    const dro = radiusFn(cy + dy) - radiusFn(cy - dy);
+    const slope = Math.atan2(dro, dy * 2);
+    const n = norm([Math.sin(slope), Math.cos(slope) * 0.35, 0]);
+    const lit = shadeFacePhysical(n, albedo, { view, roughness, metalness, exposure, rig });
+    rings.push({
+      y, p, rx, ry,
+      z: p.depth || 0,
+      shade: toCss(lit),
+      spec: specular(n, view, roughness, rig).dominant,
+    });
+  }
+  // painter's algorithm: far rings first
+  return rings.sort((a, b) => b.z - a.z);
+}
+
+/**
+ * Paint one lathe ring. `rx`/`ry` are already correct screen radii measured by
+ * projecting offset points, so this is a plain ellipse plus a highlight.
+ */
+export function drawLatheRing(ctx, ring) {
+  ctx.beginPath();
+  ctx.ellipse(ring.p.x, ring.p.y, ring.rx, Math.max(0.5, ring.ry), 0, 0, Math.PI * 2);
+  ctx.fillStyle = ring.shade;
+  ctx.fill();
+  // specular streak on the lit side of the ring — the thing that reads as metal
+  if (ring.spec > 0.05) {
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.beginPath();
+    ctx.ellipse(
+      ring.p.x - ring.rx * 0.38, ring.p.y,
+      ring.rx * 0.46, Math.max(0.4, ring.ry * 0.9),
+      0, 0, Math.PI * 2,
+    );
+    ctx.fillStyle = `rgba(255,248,235,${Math.min(0.45, ring.spec * 0.2)})`;
+    ctx.fill();
+    ctx.restore();
+  }
+}
+
+/**
+ * Paint a lathe as a solid: silhouette path down the left extreme points and back
+ * up the right, filled with a vertical gradient sampled from the per-ring shading.
+ *
+ * Why not stack the ring ellipses (drawLatheRing): a horizontal ring seen from eye
+ * height is a very flat ellipse (~5px tall), so consecutive rings leave gaps and
+ * the body reads as horizontal stripes. Silhouette + gradient is both correct and
+ * cheaper.
+ */
+export function drawLatheSolid(ctx, rings, {
+  highlight = true, occlusion = 0.55, baseShadow = true,
+} = {}) {
+  if (rings.length < 2) return;
+  const ordered = [...rings].sort((a, b) => b.y - a.y); // top to bottom
+  const top = ordered[0], bottom = ordered[ordered.length - 1];
+  const topY = top.p.y, botY = bottom.p.y;
+  const maxRx = Math.max(...rings.map((r) => r.rx));
+
+  // contact shadow under the form
+  if (baseShadow) {
+    const rg = ctx.createRadialGradient(bottom.p.x, botY, 2, bottom.p.x, botY, bottom.rx * 2.6);
+    rg.addColorStop(0, `rgba(0,0,0,${occlusion})`);
+    rg.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.save();
+    ctx.translate(bottom.p.x, botY);
+    ctx.scale(1, 0.2);
+    ctx.translate(-bottom.p.x, -botY);
+    ctx.fillStyle = rg;
+    ctx.beginPath();
+    ctx.arc(bottom.p.x, botY, bottom.rx * 2.6, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  // caps first, as their own paths — adding an ellipse to the silhouette path
+  // inserts an implicit lineTo and cuts a wedge out of the body
+  ctx.beginPath();
+  ctx.ellipse(top.p.x, topY, top.rx, Math.max(3, top.rx * 0.20), 0, 0, Math.PI * 2);
+  ctx.fillStyle = top.shade;
+  ctx.fill();
+  ctx.beginPath();
+  ctx.ellipse(bottom.p.x, botY, bottom.rx, Math.max(3, bottom.rx * 0.20), 0, 0, Math.PI * 2);
+  ctx.fillStyle = bottom.shade;
+  ctx.fill();
+
+  // silhouette: left extremes down, right extremes back up
+  ctx.beginPath();
+  ordered.forEach((r, i) => {
+    const x = r.p.x - r.rx;
+    if (i) ctx.lineTo(x, r.p.y); else ctx.moveTo(x, r.p.y);
+  });
+  for (let i = ordered.length - 1; i >= 0; i--) {
+    const r = ordered[i];
+    ctx.lineTo(r.p.x + r.rx, r.p.y);
+  }
+  ctx.closePath();
+
+  const grad = ctx.createLinearGradient(0, topY, 0, botY);
+  ordered.forEach((r, i) =>
+    grad.addColorStop(Math.min(1, Math.max(0, i / (ordered.length - 1))), r.shade));
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // cross-shading clipped to the silhouette: dark edges, lit toward the key,
+  // dark again on the far side. This is what turns a flat fill into a volume.
+  ctx.save();
+  ctx.clip();
+  const midY = (topY + botY) / 2;
+  const across = ctx.createLinearGradient(top.p.x - maxRx, midY, top.p.x + maxRx, midY);
+  across.addColorStop(0.00, 'rgba(0,0,0,0.74)');
+  across.addColorStop(0.20, 'rgba(0,0,0,0.12)');
+  across.addColorStop(0.40, 'rgba(255,252,246,0.09)');
+  across.addColorStop(0.62, 'rgba(0,0,0,0.22)');
+  across.addColorStop(1.00, 'rgba(0,0,0,0.80)');
+  ctx.fillStyle = across;
+  ctx.fillRect(top.p.x - maxRx * 1.3, topY - 10, maxRx * 2.6, botY - topY + 20);
+
+  // the stretched specular streak on the lit side
+  if (highlight) {
+    const lit = top.p.x - maxRx * 0.40;
+    const hg = ctx.createLinearGradient(lit - maxRx * 0.34, 0, lit + maxRx * 0.34, 0);
+    hg.addColorStop(0, 'rgba(255,250,240,0)');
+    hg.addColorStop(0.5, 'rgba(255,250,240,0.17)');
+    hg.addColorStop(1, 'rgba(255,250,240,0)');
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.fillStyle = hg;
+    ctx.fillRect(lit - maxRx * 0.34, topY, maxRx * 0.68, botY - topY);
+  }
+  ctx.restore();
+}
