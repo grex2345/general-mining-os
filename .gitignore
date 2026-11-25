@@ -50,3 +50,8 @@ next-env.d.ts
 # scratch workspace (clones, probes)
 /.scratch/
 studio/scratch/
+
+# Round 5 speech stack: installed by studio/voice_setup.sh, not source
+studio/lib/
+studio/lib_piper/
+studio/piper/

@@ -918,6 +918,216 @@
           "note": "verified"
         }
       ]
+    },
+    {
+      "id": "piper-neural-tts",
+      "kind": "engine",
+      "name": "Piper (rhasspy/piper) neural TTS",
+      "url": "https://github.com/OHF-Voice/piper1-gpl",
+      "license": null,
+      "status": "integrated",
+      "env_ok": null,
+      "deps": [],
+      "tags": [],
+      "findings": [
+        "Neural TTS is possible here with zero network access to model hubs, because some MIT repos vendor Piper voices directly in their tree. This is the single biggest quality jump in Round 5: formant synthesis (espeak) sounds 1985, Piper sounds human."
+      ],
+      "evidence": [
+        "piper-tts 1.8.0 + onnxruntime 1.32 from PyPI. Model en_US-amy-medium (63 MB ONNX) fetched via api.github.com from Mobile-Artificial-Intelligence/babylon (MIT) because huggingface.co and cdn-lfs return HTTP 000. Measured: 0.40 s to synthesise 5.7 s of speech (14x realtime) on 2 cores; no GPU."
+      ],
+      "artifacts": [
+        "research/artifacts/round5/exp5-voice.wav",
+        "studio/voice.py"
+      ],
+      "reason": null,
+      "first_seen": "2026-11-25",
+      "history": [
+        {
+          "date": "2026-11-25",
+          "status": "integrated",
+          "note": "created"
+        }
+      ]
+    },
+    {
+      "id": "espeak-ng-timing",
+      "kind": "engine",
+      "name": "espeak-ng phoneme + word event timing",
+      "url": "https://github.com/espeak-ng/espeak-ng",
+      "license": null,
+      "status": "integrated",
+      "env_ok": null,
+      "deps": [],
+      "tags": [],
+      "findings": [
+        "Use espeak for TIMING and IPA only; use Piper for audio. Note GPL-3.0: fine for generating audio, but redistribution of the binary would carry the licence."
+      ],
+      "evidence": [
+        "espeakng-loader 0.2.4 (PyPI) bundles libespeak-ng.so 1.52 + espeak-ng-data, 10 MB, no root. Synthesis callback exposes word events (type 1) with audio_position in ms, and espeak_TextToPhonemes with espeakCHARS_IPA returns one IPA cluster per word. Phoneme events (type 7) are compiled out of this build (espeak_SetParameter(21,1,0) returns -1)."
+      ],
+      "artifacts": [
+        "studio/voice.py"
+      ],
+      "reason": null,
+      "first_seen": "2026-11-25",
+      "history": [
+        {
+          "date": "2026-11-25",
+          "status": "integrated",
+          "note": "created"
+        }
+      ]
+    },
+    {
+      "id": "lip-sync-visemes",
+      "kind": "technique",
+      "name": "IPA viseme set for lip-sync (own implementation)",
+      "url": "local://studio/src/character3d.mjs",
+      "license": null,
+      "status": "integrated",
+      "env_ok": null,
+      "deps": [],
+      "tags": [],
+      "findings": [
+        "Phoneme-driven mouth shapes beat amplitude lip-flap: an 'm' closes the lips and an 'o' rounds them, which amplitude cannot express."
+      ],
+      "evidence": [
+        "53 IPA symbols mapped to mouth parameters {mouthOpen, mouthWide, mouthCurve}; diacritics stripped before lookup; co-articulation blends 30% toward the next phoneme 45 ms early. 57 phonemes driven in exp5-voice.mp4."
+      ],
+      "artifacts": [
+        "research/artifacts/round5/exp5-voice.mp4",
+        "studio/experiments/voiceclip.mjs"
+      ],
+      "reason": null,
+      "first_seen": "2026-11-25",
+      "history": [
+        {
+          "date": "2026-11-25",
+          "status": "integrated",
+          "note": "created"
+        }
+      ]
+    },
+    {
+      "id": "character3d-rig",
+      "kind": "technique",
+      "name": "Procedural character mesh + 26-joint rig (own implementation)",
+      "url": "local://studio/src/character3d.mjs",
+      "license": null,
+      "status": "integrated",
+      "env_ok": null,
+      "deps": [],
+      "tags": [],
+      "findings": [
+        "Rounded tubes and superellipsoids render flat-shaded at the same cost as boxes, so there is no reason to model a character out of boxes. Screen-space-independent: face features must be placed against a skullZ(x,y) surface function, not at fixed depths."
+      ],
+      "evidence": [
+        "2548 faces per figure at rest. Skeleton: 26 bones (root/hips/spine/chest/neck/head/jaw + shoulder/upperArm/foreArm/hand x2 + thigh/shin/foot/toe x2), FK with R=Ry*Rx*Rz per bone. Analytic two-bone IK with pole vector. Continuous expression space (7 params) with 10 named presets and blending; viseme set keyed on IPA."
+      ],
+      "artifacts": [
+        "studio/src/character3d.mjs",
+        "research/artifacts/round5/exp5-character.png",
+        "research/artifacts/round5/exp5-expressions.png"
+      ],
+      "reason": null,
+      "first_seen": "2026-11-25",
+      "history": [
+        {
+          "date": "2026-11-25",
+          "status": "integrated",
+          "note": "created"
+        }
+      ]
+    },
+    {
+      "id": "procedural-locomotion",
+      "kind": "technique",
+      "name": "Procedural locomotion + performance (own implementation)",
+      "url": "local://studio/src/animation.mjs",
+      "license": null,
+      "status": "integrated",
+      "env_ok": null,
+      "deps": [],
+      "tags": [],
+      "findings": [
+        "Feet must be IK targets, not joint angles: angle-driven legs skate. Arm poses must ALSO be IK targets — three composed pitch rotations put a 'guard' pose above the character's head."
+      ],
+      "evidence": [
+        "Walk/run cycles via IK foot targets (planted during stance, arcs during swing), jump arc with anticipation/land/recover, impact with wind/strike/recoil/settle, idle breathing. Camera shake from squared trauma with layered band-limited noise; traumaDecay e^-kt."
+      ],
+      "artifacts": [
+        "studio/src/animation.mjs",
+        "research/artifacts/round5/exp5-walk.mp4",
+        "research/artifacts/round5/exp5-impact.mp4"
+      ],
+      "reason": null,
+      "first_seen": "2026-11-25",
+      "history": [
+        {
+          "date": "2026-11-25",
+          "status": "integrated",
+          "note": "created"
+        }
+      ]
+    },
+    {
+      "id": "cinema-lens-stack",
+      "kind": "technique",
+      "name": "Lens stack: DOF, bloom, grain, CA (own implementation)",
+      "url": "local://studio/src/cinema.mjs",
+      "license": null,
+      "status": "integrated",
+      "env_ok": null,
+      "deps": [],
+      "tags": [],
+      "findings": [
+        "Chromatic aberration must be composited from three ISOLATED channels. Multiplying copies by pure red/blue and adding them doubles those channels against the untouched frame and turns the whole picture magenta."
+      ],
+      "evidence": [
+        "3-radius depth-slicing DOF via ctx.filter blur; bloom bright-pass at threshold 0.80 + blur + lighter; cached grain layer offset per frame; 3-channel chromatic aberration. fitFov() bisects the lens so subject points fit a safe rect in 22 iterations."
+      ],
+      "artifacts": [
+        "studio/src/cinema.mjs",
+        "research/artifacts/round5/exp5-scene.mp4"
+      ],
+      "reason": null,
+      "first_seen": "2026-11-25",
+      "history": [
+        {
+          "date": "2026-11-25",
+          "status": "integrated",
+          "note": "created"
+        }
+      ]
+    },
+    {
+      "id": "fresnel-rim-flat-shade",
+      "kind": "technique",
+      "name": "Fresnel rim light for flat-shaded night scenes (own implementation)",
+      "url": "local://studio/src/lowpoly.mjs",
+      "license": null,
+      "status": "integrated",
+      "env_ok": null,
+      "deps": [],
+      "tags": [],
+      "findings": [
+        "A flat-shaded subject in a night scene with only key+hemispheric fill reads as unlit cardboard because nothing on its silhouette is brighter than the background. Rim + Fresnel is the cheapest fix. Also: a wall whose albedo matches the sky value makes lit windows look like paper rectangles glued to the sky - pale cornice/plinth/pilaster bands draw the building outline for 2 boxes."
+      ],
+      "evidence": [
+        "rim={eye,dir,colour,intensity,power} added to shadeFace. k = (1-|n.v|)^power * max(0,-n.dir) * intensity. In the night scene at intensity 0.85 the rim was invisible; 1.75 with power 1.9 reads clearly. Plus groundPass hook so contact shadows are not buried by the terrain pre-pass."
+      ],
+      "artifacts": [
+        "research/artifacts/round5/exp5-scene.mp4"
+      ],
+      "reason": null,
+      "first_seen": "2026-11-25",
+      "history": [
+        {
+          "date": "2026-11-25",
+          "status": "integrated",
+          "note": "created"
+        }
+      ]
     }
   ],
   "migrated_from": "research/knowledge_base.json (Phase 3, read-only provenance)"

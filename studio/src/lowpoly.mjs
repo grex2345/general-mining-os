@@ -56,7 +56,7 @@ export function makeCamera({ eye, target, fovDeg = 60, width = 360, height = 640
   const f = 1 / Math.tan((fovDeg * Math.PI) / 360);
   const half = height / 2;
   const cam = {
-    eye, fwd, right, up, fovDeg, width, height, f,
+    eye, fwd, right, up, fovDeg, width, height, f, target,
     /** world point -> [screenX, screenY, viewZ] or null when behind the lens */
     project(p) {
       const d = sub(p, eye);
@@ -65,6 +65,20 @@ export function makeCamera({ eye, target, fovDeg = 60, width = 360, height = 640
       const x = dot(d, right);
       const y = dot(d, up);
       return [width / 2 + (x / z) * f * half, height / 2 - (y / z) * f * half, z];
+    },
+    /** Recompute the orthonormal basis after the eye has been moved directly. */
+    rebase() {
+      const f = norm(sub(target, cam.eye));
+      let r = norm(cross(f, [0, 1, 0]));
+      let u = cross(r, f);
+      if (roll) {
+        const c = Math.cos(roll), s2 = Math.sin(roll);
+        const r2 = [r[0] * c + u[0] * s2, r[1] * c + u[1] * s2, r[2] * c + u[2] * s2];
+        const u2 = [u[0] * c - r[0] * s2, u[1] * c - r[1] * s2, u[2] * c - r[2] * s2];
+        r = r2; u = u2;
+      }
+      cam.fwd = f; cam.right = r; cam.up = u;
+      return cam;
     },
     /** push the eye and target together along the current forward axis */
     dolly(k) { cam.eye = lerp3(cam.eye, target, k); },
@@ -242,6 +256,7 @@ export function shadeFace(face, {
   fog = { colour: [0.055, 0.075, 0.135], density: 0.055 },
   depth = 10,
   exposure = 1.0,
+  rim = null,
 } = {}) {
   const n = face.normal;
   const alb = face.albedo;
@@ -267,6 +282,27 @@ export function shadeFace(face, {
     r += alb[0] * p.colour[0] * k;
     g += alb[1] * p.colour[1] * k;
     b += alb[2] * p.colour[2] * k;
+  }
+
+  /* Rim / back light. Round 5 finding: in a night scene a flat-shaded character
+   * with only a key and a hemispheric fill reads as unlit cardboard, because
+   * nothing on its silhouette is brighter than the background. The fix is the
+   * standard one: a light behind the subject plus a Fresnel falloff, so the
+   * edges of the mesh glow and the front stays dark. `v` is the view vector, so
+   * `nv` ~ +1 means the face points at the camera (no rim) and ~0 means
+   * grazing (full rim). */
+  if (rim && face.mid) {
+    const vx = rim.eye[0] - face.mid[0];
+    const vy = rim.eye[1] - face.mid[1];
+    const vz = rim.eye[2] - face.mid[2];
+    const vl = Math.hypot(vx, vy, vz) || 1;
+    const nv = Math.abs((n[0] * vx + n[1] * vy + n[2] * vz) / vl);
+    const back = Math.max(0, -(n[0] * rim.dir[0] + n[1] * rim.dir[1] + n[2] * rim.dir[2]));
+    const fres = Math.pow(1 - Math.min(1, nv), rim.power || 2.2);
+    const k = fres * back * rim.intensity;
+    r += rim.colour[0] * k;
+    g += rim.colour[1] * k;
+    b += rim.colour[2] * k;
   }
 
   const fd = depth * fog.density;
@@ -299,7 +335,7 @@ export function toRGB(hex) {
  */
 export function renderScene(ctx, scene, cam, {
   width = 360, height = 640, snap = 1, shade = {}, background = null,
-  overdraw = 1.02, near = 0.10,
+  overdraw = 1.02, near = 0.10, groundPass = null,
 } = {}) {
   if (background) background(ctx, width, height);
 
@@ -402,6 +438,10 @@ export function renderScene(ctx, scene, cam, {
     }
   };
   paint(ground);
+  // Anything that must lie ON the terrain but UNDER the solids (contact
+  // shadows, decals, tracks) has to be painted here — a caller that draws it
+  // before renderScene gets it buried by the ground pass.
+  if (groundPass) groundPass(ctx, cam);
   paint(solids);
   return ground.length + solids.length;
 }

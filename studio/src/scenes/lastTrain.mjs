@@ -80,12 +80,12 @@ const STATION_W = STAGE.station.width_m;
 export const DOG_H = 1.42;
 export const DOG_PX = DOG_H * pixelsPerUnit(REF_CAM, STAGE.dog.depth);
 
-export const LIGHTS = () => [
-  { pos: [LAMP_AT[0], groundAt(LAMP_AT[0], LAMP_AT[2]) + 3.2, LAMP_AT[2]], colour: [1.0, 0.70, 0.36], intensity: 3.2, radius: 6.0 },
+export const LIGHTS = ({ scale = 1 } = {}) => [
+  { pos: [LAMP_AT[0], groundAt(LAMP_AT[0], LAMP_AT[2]) + 3.2, LAMP_AT[2]], colour: [1.0, 0.70, 0.36], intensity: 3.2 * scale, radius: 6.0 * scale },
   { pos: [STATION_AT[0], groundAt(STATION_AT[0], STATION_AT[2]) + 2.8, STATION_AT[2] + 2.6], colour: [1.0, 0.74, 0.40], intensity: 1.6, radius: 6.0 },
 ];
 
-export function buildWorld(t) {
+export function buildWorld(t, { dog = true } = {}) {
   const s = createScene();
 
   /* --- terrain ------------------------------------------------------------- */
@@ -116,12 +116,32 @@ export function buildWorld(t) {
   box(s, [sx, gy + STATION_H + 0.18, sz], [STATION_W + 0.6, 0.36, 5.6], '#403a52', { yaw: rot });
   // platform under the building
   box(s, [sx, gy + 0.24, sz + 2.9], [STATION_W + 0.4, 0.48, 1.6], '#3a3348', { yaw: rot });
-  // windows: albedo near-white warm so they read as emissive after the grade
+  /* Architecture has to read as a SOLID with edges, not as floating lights.
+   * Round 5 finding: with the wall at #2b2639 against a #3b4159 night sky the
+   * facade vanished and the lit windows looked like paper squares glued to the
+   * sky. Pale stone bands catch the skylight and draw the building's outline
+   * for free, at 4 boxes of cost. */
   const fz = sz + 2.56;
+  const facade = (wx, wy, w, h, d, colour) =>
+    box(s, [sx + wx * Math.cos(rot), gy + STATION_H * wy, fz - wx * Math.sin(rot)],
+        [w, h, d], colour, { yaw: rot });
+  facade(0, 1.012, STATION_W + 0.5, 0.13, 0.10, '#6d6884');   // cornice
+  facade(0, 0.030, STATION_W + 0.5, 0.12, 0.12, '#5a5570');   // plinth
+  facade(-0.85, 0.53, 0.16, 1.00, 0.09, '#55506a');           // pilaster
+  facade(1.15, 0.53, 0.16, 1.00, 0.09, '#55506a');            // pilaster
+
+  // windows: albedo near-white warm so they read as emissive after the grade
   for (const [wx, wy] of [[-1.9, 0.70], [0.2, 0.70], [-1.9, 0.36], [0.2, 0.36]]) {
+    facade(wx, wy, 1.34, 1.09, 0.10, '#3a3450');              // reveal / surround
     box(s, [sx + wx * Math.cos(rot), gy + STATION_H * wy, fz - wx * Math.sin(rot)],
         [1.3, 1.05, 0.12], '#c9a469', { yaw: rot });
+    // mullions: a cross that breaks the big flat glow into four panes
+    for (const [mw, mh] of [[0.07, 1.05], [1.3, 0.07]]) {
+      box(s, [sx + wx * Math.cos(rot), gy + STATION_H * wy, fz + 0.055 - wx * Math.sin(rot)],
+          [mw, mh, 0.05], '#6a5940', { yaw: rot });
+    }
   }
+  facade(2.1, 0.50, 0.99, 2.34, 0.10, '#3a3450');
   box(s, [sx + 2.1 * Math.cos(rot), gy + 1.15, fz - 2.1 * Math.sin(rot)], [0.95, 2.3, 0.12], '#7d6854', { yaw: rot });
 
   /* --- lamp --------------------------------------------------------------- */
@@ -132,8 +152,8 @@ export function buildWorld(t) {
   box(s, [lx, lg + lampH + 0.06, lz], [0.66, 0.12, 0.66], '#1c1c28');
   box(s, [lx, lg + lampH - 0.10, lz], [0.38, 0.28, 0.38], '#e8c884');
 
-  /* --- dog ---------------------------------------------------------------- */
-  drawDog(s, DOG_AT[0], groundAt(DOG_AT[0], DOG_AT[2]), DOG_AT[2], t);
+  /* --- dog (omit when a rigged character occupies that spot) -------------- */
+  if (dog) drawDog(s, DOG_AT[0], groundAt(DOG_AT[0], DOG_AT[2]), DOG_AT[2], t);
 
   /* --- pines --------------------------------------------------------------- */
   PINES_AT.forEach(([px, , pz], i) => {
