@@ -49,3 +49,4 @@ next-env.d.ts
 
 # scratch workspace (clones, probes)
 /.scratch/
+studio/scratch/

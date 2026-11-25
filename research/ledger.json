@@ -778,6 +778,146 @@
           "note": "created"
         }
       ]
+    },
+    {
+      "id": "lowpoly-skill",
+      "kind": "project",
+      "name": "claude-animation-skills / low-poly",
+      "url": "https://github.com/artemnovitckii/claude-animation-skills/tree/main/skills/low-poly",
+      "license": null,
+      "status": "integrated",
+      "env_ok": null,
+      "deps": [],
+      "tags": [],
+      "findings": [
+        "The resolution ladder is the single biggest lever on CPU: render small, upscale nearest-neighbour. Also: ordered dither at 15-bit plus vertex snapping is what makes low-poly read as PS1 rather than as 'bad 3D'.",
+        "Both paths verified: 360x640->3x at 36.7 ms/frame, native 1080x1920 at 172.1 ms/frame."
+      ],
+      "evidence": [
+        "template.html inspected (34917 B): 360x640 internal render upscaled 3x nearest-neighbour, PS1 vertex snap in project_vertex, 15-bit Bayer 4x4 dither in dithering_fragment, NearestFilter pixel textures 16-64px, PerspectiveCamera fov 52, Fog 10-30. Reimplemented in canvas2d as studio/src/lowpoly.mjs; measured 36.7 ms/frame vs 438 ms previous best."
+      ],
+      "artifacts": [
+        "research/artifacts/round4/exp-lowpoly-1080.png"
+      ],
+      "reason": null,
+      "first_seen": "2026-11-25",
+      "history": [
+        {
+          "date": "2026-11-25",
+          "status": "integrated",
+          "note": "created"
+        },
+        {
+          "date": "2026-11-25",
+          "status": "integrated",
+          "note": "verified"
+        }
+      ]
+    },
+    {
+      "id": "software-rasteriser-ladder",
+      "kind": "technique",
+      "name": "Painter's-algorithm software rasteriser (own implementation)",
+      "url": "local://studio/src/lowpoly.mjs",
+      "license": null,
+      "status": "integrated",
+      "env_ok": null,
+      "deps": [],
+      "tags": [],
+      "findings": [
+        "Terrain must be a separate pre-pass: painter's algorithm cannot interleave a ground plane with objects standing on it. Near-plane clipping is mandatory or the ground tears open in front of the camera.",
+        "Verified both render targets"
+      ],
+      "evidence": [
+        "380 faces, 360x640: render 8.5 ms, post 4.1 ms, upscale 3.1 ms. 1080x1920: render 11.5 ms, post 40.3 ms. Post pass folded tint+grain+dither into one pixel loop: 33.4 ms -> 4.1 ms at 360x640."
+      ],
+      "artifacts": [
+        "studio/src/lowpoly.mjs"
+      ],
+      "reason": null,
+      "first_seen": "2026-11-25",
+      "history": [
+        {
+          "date": "2026-11-25",
+          "status": "integrated",
+          "note": "created"
+        },
+        {
+          "date": "2026-11-25",
+          "status": "integrated",
+          "note": "verified"
+        }
+      ]
+    },
+    {
+      "id": "canvas2d-filter-blur",
+      "kind": "engine",
+      "name": "@napi-rs/canvas context filter (gaussian blur)",
+      "url": "https://github.com/Brooooooklyn/canvas",
+      "license": null,
+      "status": "integrated",
+      "env_ok": null,
+      "deps": [],
+      "tags": [],
+      "findings": [
+        "This Skia build exposes ctx.filter, giving cheap gaussian blur with no WebGL: the missing piece for volumetric light, soft shadows and bloom.",
+        "Used for cloud softening, snow dabs and volumetric masks"
+      ],
+      "evidence": [
+        "Probed: g.filter='blur(10px)' applies a real gaussian (centre 240, +2px 99, +8px 48, +40px 3). Used for cloud softening, snow texture dabs and soft occlusion masks."
+      ],
+      "artifacts": [
+        "studio/src/vfx.mjs"
+      ],
+      "reason": null,
+      "first_seen": "2026-11-25",
+      "history": [
+        {
+          "date": "2026-11-25",
+          "status": "integrated",
+          "note": "created"
+        },
+        {
+          "date": "2026-11-25",
+          "status": "integrated",
+          "note": "verified"
+        }
+      ]
+    },
+    {
+      "id": "sound-from-first-principles",
+      "kind": "technique",
+      "name": "Procedural sound design (own synthesis)",
+      "url": "local://studio/experiments/sounddesk.mjs",
+      "license": null,
+      "status": "integrated",
+      "env_ok": null,
+      "deps": [],
+      "tags": [],
+      "findings": [
+        "A whole soundtrack can be generated with zero external assets: wind = cascaded one-pole low-pass on white noise; footsteps = enveloped filtered noise; a train horn = four detuned sines with vibrato; whoosh = swept one-pole low-pass.",
+        "Master verified at -1.5 dBFS peak with no clipped samples"
+      ],
+      "evidence": [
+        "10 cues synthesised from noise shaping + additive sines; 16-bit 44.1k stereo master, peak -1.5 dBFS, RMS -16.17 dBFS, crest 14.67 dB, DC -1.4e-4, 0 clipped samples. Band energy low 0.131 / mid 0.075 / high 0.036."
+      ],
+      "artifacts": [
+        "research/artifacts/round4/exp-sound.wav"
+      ],
+      "reason": null,
+      "first_seen": "2026-11-25",
+      "history": [
+        {
+          "date": "2026-11-25",
+          "status": "integrated",
+          "note": "created"
+        },
+        {
+          "date": "2026-11-25",
+          "status": "integrated",
+          "note": "verified"
+        }
+      ]
     }
   ],
   "migrated_from": "research/knowledge_base.json (Phase 3, read-only provenance)"

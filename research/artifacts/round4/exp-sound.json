@@ -1,0 +1,97 @@
+{
+  "rate": 44100,
+  "seconds": 6,
+  "channels": 2,
+  "cues": 10,
+  "peakDb": -1.5,
+  "rmsDb": -16.17,
+  "crestDb": 14.67,
+  "dcOffset": -0.000142,
+  "clippedSamples": 0,
+  "contentEndsAt": 6,
+  "bands": {
+    "low_lt200": 0.13114,
+    "mid_200_2000": 0.07544,
+    "high_gt2000": 0.03609
+  },
+  "perSecondDb": [
+    -17.2,
+    -18.4,
+    -13.4,
+    -18.1,
+    -27.9,
+    -21.6
+  ],
+  "onsets": [
+    {
+      "name": "wind bed",
+      "at": 0,
+      "gain": 0.16,
+      "pan": 0,
+      "seconds": 6
+    },
+    {
+      "name": "whoosh in",
+      "at": 0,
+      "gain": 0.34,
+      "pan": -0.25,
+      "seconds": 0.85
+    },
+    {
+      "name": "step 1",
+      "at": 0.55,
+      "gain": 0.55,
+      "pan": -0.3,
+      "seconds": 0.16
+    },
+    {
+      "name": "step 2",
+      "at": 0.98,
+      "gain": 0.48,
+      "pan": -0.15,
+      "seconds": 0.16
+    },
+    {
+      "name": "horn swell",
+      "at": 1.6,
+      "gain": 0.46,
+      "pan": 0.35,
+      "seconds": 2.3
+    },
+    {
+      "name": "step 3",
+      "at": 2.05,
+      "gain": 0.42,
+      "pan": 0.1,
+      "seconds": 0.16
+    },
+    {
+      "name": "step 4",
+      "at": 2.55,
+      "gain": 0.4,
+      "pan": 0.25,
+      "seconds": 0.16
+    },
+    {
+      "name": "snow settle",
+      "at": 3.3,
+      "gain": 0.3,
+      "pan": 0.55,
+      "seconds": 0.05
+    },
+    {
+      "name": "snow settle 2",
+      "at": 3.62,
+      "gain": 0.24,
+      "pan": -0.45,
+      "seconds": 0.05
+    },
+    {
+      "name": "final whoosh",
+      "at": 5.1,
+      "gain": 0.3,
+      "pan": 0.3,
+      "seconds": 0.9
+    }
+  ]
+}
