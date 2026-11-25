@@ -1,0 +1,27 @@
+{
+  "name": "@gmos/studio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Programmatic video production studio for General Mining OS (independent of the Next.js app)",
+  "dependencies": {
+    "@expo-google-fonts/inter": "^0.4.0",
+    "@expo-google-fonts/inter-tight": "^0.4.0",
+    "@expo-google-fonts/jetbrains-mono": "^0.4.0",
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "@ffprobe-installer/ffprobe": "^2.1.2",
+    "@napi-rs/canvas": "^0.1.80",
+    "mespeak": "^2.0.2"
+  },
+  "scripts": {
+    "doctor": "node cli.mjs doctor",
+    "plan": "node cli.mjs plan mining-2026-11-25",
+    "render:mining": "node cli.mjs render mining-2026-11-25 --id mining-weekly-01",
+    "render:energy": "node cli.mjs render energy-2026-11-25 --id energy-01",
+    "adapters": "node cli.mjs adapters",
+    "runs": "node cli.mjs runs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

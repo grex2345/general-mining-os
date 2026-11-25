@@ -1,0 +1,39 @@
+1
+00:00:00,000 --> 00:00:03,233
+Record hashrate. Falling paychecks.
+
+2
+00:00:03,233 --> 00:00:04,888
+On power cost,
+
+3
+00:00:04,888 --> 00:00:08,750
+Stranded gas comes in at 0.021 dollars
+
+4
+00:00:08,750 --> 00:00:10,405
+per kilowatt hour,
+
+5
+00:00:10,405 --> 00:00:13,164
+against 0.112 for Grid retail.
+
+6
+00:00:13,167 --> 00:00:17,531
+That is 2.1 cents per kilowatt hour.
+
+7
+00:00:17,533 --> 00:00:21,395
+Check your power contract before your rigs.
+
+8
+00:00:21,395 --> 00:00:25,257
+Stranded gas still beats grid retail. Curtailment
+
+9
+00:00:25,257 --> 00:00:27,464
+income changes the maths.
+
+10
+00:00:27,467 --> 00:00:30,656
+Subscribe for weekly mining data.

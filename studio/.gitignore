@@ -1,0 +1,17 @@
+# dependencies (nested, installed separately from the Next.js app)
+node_modules/
+
+# generated media and QA artifacts: reproducible from `node cli.mjs render <bundle>`
+out/*.mp4
+out/*.silent.mp4
+out/*.sheet.jpg
+out/*.png
+out/*.jpg
+
+# run memory + credentials
+data/runs.jsonl
+data/youtube_credentials.json*
+data/token*.json
+
+# working caches (segment files, decoded frames, mixes)
+cache/

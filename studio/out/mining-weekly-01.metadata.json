@@ -1,0 +1,27 @@
+{
+  "title": "Hashrate is at record highs while pay is down 18%",
+  "description": "Hashrate is at record highs while pay is down 18%\n\nIn this short: what the mining data actually shows this week, and what it means for a miner.\n\n• Bitcoin hashrate rebounded to about 1.065 ZH/s (1,065 EH/s) after dropping to roughly 912 EH/s on 14 November (Cointribune, 2026-11-22)\n• Hashprice fell to 26.16 USD per PH/s per day on 21 November 2026 (Hashrate Index via Cointribune, 2026-11-22)\n• Hashprice was 31.89 USD per PH/s per day on 9 November 2026 (30-day average 35.73) (Hashrate Index via Cryptoticker, 2026-11-12)\n• Next difficulty adjustment expected around 27 November 2026 with an estimated increase of about 8.99% (Cointribune, 2026-11-22)\n• The previous difficulty adjustment (13 November 2026) was a decrease of about 9.13% (Cointribune, 2026-11-22)\n\nSources:\n- Cointribune: https://www.cointribune.com/en/bitcoin-network-power-surges-as-mining-profits-vanish/\n- Cryptoticker: https://cryptoticker.io/en/bitcoin-price-prediction-mining-difficulty-drops-november-12-2026/\n- Pickaxe: https://www.pickaxe.io/resources/news/bitcoin-mining-hashrate-holds-steady-amid-difficulty-shift\n- bitcoin.com: https://www.bitcoin.com/what-is-bitcoin-mining/\n\nChapters:\n0:03 Bitcoin hashrate, EH/s\n0:09 Hashprice, USD per PH/s per day (-18.0%)\n0:16 Estimated next difficulty change\n0:21 What this means for a miner\n0:31 The network got stronger. The paycheck got smaller.\n0:36 Follow for weekly mining data\n\n#bitcoin #mining #hashrate\n\nData is reported as published by the cited sources and is not financial advice.",
+  "tags": [
+    "bitcoin mining",
+    "mining profitability",
+    "hashprice",
+    "hashrate",
+    "difficulty adjustment",
+    "asic mining",
+    "mining rig",
+    "crypto mining 2026",
+    "bitcoin network",
+    "mining data"
+  ],
+  "categoryId": "28",
+  "defaultLanguage": "en",
+  "defaultAudioLanguage": "en",
+  "privacyStatus": "private",
+  "madeForKids": false,
+  "channel": "General Mining OS",
+  "hashtags": [
+    "#bitcoin",
+    "#mining",
+    "#hashrate"
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "id": "mining-2026-11-25",
+  "topic": "Bitcoin mining economics: record hashrate, collapsing hashprice, difficulty flip",
+  "asOf": "2026-11-25",
+  "createdAt": "2026-11-25T13:40:00Z",
+  "collectedBy": "agent web_search (results quoted below, each fact carries its own source)",
+  "facts": [
+    {
+      "id": "hashrate_zh",
+      "claim": "Bitcoin hashrate rebounded to about 1.065 ZH/s (1,065 EH/s) after dropping to roughly 912 EH/s on 14 November",
+      "value": 1.065,
+      "unit": "ZH/s",
+      "source": { "name": "Cointribune", "url": "https://www.cointribune.com/en/bitcoin-network-power-surges-as-mining-profits-vanish/", "date": "2026-11-22" }
+    },
+    {
+      "id": "hashprice_now",
+      "claim": "Hashprice fell to 26.16 USD per PH/s per day on 21 November 2026",
+      "value": 26.16,
+      "unit": "USD/PH/day",
+      "source": { "name": "Hashrate Index via Cointribune", "url": "https://www.cointribune.com/en/bitcoin-network-power-surges-as-mining-profits-vanish/", "date": "2026-11-22" }
+    },
+    {
+      "id": "hashprice_earlier",
+      "claim": "Hashprice was 31.89 USD per PH/s per day on 9 November 2026 (30-day average 35.73)",
+      "value": 31.89,
+      "unit": "USD/PH/day",
+      "source": { "name": "Hashrate Index via Cryptoticker", "url": "https://cryptoticker.io/en/bitcoin-price-prediction-mining-difficulty-drops-november-12-2026/", "date": "2026-11-12" }
+    },
+    {
+      "id": "difficulty_next",
+      "claim": "Next difficulty adjustment expected around 27 November 2026 with an estimated increase of about 8.99%",
+      "value": 8.99,
+      "unit": "%",
+      "source": { "name": "Cointribune", "url": "https://www.cointribune.com/en/bitcoin-network-power-surges-as-mining-profits-vanish/", "date": "2026-11-22" }
+    },
+    {
+      "id": "difficulty_last",
+      "claim": "The previous difficulty adjustment (13 November 2026) was a decrease of about 9.13%",
+      "value": -9.13,
+      "unit": "%",
+      "source": { "name": "Cointribune", "url": "https://www.cointribune.com/en/bitcoin-network-power-surges-as-mining-profits-vanish/", "date": "2026-11-22" }
+    },
+    {
+      "id": "daily_rev",
+      "claim": "All miners together produce about 450 BTC a day, a little over 33 million USD at the time of writing",
+      "value": 33,
+      "unit": "M USD/day",
+      "source": { "name": "Cryptoticker", "url": "https://cryptoticker.io/en/bitcoin-price-prediction-mining-difficulty-drops-november-12-2026/", "date": "2026-11-12" }
+    },
+    {
+      "id": "margin_low",
+      "claim": "Some of the newest machines generate only 0.58 to 6.29 USD per day after electricity",
+      "value": 6.29,
+      "unit": "USD/day",
+      "source": { "name": "Cointribune", "url": "https://www.cointribune.com/en/bitcoin-network-power-surges-as-mining-profits-vanish/", "date": "2026-11-22" }
+    },
+    {
+      "id": "block_subsidy",
+      "claim": "Block reward is 3.125 BTC per block, about 144 blocks per day since the 2024 halving",
+      "value": 3.125,
+      "unit": "BTC/block",
+      "source": { "name": "bitcoin.com explainer", "url": "https://www.bitcoin.com/what-is-bitcoin-mining/", "date": "2026-11-06" }
+    }
+  ],
+  "series": [
+    {
+      "id": "hashrate_weekly",
+      "label": "Bitcoin hashrate, EH/s",
+      "unit": "EH/s",
+      "points": [
+        { "label": "Nov 3", "value": 1035 },
+        { "label": "Nov 9", "value": 979 },
+        { "label": "Nov 14", "value": 912 },
+        { "label": "Nov 21", "value": 1065 }
+      ],
+      "source": { "name": "Hashrate Index / mempool.space", "url": "https://www.pickaxe.io/resources/news/bitcoin-mining-hashrate-holds-steady-amid-difficulty-shift", "date": "2026-11-22" }
+    },
+    {
+      "id": "hashprice",
+      "label": "Hashprice, USD per PH/s per day",
+      "unit": "USD/PH/day",
+      "points": [
+        { "label": "Nov 9", "value": 31.89 },
+        { "label": "Nov 21", "value": 26.16 }
+      ],
+      "source": { "name": "Hashrate Index", "url": "https://www.cointribune.com/en/bitcoin-network-power-surges-as-mining-profits-vanish/", "date": "2026-11-22" }
+    }
+  ],
+  "notes": [
+    "Two independent sources put hashrate above 1 ZH/s in November 2026.",
+    "Revenue per unit of hashpower (hashprice) is the number that matters for a miner; price alone is not the story.",
+    "Difficulty direction flipped twice in two weeks — the volatility is the story."
+  ],
+  "sources": [
+    { "name": "Cointribune", "url": "https://www.cointribune.com/en/bitcoin-network-power-surges-as-mining-profits-vanish/", "date": "2026-11-22" },
+    { "name": "Cryptoticker", "url": "https://cryptoticker.io/en/bitcoin-price-prediction-mining-difficulty-drops-november-12-2026/", "date": "2026-11-12" },
+    { "name": "Pickaxe", "url": "https://www.pickaxe.io/resources/news/bitcoin-mining-hashrate-holds-steady-amid-difficulty-shift", "date": "2026-11-04" },
+    { "name": "bitcoin.com", "url": "https://www.bitcoin.com/what-is-bitcoin-mining/", "date": "2026-11-06" }
+  ]
+}

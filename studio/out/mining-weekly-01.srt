@@ -1,0 +1,47 @@
+1
+00:00:00,000 --> 00:00:03,233
+Record hashrate. Falling paychecks.
+
+2
+00:00:03,233 --> 00:00:06,667
+It fell to 912 EH/s,
+
+3
+00:00:06,667 --> 00:00:09,400
+then rebounded to 1065.
+
+4
+00:00:09,400 --> 00:00:13,734
+Hashprice fell from 31.89 to 26.16 dollars
+
+5
+00:00:13,734 --> 00:00:16,200
+per petahash per day.
+
+6
+00:00:16,200 --> 00:00:21,533
+The next difficulty adjustment is tracking plus 8.99 percent.
+
+7
+00:00:21,533 --> 00:00:22,630
+Watch hashprice,
+
+8
+00:00:22,630 --> 00:00:26,468
+not the BTC price. Model the next
+
+9
+00:00:26,468 --> 00:00:30,307
+difficulty change. Expect the oldest machines to
+
+10
+00:00:30,307 --> 00:00:31,952
+switch off first.
+
+11
+00:00:31,967 --> 00:00:36,619
+The network got stronger. The paycheck got smaller.
+
+12
+00:00:36,633 --> 00:00:39,822
+Subscribe for weekly mining data.
