@@ -1,0 +1,134 @@
+{
+ "claude-animation-skills": {
+  "repo": "artemnovitckii/claude-animation-skills",
+  "head": "86f7010 2026-11-17 README: rename the five-styles image so GitHub shows the new one",
+  "size_kb": 3301,
+  "license": "LICENSE",
+  "license_head": "MIT License  Copyright (c) 2026 Artem Novitckii  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (t",
+  "skill_count": 11,
+  "skills": [
+   {
+    "name": "breakdown",
+    "path": "skills/breakdown/SKILL.md",
+    "desc": "Makes a 3D exploded-view animation for a reel. A phone floats on a dark studio backdrop, comes apart layer by layer (glass, screen, frame, board and battery, back), and each part gets a thin leader li",
+    "bytes": 3783,
+    "has_scripts": false,
+    "has_refs": false
+   },
+   {
+    "name": "dan-koe",
+    "path": "skills/dan-koe/SKILL.md",
+    "desc": "Makes Dan Koe style minimal black-and-white line art for a reel. One white dot on pure black grows into a hairline tree that splits in two at every step, the tips light up, a pulse ring and sparks go ",
+    "bytes": 2716,
+    "has_scripts": false,
+    "has_refs": false
+   },
+   {
+    "name": "graph",
+    "path": "skills/graph/SKILL.md",
+    "desc": "Makes a minimal line-graph animation for a reel. A smooth black line draws itself on white (or white on black) while one big number counts up with the tip, then lands on the final value. Use when the ",
+    "bytes": 2793,
+    "has_scripts": false,
+    "has_refs": false
+   },
+   {
+    "name": "kurzgesagt",
+    "path": "skills/kurzgesagt/SKILL.md",
+    "desc": "Makes a Kurzgesagt style flat-vector space explainer shot for a reel. Deep navy-purple space with twinkling stars, flat planets lit from one side with a dark crescent and a soft glow, bright rounded l",
+    "bytes": 3636,
+    "has_scripts": false,
+    "has_refs": false
+   },
+   {
+    "name": "low-poly",
+    "path": "skills/low-poly/SKILL.md",
+    "desc": "Makes a PS1/N64-era low-poly 3D animation for a reel, in the style of \"low poly shorts\". Chunky low-resolution pixels, wobbly vertices, dithering, flat warm lighting and small yellow captions with a t",
+    "bytes": 3401,
+    "has_scripts": false,
+    "has_refs": false
+   },
+   {
+    "name": "map-route",
+    "path": "skills/map-route/SKILL.md",
+    "desc": "Makes a 3D map animation for a reel. A clean white city with parks and a river, a coloured route that draws itself from start to destination while the camera follows, a red pin that drops with a bounc",
+    "bytes": 3473,
+    "has_scripts": false,
+    "has_refs": false
+   },
+   {
+    "name": "minecraft",
+    "path": "skills/minecraft/SKILL.md",
+    "desc": "Makes a Minecraft-style blocky voxel animation for a reel. A cottage builds itself block by block on a grassy hill, about 165 blocks dropping in with a bounce, then the chimney slams in with a puff of",
+    "bytes": 2833,
+    "has_scripts": false,
+    "has_refs": false
+   },
+   {
+    "name": "minimalistic-graphics",
+    "path": "skills/minimalistic-graphics/SKILL.md",
+    "desc": "Makes a minimal black-and-white line-art animation for a reel. Thin outlined steps rise one by one, a white dot hops up them, and at the top an orbit draws around it and a short second line swaps in. ",
+    "bytes": 2533,
+    "has_scripts": false,
+    "has_refs": false
+   },
+   {
+    "name": "stick-figure",
+    "path": "skills/stick-figure/SKILL.md",
+    "desc": "Makes a code-animated stick-figure explainer reel (9:16, 30 to 45 s) from a question or topic. A bright cartoon world with thick outlines, stick people with big white heads and faces, constant camera ",
+    "bytes": 5032,
+    "has_scripts": false,
+    "has_refs": false
+   },
+   {
+    "name": "zach-3d-films",
+    "path": "skills/zach-3d-films/SKILL.md",
+    "desc": "Makes a 3D cartoon \"what if\" explainer short (9:16) entirely in code with three.js, in the style of Zack D. Films-type videos. The same skill as /zach-d-films under the name used in the reel. Procedur",
+    "bytes": 1070,
+    "has_scripts": false,
+    "has_refs": false
+   },
+   {
+    "name": "zach-d-films",
+    "path": "skills/zach-d-films/SKILL.md",
+    "desc": "Makes a 3D cartoon \"what if\" explainer short (9:16) in the style of Zack D. Films-type videos, entirely in code with three.js. Procedural cartoon people, props and effects, a blue studio sky, slow-mot",
+    "bytes": 6902,
+    "has_scripts": false,
+    "has_refs": false
+   }
+  ],
+  "depfiles": {},
+  "signals": {
+   "ffmpeg": 30,
+   "remotion": 0,
+   "three.js": 549,
+   "gsap": 43,
+   "manim": 0,
+   "playwright": 22,
+   "puppeteer": 0,
+   "canvas2d": 10,
+   "wgsl/glsl": 2,
+   "d3": 0,
+   "svg-anim": 6,
+   "blender": 0,
+   "moviepy": 0,
+   "whisper": 0,
+   "elevenlabs": 19,
+   "kokoro": 33,
+   "edge-tts": 0,
+   "lottie": 0,
+   "framer-motion": 0,
+   "chromium-cdp": 0,
+   "python": 78,
+   "typescript": 0
+  },
+  "file_types": {
+   ".md": 12,
+   ".sh": 3,
+   ".json": 7,
+   ".py": 15,
+   ".html": 10,
+   ".js": 15
+  },
+  "readme_head": "# Claude animation skills\n\nSkills for Claude Code that make animations for reels, with no footage needed. You type `/map-route home to the gym, 2.8 km` and Claude writes the spec, renders the animation on your own computer and checks it against Instagram's safe area.\n\n![The six skills, one frame each](docs/skills.jpg)\n\n| Skill | What it makes | Try it with |\n|---|---|---|\n| `/zach-d-films` | **A 3D cartoon \"what if\" explainer.** Cartoon people, props and effects built in three.js, slow-motion impacts, a red force ripple and captions timed to your voiceover. Comes with a finished 29 s example to build from. | `Could ancient armour stop an arrow?` |\n| `/stick-figure` | **A stick-figure explainer reel.** A bright cartoon world, stick people with big faces, whip transitions, 1 to 2 word captions, and music and sound effects made in code. Comes with a finished 37 s example. | `Why did pirates wear eye patches?` |\n| `/minimalistic-graphics` | **Black-and-white line art.** Hairline steps rise, one white dot hops up them and gets an orbit at the top, with one quiet line of text. | `Every step feels small until you look back` |\n| `/map-route` | **A 3D map route.** A white city, a route that draws itself while the camera follows, a pin drop, an ETA that counts down and a destination card. | `Home to the gym, 2.8 km` |\n| `/breakdown` | **A 3D exploded view.** A phone comes apart layer by layer, and every part gets a leader line and a label. | `My phone, every part labelled` |\n| `/graph` | **A minimal line graph.** A smooth line draws itself, and one big number counts up with its tip. Black on white, or white on black. | `0 to 100K followers in 9 months` |\n\nSee them moving: **[novitckii.com/resources/animation-skills](https://novitckii.com/resources/animation-skills/)**\n\n### 5 animation styles (new)\n\n![The five styles, one frame each: low-poly, minecraft, zach-3d-films, kurzgesagt, dan-koe](docs/five-styles.jpg)\n\n| Skill | What it makes | Try it with |\n|---|---|---|\n| `/low-poly` | **PS1-era low-poly 3D.** Chunky pixels, wobbly vertices, dithering and small yellow captions. The built-in scene: a dog waits on a station platform, a train comes and goes, and he is still there in the snow. | `The dog who waited at the station for 10 years` |\n| `/minecraft` | **A blocky voxel build.** A cottage builds itself block by block on a grassy hill, the chimney slams in and the windows light up. Every texture is drawn in code. | `Build a tiny cottage block by block` |\n| `/zach-3d-films` | **The 3D cartoon explainer.** The same engine as `/zach-d-films`, under the name from the reel. | `Could ancient armour stop an arrow?` |\n| `/kurzgesagt` | **Flat-vector space.** Glowing planets with a dark crescent, twinkling stars and bright label tags. The built-in scene stacks every planet, to scale, between Earth and the Moon. | `Do all the planets fit between Earth and the Moon?` |\n| `/dan-koe` | **Black-and-white line art.** One dot grows into a hairline tree that splits in two at"
+ }
+}

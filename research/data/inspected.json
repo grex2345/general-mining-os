@@ -1,0 +1,2133 @@
+{
+"repos": [
+{
+"local": "ClaudeAnimationBase",
+"repo": "JohnHeibel/ClaudeAnimationBase",
+"github": "https://github.com/JohnHeibel/ClaudeAnimationBase",
+"stars": 3249,
+"license": "MIT",
+"lang": "JavaScript",
+"pushed": "2026-09-24",
+"size_kb": 7745,
+"skills": 0,
+"depfiles": "package.json",
+"signals": "puppeteer:8,three.js:4,canvas2d:2,ffmpeg:1,playwright:1",
+"description": "A starter kit for animating hand-painted cartoons with Claude: p5.js + p5.brush, the Clawd character, 31 acted emotions and a guide for the model"
+},
+{
+"local": "FireRed-OpenStoryline",
+"repo": "FireRedTeam/FireRed-OpenStoryline",
+"github": "https://github.com/FireRedTeam/FireRed-OpenStoryline",
+"stars": 3741,
+"license": "Apache-2.0",
+"lang": "Python",
+"pushed": "2026-07-31",
+"size_kb": 1521,
+"skills": 7,
+"depfiles": "requirements.txt",
+"signals": "python:473,ffmpeg:67,moviepy:14,typescript:7,three.js:2",
+"description": "FireRed-OpenStoryline is an AI video editing agent that transforms manual editing into intention-driven directing through natural language interaction, LLM-powered planning, and pr"
+},
+{
+"local": "awesome-claude-video-skills",
+"repo": "zhuyansen/awesome-claude-video-skills",
+"github": "https://github.com/zhuyansen/awesome-claude-video-skills",
+"stars": 2707,
+"license": "NOASSERTION",
+"lang": null,
+"pushed": "2026-11-24",
+"size_kb": 42680,
+"skills": 0,
+"depfiles": "",
+"signals": "remotion:56,lottie:10,ffmpeg:7,three.js:6,manim:5,blender:4",
+"description": "Open-source skills and toolkits that let Claude Code, Codex and other coding agents make video. 180 repos by type, each security-graded. English / \u4e2d\u6587."
+},
+{
+"local": "bang-motion",
+"repo": "bangtutorial/bang-motion",
+"github": "https://github.com/bangtutorial/bang-motion",
+"stars": 3040,
+"license": "MIT",
+"lang": "HTML",
+"pushed": "2026-09-15",
+"size_kb": 2400,
+"skills": 1,
+"depfiles": "",
+"signals": "gsap:74,three.js:50,ffmpeg:17,python:13,puppeteer:9,lottie:6",
+"description": "Agent skill for browser motion graphics \u2014 openers, promos, bumpers, kinetic typography, and five explainer styles that move like video, not slides. Single index.html output. Works "
+},
+{
+"local": "blender-skills",
+"repo": "EL4CTEO/blender-skills",
+"github": "https://github.com/EL4CTEO/blender-skills",
+"stars": 2891,
+"license": "MIT",
+"lang": "Python",
+"pushed": "2026-11-21",
+"size_kb": 7010,
+"skills": 28,
+"depfiles": "",
+"signals": "blender:821,python:536,wgsl/glsl:31,ffmpeg:10,three.js:9,typescript:1",
+"description": "Professional Blender 5.3 workflows as Agent Skills for Claude Code, Codex, Gemini CLI, Copilot and Cursor: modeling, UVs, PBR, baking, rigging, animation, export and QA."
+},
+{
+"local": "brief2mp4",
+"repo": "qualixar/brief2mp4",
+"github": "https://github.com/qualixar/brief2mp4",
+"stars": 63,
+"license": "MIT",
+"lang": "Python",
+"pushed": "2026-11-24",
+"size_kb": 35620,
+"skills": 1,
+"depfiles": "",
+"signals": "three.js:739,python:591,blender:524,gsap:296,ffmpeg:229,canvas2d:26",
+"description": "Claude Code and Codex skill: turn a written brief into a finished, checked MP4. Motion graphics, explainer videos and documentaries, YouTube Shorts, 3D and Blender animation, 82 ar"
+},
+{
+"local": "cinematic-skill",
+"repo": "Moh4696/cinematic-skill",
+"github": "https://github.com/Moh4696/cinematic-skill",
+"stars": 993,
+"license": "MIT",
+"lang": "Python",
+"pushed": "2026-11-09",
+"size_kb": 2262,
+"skills": 1,
+"depfiles": "requirements.txt",
+"signals": "python:106,ffmpeg:39,three.js:12,elevenlabs:3,wgsl/glsl:2",
+"description": "Agent skill for narrated cinematic films built entirely from code."
+},
+{
+"local": "claude-animation-skills",
+"repo": "artemnovitckii/claude-animation-skills",
+"github": "https://github.com/artemnovitckii/claude-animation-skills",
+"stars": 1242,
+"license": "NOASSERTION",
+"lang": "JavaScript",
+"pushed": "2026-11-17",
+"size_kb": 3301,
+"skills": 11,
+"depfiles": "",
+"signals": "three.js:549,python:78,gsap:43,kokoro:33,ffmpeg:30,playwright:22",
+"description": "Eleven Claude Code skills that make animations for reels, no footage needed: low-poly, Minecraft-style voxel, 3D cartoon explainer, Kurzgesagt-style space, Dan Koe line art, stick "
+},
+{
+"local": "claude-video-effects",
+"repo": "Vibha-Ramprakash/claude-video-effects",
+"github": "https://github.com/Vibha-Ramprakash/claude-video-effects",
+"stars": 1198,
+"license": "NOASSERTION",
+"lang": "Python",
+"pushed": "2026-11-12",
+"size_kb": 3926,
+"skills": 1,
+"depfiles": "requirements.txt",
+"signals": "whisper:12,ffmpeg:7,python:5,remotion:2,three.js:2",
+"description": "51 free video effects for Claude Code: drop in a talking-head clip, type /effects orbit. Face tracking, behind-your-head layers. From Hop Studio by @vibha.in.progress"
+},
+{
+"local": "code-video-showcase",
+"repo": "Moessif/code-video-showcase",
+"github": "https://github.com/Moessif/code-video-showcase",
+"stars": 561,
+"license": "MIT",
+"lang": "JavaScript",
+"pushed": "2026-10-28",
+"size_kb": 9424,
+"skills": 1,
+"depfiles": "",
+"signals": "ffmpeg:49,three.js:37,playwright:27,python:26,chromium-cdp:6,canvas2d:5",
+"description": "A pure-code beat-synced showcase-video Agent Skill: HTML/Canvas/SVG/Three.js frame-by-frame + Python numpy/scipy score + FFmpeg. No generative models."
+},
+{
+"local": "data-animation-skills",
+"repo": "iart-ai/data-animation-skills",
+"github": "https://github.com/iart-ai/data-animation-skills",
+"stars": 23,
+"license": "MIT",
+"lang": "HTML",
+"pushed": "2026-11-11",
+"size_kb": 6776,
+"skills": 3,
+"depfiles": "",
+"signals": "remotion:90,python:46,typescript:31,gsap:21,d3:12,manim:6",
+"description": "Data video / animated infographic skills for Claude Code \u2014 turn a CSV into a chart that moves, with exact, accurate numbers on every frame."
+},
+{
+"local": "editor",
+"repo": "MakeMyClip/editor",
+"github": "https://github.com/MakeMyClip/editor",
+"stars": 38,
+"license": "MIT",
+"lang": "TypeScript",
+"pushed": "2026-11-16",
+"size_kb": 3853,
+"skills": 1,
+"depfiles": "package.json",
+"signals": "typescript:1263,python:1080,ffmpeg:522,whisper:300,three.js:19",
+"description": "Open-source AI video editor for Claude Code and any MCP client. Removes silence and repeated takes, edits by transcript with local whisper.cpp, adds captions, and exports to Final "
+},
+{
+"local": "editor-pro-max",
+"repo": "Hainrixz/editor-pro-max",
+"github": "https://github.com/Hainrixz/editor-pro-max",
+"stars": 313,
+"license": "NOASSERTION",
+"lang": "TypeScript",
+"pushed": "2026-10-25",
+"size_kb": 1728,
+"skills": 8,
+"depfiles": "package.json",
+"signals": "python:660,remotion:583,gsap:263,typescript:257,ffmpeg:96,svg-anim:59",
+"description": "AI-powered video editor by @soyenriquerocha \u2014 built with Remotion + Claude Code. Describe videos in natural language, get professional MP4s. 25 components, 9 templates, 7 skills."
+},
+{
+"local": "explainer-video-skills",
+"repo": "iart-ai/explainer-video-skills",
+"github": "https://github.com/iart-ai/explainer-video-skills",
+"stars": 146,
+"license": "MIT",
+"lang": "HTML",
+"pushed": "2026-11-11",
+"size_kb": 3496,
+"skills": 5,
+"depfiles": "",
+"signals": "gsap:81,remotion:69,python:40,three.js:35,svg-anim:16,d3:15",
+"description": "Explainer video skills for Claude Code: script, storyboard, and render narrated explainers, year-in-review recaps, and animated diagrams."
+},
+{
+"local": "fframes",
+"repo": "dmtrKovalenko/fframes",
+"github": "https://github.com/dmtrKovalenko/fframes",
+"stars": null,
+"license": null,
+"lang": null,
+"pushed": null,
+"size_kb": 941258,
+"skills": 1,
+"depfiles": "package.json;Cargo.toml",
+"signals": "python:289,remotion:92,ffmpeg:85,typescript:63,wgsl/glsl:56,lottie:31",
+"description": ""
+},
+{
+"local": "hyperframes",
+"repo": "heygen-com/hyperframes",
+"github": "https://github.com/heygen-com/hyperframes",
+"stars": 89894,
+"license": "Apache-2.0",
+"lang": "TypeScript",
+"pushed": "2026-11-25",
+"size_kb": 346171,
+"skills": 29,
+"depfiles": "package.json",
+"signals": "gsap:419,three.js:217,wgsl/glsl:101,remotion:23,ffmpeg:20,whisper:12",
+"description": "Open-source AI video editor: edit your own footage, or create and remake any video with Claude Code, Codex or the free Studio app. Write HTML, render MP4. By HeyGen."
+},
+{
+"local": "kalem",
+"repo": "leodavincs/kalem",
+"github": "https://github.com/leodavincs/kalem",
+"stars": 124,
+"license": "NOASSERTION",
+"lang": "Python",
+"pushed": "2026-11-06",
+"size_kb": 32454,
+"skills": 2,
+"depfiles": "",
+"signals": "three.js:103,python:75,ffmpeg:35,manim:29,gsap:16,canvas2d:11",
+"description": "Claude Code skill: her sahnenin kendi kalemi var. Videoyu sahnelere b\u00f6ler, her sahneye uygun motoru se\u00e7er (Paper.js, PixiJS, HyperFrames, Three.js, Manim)."
+},
+{
+"local": "kinetic-typography-skills",
+"repo": "iart-ai/kinetic-typography-skills",
+"github": "https://github.com/iart-ai/kinetic-typography-skills",
+"stars": 35,
+"license": "MIT",
+"lang": "HTML",
+"pushed": "2026-11-11",
+"size_kb": 3684,
+"skills": 1,
+"depfiles": "",
+"signals": "gsap:42,remotion:17,manim:6,playwright:6,ffmpeg:4,python:4",
+"description": "Kinetic typography skills for AI coding agents \u2014 turn text into beat-synced, animated type for social, titles, and lyric videos."
+},
+{
+"local": "lanshu-create-ai-presenter-video",
+"repo": "cclank/lanshu-create-ai-presenter-video",
+"github": "https://github.com/cclank/lanshu-create-ai-presenter-video",
+"stars": 3082,
+"license": "MIT",
+"lang": "HTML",
+"pushed": "2026-10-11",
+"size_kb": 4299,
+"skills": 1,
+"depfiles": "",
+"signals": "three.js:273,python:269,gsap:53,ffmpeg:40,typescript:9,canvas2d:3",
+"description": "Provider-neutral Codex Skill for producing verified AI presenter videos from a script and an authorized presenter image."
+},
+{
+"local": "line-art-animation",
+"repo": "JDhruv14/line-art-animation",
+"github": "https://github.com/JDhruv14/line-art-animation",
+"stars": 1237,
+"license": "MIT",
+"lang": "TypeScript",
+"pushed": "2026-11-10",
+"size_kb": 7545,
+"skills": 1,
+"depfiles": "package.json",
+"signals": "typescript:44,python:30,ffmpeg:13,playwright:5,three.js:3,chromium-cdp:1",
+"description": "A Claude skill and TypeScript library for animated line-art SVG components: ink figures that walk and react, scenes with a day/night cycle."
+},
+{
+"local": "lottie",
+"repo": "diffusionstudio/lottie",
+"github": "https://github.com/diffusionstudio/lottie",
+"stars": 5825,
+"license": "MIT",
+"lang": "TypeScript",
+"pushed": "2026-07-25",
+"size_kb": 5937,
+"skills": 1,
+"depfiles": "package.json",
+"signals": "lottie:194,python:125,typescript:113,three.js:7,wgsl/glsl:1",
+"description": "Generate production-ready Lottie animations with Claude Code or Codex"
+},
+{
+"local": "manim_skill",
+"repo": "adithya-s-k/manim_skill",
+"github": "https://github.com/adithya-s-k/manim_skill",
+"stars": 1365,
+"license": "MIT",
+"lang": "Python",
+"pushed": "2026-01-23",
+"size_kb": 1361,
+"skills": 3,
+"depfiles": "",
+"signals": "manim:266,python:234,three.js:20,ffmpeg:7,wgsl/glsl:3,typescript:2",
+"description": "Agent skills for Manim to create 3Blue1Brown style animations."
+},
+{
+"local": "motion-design-skills",
+"repo": "iart-ai/motion-design-skills",
+"github": "https://github.com/iart-ai/motion-design-skills",
+"stars": 273,
+"license": "MIT",
+"lang": "HTML",
+"pushed": "2026-11-11",
+"size_kb": 4380,
+"skills": 9,
+"depfiles": "",
+"signals": "remotion:83,three.js:65,lottie:54,gsap:50,wgsl/glsl:36,python:32",
+"description": "Motion design fundamentals, engines, and brand elements as installable Claude Code skills \u2014 timing, typography, color, composition, After Effects, Remotion, logos, and backgrounds."
+},
+{
+"local": "motion-graphics-skills",
+"repo": "charlie947/motion-graphics-skills",
+"github": "https://github.com/charlie947/motion-graphics-skills",
+"stars": 813,
+"license": "MIT",
+"lang": "Shell",
+"pushed": "2026-10-11",
+"size_kb": 12657,
+"skills": 15,
+"depfiles": "",
+"signals": "three.js:69,ffmpeg:9",
+"description": "13 Claude Code skills for launch-grade motion graphics. Every frame is code. No After Effects, no video generator."
+},
+{
+"local": "motion-skills",
+"repo": "iart-ai/motion-skills",
+"github": "https://github.com/iart-ai/motion-skills",
+"stars": 2157,
+"license": "MIT",
+"lang": "HTML",
+"pushed": "2026-11-18",
+"size_kb": 5080,
+"skills": 0,
+"depfiles": "",
+"signals": "gsap:14,remotion:8,manim:7,playwright:5,ffmpeg:4,three.js:3",
+"description": "56 open-source skills that teach your AI coding agent to make motion graphics, animation & video \u2014 kinetic typography, data-viz, explainers, TikTok/Reels, WebGL, Manim. 19 installa"
+},
+{
+"local": "motion-video-kit",
+"repo": "echris6/motion-video-kit",
+"github": "https://github.com/echris6/motion-video-kit",
+"stars": 1456,
+"license": "MIT",
+"lang": "Python",
+"pushed": "2026-10-14",
+"size_kb": 189,
+"skills": 1,
+"depfiles": "",
+"signals": "three.js:36,ffmpeg:19,python:11,gsap:6,elevenlabs:4,wgsl/glsl:1",
+"description": "Claude Code skill kit for premium AI-assisted business videos: independent critic loop, motion principles from 28 launch films, quality bar, sound design, business offers, Three.js"
+},
+{
+"local": "motlab",
+"repo": "staryone/motlab",
+"github": "https://github.com/staryone/motlab",
+"stars": 478,
+"license": "Apache-2.0",
+"lang": "JavaScript",
+"pushed": "2026-11-23",
+"size_kb": 4439,
+"skills": 2,
+"depfiles": "package.json",
+"signals": "python:337,three.js:137,ffmpeg:111,blender:111,wgsl/glsl:92,remotion:67",
+"description": "Video as code: canvas scenes rendered with WebCodecs in headless Chrome, a review viewer, and agent skills that build the video from your references."
+},
+{
+"local": "narrator-ai-cli-skill",
+"repo": "NarratorAI-Studio/narrator-ai-cli-skill",
+"github": "https://github.com/NarratorAI-Studio/narrator-ai-cli-skill",
+"stars": 3324,
+"license": "MIT",
+"lang": null,
+"pushed": "2026-07-05",
+"size_kb": 133,
+"skills": 1,
+"depfiles": "",
+"signals": "three.js:5,python:1",
+"description": "AI \u89e3\u8bf4\u5927\u5e08 \u2014 Agent skill\uff1b\u5c01\u88c5 narrator-ai-cli \u4f9b Claude/Codex \u7b49\u5de5\u5177\u8c03\u7528"
+},
+{
+"local": "open-3d-skills",
+"repo": "Moh4696/open-3d-skills",
+"github": "https://github.com/Moh4696/open-3d-skills",
+"stars": 498,
+"license": "MIT",
+"lang": "JavaScript",
+"pushed": "2026-11-09",
+"size_kb": 2019,
+"skills": 8,
+"depfiles": "requirements.txt",
+"signals": "three.js:218,python:85,playwright:34,ffmpeg:29,wgsl/glsl:15,canvas2d:3",
+"description": "Eight agent skills for 3D and animated websites: three.js scenes from code, scroll films, transparent video, cursor rigs, exploded views, AI motion assets, browser checks and 60 fp"
+},
+{
+"local": "pixel2motion",
+"repo": "nolangz/pixel2motion",
+"github": "https://github.com/nolangz/pixel2motion",
+"stars": 2714,
+"license": "MIT",
+"lang": "Python",
+"pushed": "2026-08-21",
+"size_kb": 3701,
+"skills": 1,
+"depfiles": "",
+"signals": "python:63,playwright:22,svg-anim:7,three.js:1,whisper:1,chromium-cdp:1",
+"description": "AI logo animation skill: turn raster logos into smooth SVG animation, animated HTML demos, GIF/video previews, and motion QA evidence."
+},
+{
+"local": "screenwriting-skills",
+"repo": "jtydhr88/screenwriting-skills",
+"github": "https://github.com/jtydhr88/screenwriting-skills",
+"stars": 2171,
+"license": "MIT",
+"lang": "Python",
+"pushed": "2026-11-24",
+"size_kb": 3305,
+"skills": 27,
+"depfiles": "",
+"signals": "three.js:76,d3:5,python:1,typescript:1",
+"description": "Professional agent skills for screenwriting, television writing and dramaturgy"
+},
+{
+"local": "skills",
+"repo": "remotion-dev/skills",
+"github": "https://github.com/remotion-dev/skills",
+"stars": 7987,
+"license": null,
+"lang": "TypeScript",
+"pushed": "2026-11-24",
+"size_kb": 1612,
+"skills": 14,
+"depfiles": "package.json",
+"signals": "remotion:1894,python:558,typescript:72,lottie:57,whisper:50,three.js:49",
+"description": "Agent Skills"
+},
+{
+"local": "video-clipforge",
+"repo": "Johnson-Jia/video-clipforge",
+"github": "https://github.com/Johnson-Jia/video-clipforge",
+"stars": 49,
+"license": "Apache-2.0",
+"lang": "Python",
+"pushed": "2026-08-24",
+"size_kb": 12397,
+"skills": 0,
+"depfiles": "package.json",
+"signals": "python:624,gsap:208,ffmpeg:132,edge-tts:56,three.js:36,playwright:22",
+"description": " AI \u9a71\u52a8\u7684\u77ed\u89c6\u9891\u5236\u4f5c\u7cfb\u7edf\u3002\u7ed9\u5b83\u4e00\u4e2a\u60f3\u6cd5\uff0c\u5b83\u5e2e\u4f60\u5199\u7a3f\u3001\u914d\u97f3\u3001\u505a\u753b\u9762\u3001\u51fa\u6210\u7247\u30029 \u9636\u6bb5 DAG \u7ba1\u7ebf + \u81ea\u8fdb\u5316\u8bc4\u5206\uff0c\u652f\u6301\u6bcf\u65e5\u81ea\u52a8\u6267\u884c\u3002\u57fa\u4e8e Claude Code + HyperFrames\u3002"
+}
+],
+"skills": [
+{
+"repo": "FireRedTeam/FireRed-OpenStoryline",
+"skill": "openstoryline-install",
+"path": ".claude/skills/openstoryline-install/SKILL.md",
+"bytes": 6066,
+"has_scripts": false,
+"has_references": false,
+"description": "Install, configure, and start FireRed-OpenStoryline from source on a local machine. Use when a user asks to set up OpenStoryline, troubleshoot installation, download required resources, fill config.to"
+},
+{
+"repo": "FireRedTeam/FireRed-OpenStoryline",
+"skill": "openstoryline-use",
+"path": ".claude/skills/openstoryline-use/SKILL.md",
+"bytes": 9324,
+"has_scripts": true,
+"has_references": false,
+"description": "Use this skill when OpenStoryline is already installed and the user wants to start the local MCP/Web services, create or continue a session, send editing instructions, perform multi-turn re-editing, a"
+},
+{
+"repo": "FireRedTeam/FireRed-OpenStoryline",
+"skill": "ai_transition_editing_skill",
+"path": ".storyline/skills/ai_transition_editing_skill/SKILL.md",
+"bytes": 1054,
+"has_scripts": false,
+"has_references": false,
+"description": "\u3010WORKFLOW SKILL\u3011\u4f7f\u7528 AI \u751f\u6210\u7684\u8f6c\u573a\u5c06\u7528\u6237\u7d20\u6750\u4e32\u8054\u8d77\u6765\u3002"
+},
+{
+"repo": "FireRedTeam/FireRed-OpenStoryline",
+"skill": "create_profile_style_skill",
+"path": ".storyline/skills/create_profile_style_skill/SKILL.md",
+"bytes": 2215,
+"has_scripts": false,
+"has_references": false,
+"description": "\u3010META SKILL\u3011\u5206\u6790\u5f53\u524d\u526a\u8f91\u903b\u8f91\u4e0e\u98ce\u683c\uff0c\u603b\u7ed3\u5e76\u751f\u6210\u4e00\u4e2a\u65b0\u7684\u53ef\u590d\u7528 Skill \u6587\u4ef6\uff0c\u5b58\u5165\u526a\u8f91\u6280\u80fd\u5e93\u3002Analyze the current editing logic and style, summarize and generate a new reusable Skill file, and store it in the editing skill library."
+},
+{
+"repo": "FireRedTeam/FireRed-OpenStoryline",
+"skill": "default_editing_workflow_skill",
+"path": ".storyline/skills/default_editing_workflow_skill/SKILL.md",
+"bytes": 1037,
+"has_scripts": false,
+"has_references": false,
+"description": "\u3010WORKFLOW SKILL\u3011\u901a\u7528\u526a\u8f91\u6d41\u7a0b\u3002\u53ef\u7528\u4e8e\u526a\u8f91\u65e5\u5e38/\u65c5\u884c vlog\uff0c\u6216\u662f\u4efb\u4f55\u7528\u6237\u9700\u6c42\u4e0d\u660e\u786e\u7684\u573a\u666f\u3002A universal editing workflow. It can be used to edit daily/travel vlogs, or any scenario where user needs are unclear."
+},
+{
+"repo": "FireRedTeam/FireRed-OpenStoryline",
+"skill": "speech_rough_cut_skill",
+"path": ".storyline/skills/speech_rough_cut_skill/SKILL.md",
+"bytes": 692,
+"has_scripts": false,
+"has_references": false,
+"description": "\u3010WORKFLOW SKILL\u3011\u6839\u636e\u8f93\u5165\u89c6\u9891\u7684\u97f3\u9891\u4fe1\u606f\u8fdb\u884c\u53e3\u64ad\u7c97\u526a\u3002Rough cut based on audio information from the input video for narration."
+},
+{
+"repo": "FireRedTeam/FireRed-OpenStoryline",
+"skill": "subtitle_imitation_skill",
+"path": ".storyline/skills/subtitle_imitation_skill/SKILL.md",
+"bytes": 2201,
+"has_scripts": false,
+"has_references": false,
+"description": "\u3010CAPABILITY SKILL\u3011\u57fa\u4e8e\u7528\u6237\u63d0\u4f9b\u7684\u53c2\u8003\u6587\u6848\u6837\u672c\uff0c\u5bf9\u89c6\u9891\u7d20\u6750\u5185\u5bb9\u8fdb\u884c\u6df1\u5ea6\u6587\u98ce\u4eff\u5199\uff0c\u751f\u6210\u98ce\u683c\u5316\u811a\u672c\u3002Based on user-provided reference text samples, the video material is deeply rewritten in terms of writing style to generate a stylized script."
+},
+{
+"repo": "bangtutorial/bang-motion",
+"skill": "bang-motion",
+"path": "SKILL.md",
+"bytes": 38985,
+"has_scripts": true,
+"has_references": true,
+"description": "Membangun motion graphic sinematik di browser (promo video, opener, intro, bumper, kinetic typography, explainer/video penjelasan bergambar 16:9 atau 9:16) memakai HTML + CSS + GSAP (+ Three.js bila p"
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-addon-development",
+"path": "skills/blender-addon-development/SKILL.md",
+"bytes": 5450,
+"has_scripts": false,
+"has_references": true,
+"description": "Write Blender 5.3 add-ons as extensions - blender_manifest.toml, operators/panels/menus/property groups/preferences, bpy.props rules after 5.0, undo/redo, modal and timer patterns, gpu drawing (no bgl"
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-core",
+"path": "skills/blender-core/SKILL.md",
+"bytes": 7929,
+"has_scripts": true,
+"has_references": true,
+"description": "Foundation for any Blender 5.2+ task an agent drives - running bpy via MCP (live) or headless CLI, context overrides, locale-safe node lookup, enum discovery, 5.x API changes, verification. Use first "
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-animation",
+"path": "skills/blender-animation/SKILL.md",
+"bytes": 7250,
+"has_scripts": true,
+"has_references": false,
+"description": "Animation in Blender 5.3 - slotted/layered actions and the channelbag API, Python keyframing, F-curves, game loops with pop/hitch checks, NLA clips, pose library, mocap/BVH/Mixamo retargeting with aut"
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-asset-qa",
+"path": "skills/blender-asset-qa/SKILL.md",
+"bytes": 5173,
+"has_scripts": true,
+"has_references": false,
+"description": "Mandatory review gate for any mesh or asset created or edited in Blender. Detects z-fighting, floating/detached parts, inverted or inconsistent normals, non-manifold/open geometry, degenerate faces, d"
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-character-rigging",
+"path": "skills/blender-character-rigging/SKILL.md",
+"bytes": 6736,
+"has_scripts": true,
+"has_references": false,
+"description": "Character rigging in Blender 5.3 - Rigify metarig fit/generate, bone naming/roll/collections, DEF/MCH/control layers, IK/FK, robust skinning (heat + proxy fallback), weight-painting rules, correctives"
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-clothing",
+"path": "skills/blender-clothing/SKILL.md",
+"bytes": 5162,
+"has_scripts": true,
+"has_references": false,
+"description": "Game clothing in Blender 5.3 - garments from body regions (ease offset, thickness), skin-weight transfer, hiding covered body faces, cloth-sim draping for folds, body-morph shape keys on garments, lay"
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-environment-kits",
+"path": "skills/blender-environment-kits/SKILL.md",
+"bytes": 5152,
+"has_scripts": true,
+"has_references": false,
+"description": "Game environments in Blender 5.3 - terrain from noise or heightmaps (erosion, terraces, play areas, slope/height materials, 16-bit heightmaps + splat maps for UE/Unity), biome scatter by slope/height/"
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-export-pipelines",
+"path": "skills/blender-export-pipelines/SKILL.md",
+"bytes": 5387,
+"has_scripts": true,
+"has_references": true,
+"description": "Export from Blender 5.3 with verified presets - Roblox (FBX/glTF, cages, R15, SurfaceAppearance), Unity (FBX, Humanoid), Unreal (FBX skeletal, Nanite, UCX), Godot/web (GLB, meshopt/Draco, WebP), USD. "
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-facial-shapekeys",
+"path": "skills/blender-facial-shapekeys/SKILL.md",
+"bytes": 4865,
+"has_scripts": true,
+"has_references": false,
+"description": "Facial rigs and shape keys in Blender 5.3 - ARKit 52 blendshapes, visemes for lip-sync, sculpting expressions, splitting symmetric shapes into Left/Right, mirroring, corrective and combination shapes,"
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-game-optimization",
+"path": "skills/blender-game-optimization/SKILL.md",
+"bytes": 5898,
+"has_scripts": true,
+"has_references": false,
+"description": "Optimize Blender assets for real-time engines - triangle/material/texture/bone budgets per platform (mobile, Roblox, web, VR, console, PC), LOD chains, decimation modes, mesh cleanup, draw-call reduct"
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-geometry-nodes",
+"path": "skills/blender-geometry-nodes/SKILL.md",
+"bytes": 6504,
+"has_scripts": true,
+"has_references": true,
+"description": "Geometry Nodes in Blender 5.3 - fields, domains, attributes, instancing, zones (simulation/repeat/for-each), closures/bundles, lists, SDF grids, node tools, baking, plus a JSON-to-node-tree builder an"
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-hair-grooming",
+"path": "skills/blender-hair-grooming/SKILL.md",
+"bytes": 5437,
+"has_scripts": true,
+"has_references": false,
+"description": "Hair and fur in Blender 5.3 - hair curves on a surface, guides + interpolated children with the bundled hair node assets (clump, curl, noise, droop), density masks, Principled Hair BSDF (melanin), Cur"
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-hardsurface-modeling",
+"path": "skills/blender-hardsurface-modeling/SKILL.md",
+"bytes": 5891,
+"has_scripts": true,
+"has_references": false,
+"description": "Hard-surface and prop modeling in Blender 5.3 - blockout-to-detail flow, non-destructive modifier stacks (Mirror, Boolean Exact/Manifold, Bevel, Weighted Normal, Smooth by Angle), mid-poly vs subdivis"
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-lighting-lookdev",
+"path": "skills/blender-lighting-lookdev/SKILL.md",
+"bytes": 5371,
+"has_scripts": true,
+"has_references": false,
+"description": "Lighting, cameras and look-dev in Blender 5.3 - studio 3-point and product lighting, HDRI environments, sun/sky exteriors, interiors, light linking, physically based light units, camera focal lengths/"
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-pbr-materials",
+"path": "skills/blender-pbr-materials/SKILL.md",
+"bytes": 6092,
+"has_scripts": true,
+"has_references": true,
+"description": "Physically based materials in Blender 5.3 - metal/roughness rules, Principled BSDF inputs, color spaces (sRGB vs Non-Color), measured albedo/F0 values, texture-set auto-wiring, ORM channel packing, Di"
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-pipeline-automation",
+"path": "skills/blender-pipeline-automation/SKILL.md",
+"bytes": 5006,
+"has_scripts": true,
+"has_references": false,
+"description": "Automate Blender 5.3 at scale - headless CLI flags, batch convert/inventory/run-any-skill-script over folders of .blend/.fbx/.glb/.obj/.usd, sharding, bpy pip module, library linking, path management,"
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-rendering",
+"path": "skills/blender-rendering/SKILL.md",
+"bytes": 5879,
+"has_scripts": true,
+"has_references": false,
+"description": "Render with Blender 5.3 Cycles/EEVEE/Workbench - quality presets, GPU setup, adaptive sampling, denoising, light paths, color management (AgX, Khronos PBR Neutral, ACES), PNG/EXR/MP4 output, passes, t"
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-retopology-uv",
+"path": "skills/blender-retopology-uv/SKILL.md",
+"bytes": 5220,
+"has_scripts": true,
+"has_references": false,
+"description": "Retopology and UVs in Blender 5.3 - auto retopo (Quadriflow, Decimate, planar), deformation edge flow, seams, unwrap (Angle Based, Minimum Stretch, Smart), pixel-margin packing, texel density measure/"
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-scene-setup",
+"path": "skills/blender-scene-setup/SKILL.md",
+"bytes": 5562,
+"has_scripts": true,
+"has_references": false,
+"description": "Set up and audit Blender scenes the way studios do - units and real-world scale, collection layout, naming conventions (SM_/SK_/T_/M_), origins, linking vs appending, library overrides, asset librarie"
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-sculpting",
+"path": "skills/blender-sculpting/SKILL.md",
+"bytes": 5112,
+"has_scripts": true,
+"has_references": true,
+"description": "Sculpting in Blender 5.3 - base-to-detail workflow, voxel remesh, dyntopo, multires, 5.x brush types, masks/face sets, symmetry, plus headless-safe procedural ops for agents (remesh, symmetrize, multi"
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-simulation",
+"path": "skills/blender-simulation/SKILL.md",
+"bytes": 5869,
+"has_scripts": true,
+"has_references": false,
+"description": "Physics in Blender 5.3 - rigid bodies (density mass, shapes, bake to keys), classic cloth presets and pinning, new node-based Cloth/Hair Dynamics (XPBD, Collider, effectors), Mantaflow fluids, hair cu"
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-stylized-npr",
+"path": "skills/blender-stylized-npr/SKILL.md",
+"bytes": 5823,
+"has_scripts": true,
+"has_references": false,
+"description": "Stylized / NPR looks in Blender 5.3 - toon and cel shading (bands, shadow tint, rim, hard specular), anime faces with custom normals, inverted-hull outlines with smoothed outline normals for game engi"
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-texture-baking",
+"path": "skills/blender-texture-baking/SKILL.md",
+"bytes": 5704,
+"has_scripts": true,
+"has_references": false,
+"description": "Bake texture maps in Blender 5.3 Cycles - high-to-low normal maps with cage/extrusion, AO, curvature, ID, thickness, base color/roughness/metallic from procedurals, ORM packing, OpenGL vs DirectX, mar"
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-texturing",
+"path": "skills/blender-texturing/SKILL.md",
+"bytes": 5504,
+"has_scripts": true,
+"has_references": true,
+"description": "Texture authoring in Blender 5.3 - smart-material layers (edge wear, cavity grime, dust, rust, roughness breakup) from curvature/AO masks, z-fight-safe decal and sticker placement, trim sheets, tiling"
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-time-of-day",
+"path": "skills/blender-time-of-day/SKILL.md",
+"bytes": 6810,
+"has_scripts": true,
+"has_references": true,
+"description": "Time of day and atmosphere in Blender 5.3 - measured sky + sun for dawn, morning, noon, golden hour, sunset, blue hour, overcast, night/moonlight with stars and city glow, exposure balance, height fog"
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-video-editing",
+"path": "skills/blender-video-editing/SKILL.md",
+"bytes": 5279,
+"has_scripts": true,
+"has_references": false,
+"description": "Video in Blender 5.3 - Video Sequencer edits from Python (clips, image sequences, crossfades, titles, music fades, proxies, color management, H.264/AAC output) and motion tracking (feature detection, "
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-weather-fx",
+"path": "skills/blender-weather-fx/SKILL.md",
+"bytes": 6630,
+"has_scripts": true,
+"has_references": true,
+"description": "Weather effects in Blender 5.3 - looping Geometry Nodes rain, snow, dust, ash and embers with ground hits and splashes, wet surfaces, puddles with animated ripples, wall streaks, snow cover (shader + "
+},
+{
+"repo": "EL4CTEO/blender-skills",
+"skill": "blender-workflow-recipes",
+"path": "skills/blender-workflow-recipes/SKILL.md",
+"bytes": 8173,
+"has_scripts": false,
+"has_references": false,
+"description": "End-to-end Blender 5.3 playbooks chaining the blender-* skills with QA gates - game props (mid-poly, high-to-low), game characters (sculpt/AI mesh to rigged, animated export), Roblox props/accessories"
+},
+{
+"repo": "qualixar/brief2mp4",
+"skill": "brief2mp4",
+"path": "plugin/skills/brief2mp4/SKILL.md",
+"bytes": 29782,
+"has_scripts": true,
+"has_references": true,
+"description": "Turn a written brief into a finished, checked MP4 motion graphic. Use when asked to make an animation, motion graphic, a video in a named art form or look (claymation, paper cut-out, stop-motion, anim"
+},
+{
+"repo": "Moh4696/cinematic-skill",
+"skill": "cinematic-film",
+"path": "skills/cinematic-film/SKILL.md",
+"bytes": 9607,
+"has_scripts": true,
+"has_references": true,
+"description": "Makes narrated cinematic films entirely from code, on any subject. One continuous camera glides over one designed world of photos, documents, cards, maps with routes and big numbers, with every stamp,"
+},
+{
+"repo": "artemnovitckii/claude-animation-skills",
+"skill": "breakdown",
+"path": "skills/breakdown/SKILL.md",
+"bytes": 3783,
+"has_scripts": false,
+"has_references": false,
+"description": "Makes a 3D exploded-view animation for a reel. A phone floats on a dark studio backdrop, comes apart layer by layer (glass, screen, frame, board and battery, back), and each part gets a thin leader li"
+},
+{
+"repo": "artemnovitckii/claude-animation-skills",
+"skill": "dan-koe",
+"path": "skills/dan-koe/SKILL.md",
+"bytes": 2716,
+"has_scripts": false,
+"has_references": false,
+"description": "Makes Dan Koe style minimal black-and-white line art for a reel. One white dot on pure black grows into a hairline tree that splits in two at every step, the tips light up, a pulse ring and sparks go "
+},
+{
+"repo": "artemnovitckii/claude-animation-skills",
+"skill": "graph",
+"path": "skills/graph/SKILL.md",
+"bytes": 2793,
+"has_scripts": false,
+"has_references": false,
+"description": "Makes a minimal line-graph animation for a reel. A smooth black line draws itself on white (or white on black) while one big number counts up with the tip, then lands on the final value. Use when the "
+},
+{
+"repo": "artemnovitckii/claude-animation-skills",
+"skill": "kurzgesagt",
+"path": "skills/kurzgesagt/SKILL.md",
+"bytes": 3636,
+"has_scripts": false,
+"has_references": false,
+"description": "Makes a Kurzgesagt style flat-vector space explainer shot for a reel. Deep navy-purple space with twinkling stars, flat planets lit from one side with a dark crescent and a soft glow, bright rounded l"
+},
+{
+"repo": "artemnovitckii/claude-animation-skills",
+"skill": "low-poly",
+"path": "skills/low-poly/SKILL.md",
+"bytes": 3401,
+"has_scripts": false,
+"has_references": false,
+"description": "Makes a PS1/N64-era low-poly 3D animation for a reel, in the style of \"low poly shorts\". Chunky low-resolution pixels, wobbly vertices, dithering, flat warm lighting and small yellow captions with a t"
+},
+{
+"repo": "artemnovitckii/claude-animation-skills",
+"skill": "map-route",
+"path": "skills/map-route/SKILL.md",
+"bytes": 3473,
+"has_scripts": false,
+"has_references": false,
+"description": "Makes a 3D map animation for a reel. A clean white city with parks and a river, a coloured route that draws itself from start to destination while the camera follows, a red pin that drops with a bounc"
+},
+{
+"repo": "artemnovitckii/claude-animation-skills",
+"skill": "minecraft",
+"path": "skills/minecraft/SKILL.md",
+"bytes": 2833,
+"has_scripts": false,
+"has_references": false,
+"description": "Makes a Minecraft-style blocky voxel animation for a reel. A cottage builds itself block by block on a grassy hill, about 165 blocks dropping in with a bounce, then the chimney slams in with a puff of"
+},
+{
+"repo": "artemnovitckii/claude-animation-skills",
+"skill": "minimalistic-graphics",
+"path": "skills/minimalistic-graphics/SKILL.md",
+"bytes": 2533,
+"has_scripts": false,
+"has_references": false,
+"description": "Makes a minimal black-and-white line-art animation for a reel. Thin outlined steps rise one by one, a white dot hops up them, and at the top an orbit draws around it and a short second line swaps in. "
+},
+{
+"repo": "artemnovitckii/claude-animation-skills",
+"skill": "stick-figure",
+"path": "skills/stick-figure/SKILL.md",
+"bytes": 5032,
+"has_scripts": false,
+"has_references": false,
+"description": "Makes a code-animated stick-figure explainer reel (9:16, 30 to 45 s) from a question or topic. A bright cartoon world with thick outlines, stick people with big white heads and faces, constant camera "
+},
+{
+"repo": "artemnovitckii/claude-animation-skills",
+"skill": "zach-3d-films",
+"path": "skills/zach-3d-films/SKILL.md",
+"bytes": 1070,
+"has_scripts": false,
+"has_references": false,
+"description": "Makes a 3D cartoon \"what if\" explainer short (9:16) entirely in code with three.js, in the style of Zack D. Films-type videos. The same skill as /zach-d-films under the name used in the reel. Procedur"
+},
+{
+"repo": "artemnovitckii/claude-animation-skills",
+"skill": "zach-d-films",
+"path": "skills/zach-d-films/SKILL.md",
+"bytes": 6902,
+"has_scripts": false,
+"has_references": false,
+"description": "Makes a 3D cartoon \"what if\" explainer short (9:16) in the style of Zack D. Films-type videos, entirely in code with three.js. Procedural cartoon people, props and effects, a blue studio sky, slow-mot"
+},
+{
+"repo": "Vibha-Ramprakash/claude-video-effects",
+"skill": "effects",
+"path": "SKILL.md",
+"bytes": 11456,
+"has_scripts": true,
+"has_references": true,
+"description": "Add any of 51 video effects to a talking-head video (orbit, spotlight, glass widgets, timeline, checklist, headline wall, comment box, phone fan, liquid glass graph, match-cut, iPhone toggles, LED sig"
+},
+{
+"repo": "Moessif/code-video-showcase",
+"skill": "code-video-showcase",
+"path": "SKILL.md",
+"bytes": 17035,
+"has_scripts": true,
+"has_references": true,
+"description": "|"
+},
+{
+"repo": "iart-ai/data-animation-skills",
+"skill": "animated-infographic",
+"path": "skills/animated-infographic/SKILL.md",
+"bytes": 10616,
+"has_scripts": false,
+"has_references": true,
+"description": "This skill should be used when the user asks to \"make an animated infographic\", \"create an infographic video\", \"build an infographic animation\", \"animate an explainer infographic\", \"do a sequenced rev"
+},
+{
+"repo": "iart-ai/data-animation-skills",
+"skill": "chart-animation",
+"path": "skills/chart-animation/SKILL.md",
+"bytes": 10437,
+"has_scripts": false,
+"has_references": true,
+"description": "This skill should be used when the user asks to \"make a bar chart race\", \"turn a CSV into a video\", \"build an animated data visualization\", \"create an animated statistics video\", \"animate a chart/grap"
+},
+{
+"repo": "iart-ai/data-animation-skills",
+"skill": "presentation-video",
+"path": "skills/presentation-video/SKILL.md",
+"bytes": 13570,
+"has_scripts": false,
+"has_references": true,
+"description": "This skill should be used when the user asks to \"make an animated presentation\", \"turn a pitch deck into a video\", \"convert slides/a deck to video\", \"make a presentation video\", \"build a deck video\", "
+},
+{
+"repo": "MakeMyClip/editor",
+"skill": "editor",
+"path": "SKILL.md",
+"bytes": 27780,
+"has_scripts": true,
+"has_references": false,
+"description": "Local, open-source video editor that agents drive with FFmpeg and whisper.cpp. Use when the user wants to edit a video file - cut out silence, pauses or dead air; remove repeated takes or cut words us"
+},
+{
+"repo": "Hainrixz/editor-pro-max",
+"skill": "animated-component-libraries",
+"path": ".agents/skills/animated-component-libraries/SKILL.md",
+"bytes": 22597,
+"has_scripts": true,
+"has_references": true,
+"description": "Pre-built animated React component collections combining Magic UI (150+ TypeScript/Tailwind/Motion components) and React Bits (90+ minimal-dependency animated components). Use this skill when building"
+},
+{
+"repo": "Hainrixz/editor-pro-max",
+"skill": "ffmpeg",
+"path": ".agents/skills/ffmpeg/SKILL.md",
+"bytes": 13125,
+"has_scripts": false,
+"has_references": false,
+"description": "Video and audio processing with FFmpeg. Use for format conversion, resizing, compression, audio extraction, and preparing assets for Remotion. Triggers include converting GIF to MP4, resizing video, e"
+},
+{
+"repo": "Hainrixz/editor-pro-max",
+"skill": "awwwards-animations",
+"path": ".agents/skills/awwwards-animations/SKILL.md",
+"bytes": 17721,
+"has_scripts": false,
+"has_references": true,
+"description": "Professional React animation skill for creating Awwwards/FWA-level animations using GSAP (useGSAP), Motion (Framer Motion), Anime.js, and Lenis. Use when building premium scroll experiences, custom cu"
+},
+{
+"repo": "Hainrixz/editor-pro-max",
+"skill": "explainer-video-guide",
+"path": ".agents/skills/explainer-video-guide/SKILL.md",
+"bytes": 8646,
+"has_scripts": false,
+"has_references": false,
+"description": "Explainer video production guide: scripting, voiceover, visuals, and assembly. Covers script formulas, pacing rules, scene planning, and multi-tool pipelines. Use for: product demos, how-it-works vide"
+},
+{
+"repo": "Hainrixz/editor-pro-max",
+"skill": "motion-designer",
+"path": ".agents/skills/motion-designer/SKILL.md",
+"bytes": 9254,
+"has_scripts": false,
+"has_references": false,
+"description": "Advanced motion designer with decades of After Effects and motion graphics experience, specialized in creating engaging video specifications for Remotion. Use when creating video specs, planning motio"
+},
+{
+"repo": "Hainrixz/editor-pro-max",
+"skill": "playwright-mcp",
+"path": ".agents/skills/playwright-mcp/SKILL.md",
+"bytes": 7826,
+"has_scripts": false,
+"has_references": false,
+"description": "Live browser interaction via Playwright MCP \u2014 navigate pages, click buttons, fill forms, take screenshots."
+},
+{
+"repo": "Hainrixz/editor-pro-max",
+"skill": "remotion-best-practices",
+"path": ".agents/skills/remotion-best-practices/SKILL.md",
+"bytes": 4240,
+"has_scripts": false,
+"has_references": false,
+"description": "Best practices for Remotion - Video creation in React"
+},
+{
+"repo": "Hainrixz/editor-pro-max",
+"skill": "remotion-render",
+"path": ".agents/skills/remotion-render/SKILL.md",
+"bytes": 7935,
+"has_scripts": false,
+"has_references": false,
+"description": "Render videos from React/Remotion component code via inference.sh. Pass TSX code, get MP4. Supports all Remotion APIs: useCurrentFrame, useVideoConfig, spring, interpolate, AbsoluteFill, Sequence. Con"
+},
+{
+"repo": "iart-ai/explainer-video-skills",
+"skill": "diagram-animation",
+"path": "skills/diagram-animation/SKILL.md",
+"bytes": 8391,
+"has_scripts": false,
+"has_references": true,
+"description": "This skill should be used when the user asks to \"animate this diagram\", \"build a flowchart that reveals step by step\", \"animate an architecture/sequence diagram\", \"make a chart animate in\", \"grow the "
+},
+{
+"repo": "iart-ai/explainer-video-skills",
+"skill": "explainer-video",
+"path": "skills/explainer-video/SKILL.md",
+"bytes": 9899,
+"has_scripts": false,
+"has_references": true,
+"description": "This skill should be used when the user asks to \"make an explainer video\", \"turn this into a short explainer\", \"write a script and storyboard for a product video\", \"produce a how-it-works/onboarding v"
+},
+{
+"repo": "iart-ai/explainer-video-skills",
+"skill": "isometric-animation",
+"path": "skills/isometric-animation/SKILL.md",
+"bytes": 11081,
+"has_scripts": false,
+"has_references": true,
+"description": "This skill should be used when the user asks to \"make an isometric animation\", \"build a 2.5D isometric scene\", \"create an isometric infographic\", \"animate an exploded diagram\", \"do an isometric city/s"
+},
+{
+"repo": "iart-ai/explainer-video-skills",
+"skill": "whiteboard-animation",
+"path": "skills/whiteboard-animation/SKILL.md",
+"bytes": 11676,
+"has_scripts": false,
+"has_references": true,
+"description": "This skill should be used when the user asks to \"make a whiteboard animation\", \"draw-on explainer\", \"VideoScribe style\", \"hand-drawn explainer video\", \"animate a sketch being drawn\", \"do a doodle/scri"
+},
+{
+"repo": "iart-ai/explainer-video-skills",
+"skill": "wrapped-video",
+"path": "skills/wrapped-video/SKILL.md",
+"bytes": 12655,
+"has_scripts": false,
+"has_references": true,
+"description": "This skill should be used when the user asks to \"make a Spotify Wrapped style video\", \"build a year in review / year-in-review video\", \"create a personalized data video\", \"generate a recap video\", \"bu"
+},
+{
+"repo": "dmtrKovalenko/fframes",
+"skill": "fframes-video",
+"path": "skills/fframes-video/SKILL.md",
+"bytes": 23564,
+"has_scripts": false,
+"has_references": true,
+"description": ">-"
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "captions-overlay",
+"path": ".agents/skills/captions-overlay/SKILL.md",
+"bytes": 5752,
+"has_scripts": false,
+"has_references": false,
+"description": "Overlay doctrine for captions in HyperFrames videos \u2014 the caption MODEL (drop / rail / embed) and the rule that captions are an OVERLAY composited on top of the film, never a reserved bottom band you "
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "changelog-video",
+"path": ".agents/skills/changelog-video/SKILL.md",
+"bytes": 13411,
+"has_scripts": true,
+"has_references": true,
+"description": "Turn a weekly changelog .md into a finished branded changelog video (square 1080, ~45-60s, Annie VO, animated brand background, mock-UI visualizations, lowkey captions). Use when the user provides a c"
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "cut-the-curve",
+"path": ".agents/skills/cut-the-curve/SKILL.md",
+"bytes": 18590,
+"has_scripts": false,
+"has_references": false,
+"description": "The technique catalog: five velocity-matched SEAMS (zoom-through, INVERSE zoom-through, cut-the-curve, waterfall cut, rack-focus blur-cut) plus the two in-scene techniques \u2014 waterfall ENTRY (staggered"
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "motion-doctrine",
+"path": ".agents/skills/motion-doctrine/SKILL.md",
+"bytes": 11821,
+"has_scripts": true,
+"has_references": true,
+"description": "GATEWAY \u2014 load FIRST before composing any HyperFrames animation or video. The high-level motion law that makes a multi-scene video feel like ONE continuous camera move instead of a stack of independen"
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "oversized-cursor",
+"path": ".agents/skills/oversized-cursor/SKILL.md",
+"bytes": 6567,
+"has_scripts": false,
+"has_references": false,
+"description": "House-style oversized macOS cursor technique for HyperFrames launch videos. Load whenever a scene involves cursors or a pointer-led action, when kicking off a UI scene, when igniting a morph/transitio"
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "seam-craft",
+"path": ".agents/skills/seam-craft/SKILL.md",
+"bytes": 4839,
+"has_scripts": false,
+"has_references": false,
+"description": "Render-correctness doctrine for scene-to-scene seams in HyperFrames launch videos \u2014 the prerequisites that make transitions composite correctly on the master timeline. Load when assembling the master "
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "captions-overlay",
+"path": ".claude/skills/captions-overlay/SKILL.md",
+"bytes": 5752,
+"has_scripts": false,
+"has_references": false,
+"description": "Overlay doctrine for captions in HyperFrames videos \u2014 the caption MODEL (drop / rail / embed) and the rule that captions are an OVERLAY composited on top of the film, never a reserved bottom band you "
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "changelog-video",
+"path": ".claude/skills/changelog-video/SKILL.md",
+"bytes": 13411,
+"has_scripts": true,
+"has_references": true,
+"description": "Turn a weekly changelog .md into a finished branded changelog video (square 1080, ~45-60s, Annie VO, animated brand background, mock-UI visualizations, lowkey captions). Use when the user provides a c"
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "cut-the-curve",
+"path": ".claude/skills/cut-the-curve/SKILL.md",
+"bytes": 18590,
+"has_scripts": false,
+"has_references": false,
+"description": "The technique catalog: five velocity-matched SEAMS (zoom-through, INVERSE zoom-through, cut-the-curve, waterfall cut, rack-focus blur-cut) plus the two in-scene techniques \u2014 waterfall ENTRY (staggered"
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "motion-doctrine",
+"path": ".claude/skills/motion-doctrine/SKILL.md",
+"bytes": 11821,
+"has_scripts": true,
+"has_references": true,
+"description": "GATEWAY \u2014 load FIRST before composing any HyperFrames animation or video. The high-level motion law that makes a multi-scene video feel like ONE continuous camera move instead of a stack of independen"
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "oversized-cursor",
+"path": ".claude/skills/oversized-cursor/SKILL.md",
+"bytes": 6567,
+"has_scripts": false,
+"has_references": false,
+"description": "House-style oversized macOS cursor technique for HyperFrames launch videos. Load whenever a scene involves cursors or a pointer-led action, when kicking off a UI scene, when igniting a morph/transitio"
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "seam-craft",
+"path": ".claude/skills/seam-craft/SKILL.md",
+"bytes": 4839,
+"has_scripts": false,
+"has_references": false,
+"description": "Render-correctness doctrine for scene-to-scene seams in HyperFrames launch videos \u2014 the prerequisites that make transitions composite correctly on the master timeline. Load when assembling the master "
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "canopy-part-title",
+"path": "registry/blocks/canopy-part-title/SKILL.md",
+"bytes": 4271,
+"has_scripts": false,
+"has_references": true,
+"description": "Leaves sweep through the frame and part to reveal the headline. HyperFrames block, 1920\u00d71080, 12s, 11 variables."
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "code-slice-hero",
+"path": "registry/blocks/code-slice-hero/SKILL.md",
+"bytes": 5028,
+"has_scripts": false,
+"has_references": true,
+"description": "A tiled headline surface flips cell by cell under a sweeping depth field to reveal the rear headline. HyperFrames block, 1920\u00d71080, 8s, 18 variables."
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "cuboid-carousel",
+"path": "registry/blocks/cuboid-carousel/SKILL.md",
+"bytes": 7357,
+"has_scripts": false,
+"has_references": true,
+"description": "A chain of bevelled cuboids rides a travelling wave as a content carousel. HyperFrames block, 1920\u00d71080, 6.666666666666667s, 40 variables."
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "frost-sequence-camera-orbit",
+"path": "registry/blocks/frost-sequence-camera-orbit/SKILL.md",
+"bytes": 38778,
+"has_scripts": false,
+"has_references": true,
+"description": "An orbiting camera follows an ice logo as it breaks apart, reforms into two text moments, and fades. HyperFrames block, 1920\u00d71080, 22.5s, 216 variables."
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "glass-shard-title",
+"path": "registry/blocks/glass-shard-title/SKILL.md",
+"bytes": 5610,
+"has_scripts": false,
+"has_references": true,
+"description": "Glass shards fly in through fog and tile themselves into the headline. HyperFrames block, 1920\u00d71080, 12.16s, 19 variables."
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "orbit-card",
+"path": "registry/blocks/orbit-card/SKILL.md",
+"bytes": 3813,
+"has_scripts": false,
+"has_references": true,
+"description": "A single feature card orbits a dot sphere on approved Blender camera motion. HyperFrames block, 1920\u00d71080, 10s, 4 variables."
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "wireframe-portal-title",
+"path": "registry/blocks/wireframe-portal-title/SKILL.md",
+"bytes": 4495,
+"has_scripts": false,
+"has_references": true,
+"description": "A wireframe portal bursts open, the title comes through, then its letters swap into a second phrase. HyperFrames block, 1920\u00d71080, 8s, 9 variables."
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "SKILL.md",
+"path": "scripts/fixtures/registry-pinned-command/SKILL.md",
+"bytes": 56,
+"has_scripts": false,
+"has_references": false,
+"description": ""
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "figma",
+"path": "skills/figma/SKILL.md",
+"bytes": 6531,
+"has_scripts": true,
+"has_references": false,
+"description": "Bring Figma into a HyperFrames video - rendered assets, brand tokens, components, storyboard frames as reconstructed motion (frames read as states, not slides), shaders and connector-assisted motion. "
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "hyperframes-cli",
+"path": "skills/hyperframes-cli/SKILL.md",
+"bytes": 8094,
+"has_scripts": false,
+"has_references": true,
+"description": "HyperFrames CLI - scaffold, check frames, edit timelines, preview, render, share and project history; read JSON and recover from failures."
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "hyperframes-registry",
+"path": "skills/hyperframes-registry/SKILL.md",
+"bytes": 4759,
+"has_scripts": false,
+"has_references": true,
+"description": "About 450 ready-made HyperFrames blocks and components installed as editable source - transitions, overlays, titles, kinetic type, captions, charts, map overlays, 3D, camera moves. Use it before hand-"
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "hyperframes",
+"path": "skills/hyperframes/SKILL.md",
+"bytes": 7721,
+"has_scripts": true,
+"has_references": true,
+"description": "Read first to make, edit, animate or render any video with HyperFrames (HTML rendered to video), including launch films, explainers, music videos, charts, maps, vertical clips, title cards, captions a"
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "media-use",
+"path": "skills/media-use/SKILL.md",
+"bytes": 5489,
+"has_scripts": true,
+"has_references": true,
+"description": "Get or make any media for a HyperFrames video - music, sound effects, images, icons, logos, voiceover, avatar and generated video, transcripts, cutouts, colour grades and looks - with HeyGen or free l"
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "remotion-to-hyperframes",
+"path": "skills/remotion-to-hyperframes/SKILL.md",
+"bytes": 5366,
+"has_scripts": true,
+"has_references": true,
+"description": "Bring existing video code or footage into HyperFrames and verify it frame by frame against the original - Remotion first, also Motion Canvas, Lottie, Three.js, p5.js, canvas or plain HTML/CSS animatio"
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "reverse-any-video",
+"path": "skills/reverse-any-video/SKILL.md",
+"bytes": 5425,
+"has_scripts": false,
+"has_references": true,
+"description": "Rebuild any video file as an editable HyperFrames project - motion graphics, talking heads, live action or AI-generated footage - checked against the original frame by frame. Use to reverse, recreate,"
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "slideshow",
+"path": "skills/slideshow/SKILL.md",
+"bytes": 5254,
+"has_scripts": false,
+"has_references": true,
+"description": "Build a HyperFrames slideshow to present live - slides, fragment reveals, branching hotspots and presenter mode with speaker notes, served by `hyperframes present` - or turn an existing page into one."
+},
+{
+"repo": "heygen-com/hyperframes",
+"skill": "style-sampling",
+"path": "skills/style-sampling/SKILL.md",
+"bytes": 5376,
+"has_scripts": false,
+"has_references": true,
+"description": "Make a new episode in a proven video style - Collage Explainer, Finance Explainer, Animated Science Explainer, 3D Brand Explainer, 3D True Crime - on the person's topic. Use for \"an episode of\", \"in t"
+},
+{
+"repo": "leodavincs/kalem",
+"skill": "kalem",
+"path": ".claude/skills/kalem/SKILL.md",
+"bytes": 5819,
+"has_scripts": false,
+"has_references": false,
+"description": "Kodla video yaparken her sahnenin hangi motorla \u00e7izilece\u011fine karar verir, sahneleri o motorlarla \u00fcretir, sayfa \u00e7evirme gibi ge\u00e7i\u015flerle birle\u015ftirir ve kareye kilitli efekt sesi ekler. \"kodla video yap\""
+},
+{
+"repo": "leodavincs/kalem",
+"skill": "referans",
+"path": ".claude/skills/referans/SKILL.md",
+"bytes": 3899,
+"has_scripts": false,
+"has_references": false,
+"description": "Be\u011fenilen bir videoyu sahnelere b\u00f6ler, her sahneden kare \u00e7\u0131kar\u0131r, kareleri g\u00f6r\u00fcp her sahne i\u00e7in ayr\u0131 bir \u0130ngilizce video istemi (prompt) yazar. \u00c7\u0131kt\u0131 istemler.md ve kopyala d\u00fc\u011fmeli istemler.html. Vide"
+},
+{
+"repo": "iart-ai/kinetic-typography-skills",
+"skill": "kinetic-typography",
+"path": "skills/kinetic-typography/SKILL.md",
+"bytes": 7751,
+"has_scripts": false,
+"has_references": true,
+"description": "This skill should be used when the user asks to \"animate a headline\", \"make a kinetic typography video\", \"do a split-text reveal\", \"stagger text by character/word/line\", \"make a lyric or caption video"
+},
+{
+"repo": "cclank/lanshu-create-ai-presenter-video",
+"skill": "lanshu-create-ai-presenter-video",
+"path": "SKILL.md",
+"bytes": 14891,
+"has_scripts": true,
+"has_references": true,
+"description": ">-"
+},
+{
+"repo": "JDhruv14/line-art-animation",
+"skill": "line-art-animation",
+"path": "SKILL.md",
+"bytes": 6500,
+"has_scripts": true,
+"has_references": true,
+"description": "Build animated line-art components in SVG and TypeScript \u2014 thin ink lines on paper, people and animals that walk, run, cycle and react, scenes with wind, lit windows and a day/night cycle, exported to"
+},
+{
+"repo": "diffusionstudio/lottie",
+"skill": "text-to-lottie",
+"path": "skills/text-to-lottie/SKILL.md",
+"bytes": 9857,
+"has_scripts": false,
+"has_references": true,
+"description": "Create, edit, or fix Lottie/Bodymovin JSON animations for the local Skia Skottie player. Use for text-to-Lottie, SVG/logo/type animation, loaders/icons, state feedback, UI microinteractions, lower thi"
+},
+{
+"repo": "adithya-s-k/manim_skill",
+"skill": "manim-composer",
+"path": "skills/manim-composer/SKILL.md",
+"bytes": 4700,
+"has_scripts": false,
+"has_references": true,
+"description": "|"
+},
+{
+"repo": "adithya-s-k/manim_skill",
+"skill": "manimce-best-practices",
+"path": "skills/manimce-best-practices/SKILL.md",
+"bytes": 5926,
+"has_scripts": false,
+"has_references": false,
+"description": "|"
+},
+{
+"repo": "adithya-s-k/manim_skill",
+"skill": "manimgl-best-practices",
+"path": "skills/manimgl-best-practices/SKILL.md",
+"bytes": 7439,
+"has_scripts": false,
+"has_references": true,
+"description": "|"
+},
+{
+"repo": "iart-ai/motion-design-skills",
+"skill": "after-effects",
+"path": "skills/after-effects/SKILL.md",
+"bytes": 7346,
+"has_scripts": true,
+"has_references": true,
+"description": "This skill should be used when the user asks anything about Adobe After Effects \u2014 to \"write an After Effects expression\", \"make a wiggle / loopOut / inertial bounce\", \"rig a control with a slider / nu"
+},
+{
+"repo": "iart-ai/motion-design-skills",
+"skill": "animation-principles",
+"path": "skills/animation-principles/SKILL.md",
+"bytes": 8485,
+"has_scripts": false,
+"has_references": true,
+"description": "This skill should be used when the user asks to \"make this animation feel natural\", \"fix motion that feels stiff/floaty/cheap\", \"my animation looks robotic\", \"choose an easing curve\", \"how do I use th"
+},
+{
+"repo": "iart-ai/motion-design-skills",
+"skill": "beat-sync-editing",
+"path": "skills/beat-sync-editing/SKILL.md",
+"bytes": 13728,
+"has_scripts": false,
+"has_references": true,
+"description": "This skill should be used when the user asks to \"cut to the beat\", \"fix the pacing\", \"edit this sequence\", \"sync cuts to music/BPM\", \"add a match cut / J-cut / L-cut\", \"build a speed ramp\", or \"plan a"
+},
+{
+"repo": "iart-ai/motion-design-skills",
+"skill": "color-motion",
+"path": "skills/color-motion/SKILL.md",
+"bytes": 11862,
+"has_scripts": false,
+"has_references": true,
+"description": "This skill should be used when the user asks to \"build a color palette for a motion piece\", \"make a gradient background\", \"animate a color transition\", \"interpolate colors smoothly\", \"fix muddy/gray g"
+},
+{
+"repo": "iart-ai/motion-design-skills",
+"skill": "logo-animation",
+"path": "skills/logo-animation/SKILL.md",
+"bytes": 7965,
+"has_scripts": false,
+"has_references": true,
+"description": "This skill should be used when the user asks to \"animate our logo\", \"make a logo intro/stinger\", \"build a brand reveal\", \"create an app splash animation\", \"loop a loader logo\", \"draw on our SVG mark\","
+},
+{
+"repo": "iart-ai/motion-design-skills",
+"skill": "motion-art-direction",
+"path": "skills/motion-art-direction/SKILL.md",
+"bytes": 7503,
+"has_scripts": false,
+"has_references": true,
+"description": "This skill should be used when the user asks to \"direct a motion graphics video\", \"do creative/art direction for a video\", \"define a motion language\", \"set the tone and pacing\", \"make the animation fe"
+},
+{
+"repo": "iart-ai/motion-design-skills",
+"skill": "motion-background",
+"path": "skills/motion-background/SKILL.md",
+"bytes": 11906,
+"has_scripts": false,
+"has_references": true,
+"description": "This skill should be used when the user asks to \"add an animated background\", \"build a mesh/gradient background\", \"make an aurora/shader background\", \"add constellation/particle background\", \"animated"
+},
+{
+"repo": "iart-ai/motion-design-skills",
+"skill": "remotion-video",
+"path": "skills/remotion-video/SKILL.md",
+"bytes": 9189,
+"has_scripts": false,
+"has_references": true,
+"description": "This skill should be used when the user asks to \"make a video with Remotion\", \"create a programmatic/data-driven video in React\", \"render an MP4/GIF from code\", \"animate with useCurrentFrame/interpola"
+},
+{
+"repo": "iart-ai/motion-design-skills",
+"skill": "shot-composition",
+"path": "skills/shot-composition/SKILL.md",
+"bytes": 12866,
+"has_scripts": false,
+"has_references": true,
+"description": "This skill should be used when the user asks to \"compose a frame\", \"set up a grid\", \"plan shot composition\", \"place the focal point\", \"decide where elements enter and exit\", \"add a parallax/camera mov"
+},
+{
+"repo": "charlie947/motion-graphics-skills",
+"skill": "animated-chart",
+"path": "skills/animated-chart/SKILL.md",
+"bytes": 2840,
+"has_scripts": false,
+"has_references": false,
+"description": "Make a looping animated chart for LinkedIn or a newsletter in code with Claude Code. Bars that become a line, a number that counts up, a before and after. Every value stays exactly as given. Use when "
+},
+{
+"repo": "charlie947/motion-graphics-skills",
+"skill": "apple-launch-film",
+"path": "skills/apple-launch-film/SKILL.md",
+"bytes": 4322,
+"has_scripts": false,
+"has_references": false,
+"description": "Rebuild an Apple-style Mac launch film entirely in code with Claude Code. A thin menu bar, the black notch growing into widgets one scene at a time, full-screen gradient wallpapers and one short capti"
+},
+{
+"repo": "charlie947/motion-graphics-skills",
+"skill": "brand-intake",
+"path": "skills/brand-intake/SKILL.md",
+"bytes": 4723,
+"has_scripts": false,
+"has_references": false,
+"description": "The setup step every other skill in this pack reads. A short interview plus 3 to 5 reference frames becomes two files in your project, brand.md (who you are, what you sell, your assets) and MOTION.md "
+},
+{
+"repo": "charlie947/motion-graphics-skills",
+"skill": "launch-video",
+"path": "skills/launch-video/SKILL.md",
+"bytes": 4488,
+"has_scripts": false,
+"has_references": false,
+"description": "Make a 30-45 second product launch video in code with Claude Code, the kind SaaS companies post on launch day. One sentence split across scenes, real product screens with slow camera moves, a typed pr"
+},
+{
+"repo": "charlie947/motion-graphics-skills",
+"skill": "loop-cover",
+"path": "skills/loop-cover/SKILL.md",
+"bytes": 3753,
+"has_scripts": false,
+"has_references": false,
+"description": "Turn a newsletter or blog cover into a seamless looping GIF at 896 x 640, 180 frames at 20fps. Only the one element you name moves, the loop is rotated so frame 1 shows the finished picture, and the s"
+},
+{
+"repo": "charlie947/motion-graphics-skills",
+"skill": "milestone-reveal",
+"path": "skills/milestone-reveal/SKILL.md",
+"bytes": 4119,
+"has_scripts": false,
+"has_references": false,
+"description": "Make a 12-second looping milestone clip in code with Claude Code. Thousands of tiny points drift like a night sky, pull together into your real number (followers, subscribers, revenue, customers), a l"
+},
+{
+"repo": "charlie947/motion-graphics-skills",
+"skill": "model-showdown",
+"path": "skills/model-showdown/SKILL.md",
+"bytes": 4282,
+"has_scripts": false,
+"has_references": false,
+"description": "Give the same motion brief to three AI models, keep each first try, render all three the same way and stack them into one comparison video with model names and logos. Makes a 16:9 side-by-side for a n"
+},
+{
+"repo": "charlie947/motion-graphics-skills",
+"skill": "motion-brief-writer",
+"path": "skills/motion-brief-writer/SKILL.md",
+"bytes": 4561,
+"has_scripts": false,
+"has_references": false,
+"description": "Turns a rough idea for an animated graphic into a precise build brief for Claude Code, in your own brand. Asks for anything essential first (exact numbers, size, length, brand), keeps real results apa"
+},
+{
+"repo": "charlie947/motion-graphics-skills",
+"skill": "motion-effects",
+"path": "skills/motion-effects/SKILL.md",
+"bytes": 8343,
+"has_scripts": false,
+"has_references": true,
+"description": "Build any of 16 premium motion effects from scratch in your own brand, as one 8-second looping HTML file with window.seek(seconds) so it exports frame-exact to MP4 or GIF. Interfaces (button to player"
+},
+{
+"repo": "charlie947/motion-graphics-skills",
+"skill": "motion-prompt-writer",
+"path": "skills/motion-prompt-writer/SKILL.md",
+"bytes": 4880,
+"has_scripts": false,
+"has_references": false,
+"description": "Write a complete 8-part Claude Motion prompt (The bar, Format, The one rule, Look, Motion, Never, Before you finish, The scene) for one short looping motion graphic, in your own brand. Takes your bran"
+},
+{
+"repo": "charlie947/motion-graphics-skills",
+"skill": "newsletter-promo",
+"path": "skills/newsletter-promo/SKILL.md",
+"bytes": 2517,
+"has_scripts": false,
+"has_references": false,
+"description": "Turn a newsletter edition into a 12-20 second promo clip for LinkedIn, Instagram or X that drives people to read and subscribe. Hook question, three proof frames from the edition, then the newsletter "
+},
+{
+"repo": "charlie947/motion-graphics-skills",
+"skill": "reel-export",
+"path": "skills/reel-export/SKILL.md",
+"bytes": 3324,
+"has_scripts": false,
+"has_references": false,
+"description": "Turn any horizontal or square motion video into a 1080 x 1920 Instagram Reel or TikTok that uploads cleanly. Headline and logos inside the safe zone, H.264, yuv420p, limited colour range, bt709, a sil"
+},
+{
+"repo": "charlie947/motion-graphics-skills",
+"skill": "reference-to-motion",
+"path": "skills/reference-to-motion/SKILL.md",
+"bytes": 3405,
+"has_scripts": false,
+"has_references": false,
+"description": "Turn references you admire into a scene-by-scene Claude Motion prompt for your own topic and brand. Takes a video for the moves (screenshots, frames or a contact sheet of a reel or ad) and, optionally"
+},
+{
+"repo": "charlie947/motion-graphics-skills",
+"skill": "title-sequence-3d",
+"path": "skills/title-sequence-3d/SKILL.md",
+"bytes": 3747,
+"has_scripts": false,
+"has_references": false,
+"description": "Make a cinematic 3D title sequence (8-15 seconds) in code with Claude Code and Three.js. A camera moves through a lit scene, such as a rainy street at night with brand names as neon signs, then a big "
+},
+{
+"repo": "charlie947/motion-graphics-skills",
+"skill": "vox-explainer",
+"path": "skills/vox-explainer/SKILL.md",
+"bytes": 5957,
+"has_scripts": false,
+"has_references": false,
+"description": "Make a short Vox-style documentary explainer (30-60 seconds) entirely in code with Claude Code. Torn paper, halftone texture, bold condensed type, motion on twos. Use when someone says \"make a Vox-sty"
+},
+{
+"repo": "echris6/motion-video-kit",
+"skill": "business-motion-film",
+"path": "business-motion-film/SKILL.md",
+"bytes": 8009,
+"has_scripts": true,
+"has_references": true,
+"description": "Plan, build and quality-check a premium short commercial for a real business (roofing, property, ecommerce, B2B software) using AI-generated footage, code-built motion (HTML/GSAP), selective Three.js "
+},
+{
+"repo": "staryone/motlab",
+"skill": "motlab-assets",
+"path": "skills/motlab-assets/SKILL.md",
+"bytes": 10590,
+"has_scripts": true,
+"has_references": true,
+"description": "Make reusable assets as code for motlab videos, without any AI image, video or 3D generator: icons, illustrations, vector logos, rigged 2D characters, 3D objects, transitions, textures and backgrounds"
+},
+{
+"repo": "staryone/motlab",
+"skill": "motlab",
+"path": "skills/motlab/SKILL.md",
+"bytes": 26357,
+"has_scripts": true,
+"has_references": true,
+"description": "Make and edit videos as code with the motlab engine, with no AI video or image generation: product and app ads, logo animations, explainers, tutorials, screen-recording and footage edits, social clips"
+},
+{
+"repo": "NarratorAI-Studio/narrator-ai-cli-skill",
+"skill": "narrator-ai-cli",
+"path": "SKILL.md",
+"bytes": 18107,
+"has_scripts": false,
+"has_references": true,
+"description": ">-"
+},
+{
+"repo": "Moh4696/open-3d-skills",
+"skill": "alpha-cutout",
+"path": "skills/alpha-cutout/SKILL.md",
+"bytes": 6918,
+"has_scripts": true,
+"has_references": true,
+"description": "Turns an AI-generated (or filmed) clip of a character or product into a transparent, web-ready animation by shooting it on a flat chroma plate and keying it with per-frame plate measurement and edge u"
+},
+{
+"repo": "Moh4696/open-3d-skills",
+"skill": "cursor-rig",
+"path": "skills/cursor-rig/SKILL.md",
+"bytes": 6651,
+"has_scripts": true,
+"has_references": true,
+"description": "Makes a painted or illustrated character turn its head to follow the visitor's cursor, looking like one continuous painting that moves, without a 3D model or face tracking. Generates head-pose keyfram"
+},
+{
+"repo": "Moh4696/open-3d-skills",
+"skill": "exploded-view",
+"path": "skills/exploded-view/SKILL.md",
+"bytes": 6203,
+"has_scripts": false,
+"has_references": true,
+"description": "Builds interactive 3D explainers of how a machine or product works, in three.js, with a staged exploded view driven by a slider or scroll, x-ray shells, a section cut through the casing, labels pinned"
+},
+{
+"repo": "Moh4696/open-3d-skills",
+"skill": "frame-capture",
+"path": "skills/frame-capture/SKILL.md",
+"bytes": 7131,
+"has_scripts": true,
+"has_references": false,
+"description": "Records any web page (three.js, WebGL, canvas, GSAP, CSS animation, scroll-driven video) to a perfectly smooth 60 fps MP4 by running the page on a virtual clock, one exact frame at a time, and puts tw"
+},
+{
+"repo": "Moh4696/open-3d-skills",
+"skill": "motion-assets",
+"path": "skills/motion-assets/SKILL.md",
+"bytes": 6316,
+"has_scripts": true,
+"has_references": false,
+"description": "Plans and generates the images and video clips an animated website needs with AI image and video models, without wasting money. Covers proposing the concept and asset list with exact prompts and costs"
+},
+{
+"repo": "Moh4696/open-3d-skills",
+"skill": "scroll-film",
+"path": "skills/scroll-film/SKILL.md",
+"bytes": 7404,
+"has_scripts": true,
+"has_references": true,
+"description": "Builds scroll-scrubbed film sections, where scrolling plays a pre-rendered camera move, a product turning, a liquid pour or a fly-through one exact frame at a time, from AI-generated or rendered clips"
+},
+{
+"repo": "Moh4696/open-3d-skills",
+"skill": "site-check",
+"path": "skills/site-check/SKILL.md",
+"bytes": 5619,
+"has_scripts": true,
+"has_references": false,
+"description": "Verifies a 3D or animated web page in real headless browsers before anyone else sees it. Shoots every view, light state and scroll position at desktop, tablet and phone widths in Chromium and WebKit ("
+},
+{
+"repo": "Moh4696/open-3d-skills",
+"skill": "threejs-scene",
+"path": "skills/threejs-scene/SKILL.md",
+"bytes": 9637,
+"has_scripts": false,
+"has_references": true,
+"description": "Builds real-time 3D websites in three.js from code alone, with no model files. Covers buildings and landmarks, vehicles, machines, landscapes and product studies made of procedural geometry (profile s"
+},
+{
+"repo": "nolangz/pixel2motion",
+"skill": "pixel2motion",
+"path": "SKILL.md",
+"bytes": 28416,
+"has_scripts": true,
+"has_references": true,
+"description": "Turn a raster logo (PNG/JPG/WebP/screenshot) into a clean minimal SVG with edge smoothness as the primary hard gate and IoU optimized as high as reasonably possible without a fixed global threshold, t"
+},
+{
+"repo": "jtydhr88/screenwriting-skills",
+"skill": "chekhov-dramaturgy",
+"path": "plugins/screenwriting/skills/chekhov-dramaturgy/SKILL.md",
+"bytes": 13960,
+"has_scripts": false,
+"has_references": false,
+"description": "Writing plays and screenplays in the Chekhovian mode (\u5951\u8bc3\u592b\u620f\u5267\u6cd5) \u2014 distilled from the complete plays (\u6ca1\u6709\u7236\u4eb2\u7684\u4eba/\u666e\u62c9\u4e1c\u8bfa\u592b, \u4f0a\u51e1\u8bfa\u592b, \u6797\u5996\u2192\u4e07\u5c3c\u4e9a\u8205\u8205, \u6d77\u9e25, \u4e09\u59ca\u59b9, \u6a31\u6843\u56ed, nine one-acts) plus Chekhov's own letters, Stanislavsky's"
+},
+{
+"repo": "jtydhr88/screenwriting-skills",
+"skill": "ozu-screenplay-style",
+"path": "plugins/screenwriting/skills/ozu-screenplay-style/SKILL.md",
+"bytes": 11660,
+"has_scripts": false,
+"has_references": false,
+"description": "Writing screenplays in the style of Ozu Yasujiro and Noda Kogo (\u5c0f\u6d25\u5b89\u4e8c\u90ce\u30fb\u91ce\u7530\u9ad8\u68a7) \u2014 distilled from six complete screenplays (\u665a\u6625 Late Spring, \u9ea6\u79cb Early Summer, \u4e1c\u4eac\u7269\u8bed Tokyo Story, \u6d6e\u8349 Floating Weeds, \u79cb\u65e5\u548c Late Au"
+},
+{
+"repo": "jtydhr88/screenwriting-skills",
+"skill": "succession-series-writing",
+"path": "plugins/screenwriting/skills/succession-series-writing/SKILL.md",
+"bytes": 18691,
+"has_scripts": false,
+"has_references": false,
+"description": "Writing a Succession-style ensemble series (\u7ee7\u627f\u4e4b\u6218\u7fa4\u50cf\u5267\u5199\u6cd5) \u2014 distilled from Jesse Armstrong's complete shooting scripts for all four seasons, 39 episodes (Faber 2023), with his introductions and footnotes"
+},
+{
+"repo": "jtydhr88/screenwriting-skills",
+"skill": "sw-american-case-studies",
+"path": "plugins/screenwriting/skills/sw-american-case-studies/SKILL.md",
+"bytes": 9850,
+"has_scripts": false,
+"has_references": false,
+"description": "Case studies of American screenwriting (\u7f8e\u56fd\u7535\u5f71\u5267\u4f5c\u6848\u4f8b) \u2014 Mei Feng's readings of the Hollywood Western (value pairs, four oppositions), screwball comedy (strong heroine, buddy vs adversary two-hander), Bill"
+},
+{
+"repo": "jtydhr88/screenwriting-skills",
+"skill": "sw-character-bio",
+"path": "plugins/screenwriting/skills/sw-character-bio/SKILL.md",
+"bytes": 16543,
+"has_scripts": false,
+"has_references": false,
+"description": "Character bios and cast lists as documents (\u4eba\u7269\u5c0f\u4f20/\u4eba\u7269\u8868/\u4eba\u7269\u8bbe\u8ba1/character bio/character breakdown) \u2014 three things; the delivery formats (three-dimension paragraphs, prose, checklist, causal bullet chain, on"
+},
+{
+"repo": "jtydhr88/screenwriting-skills",
+"skill": "sw-character-conflict",
+"path": "plugins/screenwriting/skills/sw-character-conflict/SKILL.md",
+"bytes": 12090,
+"has_scripts": false,
+"has_references": false,
+"description": "Character creation, protagonist/antagonist design and dramatic conflict for scripts (\u4eba\u7269/\u5bf9\u624b/\u51b2\u7a81) \u2014 merged from Lajos Egri (three-dimensional character, orchestration, unity of opposites, pivotal charact"
+},
+{
+"repo": "jtydhr88/screenwriting-skills",
+"skill": "sw-chinese-opera-banqiang-cases",
+"path": "plugins/screenwriting/skills/sw-chinese-opera-banqiang-cases/SKILL.md",
+"bytes": 15836,
+"has_scripts": false,
+"has_references": false,
+"description": "Worked full-length scripts of banqiang-system Chinese opera with their creation records (\u677f\u8154\u4f53\u5168\u672c\u8bed\u6599\u5e93). Primary texts; \u7fc1\u5076\u8679\u300a\u9501\u9e9f\u56ca\u300b (the revised score edition, 65 arias, 15 self-account-vs-score checks), \u6c6a\u66fe\u797a\u7b49"
+},
+{
+"repo": "jtydhr88/screenwriting-skills",
+"skill": "sw-chinese-opera-banqiang",
+"path": "plugins/screenwriting/skills/sw-chinese-opera-banqiang/SKILL.md",
+"bytes": 18052,
+"has_scripts": false,
+"has_references": false,
+"description": "Playwriting for banqiang-system Chinese opera (\u677f\u8154\u4f53\uff1a\u4eac\u5267\u3001\u8c6b\u5267\u3001\u8d8a\u5267\u3001\u79e6\u8154\u3001\u8bc4\u5267\u3001\u6caa\u5267\u3001\u6dee\u5267\u3001\u5ddd\u5267\u5f39\u620f), where sung passages are paired seven- or ten-character lines varied by metre (\u677f\u5f0f) rather than filled into fixed tune patt"
+},
+{
+"repo": "jtydhr88/screenwriting-skills",
+"skill": "sw-chinese-opera-qupai-cases",
+"path": "plugins/screenwriting/skills/sw-chinese-opera-qupai-cases/SKILL.md",
+"bytes": 16908,
+"has_scripts": false,
+"has_references": false,
+"description": "Worked qupai-system (\u66f2\u724c\u4f53) opera scripts, act by act. Guan Hanqing's three surviving zaju (\u7aa6\u5a25\u51a4\uff0f\u6551\u98ce\u5c18\uff0f\u91d1\u7ebf\u6c60 \u2014 twelve acts, 126 tunes, one mode and one rhyme per act, sung/spoken ratios); Tang Xianzu's \u7261\u4e39\u4ead ("
+},
+{
+"repo": "jtydhr88/screenwriting-skills",
+"skill": "sw-chinese-opera-qupai",
+"path": "plugins/screenwriting/skills/sw-chinese-opera-qupai/SKILL.md",
+"bytes": 16317,
+"has_scripts": false,
+"has_references": false,
+"description": "Chinese opera playwriting for the qupai (\u66f2\u724c\u4f53) system \u2014 \u5143\u6742\u5267, \u660e\u6e05\u4f20\u5947, \u6606\u66f2, \u5ddd\u5267\u9ad8\u8154, where sung text is filled into fixed tune patterns (\u586b\u8bcd) rather than built from paired lines varied by metre. Covers stage vs"
+},
+{
+"repo": "jtydhr88/screenwriting-skills",
+"skill": "sw-chinese-series-practice",
+"path": "plugins/screenwriting/skills/sw-chinese-series-practice/SKILL.md",
+"bytes": 20064,
+"has_scripts": false,
+"has_references": false,
+"description": "Mainland-Chinese TV-series craft, documents and production chain (\u56fd\u4ea7\u5267\u521b\u4f5c\u4f53\u7cfb\u4e0e\u5236\u7247\u94fe) \u2014 the China layer parallel to the Japanese and Korean/French skills. Distilled from Yao Kougen \u59da\u6263\u6839\u300a\u7535\u89c6\u5267\u5199\u4f5c\u6982\u8bba\u300b(2016; series "
+},
+{
+"repo": "jtydhr88/screenwriting-skills",
+"skill": "sw-dialogue",
+"path": "plugins/screenwriting/skills/sw-dialogue/SKILL.md",
+"bytes": 9873,
+"has_scripts": false,
+"has_references": false,
+"description": "Dialogue writing and revision for screen and stage (\u5bf9\u767d/\u53f0\u8bcd/\u6f5c\u53f0\u8bcd) \u2014 merged from Robert McKee's Dialogue (dialogue as action, said/unsaid/unsayable, exposition as ammunition, beat = action/reaction gerund"
+},
+{
+"repo": "jtydhr88/screenwriting-skills",
+"skill": "sw-format-adaptation",
+"path": "plugins/screenwriting/skills/sw-format-adaptation/SKILL.md",
+"bytes": 13797,
+"has_scripts": false,
+"has_references": false,
+"description": "Screenplay format, page craft, the writing process and adaptation (\u5267\u672c\u683c\u5f0f/\u5199\u4f5c\u6d41\u7a0b/\u6539\u7f16) \u2014 merged from Wendy Henson (spec format rules), Richard Walter (page craft, revision), Neill Hicks (selling vs shooting"
+},
+{
+"repo": "jtydhr88/screenwriting-skills",
+"skill": "sw-genre-anatomy",
+"path": "plugins/screenwriting/skills/sw-genre-anatomy/SKILL.md",
+"bytes": 22553,
+"has_scripts": false,
+"has_references": false,
+"description": "Genre anatomy from John Truby's The Anatomy of Genres (\u7c7b\u578b\u89e3\u5256 / \u7c7b\u578b\u8282\u62cd / \u6df7\u5408\u7c7b\u578b / \u8d85\u8d8a\u7c7b\u578b) \u2014 genres as beat systems with a life philosophy underneath; three rules (hit every beat of your genre, mix three or fo"
+},
+{
+"repo": "jtydhr88/screenwriting-skills",
+"skill": "sw-industry-business",
+"path": "plugins/screenwriting/skills/sw-industry-business/SKILL.md",
+"bytes": 9551,
+"has_scripts": false,
+"has_references": false,
+"description": "The screenwriting business and career (\u7f16\u5267\u884c\u4e1a\u4e0e\u751f\u610f\u7ecf) \u2014 merged from Diamond & Weissman's Bulletproof (buyer's-eye workflow, three Cs, one-page nine-step, set pieces, submission, notes, resilience), Eric Bo"
+},
+{
+"repo": "jtydhr88/screenwriting-skills",
+"skill": "sw-japanese-screenwriting",
+"path": "plugins/screenwriting/skills/sw-japanese-screenwriting/SKILL.md",
+"bytes": 8470,
+"has_scripts": false,
+"has_references": false,
+"description": "Japanese (and other non-Hollywood) screenwriting methods (\u65e5\u672c\u7f16\u5267\u65b9\u6cd5/\u539f\u521b\u5267\u672c\u5b9e\u6218) \u2014 distilled from ten Japanese directors and writers in \u30bc\u30ed\u304b\u3089\u306e\u811a\u672c\u8853; Kosawa Ryota (three acts as \u8d77\u627f\u8f6c\u5408, speed by jumping), Uchida Ke"
+},
+{
+"repo": "jtydhr88/screenwriting-skills",
+"skill": "sw-korean-french-screenwriting",
+"path": "plugins/screenwriting/skills/sw-korean-french-screenwriting/SKILL.md",
+"bytes": 8474,
+"has_scripts": false,
+"has_references": false,
+"description": "Korean and French screenwriting practice (\u97e9\u56fd/\u6cd5\u56fd\u7f16\u5267\u65b9\u6cd5) \u2014 from the international masterclass; Oh Seung-uk (Christmas in August, The Shameless; field research in disguise, \"write the emotion\", first act a"
+},
+{
+"repo": "jtydhr88/screenwriting-skills",
+"skill": "sw-premise-theme",
+"path": "plugins/screenwriting/skills/sw-premise-theme/SKILL.md",
+"bytes": 9324,
+"has_scripts": false,
+"has_references": false,
+"description": "Premise, theme, controlling idea, subject selection and logline for scripts (\u524d\u63d0/\u4e3b\u9898/\u7acb\u610f/\u9009\u6750/\u620f\u6838) \u2014 merged from Lajos Egri's premise-as-tyrant and dialectic, Robert McKee's controlling idea (value + cause)"
+},
+{
+"repo": "jtydhr88/screenwriting-skills",
+"skill": "sw-scene-craft",
+"path": "plugins/screenwriting/skills/sw-scene-craft/SKILL.md",
+"bytes": 9140,
+"has_scripts": false,
+"has_references": false,
+"description": "Scene and sequence craft (\u573a\u666f/\u6bb5\u843d/\u7ec6\u8282/\u9053\u5177/\u60ac\u5ff5/\u60c5\u8da3) \u2014 merged from Robert McKee's scene design and five-step scene analysis (value turn, beats, text/subtext, turning points, pacing, image systems), McKee's Di"
+},
+{
+"repo": "jtydhr88/screenwriting-skills",
+"skill": "sw-series-case-studies",
+"path": "plugins/screenwriting/skills/sw-series-case-studies/SKILL.md",
+"bytes": 23160,
+"has_scripts": false,
+"has_references": false,
+"description": "Case studies of television series writing (\u5267\u96c6\u6848\u4f8b\u5e93) from primary texts; Sorkin's six West Wing teleplays (act-page tables, eight act-out types); Chase's five Sopranos scripts (the 35-beat A/B/C/D recipe"
+},
+{
+"repo": "jtydhr88/screenwriting-skills",
+"skill": "sw-series-engine-bible",
+"path": "plugins/screenwriting/skills/sw-series-engine-bible/SKILL.md",
+"bytes": 26600,
+"has_scripts": false,
+"has_references": false,
+"description": "From an idea to a sellable series design; series engine / franchise, story pattern, character webs that keep generating conflict, pilot types, and the documents that sell them (\u5267\u96c6\u5f15\u64ce/franchise/\u6545\u4e8b\u6a21\u5f0f/\u4eba\u7269\u7f51"
+},
+{
+"repo": "jtydhr88/screenwriting-skills",
+"skill": "sw-series-structure",
+"path": "plugins/screenwriting/skills/sw-series-structure/SKILL.md",
+"bytes": 23534,
+"has_scripts": false,
+"has_references": false,
+"description": "Episode and season structure for TV series (\u5267\u96c6\u5355\u96c6\u4e0e\u5b63\u7684\u7ed3\u6784) \u2014 teasers and cold opens, broadcast four/five/six-act grids with page anchors, three tests for finding the invisible acts in streaming scripts, a"
+},
+{
+"repo": "jtydhr88/screenwriting-skills",
+"skill": "sw-sitcom-comedy",
+"path": "plugins/screenwriting/skills/sw-sitcom-comedy/SKILL.md",
+"bytes": 20422,
+"has_scripts": false,
+"has_references": false,
+"description": "Half-hour television comedy craft (\u534a\u5c0f\u65f6\u60c5\u666f\u559c\u5267/\u7b11\u70b9\u529b\u5b66/\u56f0\u5883\u673a\u5668/\u591a\u673a\u4f4d\u5355\u673a\u4f4d\u683c\u5f0f) \u2014 merged from Evan S. Smith's Writing Television Sitcoms (premise-driven comedy in three levels, nine predicaments, six character mixes, "
+},
+{
+"repo": "jtydhr88/screenwriting-skills",
+"skill": "sw-story-structure",
+"path": "plugins/screenwriting/skills/sw-story-structure/SKILL.md",
+"bytes": 12601,
+"has_scripts": false,
+"has_references": false,
+"description": "Story structure for screenplays and stage plays (\u6545\u4e8b\u7ed3\u6784) \u2014 merged from Syd Field's paradigm and plot points, Blake Snyder's Save the Cat beat sheet and board, Robert McKee's Story (event/scene/sequence/"
+},
+{
+"repo": "jtydhr88/screenwriting-skills",
+"skill": "sw-truby-anatomy",
+"path": "plugins/screenwriting/skills/sw-truby-anatomy/SKILL.md",
+"bytes": 9126,
+"has_scripts": false,
+"has_references": false,
+"description": "Organic story anatomy from John Truby's The Anatomy of Story (\u6709\u673a\u7ed3\u6784/\u8bbe\u8ba1\u539f\u5219/22\u6b65\u9aa4/\u9053\u5fb7\u8bae\u9898/\u56db\u89d2\u5bf9\u7acb/\u5e7d\u7075/\u573a\u666f\u7f16\u6392) \u2014 the designing principle (story process plus original execution), the seven key steps as the organic sp"
+},
+{
+"repo": "jtydhr88/screenwriting-skills",
+"skill": "sw-workflow",
+"path": "plugins/screenwriting/skills/sw-workflow/SKILL.md",
+"bytes": 14297,
+"has_scripts": false,
+"has_references": false,
+"description": "Project orchestrator for the screenwriting skill set (\u5267\u672c\u9879\u76ee\u4e3b\u7ebf\u8c03\u5ea6 / \u72b6\u6001\u5b58\u6863 / story bible) \u2014 a meta-skill that adds no new craft knowledge but routes a screenplay or stage-play project through stages (premi"
+},
+{
+"repo": "jtydhr88/screenwriting-skills",
+"skill": "sw-writers-room",
+"path": "plugins/screenwriting/skills/sw-writers-room/SKILL.md",
+"bytes": 22520,
+"has_scripts": false,
+"has_references": false,
+"description": "How episodic television actually gets made by a group (\u7f16\u5267\u5ba4\u4e0e\u5236\u4f5c\u73b0\u5b9e) \u2014 merged from Goldberg & Rabkin (pitch as audition, leave-behind, cracking the story, beat sheet, notes discipline, production rewrites"
+},
+{
+"repo": "remotion-dev/skills",
+"skill": "remotion-best-practices",
+"path": "skills/remotion-best-practices/SKILL.md",
+"bytes": 4391,
+"has_scripts": false,
+"has_references": true,
+"description": "Router for all Remotion skills"
+},
+{
+"repo": "remotion-dev/skills",
+"skill": "remotion-create",
+"path": "skills/remotion-create/SKILL.md",
+"bytes": 3073,
+"has_scripts": false,
+"has_references": true,
+"description": "Create a new Remotion video"
+},
+{
+"repo": "remotion-dev/skills",
+"skill": "remotion-captions",
+"path": "skills/remotion-captions/SKILL.md",
+"bytes": 1172,
+"has_scripts": false,
+"has_references": true,
+"description": "Transcribing, displaying and animating captions"
+},
+{
+"repo": "remotion-dev/skills",
+"skill": "remotion-docs",
+"path": "skills/remotion-docs/SKILL.md",
+"bytes": 1374,
+"has_scripts": false,
+"has_references": true,
+"description": "Search Remotion documentation"
+},
+{
+"repo": "remotion-dev/skills",
+"skill": "remotion-elements",
+"path": "skills/remotion-elements/SKILL.md",
+"bytes": 5439,
+"has_scripts": false,
+"has_references": true,
+"description": "Installs Elements, reusable video components such as titles, backgrounds, charts and caption styles, into a Remotion project with `npx remotion elements use`. Registers Element libraries in Remotion S"
+},
+{
+"repo": "remotion-dev/skills",
+"skill": "remotion-interactivity",
+"path": "skills/remotion-interactivity/SKILL.md",
+"bytes": 14502,
+"has_scripts": false,
+"has_references": true,
+"description": "Structures Remotion markup so layers, timing and styles are editable in Remotion Studio. Use when writing a new composition or restructuring existing markup."
+},
+{
+"repo": "remotion-dev/skills",
+"skill": "remotion-license",
+"path": "skills/remotion-license/SKILL.md",
+"bytes": 498,
+"has_scripts": false,
+"has_references": true,
+"description": "Find Remotion license information, FAQs, terms, and where to buy a license."
+},
+{
+"repo": "remotion-dev/skills",
+"skill": "remotion-maps",
+"path": "skills/remotion-maps/SKILL.md",
+"bytes": 1030,
+"has_scripts": false,
+"has_references": true,
+"description": "Remotion Map animation knowledge"
+},
+{
+"repo": "remotion-dev/skills",
+"skill": "remotion-markup",
+"path": "skills/remotion-markup/SKILL.md",
+"bytes": 13756,
+"has_scripts": false,
+"has_references": true,
+"description": "Content, animation and effects best practices"
+},
+{
+"repo": "remotion-dev/skills",
+"skill": "remotion-multimedia",
+"path": "skills/remotion-multimedia/SKILL.md",
+"bytes": 705,
+"has_scripts": false,
+"has_references": true,
+"description": "Interacting with Mediabunny"
+},
+{
+"repo": "remotion-dev/skills",
+"skill": "remotion-render",
+"path": "skills/remotion-render/SKILL.md",
+"bytes": 3005,
+"has_scripts": false,
+"has_references": true,
+"description": "Export a Remotion video, still image, or editable OpenTimelineIO timeline"
+},
+{
+"repo": "remotion-dev/skills",
+"skill": "remotion-saas",
+"path": "skills/remotion-saas/SKILL.md",
+"bytes": 1053,
+"has_scripts": false,
+"has_references": true,
+"description": "Build an app with Remotion"
+},
+{
+"repo": "remotion-dev/skills",
+"skill": "remotion-studio",
+"path": "skills/remotion-studio/SKILL.md",
+"bytes": 1537,
+"has_scripts": false,
+"has_references": true,
+"description": "Preview a Remotion video"
+},
+{
+"repo": "remotion-dev/skills",
+"skill": "remotion-upgrade",
+"path": "skills/remotion-upgrade/SKILL.md",
+"bytes": 1965,
+"has_scripts": false,
+"has_references": true,
+"description": "Upgrade Remotion, and related packages"
+}
+]
+}

@@ -41,3 +41,8 @@ yarn-error.log*
 next-env.d.ts
 
 /lib/generated/prisma
+
+# research: do not commit cloned third-party repositories (2.8 GB)
+/research/clones/
+# keep the evidence, not the massive trees
+/research/raw/apiprobe/

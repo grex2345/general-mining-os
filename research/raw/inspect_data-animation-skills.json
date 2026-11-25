@@ -1,0 +1,68 @@
+{
+ "data-animation-skills": {
+  "repo": "iart-ai/data-animation-skills",
+  "head": "6570c0c 2026-11-11 README: link iart.ai/skills and the matching page, list all 19 packs",
+  "size_kb": 6776,
+  "license": "LICENSE",
+  "license_head": "MIT License  Copyright (c) 2026 iart.ai  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Soft",
+  "skill_count": 3,
+  "skills": [
+   {
+    "name": "animated-infographic",
+    "path": "skills/animated-infographic/SKILL.md",
+    "desc": "This skill should be used when the user asks to \"make an animated infographic\", \"create an infographic video\", \"build an infographic animation\", \"animate an explainer infographic\", \"do a sequenced rev",
+    "bytes": 10616,
+    "has_scripts": false,
+    "has_refs": true
+   },
+   {
+    "name": "chart-animation",
+    "path": "skills/chart-animation/SKILL.md",
+    "desc": "This skill should be used when the user asks to \"make a bar chart race\", \"turn a CSV into a video\", \"build an animated data visualization\", \"create an animated statistics video\", \"animate a chart/grap",
+    "bytes": 10437,
+    "has_scripts": false,
+    "has_refs": true
+   },
+   {
+    "name": "presentation-video",
+    "path": "skills/presentation-video/SKILL.md",
+    "desc": "This skill should be used when the user asks to \"make an animated presentation\", \"turn a pitch deck into a video\", \"convert slides/a deck to video\", \"make a presentation video\", \"build a deck video\", ",
+    "bytes": 13570,
+    "has_scripts": false,
+    "has_refs": true
+   }
+  ],
+  "depfiles": {},
+  "signals": {
+   "ffmpeg": 5,
+   "remotion": 90,
+   "three.js": 5,
+   "gsap": 21,
+   "manim": 6,
+   "playwright": 5,
+   "puppeteer": 0,
+   "canvas2d": 0,
+   "wgsl/glsl": 0,
+   "d3": 12,
+   "svg-anim": 1,
+   "blender": 0,
+   "moviepy": 0,
+   "whisper": 0,
+   "elevenlabs": 0,
+   "kokoro": 0,
+   "edge-tts": 0,
+   "lottie": 0,
+   "framer-motion": 0,
+   "chromium-cdp": 0,
+   "python": 46,
+   "typescript": 31
+  },
+  "file_types": {
+   ".md": 13,
+   ".html": 1,
+   ".json": 2,
+   ".sh": 3
+  },
+  "readme_head": "# Data Animation Skills\n\n> Data animation / animated infographic skills for AI coding agents \u2014 turn a CSV into a chart that moves, with exact, accurate numbers on every frame.\n\n![Data Animation Skills \u2014 animated showcase](./showcase.gif)\n\n## Install\n\n```bash\nnpx skills add iart-ai/data-animation-skills\n```\n\nOr add it as a Claude Code plugin marketplace:\n\n```bash\n/plugin marketplace add iart-ai/data-animation-skills\n```\n\nthen `/plugin install data-animation-skills`.\n\nThe skills run in Claude Code, Cursor, Codex, and 40+ agents. The full agent runs at **[iart.ai](https://www.iart.ai/animated-chart?utm_source=github&utm_medium=readme&utm_campaign=data-animation-skills&utm_content=funnel)**.\n\n## What's included\n\n| Skill | What it does |\n|---|---|\n| [chart-animation](./skills/chart-animation) | Turn a dataset into an animated chart \u2014 bar chart race, line/area reveal, count-up tickers, and batch render one template across many CSVs. |\n| [animated-infographic](./skills/animated-infographic) | Build a designed infographic \u2014 icons, key numbers, connectors \u2014 and reveal it in a staggered cascade. |\n| [presentation-video](./skills/presentation-video) | Rebuild a slide deck as a narrated, auto-advancing video with build reveals timed to the voiceover. |\n\n## When it activates\n\n- You ask to make a bar chart race, turn a CSV into a video, or animate a chart over time.\n- You ask for an animated counter, number ticker, or growing line/area chart.\n- You ask to build an animated infographic, stat-card scene, or \"by the numbers\" explainer.\n- You ask to turn a pitch deck or slide outline into a narrated presentation video.\n- You need one chart template rendered across many datasets for batch export.\n\n## Example prompts\n\n- \"Turn this CSV of yearly market share into a bar chart race.\"\n- \"Animate a count-up from 0 to 1,287 with a thousands separator.\"\n- \"Make an animated 'how it works' infographic with 3 steps and connectors.\"\n- \"Convert this pitch deck into a narrated video where each slide tracks its voiceover.\"\n- \"Render this chart template once for every JSON file in my data folder.\"\n\n## Skills\n\n- [chart-animation](./skills/chart-animation)\n- [animated-infographic](./skills/animated-infographic)\n- [presentation-video](./skills/presentation-video)\n\n## Topics\n\n`data-animation` `chart-animation` `data-visualization` `animated-infographic` `presentation-video` `motion-graphics` `claude-skill`\n\n## More packs\n\nPart of a 19-pack open-source collection: install only what you need. Browse every pack and skill at **[iart.ai/skills](https://www.iart.ai/skills?utm_source=github&utm_medium=readme&utm_campaign=data-animation-skills&utm_content=more-packs)**, or the hub at **[github.com/iart-ai/motion-skills](https://github.com/iart-ai/motion-skills)**.\n\n[tiktok-video-skills](https://github.com/iart-ai/tiktok-video-skills) (TikTok / Reels / Shorts creators) \u00b7 [text-message-video-skills](https://github.com/iart-ai/text-message-video-skills) (Text-message story creators) \u00b7 [youtube-v"
+ }
+}
