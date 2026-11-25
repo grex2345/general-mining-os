@@ -249,6 +249,7 @@ Generated 2026-11-25 from `research/ledger.json`. **Do not hand-edit** — run `
 - charsheet.mjs renders 4 PNG contact sheets and a 150-frame 1080x1920 clip at 171-178 ms/frame
 - 9 defects found and fixed by viewing output: missing hair, torso shade spilling outside the body, crossed legs, oversized vacant skull, hidden raised arms, hands below feet, merged legs, cheek stain, wart-like nose
 - animation strip verified at 3 fps: blinks, neutral->happy walk, walk->run, impact squash with shock->angry, recovery to happy
+- artifacts mirrored to research/artifacts/characters for a tracked, shareable copy
 
 **Extracted**:
 - Style recovery: the viral reference frame (image-3.png) is 2D VECTOR, not shaded 3D. Verified by reading its construction: self-coloured outlines (darkened fill, never black ink) and flat fills with at most one hard shadow tone.
