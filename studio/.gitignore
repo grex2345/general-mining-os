@@ -15,3 +15,6 @@ data/token*.json
 
 # working caches (segment files, decoded frames, mixes)
 cache/
+
+# experimental renders
+out/exp-*

@@ -1,0 +1,180 @@
+{
+  "$schema": "knowledge-base/1",
+  "updated": "2026-11-25",
+  "purpose": "Persistent record of video-production projects discovered, inspected and tested, with integration decisions and the environmental reasons behind them. Append-only; do not delete entries, mark them superseded.",
+  "environment_constraints_verified": {
+    "date": "2026-11-25",
+    "npm_registry": "reachable",
+    "github_com": "reachable",
+    "blocked_hosts": [
+      "huggingface.co (HTTP 000)",
+      "hf-mirror.com (HTTP 000)",
+      "cdn.playwright.dev (HTTP 000)",
+      "cdnjs.cloudflare.com (HTTP 000)",
+      "cdn.jsdelivr.net (HTTP 000)",
+      "release-assets.githubusercontent.com (HTTP 000)",
+      "objects.githubusercontent.com (HTTP 000)",
+      "raw.githubusercontent.com (HTTP 000)",
+      "nodejs.org (node-gyp headers, TLS disconnect)"
+    ],
+    "chromium_binary": "absent (google-chrome, chromium, chromium-browser all missing)",
+    "ffmpeg_on_path": false,
+    "ffmpeg_source": "studio/node_modules/@ffmpeg-installer (static build, must be added to PATH)",
+    "cpus": 2,
+    "note_tmp_volatility": "/tmp is cleared between tool calls; scratch work must live under the repo"
+  },
+  "projects": [
+    {
+      "id": "artemnovitckii-claude-animation-skills",
+      "name": "claude-animation-skills (11 skills incl. /zach-d-films, /breakdown, /low-poly, /kurzgesagt)",
+      "url": "https://github.com/artemnovitckii/claude-animation-skills",
+      "license": "MIT",
+      "stack": "HyperFrames 0.8.34 + three.js 0.169 + Playwright 1.49 chromium + GSAP (cdnjs) + Kokoro/Parakeet models (GitHub releases)",
+      "status": "inspected_deeply",
+      "inspected_files": ["SKILL.md", "plugin.json", "marketplace.json", "anim.py", "build.py", "build-2.py", "words.py", "setup.sh", "install.sh", "template.html", "package.json", "README.md"],
+      "tested": false,
+      "blocker": "render path is HyperFrames -> headless Chrome; no Chromium binary and cdn.playwright.dev is blocked, so a browser can never be provisioned here. GSAP CDN and model URLs are also blocked.",
+      "techniques_worth_adopting": [
+        "ACESFilmicToneMapping + exposure ~1.05 for filmic roll-off",
+        "lighting rig: key DirectionalLight 2.2 + warm rim 1.2 + HemisphereLight sky/ground 0.45",
+        "PMREMGenerator.fromScene(RoomEnvironment) for believable metal (scene.environmentIntensity 0.75)",
+        "spec.json -> template.html -> render -> .sheet.jpg contact sheet with Instagram safe-area overlay",
+        "still/snapshot mode for cheap iteration before a full render",
+        "word-level timings from ASR, then re-spell to the script with a difflib alignment (words.py follow_script) -- this is a legitimate ASR-assisted caption technique",
+        "safe area constants: top 220px, bottom 420px, side 100px for 1080x1920 reels"
+      ],
+      "local_copy": "research/skills/zach-d-films/"
+    },
+    {
+      "id": "kunalkushwaha-vsim",
+      "name": "vsim - deterministic code-first 3D video (pure-TS software rasterizer)",
+      "url": "https://github.com/kunalkushwaha/vsim",
+      "license": "MIT",
+      "stack": "TypeScript monorepo, pnpm, zod; @vsim/engine-software pure-TS rasterizer; @vsim/engine-three optional GPU engine",
+      "status": "tested",
+      "tested": true,
+      "verified_results": {
+        "install": "pnpm 9.15.0 via npm -g; pnpm install + pnpm build (all 12 packages) succeeded here",
+        "renders": ["examples/01-cube (90f 640x360)", "examples/09-manga (cel-shaded + ink outlines)", "examples/21-mouse (procedural character from primitives)", "1080x1920 benchmark 30 frames"],
+        "benchmark_1080x1920": "61.2s for 30 frames = 2040 ms/frame, single worker",
+        "worker_scaling_640x360_90f": "1 worker 18.7s, 2 workers 14.4s (1.30x on 2 vCPU)",
+        "extrapolation": "a 30s 1080x1920@30 clip = 900 frames ~= 30 min single-worker, ~23 min with 2",
+        "gotcha": "requires ffmpeg on PATH; the spawn failure surfaces as a misleading 'write EPIPE', not a clear error"
+      },
+      "quality_observed": "cube: correct PBR shading, soft contact shadows, supersampled edges. manga: honest cel shading + ink outlines. mouse: crude primitive character (spheres/capsules), far below the reference-zach quality bar.",
+      "decision": "ADOPT THE ARCHITECTURE, NOT THE RUNTIME. Same fundamental design as our studio (software raster -> raw RGBA -> ffmpeg pipe), but 14x slower at 1080x1920 than our Skia path because every pixel is written in JS. Its scene-document/pacing ideas are worth stealing; its renderer is not worth embedding."
+    },
+    {
+      "id": "remotion",
+      "name": "Remotion (React -> MP4)",
+      "url": "https://github.com/remotion-dev/remotion",
+      "license": "Company licence (not OSI); free for individuals/small teams, paid for companies",
+      "status": "inspected_via_docs_only",
+      "blocker": "renders via headless Chrome; no Chromium here and its browser CDN is blocked. Licence also unresolved for commercial use.",
+      "decision": "REJECT for now (licence + browser dependency)."
+    },
+    {
+      "id": "hyperframes",
+      "name": "HyperFrames (HeyGen) - HTML/CSS/GSAP/three.js -> MP4",
+      "npm": "hyperframes (resolvable here, 0.9.96 available)",
+      "status": "not_runnable",
+      "blocker": "headless Chrome capture; no browser obtainable in this sandbox",
+      "decision": "KEEP AS A DECLARED ADAPTER with available()=false, so it activates automatically on a machine with Chrome."
+    },
+    {
+      "id": "kokoro-js",
+      "name": "Kokoro-82M neural TTS via kokoro-js / Transformers.js",
+      "url": "https://github.com/hexgrad/kokoro",
+      "license": "Apache-2.0 (model + code)",
+      "status": "partially_tested",
+      "tested": true,
+      "verified_results": {
+        "dependency_resolution": "npm install --ignore-scripts kokoro-js -> 56 packages",
+        "onnxruntime-node_binary": "SHIPS PREBUILT binaries inside the npm tarball (bin/napi-v3/linux/x64/libonnxruntime.so.1.21.0); require('onnxruntime-node') loads and reports 1.21.0 WITHOUT any postinstall download",
+        "weights_huggingface": "BLOCKED - huggingface.co and hf-mirror.com both HTTP 000",
+        "weights_github_release": "BLOCKED - redirects to release-assets.githubusercontent.com which is HTTP 000"
+      },
+      "correction": "An earlier claim in this repo that neural TTS was blocked by 'onnxruntime-node postinstall downloading from a CDN' was WRONG. The native runtime installs fine from the npm tarball. The real and only blocker is the ~327MB model weights, which live exclusively on blocked hosts.",
+      "decision": "KEEP AS THE PREFERRED VOICE ADAPTER. One unblock (weights available locally, or one open host) switches the voice from formant synthesis to neural. Code path is ready."
+    },
+    {
+      "id": "sherpa-onnx",
+      "name": "sherpa-onnx (k2-fsa) - offline ASR/TTS, Node bindings",
+      "url": "https://github.com/k2-fsa/sherpa-onnx",
+      "license": "Apache-2.0",
+      "status": "discovered_not_tested",
+      "blocker": "models hosted on GitHub releases -> blocked CDN",
+      "decision": "CANDIDATE for word-level ASR captions and Piper/VITS voices once models are reachable."
+    },
+    {
+      "id": "drawcall-animate",
+      "name": "@drawcall/animate + @drawcall/rig - procedural character motion for three.js",
+      "url": "https://github.com/drawcall-ai/animate",
+      "status": "discovered_only",
+      "value": "verbs (walk, look, reach, grab, carry) drive procedural motion with no clips or runtime ML - the closest thing found to the character-animation requirement",
+      "decision": "CANDIDATE, requires WebGL runtime; not usable until a GPU/browser path exists."
+    },
+    {
+      "id": "sketchpunklabs-ossos",
+      "name": "ossos - web character skinning/IK system",
+      "url": "https://github.com/sketchpunklabs/ossos",
+      "status": "discovered_only",
+      "value": "IK rigs, dual-quaternion skinning, bone springs, retargeting for three.js",
+      "decision": "REFERENCE for rig design; WebGL-dependent."
+    },
+    {
+      "id": "cpu-rasterizers",
+      "name": "Alternative pure-CPU software renderers",
+      "members": [
+        {"id": "jtsorlinis-js-renderer", "url": "https://github.com/jtsorlinis/js-renderer", "notes": "TS CPU rasterizer: PBR, IBL, shadow mapping, normal maps, glb loading"},
+        {"id": "jdiemke-aisa", "url": "https://github.com/jdiemke/aisa", "notes": "TS software 3D engine, no WebGL"},
+        {"id": "bxzex-facet", "url": "https://github.com/bxzex/facet", "notes": "edge-function rasterizer, z-buffer, perspective-correct texturing"},
+        {"id": "Sopiro-SoftwareRenderer", "url": "https://github.com/Sopiro/SoftwareRenderer", "notes": "Phong shading, normal mapping, skybox"},
+        {"id": "ccajas-JS-TinyRenderer", "url": "https://github.com/ccajas/JS-TinyRenderer", "notes": "small programmable-pipeline renderer, SSAO"}
+      ],
+      "status": "discovered_only",
+      "decision": "REFERENCE implementations for shading math. Not adopted wholesale: we already rasterise faster via Skia."
+    }
+  ],
+  "integration_decisions": [
+    {
+      "id": "D1",
+      "decision": "Do NOT adopt a browser-based render pipeline (HyperFrames/Remotion/three.js-in-Chrome)",
+      "reason": "no Chromium obtainable in the build environment; a pipeline that cannot render is not a pipeline",
+      "reversible": true
+    },
+    {
+      "id": "D2",
+      "decision": "Adopt software-raster 3D into the existing Skia canvas pipeline instead of embedding vsim",
+      "reason": "measured 123-148 ms/frame at 1080x1920 vs vsim 2040 ms/frame (14x); preserves the working pipeline and its QA gate",
+      "evidence": "studio/experiments/scene3d.mjs render timings"
+    },
+    {
+      "id": "D3",
+      "decision": "Port the lighting recipe (ACES + key/rim/hemisphere + contact shadows) from claude-animation-skills template.html",
+      "reason": "it is the difference between flat rectangles and material response; recipe is licence-compatible (MIT) and implementation-independent",
+      "implemented_in": "studio/src/render3d.mjs"
+    },
+    {
+      "id": "D4",
+      "decision": "Keep Kokoro as the designated neural-voice adapter behind the existing audio:voice capability",
+      "reason": "runtime verified working; only model weights are unreachable. Swapping the adapter changes one line when weights become available."
+    }
+  ],
+  "failures_and_limitations": [
+    "No Chromium: HyperFrames, Remotion, Playwright, three.js-in-browser all unrunnable here.",
+    "No model weights: neural TTS and ASR caption verification blocked (HF + GitHub release CDN both 000).",
+    "headless-gl unusable: node-gyp needs Node headers from nodejs.org (TLS disconnect) and can never link.",
+    "vsim is 14x slower than the Skia path at 1080x1920 and its example character quality is crude.",
+    "The ported rasterizer is box-only: no arbitrary meshes, no skeletal rigs, no texture mapping yet.",
+    "Vertical 9:16 framing is width-bound: a 4.6-unit-wide set needs a 16.6-unit camera distance at fov 30. Sets must be narrow and tall."
+  ],
+  "future_experiments": [
+    "Add arbitrary triangle meshes + texture sampling to render3d.mjs (mesh loader from glTF/OBJ).",
+    "Port PCF shadow mapping (vs js-renderer approach) for real cast shadows instead of projected blobs.",
+    "Add a cel/toon shading mode (stepped light ramp + ink outline) for the manga look.",
+    "Implement difflib script-alignment captions (words.py follow_script) once an ASR model is available.",
+    "Evaluate @drawcall/animate verbs if a WebGL path ever becomes available.",
+    "Benchmark the box rasterizer against vsim on a shared scene for a fair speed comparison."
+  ]
+}

@@ -46,3 +46,6 @@ next-env.d.ts
 /research/clones/
 # keep the evidence, not the massive trees
 /research/raw/apiprobe/
+
+# scratch workspace (clones, probes)
+/.scratch/
