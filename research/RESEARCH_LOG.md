@@ -7,12 +7,12 @@ Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `
 | stage | count | meaning |
 |---|---:|---|
 | discovered | **6** | a URL or mention exists; nothing opened |
-| inspected | **8** | source, docs or renders actually read/looked at |
+| inspected | **14** | source, docs or renders actually read/looked at |
 | tested | **2** | executed in this environment, with evidence recorded |
-| integrated | **20** | code/technique landed in our engine, artifact on disk |
+| integrated | **21** | code/technique landed in our engine, artifact on disk |
 | rejected | **1** | deliberately not used, reason recorded |
 
-## integrated (20)
+## integrated (21)
 
 | id | name | licence | environment | source |
 |---|---|---|---|---|
@@ -36,6 +36,7 @@ Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `
 | `score-jp` | Japanese-flavored procedural score + battle SFX | licence unknown | · untested |  |
 | `tanjiro-2d-short` | Experiment A: 2D stickman Water Breathing short | licence unknown | · untested |  |
 | `tanjiro-3d-short` | Experiment B: 3D low-poly Water Breathing short | licence unknown | · untested |  |
+| `kinetic-primitives` | kinetic.mjs motion-graphics primitives (OURS) | licence unknown | · untested |  |
 
 ## tested (2)
 
@@ -44,7 +45,7 @@ Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `
 | `vsim` | vsim — "Remotion for real 3D" (pure-TS software rasteriser) | MIT | ✔ runs here | https://github.com/kunalkushwaha/vsim |
 | `kokoro-js` | kokoro-js — neural TTS on onnxruntime-node | Apache-2.0 | ✘ cannot run here | https://github.com/hexgrad/kokoro |
 
-## inspected (8)
+## inspected (14)
 
 | id | name | licence | environment | source |
 |---|---|---|---|---|
@@ -56,6 +57,12 @@ Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `
 | `qa-defects-001` | Visual QA gates: caption collision + motion-energy floor | ours | ✔ runs here | research/INSPECTION_CAPABILITIES.md |
 | `zach-df-engine` | zach-d-films engine: PMREM softbox, Bokeh, Bloom, grade, lathe humans | MIT | · untested | https://github.com/artemnovitckii/claude-animation-skills/tree/main/skills/zach-d-films/engine |
 | `cartoon-short-kit` | jonhelpangan-jpg/cartoon-short-kit — '2D look, 3D motion' house style (rig3d.js, stick.js) | MIT | · untested | https://github.com/jonhelpangan-jpg/cartoon-short-kit |
+| `remotion-engine` | Remotion (React programmatic video) | licence unknown | · untested | https://github.com/remotion-dev/remotion |
+| `manim-engine` | Manim + ecmanim (math animation) | licence unknown | · untested | https://github.com/johnhenry/ecmanim |
+| `video-talkcraft` | video-talkcraft agent skill | licence unknown | · untested | https://github.com/Vincentwei1021/video-talkcraft |
+| `iart-motion-skills` | iart-ai/motion-skills (56 skills) | licence unknown | · untested | https://github.com/iart-ai/motion-skills |
+| `whisper-karaoke` | Whisper word-timestamps -> ASS karaoke captions | licence unknown | · untested | https://free.ai/video/caption/ |
+| `round8-reference-videos` | 3 user reference videos (Drive) | licence unknown | · untested |  |
 
 ## discovered (6)
 
@@ -412,4 +419,60 @@ Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `
 
 **Evidence**:
 - 21.6s 1080x1920@30; Round4 rasteriser + Round5 rig re-skinned Tanjiro + katana; QA 0 black 0 freezes after freeze fix
+
+### `remotion-engine` — Remotion (React programmatic video)
+
+**Evidence**:
+- remotion.dev/docs/interpolate read; repo ★75.9k via GitHub API
+
+**Extracted**:
+- interpolate(frame,[in],[out],{easing,clamp}) + spring() keyframe model; frame-by-frame so timing never drifts; port patterns not runtime
+
+### `manim-engine` — Manim + ecmanim (math animation)
+
+**Evidence**:
+- skills/shared/easing-reference.md read; Manim-Tutorial ★832, ecmanim ★10
+
+**Extracted**:
+- rate functions smooth/rush_into/there_and_back/ease_out_back; ecmanim is a Node port (MP4) closest to our stack; counters/graphs/equations
+
+### `video-talkcraft` — video-talkcraft agent skill
+
+**Evidence**:
+- SKILL.md read in full via contents API
+
+**Extracted**:
+- 7-layer anti-PPT camera (slow push/pull, motion-by-subtraction); one protagonist per beat yields; new elements only at semantic beats; caption sentence boundaries = time anchors; 108 motion recipe cards; auto freeze detection + subagent review
+
+### `iart-motion-skills` — iart-ai/motion-skills (56 skills)
+
+**Evidence**:
+- repo ★2.2k; root + tools dir listed via API
+
+**Extracted**:
+- kinetic typography, data-viz, explainers, TikTok/Reels, WebGL, Manim skills for coding agents
+
+### `whisper-karaoke` — Whisper word-timestamps -> ASS karaoke captions
+
+**Evidence**:
+- technique confirmed via web + AlwaysWhisper ★46; align.py schema inspected
+
+**Extracted**:
+- word-level STT -> ASS \k karaoke -> ffmpeg burn; same {words:[{text,start,end}]} schema our align.py emits; enables word-by-word highlight
+
+### `kinetic-primitives` — kinetic.mjs motion-graphics primitives (OURS)
+
+**Evidence**:
+- kinetic_demo.mjs rendered 240f @50ms/f; QA 0 black 0 freeze; contact sheet + full frame viewed
+
+**Extracted**:
+- additive module: interpolate/spring/pulse/entrance/exit + karaokeCaption + animatedCounter + rayBackdrop + glassCard; closes word-karaoke/counter/perpetual-backdrop gaps vs V2/V3
+
+### `round8-reference-videos` — 3 user reference videos (Drive)
+
+**Evidence**:
+- downloaded via Drive connector, byte-verified; overview+motion strips+spectrograms analyzed
+
+**Extracted**:
+- V1 3D drama (0 cuts, red-keyword karaoke); V2/V3 @Silenthys 2D anime-science explainers (60fps, no hard cuts, eased graphic beats every 2-4s, word-karaoke, counters, perpetual backdrop, -14 LUFS)
 

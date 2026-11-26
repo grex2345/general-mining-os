@@ -34,7 +34,7 @@
     {
       "id": "vsim",
       "kind": "engine",
-      "name": "vsim \u2014 \"Remotion for real 3D\" (pure-TS software rasteriser)",
+      "name": "vsim — \"Remotion for real 3D\" (pure-TS software rasteriser)",
       "url": "https://github.com/kunalkushwaha/vsim",
       "license": "MIT",
       "status": "tested",
@@ -111,7 +111,7 @@
     {
       "id": "claude-animation-skills",
       "kind": "skill-kit",
-      "name": "artemnovitckii/claude-animation-skills \u2014 11 video skills for Claude Code",
+      "name": "artemnovitckii/claude-animation-skills — 11 video skills for Claude Code",
       "url": "https://github.com/artemnovitckii/claude-animation-skills",
       "license": "MIT",
       "status": "inspected",
@@ -163,7 +163,7 @@
     {
       "id": "sparticuz-chromium",
       "kind": "project",
-      "name": "@sparticuz/chromium \u2014 Chromium binary shipped inside the npm tarball",
+      "name": "@sparticuz/chromium — Chromium binary shipped inside the npm tarball",
       "url": "https://github.com/Sparticuz/chromium",
       "license": "MIT",
       "status": "integrated",
@@ -238,7 +238,7 @@
     {
       "id": "remotion",
       "kind": "engine",
-      "name": "Remotion \u2014 React -> video",
+      "name": "Remotion — React -> video",
       "url": "https://github.com/remotion-dev/remotion",
       "license": "company licence, not OSI",
       "status": "discovered",
@@ -268,7 +268,7 @@
     {
       "id": "kokoro-js",
       "kind": "engine",
-      "name": "kokoro-js \u2014 neural TTS on onnxruntime-node",
+      "name": "kokoro-js — neural TTS on onnxruntime-node",
       "url": "https://github.com/hexgrad/kokoro",
       "license": "Apache-2.0",
       "status": "tested",
@@ -302,7 +302,7 @@
     {
       "id": "sherpa-onnx",
       "kind": "engine",
-      "name": "sherpa-onnx \u2014 ASR/TTS toolkit",
+      "name": "sherpa-onnx — ASR/TTS toolkit",
       "url": "https://github.com/k2-fsa/sherpa-onnx",
       "license": "Apache-2.0",
       "status": "discovered",
@@ -332,7 +332,7 @@
     {
       "id": "ossos",
       "kind": "project",
-      "name": "sketchpunklabs/ossos \u2014 character IK/motion",
+      "name": "sketchpunklabs/ossos — character IK/motion",
       "url": "https://github.com/sketchpunklabs/ossos",
       "license": "check",
       "status": "discovered",
@@ -478,7 +478,7 @@
     {
       "id": "studio-render3d",
       "kind": "technique",
-      "name": "studio/src/render3d.mjs \u2014 software 3D on the Skia canvas",
+      "name": "studio/src/render3d.mjs — software 3D on the Skia canvas",
       "url": "studio/src/render3d.mjs",
       "license": "ours",
       "status": "integrated",
@@ -743,7 +743,7 @@
     {
       "id": "cartoon-short-kit",
       "kind": "project",
-      "name": "jonhelpangan-jpg/cartoon-short-kit \u2014 '2D look, 3D motion' house style (rig3d.js, stick.js)",
+      "name": "jonhelpangan-jpg/cartoon-short-kit — '2D look, 3D motion' house style (rig3d.js, stick.js)",
       "url": "https://github.com/jonhelpangan-jpg/cartoon-short-kit",
       "license": "MIT",
       "status": "inspected",
@@ -1051,7 +1051,7 @@
       "deps": [],
       "tags": [],
       "findings": [
-        "Feet must be IK targets, not joint angles: angle-driven legs skate. Arm poses must ALSO be IK targets \u2014 three composed pitch rotations put a 'guard' pose above the character's head."
+        "Feet must be IK targets, not joint angles: angle-driven legs skate. Arm poses must ALSO be IK targets — three composed pitch rotations put a 'guard' pose above the character's head."
       ],
       "evidence": [
         "Walk/run cycles via IK foot targets (planted during stance, arcs during swing), jump arc with anticipation/land/recover, impact with wind/strike/recoil/settle, idle breathing. Camera shake from squared trauma with layered band-limited noise; traumaDecay e^-kt."
@@ -1282,6 +1282,220 @@
         {
           "date": "2026-11-26",
           "status": "integrated",
+          "note": "created"
+        }
+      ]
+    },
+    {
+      "id": "remotion-engine",
+      "kind": "engine",
+      "name": "Remotion (React programmatic video)",
+      "url": "https://github.com/remotion-dev/remotion",
+      "license": null,
+      "status": "inspected",
+      "env_ok": null,
+      "deps": [],
+      "tags": [
+        "round8",
+        "motion-graphics"
+      ],
+      "findings": [
+        "interpolate(frame,[in],[out],{easing,clamp}) + spring() keyframe model; frame-by-frame so timing never drifts; port patterns not runtime"
+      ],
+      "evidence": [
+        "remotion.dev/docs/interpolate read; repo ★75.9k via GitHub API"
+      ],
+      "artifacts": [],
+      "reason": null,
+      "first_seen": "2026-11-26",
+      "history": [
+        {
+          "date": "2026-11-26",
+          "status": "inspected",
+          "note": "created"
+        }
+      ]
+    },
+    {
+      "id": "manim-engine",
+      "kind": "engine",
+      "name": "Manim + ecmanim (math animation)",
+      "url": "https://github.com/johnhenry/ecmanim",
+      "license": null,
+      "status": "inspected",
+      "env_ok": null,
+      "deps": [],
+      "tags": [
+        "round8",
+        "math-viz"
+      ],
+      "findings": [
+        "rate functions smooth/rush_into/there_and_back/ease_out_back; ecmanim is a Node port (MP4) closest to our stack; counters/graphs/equations"
+      ],
+      "evidence": [
+        "skills/shared/easing-reference.md read; Manim-Tutorial ★832, ecmanim ★10"
+      ],
+      "artifacts": [],
+      "reason": null,
+      "first_seen": "2026-11-26",
+      "history": [
+        {
+          "date": "2026-11-26",
+          "status": "inspected",
+          "note": "created"
+        }
+      ]
+    },
+    {
+      "id": "video-talkcraft",
+      "kind": "skill-kit",
+      "name": "video-talkcraft agent skill",
+      "url": "https://github.com/Vincentwei1021/video-talkcraft",
+      "license": null,
+      "status": "inspected",
+      "env_ok": null,
+      "deps": [],
+      "tags": [
+        "round8",
+        "methodology"
+      ],
+      "findings": [
+        "7-layer anti-PPT camera (slow push/pull, motion-by-subtraction); one protagonist per beat yields; new elements only at semantic beats; caption sentence boundaries = time anchors; 108 motion recipe cards; auto freeze detection + subagent review"
+      ],
+      "evidence": [
+        "SKILL.md read in full via contents API"
+      ],
+      "artifacts": [],
+      "reason": null,
+      "first_seen": "2026-11-26",
+      "history": [
+        {
+          "date": "2026-11-26",
+          "status": "inspected",
+          "note": "created"
+        }
+      ]
+    },
+    {
+      "id": "iart-motion-skills",
+      "kind": "skill-kit",
+      "name": "iart-ai/motion-skills (56 skills)",
+      "url": "https://github.com/iart-ai/motion-skills",
+      "license": null,
+      "status": "inspected",
+      "env_ok": null,
+      "deps": [],
+      "tags": [
+        "round8",
+        "motion-graphics"
+      ],
+      "findings": [
+        "kinetic typography, data-viz, explainers, TikTok/Reels, WebGL, Manim skills for coding agents"
+      ],
+      "evidence": [
+        "repo ★2.2k; root + tools dir listed via API"
+      ],
+      "artifacts": [],
+      "reason": null,
+      "first_seen": "2026-11-26",
+      "history": [
+        {
+          "date": "2026-11-26",
+          "status": "inspected",
+          "note": "created"
+        }
+      ]
+    },
+    {
+      "id": "whisper-karaoke",
+      "kind": "technique",
+      "name": "Whisper word-timestamps -> ASS karaoke captions",
+      "url": "https://free.ai/video/caption/",
+      "license": null,
+      "status": "inspected",
+      "env_ok": null,
+      "deps": [],
+      "tags": [
+        "round8",
+        "captions"
+      ],
+      "findings": [
+        "word-level STT -> ASS \\k karaoke -> ffmpeg burn; same {words:[{text,start,end}]} schema our align.py emits; enables word-by-word highlight"
+      ],
+      "evidence": [
+        "technique confirmed via web + AlwaysWhisper ★46; align.py schema inspected"
+      ],
+      "artifacts": [],
+      "reason": null,
+      "first_seen": "2026-11-26",
+      "history": [
+        {
+          "date": "2026-11-26",
+          "status": "inspected",
+          "note": "created"
+        }
+      ]
+    },
+    {
+      "id": "kinetic-primitives",
+      "kind": "engine",
+      "name": "kinetic.mjs motion-graphics primitives (OURS)",
+      "url": null,
+      "license": null,
+      "status": "integrated",
+      "env_ok": null,
+      "deps": [],
+      "tags": [
+        "round8",
+        "ours"
+      ],
+      "findings": [
+        "additive module: interpolate/spring/pulse/entrance/exit + karaokeCaption + animatedCounter + rayBackdrop + glassCard; closes word-karaoke/counter/perpetual-backdrop gaps vs V2/V3"
+      ],
+      "evidence": [
+        "kinetic_demo.mjs rendered 240f @50ms/f; QA 0 black 0 freeze; contact sheet + full frame viewed"
+      ],
+      "artifacts": [
+        "research/artifacts/round8/kinetic-demo.mp4"
+      ],
+      "reason": null,
+      "first_seen": "2026-11-26",
+      "history": [
+        {
+          "date": "2026-11-26",
+          "status": "integrated",
+          "note": "created"
+        }
+      ]
+    },
+    {
+      "id": "round8-reference-videos",
+      "kind": "asset",
+      "name": "3 user reference videos (Drive)",
+      "url": null,
+      "license": null,
+      "status": "inspected",
+      "env_ok": null,
+      "deps": [],
+      "tags": [
+        "round8",
+        "reference"
+      ],
+      "findings": [
+        "V1 3D drama (0 cuts, red-keyword karaoke); V2/V3 @Silenthys 2D anime-science explainers (60fps, no hard cuts, eased graphic beats every 2-4s, word-karaoke, counters, perpetual backdrop, -14 LUFS)"
+      ],
+      "evidence": [
+        "downloaded via Drive connector, byte-verified; overview+motion strips+spectrograms analyzed"
+      ],
+      "artifacts": [
+        "research/artifacts/round8/v2-overview.jpg"
+      ],
+      "reason": null,
+      "first_seen": "2026-11-26",
+      "history": [
+        {
+          "date": "2026-11-26",
+          "status": "inspected",
           "note": "created"
         }
       ]
