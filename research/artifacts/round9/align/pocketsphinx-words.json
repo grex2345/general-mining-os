@@ -1,0 +1,72 @@
+[
+ {
+  "word": "The",
+  "start": 0.0,
+  "end": 0.17
+ },
+ {
+  "word": "pottery",
+  "start": 0.17,
+  "end": 0.68
+ },
+ {
+  "word": "wheel",
+  "start": 0.68,
+  "end": 1.03
+ },
+ {
+  "word": "changed",
+  "start": 1.03,
+  "end": 1.57
+ },
+ {
+  "word": "everything",
+  "start": 1.57,
+  "end": 2.3
+ },
+ {
+  "word": "One",
+  "start": 2.6,
+  "end": 2.91
+ },
+ {
+  "word": "spin",
+  "start": 2.91,
+  "end": 3.32
+ },
+ {
+  "word": "of",
+  "start": 3.32,
+  "end": 3.46
+ },
+ {
+  "word": "clay",
+  "start": 3.46,
+  "end": 3.77
+ },
+ {
+  "word": "became",
+  "start": 3.77,
+  "end": 4.17
+ },
+ {
+  "word": "a",
+  "start": 4.17,
+  "end": 4.21
+ },
+ {
+  "word": "thousand",
+  "start": 4.21,
+  "end": 4.81
+ },
+ {
+  "word": "identical",
+  "start": 4.81,
+  "end": 5.44
+ },
+ {
+  "word": "bowls",
+  "start": 5.44,
+  "end": 6.1
+ }
+]

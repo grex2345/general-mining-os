@@ -1,0 +1,725 @@
+{
+	"systeminfo": "WHISPER : COREML = 0 | OPENVINO = 0 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | AVX512 = 1 | AVX512_VBMI = 1 | AVX512_VNNI = 1 | OPENMP = 1 | REPACK = 1 | ",
+	"model": {
+		"type": "small",
+		"multilingual": true,
+		"vocab": 51865,
+		"audio": {
+			"ctx": 1500,
+			"state": 768,
+			"head": 12,
+			"layer": 12
+		},
+		"text": {
+			"ctx": 448,
+			"state": 768,
+			"head": 12,
+			"layer": 12
+		},
+		"mels": 80,
+		"ftype": 1
+	},
+	"params": {
+		"model": "/tmp/whisper-dl/ggml-small.bin",
+		"language": "ar",
+		"translate": false
+	},
+	"result": {
+		"language": "ar"
+	},
+	"transcription": [
+		{
+			"timestamps": {
+				"from": "00:00:00,000",
+				"to": "00:00:00,000"
+			},
+			"offsets": {
+				"from": 0,
+				"to": 0
+			},
+			"text": ""
+		},
+		{
+			"timestamps": {
+				"from": "00:00:00,000",
+				"to": "00:00:00,040"
+			},
+			"offsets": {
+				"from": 0,
+				"to": 40
+			},
+			"text": " أ"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:00,040",
+				"to": "00:00:00,080"
+			},
+			"offsets": {
+				"from": 40,
+				"to": 80
+			},
+			"text": "د"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:00,080",
+				"to": "00:00:00,120"
+			},
+			"offsets": {
+				"from": 80,
+				"to": 120
+			},
+			"text": "ن"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:00,120",
+				"to": "00:00:00,160"
+			},
+			"offsets": {
+				"from": 120,
+				"to": 160
+			},
+			"text": "س"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:00,160",
+				"to": "00:00:00,290"
+			},
+			"offsets": {
+				"from": 160,
+				"to": 290
+			},
+			"text": " عند"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:00,290",
+				"to": "00:00:00,390"
+			},
+			"offsets": {
+				"from": 290,
+				"to": 390
+			},
+			"text": "هم"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:00,390",
+				"to": "00:00:00,530"
+			},
+			"offsets": {
+				"from": 390,
+				"to": 530
+			},
+			"text": " الص"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:00,530",
+				"to": "00:00:00,570"
+			},
+			"offsets": {
+				"from": 530,
+				"to": 570
+			},
+			"text": "ن"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:00,570",
+				"to": "00:00:00,660"
+			},
+			"offsets": {
+				"from": 570,
+				"to": 660
+			},
+			"text": "عة"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:00,660",
+				"to": "00:00:00,750"
+			},
+			"offsets": {
+				"from": 660,
+				"to": 750
+			},
+			"text": " في"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:00,750",
+				"to": "00:00:00,790"
+			},
+			"offsets": {
+				"from": 750,
+				"to": 790
+			},
+			"text": " د"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:00,790",
+				"to": "00:00:01,000"
+			},
+			"offsets": {
+				"from": 790,
+				"to": 1000
+			},
+			"text": "ي"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:01,000",
+				"to": "00:00:01,000"
+			},
+			"offsets": {
+				"from": 1000,
+				"to": 1000
+			},
+			"text": "هم"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:01,000",
+				"to": "00:00:01,120"
+			},
+			"offsets": {
+				"from": 1000,
+				"to": 1120
+			},
+			"text": " خ"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:01,120",
+				"to": "00:00:01,230"
+			},
+			"offsets": {
+				"from": 1120,
+				"to": 1230
+			},
+			"text": "ص"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:01,230",
+				"to": "00:00:01,340"
+			},
+			"offsets": {
+				"from": 1230,
+				"to": 1340
+			},
+			"text": "م"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:01,340",
+				"to": "00:00:01,460"
+			},
+			"offsets": {
+				"from": 1340,
+				"to": 1460
+			},
+			"text": " غ"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:01,460",
+				"to": "00:00:01,570"
+			},
+			"offsets": {
+				"from": 1460,
+				"to": 1570
+			},
+			"text": "ش"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:01,570",
+				"to": "00:00:01,680"
+			},
+			"offsets": {
+				"from": 1570,
+				"to": 1680
+			},
+			"text": "ي"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:01,680",
+				"to": "00:00:02,000"
+			},
+			"offsets": {
+				"from": 1680,
+				"to": 2000
+			},
+			"text": " وا"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:02,000",
+				"to": "00:00:02,170"
+			},
+			"offsets": {
+				"from": 2000,
+				"to": 2170
+			},
+			"text": "حد"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:02,170",
+				"to": "00:00:02,270"
+			},
+			"offsets": {
+				"from": 2170,
+				"to": 2270
+			},
+			"text": " ي"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:02,270",
+				"to": "00:00:02,500"
+			},
+			"offsets": {
+				"from": 2270,
+				"to": 2500
+			},
+			"text": "ور"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:02,500",
+				"to": "00:00:02,610"
+			},
+			"offsets": {
+				"from": 2500,
+				"to": 2610
+			},
+			"text": "ي"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:02,610",
+				"to": "00:00:02,840"
+			},
+			"offsets": {
+				"from": 2610,
+				"to": 2840
+			},
+			"text": "هم"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:02,840",
+				"to": "00:00:03,080"
+			},
+			"offsets": {
+				"from": 2840,
+				"to": 3080
+			},
+			"text": " من"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:03,080",
+				"to": "00:00:03,310"
+			},
+			"offsets": {
+				"from": 3080,
+				"to": 3310
+			},
+			"text": "ين"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:03,310",
+				"to": "00:00:03,420"
+			},
+			"offsets": {
+				"from": 3310,
+				"to": 3420
+			},
+			"text": "ي"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:03,420",
+				"to": "00:00:03,540"
+			},
+			"offsets": {
+				"from": 3420,
+				"to": 3540
+			},
+			"text": " ب"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:03,540",
+				"to": "00:00:03,760"
+			},
+			"offsets": {
+				"from": 3540,
+				"to": 3760
+			},
+			"text": "دا"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:03,760",
+				"to": "00:00:04,000"
+			},
+			"offsets": {
+				"from": 3760,
+				"to": 4000
+			},
+			"text": "و"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:04,000",
+				"to": "00:00:05,000"
+			},
+			"offsets": {
+				"from": 4000,
+				"to": 5000
+			},
+			"text": " في"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:05,000",
+				"to": "00:00:05,250"
+			},
+			"offsets": {
+				"from": 5000,
+				"to": 5250
+			},
+			"text": " الع"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:05,250",
+				"to": "00:00:05,500"
+			},
+			"offsets": {
+				"from": 5250,
+				"to": 5500
+			},
+			"text": "ش"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:05,500",
+				"to": "00:00:06,000"
+			},
+			"offsets": {
+				"from": 5500,
+				"to": 6000
+			},
+			"text": "ية"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:06,000",
+				"to": "00:00:06,080"
+			},
+			"offsets": {
+				"from": 6000,
+				"to": 6080
+			},
+			"text": " ر"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:06,080",
+				"to": "00:00:06,150"
+			},
+			"offsets": {
+				"from": 6080,
+				"to": 6150
+			},
+			"text": "ك"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:06,150",
+				"to": "00:00:06,220"
+			},
+			"offsets": {
+				"from": 6150,
+				"to": 6220
+			},
+			"text": "ب"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:06,220",
+				"to": "00:00:06,370"
+			},
+			"offsets": {
+				"from": 6220,
+				"to": 6370
+			},
+			"text": "نا"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:06,370",
+				"to": "00:00:06,450"
+			},
+			"offsets": {
+				"from": 6370,
+				"to": 6450
+			},
+			"text": " ل"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:06,450",
+				"to": "00:00:06,590"
+			},
+			"offsets": {
+				"from": 6450,
+				"to": 6590
+			},
+			"text": "ها"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:06,590",
+				"to": "00:00:06,680"
+			},
+			"offsets": {
+				"from": 6590,
+				"to": 6680
+			},
+			"text": " ق"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:06,680",
+				"to": "00:00:06,750"
+			},
+			"offsets": {
+				"from": 6680,
+				"to": 6750
+			},
+			"text": "ا"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:06,750",
+				"to": "00:00:06,900"
+			},
+			"offsets": {
+				"from": 6750,
+				"to": 6900
+			},
+			"text": "عد"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:06,900",
+				"to": "00:00:06,970"
+			},
+			"offsets": {
+				"from": 6900,
+				"to": 6970
+			},
+			"text": "ة"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:06,970",
+				"to": "00:00:07,210"
+			},
+			"offsets": {
+				"from": 6970,
+				"to": 7210
+			},
+			"text": " بال"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:07,210",
+				"to": "00:00:07,280"
+			},
+			"offsets": {
+				"from": 7210,
+				"to": 7280
+			},
+			"text": "ع"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:07,280",
+				"to": "00:00:07,430"
+			},
+			"offsets": {
+				"from": 7280,
+				"to": 7430
+			},
+			"text": "ود"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:07,430",
+				"to": "00:00:07,630"
+			},
+			"offsets": {
+				"from": 7430,
+				"to": 7630
+			},
+			"text": " ال�"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:07,630",
+				"to": "00:00:07,660"
+			},
+			"offsets": {
+				"from": 7630,
+				"to": 7660
+			},
+			"text": "�"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:07,660",
+				"to": "00:00:07,730"
+			},
+			"offsets": {
+				"from": 7660,
+				"to": 7730
+			},
+			"text": "ل"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:07,730",
+				"to": "00:00:08,000"
+			},
+			"offsets": {
+				"from": 7730,
+				"to": 8000
+			},
+			"text": "اض"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:08,000",
+				"to": "00:00:08,180"
+			},
+			"offsets": {
+				"from": 8000,
+				"to": 8180
+			},
+			"text": " و"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:08,180",
+				"to": "00:00:08,330"
+			},
+			"offsets": {
+				"from": 8180,
+				"to": 8330
+			},
+			"text": "د"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:08,330",
+				"to": "00:00:08,540"
+			},
+			"offsets": {
+				"from": 8330,
+				"to": 8540
+			},
+			"text": "خ"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:08,540",
+				"to": "00:00:08,720"
+			},
+			"offsets": {
+				"from": 8540,
+				"to": 8720
+			},
+			"text": "ل"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:08,720",
+				"to": "00:00:09,000"
+			},
+			"offsets": {
+				"from": 8720,
+				"to": 9000
+			},
+			"text": " ن"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:09,000",
+				"to": "00:00:09,080"
+			},
+			"offsets": {
+				"from": 9000,
+				"to": 9080
+			},
+			"text": "ف"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:09,080",
+				"to": "00:00:09,260"
+			},
+			"offsets": {
+				"from": 9080,
+				"to": 9260
+			},
+			"text": "ص"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:09,260",
+				"to": "00:00:09,450"
+			},
+			"offsets": {
+				"from": 9260,
+				"to": 9450
+			},
+			"text": " ه"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:09,450",
+				"to": "00:00:09,620"
+			},
+			"offsets": {
+				"from": 9450,
+				"to": 9620
+			},
+			"text": "ك"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:09,620",
+				"to": "00:00:10,000"
+			},
+			"offsets": {
+				"from": 9620,
+				"to": 10000
+			},
+			"text": "ذا"
+		}
+	]
+}

@@ -7,12 +7,12 @@ Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `
 | stage | count | meaning |
 |---|---:|---|
 | discovered | **6** | a URL or mention exists; nothing opened |
-| inspected | **14** | source, docs or renders actually read/looked at |
-| tested | **2** | executed in this environment, with evidence recorded |
-| integrated | **21** | code/technique landed in our engine, artifact on disk |
-| rejected | **1** | deliberately not used, reason recorded |
+| inspected | **17** | source, docs or renders actually read/looked at |
+| tested | **5** | executed in this environment, with evidence recorded |
+| integrated | **22** | code/technique landed in our engine, artifact on disk |
+| rejected | **2** | deliberately not used, reason recorded |
 
-## integrated (21)
+## integrated (22)
 
 | id | name | licence | environment | source |
 |---|---|---|---|---|
@@ -37,15 +37,19 @@ Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `
 | `tanjiro-2d-short` | Experiment A: 2D stickman Water Breathing short | licence unknown | · untested |  |
 | `tanjiro-3d-short` | Experiment B: 3D low-poly Water Breathing short | licence unknown | · untested |  |
 | `kinetic-primitives` | kinetic.mjs motion-graphics primitives (OURS) | licence unknown | · untested |  |
+| `audiopipe` | audiopipe.mjs — automated narration post-production + word alignment | licence unknown | ✔ runs here |  |
 
-## tested (2)
+## tested (5)
 
 | id | name | licence | environment | source |
 |---|---|---|---|---|
 | `vsim` | vsim — "Remotion for real 3D" (pure-TS software rasteriser) | MIT | ✔ runs here | https://github.com/kunalkushwaha/vsim |
 | `kokoro-js` | kokoro-js — neural TTS on onnxruntime-node | Apache-2.0 | ✘ cannot run here | https://github.com/hexgrad/kokoro |
+| `whisper-cpp-darija` | whisper.cpp small — Darija/Arabic ASR + DTW word timestamps | licence unknown | ✔ runs here |  |
+| `pocketsphinx-align` | pocketsphinx forced alignment (Stick3D align.py) — English precise | licence unknown | ✔ runs here |  |
+| `swangle-headless-webgl` | Headless WebGL2/three.js via SwiftShader ANGLE (@sparticuz/chromium) | licence unknown | ✔ runs here |  |
 
-## inspected (14)
+## inspected (17)
 
 | id | name | licence | environment | source |
 |---|---|---|---|---|
@@ -63,6 +67,9 @@ Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `
 | `iart-motion-skills` | iart-ai/motion-skills (56 skills) | licence unknown | · untested | https://github.com/iart-ai/motion-skills |
 | `whisper-karaoke` | Whisper word-timestamps -> ASS karaoke captions | licence unknown | · untested | https://free.ai/video/caption/ |
 | `round8-reference-videos` | 3 user reference videos (Drive) | licence unknown | · untested |  |
+| `stick3d-pack` | 3D Stick Figure Master (Stick3D-Pack-v4) | licence unknown | ✘ cannot run here |  |
+| `kounkan-n2-darija` | kounkan.ma — Darija 3D stick-figure history story (pottery wheel) | licence unknown | ✔ runs here |  |
+| `darija-tts-landscape` | Darija TTS capability matrix (honest, tested where possible) | licence unknown | · untested |  |
 
 ## discovered (6)
 
@@ -75,11 +82,12 @@ Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `
 | `drawcall-animate` | drawcall-ai/animate | check | · untested | https://github.com/drawcall-ai/animate |
 | `paper-acg` | Papers to fetch for cel shading, outlines and cartoon lighting | licence unknown | · untested |  |
 
-## rejected (1)
+## rejected (2)
 
 | id | name | licence | environment | source |
 |---|---|---|---|---|
 | `webgl-swiftshader` | Headless WebGL via ANGLE/SwiftShader in this sandbox | n/a | ✘ cannot run here | https://chromium.googlesource.com/chromium/src/+/main/docs/gpu/swiftshader.md |
+| `edge-tts-darija` | edge-tts ar-MA (Moroccan neural voice) | licence unknown | ✘ cannot run here |  |
 
 ## Findings by record
 
@@ -265,6 +273,7 @@ Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `
 - bloomPass brightness-filter approach blows out mid-grey metal; needs threshold above 2 to be a real bright-pass
 - @napi-rs/canvas ABORTS the process on NaN geometry (sk.rs unwrap) instead of throwing - the earlier 'crash in drawBoxes' was undefined width/height being passed by me
 - perspective() returns a plain array [x,y,z] and divides x by aspect, so narrow sub-panel renders squash the subject; frame full width
+- Rendered proof outputs (studio/out/exp-lookdev.*) are gitignored regenerable intermediates wiped by sandbox snapshot; durable artifacts are the experiment source + render3d.mjs. Re-run: node studio/experiments/lookdev.mjs
 
 ### `bean-cartoon-engine` — bean-cartoon 2D vector character engine (studio/src/cartoon.mjs)
 
@@ -475,4 +484,74 @@ Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `
 
 **Extracted**:
 - V1 3D drama (0 cuts, red-keyword karaoke); V2/V3 @Silenthys 2D anime-science explainers (60fps, no hard cuts, eased graphic beats every 2-4s, word-karaoke, counters, perpetual backdrop, -14 LUFS)
+
+### `stick3d-pack` — 3D Stick Figure Master (Stick3D-Pack-v4)
+
+**Evidence**:
+- Read MASTER-PROMPT + 7 rules + voice tools from Drive zip; adopted patterns into KNOWLEDGE_BASE.md
+
+**Extracted**:
+- Remotion+Three.js 3D toon stick-figure factory; rules+voice tools persisted to research/references/stick3d/
+- Scriptwriting: mid-action hook, one narrative, end on payoff; QA/acting/anti-template rules adopted into KB
+- Runtime not run here, but its --gl=swangle CPU-render claim VALIDATED via swangle-headless-webgl
+
+### `audiopipe` — audiopipe.mjs — automated narration post-production + word alignment
+
+**Evidence**:
+- E2E: script->processVoice(0.9x,pad12)=12.000s->alignWordsEnglish 14 words speed-tracked->wordsToASS 14 events; processVoice 85%+pad=30.000s -14.45 LUFS
+
+**Extracted**:
+- processVoice atempo+loudnorm+pad; wordsToASS karaoke; whisper DTW + DP alignment (multilingual) + pocketsphinx (English)
+
+### `whisper-cpp-darija` — whisper.cpp small — Darija/Arabic ASR + DTW word timestamps
+
+**Evidence**:
+- Built whisper.cpp v1.8.2; ggml-small from fmyIo/whisper-models parts (sha256 1be3a9b2...); ran on real kounkan.ma Darija audio; alignWords DP keeps script text, timing from audio
+
+**Extracted**:
+- whisper-small -l ar recognizes Darija; DTW word times matched burned-in caption (واحد يوريهم @clip-4.16s=full-40.2s)
+- Gotchas: -nfa required (flash-attn silently disables DTW); use -ojf + token t_dtw/100, NOT -ml 1 offsets (collapse on short clips); ~0.2-0.3s onset lag
+
+### `pocketsphinx-align` — pocketsphinx forced alignment (Stick3D align.py) — English precise
+
+**Evidence**:
+- pip --break-system-packages pocketsphinx; aligned piper audio, compared to energy RMS + whisper DTW; wrapped as audiopipe.alignWordsEnglish
+
+**Extracted**:
+- Matches acoustic energy onsets (pottery@0.17s, One@2.60s=silence-end 2.612s); more precise than whisper DTW for English
+- English-only: on real Darija audio outputs nonsense English — do NOT use for Arabic
+
+### `swangle-headless-webgl` — Headless WebGL2/three.js via SwiftShader ANGLE (@sparticuz/chromium)
+
+**Evidence**:
+- WebGL2 context renderer 'ANGLE (Google, Vulkan 1.3.0 SwiftShader)'; three.js cube 720x1280 rendered + screenshot-verified non-black
+
+**Extracted**:
+- OVERTURNS earlier EGL_NOT_INITIALIZED dead-end: WebGL2 + three.js render headless in this sandbox
+- Recipe: npm @sparticuz/chromium + extract bundled al2023 nspr/nss libs; LD_LIBRARY_PATH=/tmp/al2023/lib:/tmp; flags --use-gl=angle --use-angle=swiftshader --enable-unsafe-swiftshader
+
+### `edge-tts-darija` — edge-tts ar-MA (Moroccan neural voice)
+
+**Evidence**:
+- pip edge-tts; Communicate(ar-MA-JamalNeural).save -> ClientConnectorError cannot connect speech.platform.bing.com:443
+
+**Why rejected**: TESTED blocked: speech.platform.bing.com:443 refused by sandbox egress (0.0s). Free/no-key but unreachable here; also MSA-with-Moroccan-voice, not true Darija prosody
+
+### `kounkan-n2-darija` — kounkan.ma — Darija 3D stick-figure history story (pottery wheel)
+
+**Evidence**:
+- Viewed full-res frames at 40s/120s (caption واحد يوريهم + title أول رويضة ديال الفخار فالعصر الحجري); measured loudnorm; whisper-small ASR
+
+**Extracted**:
+- Confirms target: authentic Darija (ديال، فالـ، رويضة), 3D toon stick figures, word-karaoke captions, 60.5K likes
+- Loudness -14.37 LUFS (matches our -14 target); whisper ASR transcript is unmistakably Darija
+
+### `darija-tts-landscape` — Darija TTS capability matrix (honest, tested where possible)
+
+**Evidence**:
+- web research + edge-tts live test; matrix in KNOWLEDGE_BASE.md §5
+
+**Extracted**:
+- In-sandbox working AI-TTS = platform voice tool + piper(EN). edge-tts TESTED blocked. Hamsa/DarijaTTS/XTTS need user machine or allowed proxy (hosts blocked)
+- KandirResearch/DarijaTTS-v0.1-500M (OuteTTS, Apache-2.0) + XTTS v2 = best native paths off-sandbox; Hamsa MOS~4.1 native Casablancan
 

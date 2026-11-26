@@ -1,1505 +1,1780 @@
 {
-  "version": 1,
-  "updated": "2026-11-26",
-  "records": [
+ "version": 1,
+ "updated": "2026-11-26",
+ "records": [
+  {
+   "id": "hf-dom",
+   "kind": "engine",
+   "name": "HyperFrames (HTML/CSS/GSAP -> MP4)",
+   "url": "https://www.npmjs.com/package/hyperframes",
+   "license": "see npm",
+   "status": "discovered",
+   "env_ok": null,
+   "deps": [],
+   "tags": [
+    "browser",
+    "html",
+    "gsap",
+    "renderer",
+    "html-to-mp4"
+   ],
+   "findings": [],
+   "evidence": [],
+   "artifacts": [],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
     {
-      "id": "hf-dom",
-      "kind": "engine",
-      "name": "HyperFrames (HTML/CSS/GSAP -> MP4)",
-      "url": "https://www.npmjs.com/package/hyperframes",
-      "license": "see npm",
-      "status": "discovered",
-      "env_ok": null,
-      "deps": [],
-      "tags": [
-        "browser",
-        "html",
-        "gsap",
-        "renderer",
-        "html-to-mp4"
-      ],
-      "findings": [],
-      "evidence": [],
-      "artifacts": [],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "discovered",
-          "note": "created"
-        }
-      ]
-    },
-    {
-      "id": "vsim",
-      "kind": "engine",
-      "name": "vsim — \"Remotion for real 3D\" (pure-TS software rasteriser)",
-      "url": "https://github.com/kunalkushwaha/vsim",
-      "license": "MIT",
-      "status": "tested",
-      "env_ok": true,
-      "deps": [],
-      "tags": [
-        "3d",
-        "software-rasteriser",
-        "deterministic",
-        "gltf",
-        "ik",
-        "cel-shading"
-      ],
-      "findings": [
-        "Architecture: zod-validated JSON scene document -> pure-TS rasteriser -> MP4; no GPU, no Chrome, no node-gyp.",
-        "Determinism is enforced, not promised: Math.random is lint-banned in runtime code and CI compares golden-frame hashes.",
-        "Feature set worth copying conceptually: per-pixel PBR with normal maps, PCF shadows, sorted transparency, ACES tone mapping, bloom, sky-derived hemisphere ambient, linear fog, glTF skeletal clips with crossfades, ground-contact IK with stance locking, spring bones, morph-target lip-sync, Rapier physics, beat-driven audio.",
-        "manga style is a single flag (style:\"manga\") that swaps to cel shading + ink outlines - a good precedent for exposing a \"look\" as one switch.",
-        "Speed verdict: 2040 ms/frame is ~14x too slow for our 9:16 1080x1920 workload next to a Skia path at 123-148 ms/frame.",
-        "Film3D pipeline is the most reusable idea: a director LLM writes a schema-validated Film3DDoc (cast, beats, shots), a compiler lowers it to a scene, and the renderer stays AI-free and deterministic. It also renders its own dailies and re-blocks from them."
-      ],
-      "evidence": [
-        "cloned, pnpm 9.15.0 install + build succeeded",
-        "rendered examples 01-cube, 09-manga, 21-mouse at 1080x1920",
-        "benchmarked 2040 ms/frame @1080x1920 on 2 cores"
-      ],
-      "artifacts": [],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "tested",
-          "note": "seeded from session findings"
-        }
-      ]
-    },
-    {
-      "id": "vsim-film3d",
-      "kind": "technique",
-      "name": "Film3DDoc: validated screenplay -> scene compiler -> self-reviewed dailies",
-      "url": "https://github.com/kunalkushwaha/vsim/tree/main/packages/film3d",
-      "license": "MIT",
-      "status": "inspected",
-      "env_ok": true,
-      "deps": [],
-      "tags": [
-        "pipeline",
-        "llm-direction",
-        "qa",
-        "shot-list"
-      ],
-      "findings": [
-        "Contract: the model may only emit a validated document; it never touches the render loop. A bad scene cannot be rendered, only rejected.",
-        "Shot vocabulary we should adopt: wide / close / follow / orbit, plus an optional handheld drift for documentary feel.",
-        "Self-review loop: one still per shot, two rounds, later rounds see the previous round frames. This is an automated visual QA gate that costs almost nothing.",
-        "Baking trick: HTML artifacts are baked to a frame sequence by a pinned headless Chromium and played back as an in-world texture. With our new browser cell this becomes available to us."
-      ],
-      "evidence": [
-        "README film/3d section + package.json scripts read from raw.githubusercontent via page fetcher",
-        "read film:gen and film3d:fox scripts"
-      ],
-      "artifacts": [],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "inspected",
-          "note": "seeded from session findings"
-        }
-      ]
-    },
-    {
-      "id": "claude-animation-skills",
-      "kind": "skill-kit",
-      "name": "artemnovitckii/claude-animation-skills — 11 video skills for Claude Code",
-      "url": "https://github.com/artemnovitckii/claude-animation-skills",
-      "license": "MIT",
-      "status": "inspected",
-      "env_ok": true,
-      "deps": [],
-      "tags": [
-        "hyperframes",
-        "three.js",
-        "gsap",
-        "kit",
-        "styles"
-      ],
-      "findings": [
-        "Eleven skills, not six: zach-d-films, zach-3d-films (same engine, renamed), stick-figure, minimalistic-graphics, map-route, breakdown, graph, low-poly, minecraft, kurzgesagt, dan-koe.",
-        "anim.py is the whole architecture: spec JSON -> fill __SPEC__/__DURATION__ into template.html -> hyperframes render --fps 30 -q high -> contact sheet with Instagram safe area drawn in red.",
-        "Safe area constants: W1080 H1920 FPS30, SAFE_TOP 220, SAFE_BOTTOM 1500, SAFE_SIDE 100. Encoded as a drawbox overlay on every contact sheet, so the check is visual not manual.",
-        "Duration is declared as a lambda over the spec, and --snap renders individual times without a full render. Cheap iteration is designed in.",
-        "build.py does spec validation with actionable messages (e.g. label column length warnings) instead of silently producing bad output.",
-        "check_setup() fails loudly when GSAP or three.js is missing rather than rendering blank.",
-        "CORRECTION: the supplied upload omitted the entire engine/src directory (human.js, materials.js, props.js, textures.js, anim.js, shots.js, main.js), render.mjs, and the 13 font binaries. Source has now been fetched from the original repo.",
-        "Licence is plain MIT (verified by decoding LICENSE), not NOASSERTION as GitHub's classifier reports",
-        "Repo also ships a real Kokoro voice sample vo_kokoro.wav plus words_ref.json and tools/align.py - evidence they ship neural TTS output, and a forced-alignment approach we can study"
-      ],
-      "evidence": [
-        "full kit read file-by-file: SKILL.md, README.md, anim.py, build.py, build-2.py, words.py, template.html (16993 B), install.sh, setup.sh, manifests",
-        "all 13 text files verified byte-identical to our stored copy by md5",
-        "two contact sheets viewed at full resolution: skills.jpg (6 skills), five-styles.jpg (5 styles)",
-        "original repo found via api.github.com (1259 stars, 179 forks, pushed 2026-11-17); full 111-entry tree listed; engine source downloaded and read"
-      ],
-      "artifacts": [
-        "research/skills/zach-d-films",
-        "research/uploads-2026-11-25"
-      ],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "inspected",
-          "note": "seeded from session findings"
-        },
-        {
-          "date": "2026-11-25",
-          "status": "inspected",
-          "note": "original repo found via api.github.com (1259 stars, 179 forks, pushed 2026-11-17); full 111-entry tree listed; engine source downloaded and read"
-        }
-      ]
-    },
-    {
-      "id": "sparticuz-chromium",
-      "kind": "project",
-      "name": "@sparticuz/chromium — Chromium binary shipped inside the npm tarball",
-      "url": "https://github.com/Sparticuz/chromium",
-      "license": "MIT",
-      "status": "integrated",
-      "env_ok": true,
-      "deps": [],
-      "tags": [
-        "chromium",
-        "serverless",
-        "browser",
-        "enabler"
-      ],
-      "findings": [
-        "This is the single enabler that turned \"no browser is obtainable\" into \"a browser is obtainable\" in a network-locked sandbox: the binary travels in the npm tarball, not a CDN.",
-        "The AL2023 archive is only auto-extracted when the package detects Amazon Linux 2023, so on Debian-like images the NSS libraries are present but never unpacked. Extract them manually.",
-        "SwiftShader tar (libEGL, libGLESv2, libvk_swiftshader, vulkan ICD) ships too, and its vulkan ICD json uses a RELATIVE library_path that must be rewritten to an absolute path before use."
-      ],
-      "evidence": [
-        "npm install produced 75 MB node_modules, extracted a 227,736,800 B executable to /tmp/chromium",
-        "binary initially failed: \"error while loading shared libraries: libnspr4.so\"",
-        "apt has no libnspr4 and deb.debian.org is unreachable (HTTP 000)",
-        "found libnspr4.so / libnss3.so inside its own bin/al2023.tar.br; brotli-decompressed and tar-extracted; Chromium 158.0.8127.0 then started"
-      ],
-      "artifacts": [
-        "research/tools/browser/provision.sh"
-      ],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "integrated",
-          "note": "seeded from session findings"
-        }
-      ]
-    },
-    {
-      "id": "webgl-swiftshader",
-      "kind": "technique",
-      "name": "Headless WebGL via ANGLE/SwiftShader in this sandbox",
-      "url": "https://chromium.googlesource.com/chromium/src/+/main/docs/gpu/swiftshader.md",
-      "license": "n/a",
-      "status": "rejected",
-      "env_ok": false,
-      "deps": [],
-      "tags": [
-        "webgl",
-        "swiftshader",
-        "three.js",
-        "blocked"
-      ],
-      "findings": [
-        "Do not retry this: the failure is inside ANGLE/Vulkan initialisation, not in our flags or environment.",
-        "Keep the swiftshader libs extracted anyway - they cost nothing and would be the first thing to try if the image changes."
-      ],
-      "evidence": [
-        "7 flag combinations tried: --use-gl=angle|swiftshader, --use-angle=swiftshader|swiftshader-webgl|vulkan, --in-process-gpu, --headless=old, Vulkan feature flags",
-        "3 ICD configurations: package default, absolute library_path rewrite, VK_DRIVER_FILES",
-        "Chrome stderr: \"Internal Vulkan error (-3)\" at vk_renderer.cpp initialize:2546, then \"eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED\"",
-        "/dev/shm is 2.0 GB and all three SwiftShader libs resolve their deps, so neither memory nor missing libs explain it"
-      ],
-      "artifacts": [],
-      "reason": "eglInitialize SwANGLE failed with EGL_NOT_INITIALIZED in every configuration tried; three.js is therefore unreachable in this sandbox",
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "rejected",
-          "note": "seeded from session findings"
-        }
-      ]
-    },
-    {
-      "id": "remotion",
-      "kind": "engine",
-      "name": "Remotion — React -> video",
-      "url": "https://github.com/remotion-dev/remotion",
-      "license": "company licence, not OSI",
-      "status": "discovered",
-      "env_ok": null,
-      "deps": [],
-      "tags": [
-        "react",
-        "chrome",
-        "renderer",
-        "licence-risk"
-      ],
-      "findings": [
-        "Needs Chrome, which we now have, but the licence is not OSI for company use and HyperFrames already covers the same HTML-to-video niche with a plain-HTML model."
-      ],
-      "evidence": [],
-      "artifacts": [],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "discovered",
-          "note": "seeded from session findings"
-        }
-      ]
-    },
-    {
-      "id": "kokoro-js",
-      "kind": "engine",
-      "name": "kokoro-js — neural TTS on onnxruntime-node",
-      "url": "https://github.com/hexgrad/kokoro",
-      "license": "Apache-2.0",
-      "status": "tested",
-      "env_ok": false,
-      "deps": [],
-      "tags": [
-        "tts",
-        "voice",
-        "onnx"
-      ],
-      "findings": [
-        "Correction to an earlier conclusion: neural TTS is NOT blocked by a postinstall CDN fetch. It is blocked only by model weights.",
-        "One supplied weights file would unblock a natural-voice path - the highest-value unblock available to us."
-      ],
-      "evidence": [
-        "npm install --ignore-scripts succeeded (56 packages)",
-        "require(\"onnxruntime-node\") loaded, version 1.21.0, prebuilt libonnxruntime.so.1.21.0 ships inside the tarball (no postinstall download)",
-        "weights fetch attempted against huggingface.co, hf-mirror.com (HTTP 000) and the GitHub release asset (302 -> release-assets.githubusercontent.com, HTTP 000)"
-      ],
-      "artifacts": [],
-      "reason": "runtime loads but the ~327 MB model weights live on huggingface.co / release assets, all HTTP 000 here",
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "tested",
-          "note": "seeded from session findings"
-        }
-      ]
-    },
-    {
-      "id": "sherpa-onnx",
-      "kind": "engine",
-      "name": "sherpa-onnx — ASR/TTS toolkit",
-      "url": "https://github.com/k2-fsa/sherpa-onnx",
-      "license": "Apache-2.0",
-      "status": "discovered",
-      "env_ok": null,
-      "deps": [],
-      "tags": [
-        "tts",
-        "asr",
-        "onnx",
-        "timing"
-      ],
-      "findings": [
-        "Interesting mainly for forced alignment (word timings for captions), but its models are also on blocked CDNs."
-      ],
-      "evidence": [],
-      "artifacts": [],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "discovered",
-          "note": "seeded from session findings"
-        }
-      ]
-    },
-    {
-      "id": "ossos",
-      "kind": "project",
-      "name": "sketchpunklabs/ossos — character IK/motion",
-      "url": "https://github.com/sketchpunklabs/ossos",
-      "license": "check",
-      "status": "discovered",
-      "env_ok": null,
-      "deps": [],
-      "tags": [
-        "character",
-        "ik",
-        "webgl"
-      ],
-      "findings": [],
-      "evidence": [],
-      "artifacts": [],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "discovered",
-          "note": "seeded from session findings"
-        }
-      ]
-    },
-    {
-      "id": "drawcall-animate",
-      "kind": "project",
-      "name": "drawcall-ai/animate",
-      "url": "https://github.com/drawcall-ai/animate",
-      "license": "check",
-      "status": "discovered",
-      "env_ok": null,
-      "deps": [],
-      "tags": [
-        "character",
-        "webgl"
-      ],
-      "findings": [],
-      "evidence": [],
-      "artifacts": [],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "discovered",
-          "note": "seeded from session findings"
-        }
-      ]
-    },
-    {
-      "id": "software-rasterisers",
-      "kind": "technique",
-      "name": "JS software rasterisers: js-renderer, aisa, facet, SoftwareRenderer, TinyRenderer",
-      "url": "https://github.com/jtsorlinis/js-renderer",
-      "license": "mixed",
-      "status": "inspected",
-      "env_ok": true,
-      "deps": [],
-      "tags": [
-        "3d",
-        "rasteriser",
-        "reference"
-      ],
-      "findings": [
-        "Common lesson: they are all per-pixel JS and therefore slow, which is exactly why our Skia-backed rasteriser beats vsim by ~14x.",
-        "ccajas/JS-TinyRenderer has the clearest pipeline order to copy pedagogically: model -> view -> projection -> clip -> raster -> shade."
-      ],
-      "evidence": [
-        "read design descriptions for jtsorlinis/js-renderer, jdiemke/aisa, bxzex/facet, Sopiro/SoftwareRenderer, ccajas/JS-TinyRenderer"
-      ],
-      "artifacts": [],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "inspected",
-          "note": "seeded from session findings"
-        }
-      ]
-    },
-    {
-      "id": "paper-3dgs",
-      "kind": "paper",
-      "name": "3D Gaussian Splatting for Real-Time Radiance Field Rendering (Kerbl et al. 2023)",
-      "url": "https://arxiv.org/pdf/2308.04079",
-      "license": "arXiv",
-      "status": "inspected",
-      "env_ok": false,
-      "deps": [],
-      "tags": [
-        "paper",
-        "rendering",
-        "neural"
-      ],
-      "findings": [
-        "Not usable here (capture-based, GPU), but the tile-based visibility sorting idea is applicable to any software renderer that needs correct alpha ordering."
-      ],
-      "evidence": [
-        "full text parsed and read (11 chunks) via the page fetcher"
-      ],
-      "artifacts": [],
-      "reason": "needs CUDA-class GPU and multi-view captures; not applicable to procedural explainer rendering",
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "inspected",
-          "note": "seeded from session findings"
-        }
-      ]
-    },
-    {
-      "id": "paper-acg",
-      "kind": "paper",
-      "name": "Papers to fetch for cel shading, outlines and cartoon lighting",
-      "url": null,
-      "license": null,
-      "status": "discovered",
-      "env_ok": null,
-      "deps": [],
-      "tags": [
-        "paper",
-        "cel-shading",
-        "toon",
-        "outline"
-      ],
-      "findings": [
-        "Queue: stylised/cel-shading surveys, ink-outline techniques (depth+normal edge detection), Disney/Pixar BRDF literature for the specular highlight the zach-3d-films look depends on."
-      ],
-      "evidence": [],
-      "artifacts": [],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "discovered",
-          "note": "seeded from session findings"
-        }
-      ]
-    },
-    {
-      "id": "studio-render3d",
-      "kind": "technique",
-      "name": "studio/src/render3d.mjs — software 3D on the Skia canvas",
-      "url": "studio/src/render3d.mjs",
-      "license": "ours",
-      "status": "integrated",
-      "env_ok": true,
-      "deps": [],
-      "tags": [
-        "3d",
-        "skia",
-        "own-engine",
-        "box-only"
-      ],
-      "findings": [
-        "Technique set: lookAt + perspective, backface cull, painter sort, Lambert key + hemisphere fill + rim, ACES tone mapping, contact shadows, 2x supersampling.",
-        "Framing rule for 9:16: horizontal half-extent is d*tan(fov/2)*(9/16), so width binds before height. A 4.6-unit set needs d~16.6 at fov 30; keep sets ~2.5 units and camera at 8.6 with fov 34.",
-        "Limitation: box-only. No meshes, no rigs, no textures, no cel shading."
-      ],
-      "evidence": [
-        "render1 141 ms/frame, render2 148 ms/frame, render3 123 ms/frame at 1080x1920 (60 frames)",
-        "each render inspected as a PNG tile; two defects found and fixed (camera too low, missing ground plane)"
-      ],
-      "artifacts": [
-        "studio/src/render3d.mjs",
-        "studio/experiments/scene3d.mjs"
-      ],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "integrated",
-          "note": "seeded from session findings"
-        }
-      ]
-    },
-    {
-      "id": "style-references",
-      "kind": "doc",
-      "name": "zach-3d-films / five-styles contact sheets (11 skills)",
-      "url": "research/STYLE_REFERENCE_NOTES.md",
-      "license": "n/a",
-      "status": "inspected",
-      "env_ok": true,
-      "deps": [],
-      "tags": [
-        "style",
-        "reference",
-        "target-quality",
-        "zach-d-films"
-      ],
-      "findings": [
-        "The gap to the reference look is not mesh fidelity: it is (1) a broad stretched specular on curved metal, (2) depth of field with a crisp subject and soft ground, (3) exaggerated proportion, (4) impact read as concentric rings plus one verb.",
-        "Reference staging grammar: one subject, one prop, one action verb, large negative space above.",
-        "Caption grammar: white bold lowercase bottom-centre ~6% of frame height with a soft drop shadow, no box.",
-        "Cheap wins identified for our channel: rounded label chips, impact rings, hairline-on-black variant, yellow no-box captions, DOF."
-      ],
-      "evidence": [
-        "skills.jpg and five-styles.jpg viewed at full resolution; README cross-read for skill list"
-      ],
-      "artifacts": [
-        "research/STYLE_REFERENCE_NOTES.md"
-      ],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "inspected",
-          "note": "seeded from session findings"
-        }
-      ]
-    },
-    {
-      "id": "qa-defects-001",
-      "kind": "technique",
-      "name": "Visual QA gates: caption collision + motion-energy floor",
-      "url": "research/INSPECTION_CAPABILITIES.md",
-      "license": "ours",
-      "status": "inspected",
-      "env_ok": true,
-      "deps": [],
-      "tags": [
-        "qa",
-        "gate",
-        "defect",
-        "captions"
-      ],
-      "findings": [
-        "The existing 100/100 automated score did not catch either defect, so the score is measuring the wrong things.",
-        "Both are mechanically detectable: text/chart bounding-box intersection, and per-second frame-difference energy below a floor.",
-        "Because frames are the only way I can evaluate motion, these gates are the substitute for watching the video - they should be mandatory before any render is called done."
-      ],
-      "evidence": [
-        "frame at t=6.8 s of studio/out/mining-weekly-01.mp4 shows the karaoke caption box overlapping the chart x-axis label row",
-        "1 fps 6x2 contact sheet shows scene 02 nearly pixel-identical from t=0 to t=5"
-      ],
-      "artifacts": [
-        "research/INSPECTION_CAPABILITIES.md"
-      ],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "inspected",
-          "note": "seeded from session findings"
-        }
-      ]
-    },
-    {
-      "id": "zach-df-engine",
-      "kind": "technique",
-      "name": "zach-d-films engine: PMREM softbox, Bokeh, Bloom, grade, lathe humans",
-      "url": "https://github.com/artemnovitckii/claude-animation-skills/tree/main/skills/zach-d-films/engine",
-      "license": "MIT",
-      "status": "inspected",
-      "env_ok": null,
-      "deps": [
-        "three",
-        "@fontsource/montserrat"
-      ],
-      "tags": [
-        "three.js",
-        "pmrem",
-        "dof",
-        "bloom",
-        "grade",
-        "character",
-        "procedural-texture",
-        "target-quality"
-      ],
-      "findings": [
-        "PMREM env built from explicit emissive planes (key 8x4 @3.2, rim 4x10 @1.6, fill 10x3 @1.0) prefilters reflections -> the broad directional specular; this is the highest-value technique",
-        "Post chain order: RenderPass -> BokehPass -> UnrealBloom(0.25*0.6, thr 1.6) -> OutputPass -> grade(vignette 0.28 aspect-compensated, grain 0.018)",
-        "Renders at 720x1280 not 1080x1920; deliberate cost trade",
-        "Characters have no rig and no mesh: LatheGeometry over a smoothstep-interpolated radius profile torsoR(y), 11 keys, scaled elliptically 1.13 x 1 x 0.66; armour shells are offset lathes with a Gaussian sternum ridge",
-        "All textures are procedural canvas2d from a seeded RNG: steel = blotches+scratches+pits as roughness with screen-blended colour map; chainmail = alternating tilted ellipse rings + bump map",
-        "Render contract: window.renderAt(t) -> page.screenshot(clip) -> PNG pipe -> ffmpeg libx264 crf 17; shots cached lazily by index",
-        "Per-frame lighting is returned by the shot (dof/bloom/exposure) instead of being a global setting - transferable immediately",
-        "Caption: triple-layer text-shadow + 0.6px dark stroke, 46px on 1280 (~3.6% of height), heavy grotesque, negative tracking"
-      ],
-      "evidence": [
-        "api.github.com git/trees listed 111 entries; identified the engine files the upload omitted",
-        "downloaded and read line by line: human.js (18995 B), materials.js (3089 B), props.js (14413 B), textures.js (5515 B), anim.js (3238 B), shots.js (24450 B), main.js (7875 B), index.html, render.mjs, captions.py, SKILL.md, LICENSE",
-        "LICENSE decoded: plain MIT, Copyright (c) 2026 Artem Novitckii (GitHub classifier reported NOASSERTION)"
-      ],
-      "artifacts": [
-        "research/references/zach-d-films-engine",
-        "research/references/zach-d-films.md"
-      ],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "inspected",
-          "note": "created"
-        }
-      ]
-    },
-    {
-      "id": "studio-lookdev",
-      "kind": "technique",
-      "name": "Look-dev layer: LIGHT_RIG specular, lathe volumes, bloom, grade, impact rings",
-      "url": "studio/src/render3d.mjs",
-      "license": "ours",
-      "status": "integrated",
-      "env_ok": null,
-      "deps": [],
-      "tags": [
-        "3d",
-        "skia",
-        "specular",
-        "lathe",
-        "bloom",
-        "grade",
-        "own-engine"
-      ],
-      "findings": [
-        "Broad directional specular from 3 explicit emissive planes (LIGHT_RIG) reproduces the reference metal look without any WebGL environment map",
-        "Lathed volumes of revolution work in a 2D canvas: project offset points to measure screen radii, then fill silhouette + vertical gradient + cross-shading. Stacking ring ellipses produces horizontal banding and must be avoided",
-        "bloomPass brightness-filter approach blows out mid-grey metal; needs threshold above 2 to be a real bright-pass",
-        "@napi-rs/canvas ABORTS the process on NaN geometry (sk.rs unwrap) instead of throwing - the earlier 'crash in drawBoxes' was undefined width/height being passed by me",
-        "perspective() returns a plain array [x,y,z] and divides x by aspect, so narrow sub-panel renders squash the subject; frame full width"
-      ],
-      "evidence": [
-        "lookdev.mjs renders 3 stills + a 30-frame clip; 438-444 ms/frame at 1080x1920 with 2x supersampling, bloom, grain",
-        "defects found by viewing: banding from stacked rings (fixed), wedge cut by ellipse-in-silhouette-path (fixed), bloom blowout (fixed), hard bottom slice (fixed)"
-      ],
-      "artifacts": [
-        "studio/src/render3d.mjs",
-        "studio/experiments/lookdev.mjs",
-        "studio/out/exp-lookdev.png",
-        "studio/out/exp-lookdev.mp4"
-      ],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "integrated",
-          "note": "created"
-        }
-      ]
-    },
-    {
-      "id": "bean-cartoon-engine",
-      "kind": "technique",
-      "name": "bean-cartoon 2D vector character engine (studio/src/cartoon.mjs)",
-      "url": "studio/src/cartoon.mjs",
-      "license": "ours",
-      "status": "integrated",
-      "env_ok": null,
-      "deps": [],
-      "tags": [
-        "2d",
-        "vector",
-        "character",
-        "skia",
-        "rig",
-        "expressions",
-        "own-engine"
-      ],
-      "findings": [
-        "Style recovery: the viral reference frame (image-3.png) is 2D VECTOR, not shaded 3D. Verified by reading its construction: self-coloured outlines (darkened fill, never black ink) and flat fills with at most one hard shadow tone.",
-        "Key correction to round 2: skin is a FLAT fill with no shadow tone. A dark crescent across the cheek reads as a stain. Shading tones belong to clothing only.",
-        "Face is a data table: 9 expressions x (2 eye kinds, 2 brow offsets, 1 mouth kind). Eye kinds lid|happy|squeeze|shock|dot, mouths dash|grin|frown|o|smirk|teeth|laugh. All features derive from E = eye radius = 0.155 rx, which is why the face reads identically at 200px and 1280px.",
-        "Head is ~42% of total height with no neck: the single strongest style cue. Mitt hands, 2-bone IK limbs, stubby tube legs.",
-        "API traps fixed and recorded: (1) walkCycle must return OFFSETS not absolutes, or hands land below the feet; (2) raised arms must be drawn AFTER the head or the hands vanish behind the skull; (3) two same-coloured legs merge into one dark column in front view - the far leg needs a darker tone; (4) squish must floor at 0.70 or a front-view skull squashed sideways reads as a thin egg rather than a profile.",
-        "Round 7: artifact paths repointed to tracked mirrors in research/artifacts/characters (studio/out originals are gitignored, absent in fresh checkout)"
-      ],
-      "evidence": [
-        "charsheet.mjs renders 4 PNG contact sheets and a 150-frame 1080x1920 clip at 171-178 ms/frame",
-        "9 defects found and fixed by viewing output: missing hair, torso shade spilling outside the body, crossed legs, oversized vacant skull, hidden raised arms, hands below feet, merged legs, cheek stain, wart-like nose",
-        "animation strip verified at 3 fps: blinks, neutral->happy walk, walk->run, impact squash with shock->angry, recovery to happy",
-        "artifacts mirrored to research/artifacts/characters for a tracked, shareable copy"
-      ],
-      "artifacts": [
-        "studio/src/cartoon.mjs",
-        "studio/experiments/charsheet.mjs",
-        "research/artifacts/characters/char-expressions.png",
-        "research/artifacts/characters/char-poses.png",
-        "research/artifacts/characters/char-sheet.png",
-        "research/artifacts/characters/char-hero.png",
-        "research/artifacts/characters/char-preview.mp4",
-        "research/artifacts/characters"
-      ],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "integrated",
-          "note": "created"
-        },
-        {
-          "date": "2026-11-25",
-          "status": "integrated",
-          "note": "artifacts mirrored to research/artifacts/characters for a tracked, shareable copy"
-        }
-      ]
-    },
-    {
-      "id": "cartoon-short-kit",
-      "kind": "project",
-      "name": "jonhelpangan-jpg/cartoon-short-kit — '2D look, 3D motion' house style (rig3d.js, stick.js)",
-      "url": "https://github.com/jonhelpangan-jpg/cartoon-short-kit",
-      "license": "MIT",
-      "status": "inspected",
-      "env_ok": null,
-      "deps": [
-        "three"
-      ],
-      "tags": [
-        "2d-look",
-        "toon",
-        "character",
-        "face-painter"
-      ],
-      "findings": [
-        "LOOK.flat = THREE.MeshToonMaterial with a two-step gradientMap: flat colour plus exactly one hard shadow tone. LOOK.bean scales the head to [0.94, 1.12, 0.94]. This is the mechanism behind the entire look.",
-        "Faces are painted onto a canvas texture with plain 2D calls (drawFace3D -> faceFront), so the expression system is canvas2d code, not shader work - which is why it ports to us without WebGL.",
-        "FACE table: 14 expressions (neutral, stern, grin, laugh, whistle, nervous, shock, relief, relief_open, dazed, pained, smile, smile_closed, lick) over 5 eye kinds and 11 mouths. Feature positions are expressed in units of u = headWidth/100, so the face scales with the head.",
-        "Their rigs still need WebGL, so the reference cannot run here. Only the style and the face-table idea were carried over."
-      ],
-      "evidence": [
-        "api.github.com tree listed 27 blobs; STYLE.md, rig3d.js, paint.js, framing.js, stick.js, motion.js, toonbase.js, README and SKILL.md downloaded (96 KB) and read",
-        "expression vocabulary extracted programmatically from the FACE table in toonbase.js"
-      ],
-      "artifacts": [
-        "research/references/cartoon-short-kit"
-      ],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "inspected",
-          "note": "created"
-        }
-      ]
-    },
-    {
-      "id": "lowpoly-skill",
-      "kind": "project",
-      "name": "claude-animation-skills / low-poly",
-      "url": "https://github.com/artemnovitckii/claude-animation-skills/tree/main/skills/low-poly",
-      "license": null,
-      "status": "integrated",
-      "env_ok": null,
-      "deps": [],
-      "tags": [],
-      "findings": [
-        "The resolution ladder is the single biggest lever on CPU: render small, upscale nearest-neighbour. Also: ordered dither at 15-bit plus vertex snapping is what makes low-poly read as PS1 rather than as 'bad 3D'.",
-        "Both paths verified: 360x640->3x at 36.7 ms/frame, native 1080x1920 at 172.1 ms/frame."
-      ],
-      "evidence": [
-        "template.html inspected (34917 B): 360x640 internal render upscaled 3x nearest-neighbour, PS1 vertex snap in project_vertex, 15-bit Bayer 4x4 dither in dithering_fragment, NearestFilter pixel textures 16-64px, PerspectiveCamera fov 52, Fog 10-30. Reimplemented in canvas2d as studio/src/lowpoly.mjs; measured 36.7 ms/frame vs 438 ms previous best."
-      ],
-      "artifacts": [
-        "research/artifacts/round4/exp-lowpoly-1080.png"
-      ],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "integrated",
-          "note": "created"
-        },
-        {
-          "date": "2026-11-25",
-          "status": "integrated",
-          "note": "verified"
-        }
-      ]
-    },
-    {
-      "id": "software-rasteriser-ladder",
-      "kind": "technique",
-      "name": "Painter's-algorithm software rasteriser (own implementation)",
-      "url": "local://studio/src/lowpoly.mjs",
-      "license": null,
-      "status": "integrated",
-      "env_ok": null,
-      "deps": [],
-      "tags": [],
-      "findings": [
-        "Terrain must be a separate pre-pass: painter's algorithm cannot interleave a ground plane with objects standing on it. Near-plane clipping is mandatory or the ground tears open in front of the camera.",
-        "Verified both render targets"
-      ],
-      "evidence": [
-        "380 faces, 360x640: render 8.5 ms, post 4.1 ms, upscale 3.1 ms. 1080x1920: render 11.5 ms, post 40.3 ms. Post pass folded tint+grain+dither into one pixel loop: 33.4 ms -> 4.1 ms at 360x640."
-      ],
-      "artifacts": [
-        "studio/src/lowpoly.mjs"
-      ],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "integrated",
-          "note": "created"
-        },
-        {
-          "date": "2026-11-25",
-          "status": "integrated",
-          "note": "verified"
-        }
-      ]
-    },
-    {
-      "id": "canvas2d-filter-blur",
-      "kind": "engine",
-      "name": "@napi-rs/canvas context filter (gaussian blur)",
-      "url": "https://github.com/Brooooooklyn/canvas",
-      "license": null,
-      "status": "integrated",
-      "env_ok": null,
-      "deps": [],
-      "tags": [],
-      "findings": [
-        "This Skia build exposes ctx.filter, giving cheap gaussian blur with no WebGL: the missing piece for volumetric light, soft shadows and bloom.",
-        "Used for cloud softening, snow dabs and volumetric masks"
-      ],
-      "evidence": [
-        "Probed: g.filter='blur(10px)' applies a real gaussian (centre 240, +2px 99, +8px 48, +40px 3). Used for cloud softening, snow texture dabs and soft occlusion masks."
-      ],
-      "artifacts": [
-        "studio/src/vfx.mjs"
-      ],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "integrated",
-          "note": "created"
-        },
-        {
-          "date": "2026-11-25",
-          "status": "integrated",
-          "note": "verified"
-        }
-      ]
-    },
-    {
-      "id": "sound-from-first-principles",
-      "kind": "technique",
-      "name": "Procedural sound design (own synthesis)",
-      "url": "local://studio/experiments/sounddesk.mjs",
-      "license": null,
-      "status": "integrated",
-      "env_ok": null,
-      "deps": [],
-      "tags": [],
-      "findings": [
-        "A whole soundtrack can be generated with zero external assets: wind = cascaded one-pole low-pass on white noise; footsteps = enveloped filtered noise; a train horn = four detuned sines with vibrato; whoosh = swept one-pole low-pass.",
-        "Master verified at -1.5 dBFS peak with no clipped samples"
-      ],
-      "evidence": [
-        "10 cues synthesised from noise shaping + additive sines; 16-bit 44.1k stereo master, peak -1.5 dBFS, RMS -16.17 dBFS, crest 14.67 dB, DC -1.4e-4, 0 clipped samples. Band energy low 0.131 / mid 0.075 / high 0.036."
-      ],
-      "artifacts": [
-        "research/artifacts/round4/exp-sound.wav"
-      ],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "integrated",
-          "note": "created"
-        },
-        {
-          "date": "2026-11-25",
-          "status": "integrated",
-          "note": "verified"
-        }
-      ]
-    },
-    {
-      "id": "piper-neural-tts",
-      "kind": "engine",
-      "name": "Piper (rhasspy/piper) neural TTS",
-      "url": "https://github.com/OHF-Voice/piper1-gpl",
-      "license": null,
-      "status": "integrated",
-      "env_ok": null,
-      "deps": [],
-      "tags": [],
-      "findings": [
-        "Neural TTS is possible here with zero network access to model hubs, because some MIT repos vendor Piper voices directly in their tree. This is the single biggest quality jump in Round 5: formant synthesis (espeak) sounds 1985, Piper sounds human."
-      ],
-      "evidence": [
-        "piper-tts 1.8.0 + onnxruntime 1.32 from PyPI. Model en_US-amy-medium (63 MB ONNX) fetched via api.github.com from Mobile-Artificial-Intelligence/babylon (MIT) because huggingface.co and cdn-lfs return HTTP 000. Measured: 0.40 s to synthesise 5.7 s of speech (14x realtime) on 2 cores; no GPU."
-      ],
-      "artifacts": [
-        "research/artifacts/round5/exp5-voice.wav",
-        "studio/voice.py"
-      ],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "integrated",
-          "note": "created"
-        }
-      ]
-    },
-    {
-      "id": "espeak-ng-timing",
-      "kind": "engine",
-      "name": "espeak-ng phoneme + word event timing",
-      "url": "https://github.com/espeak-ng/espeak-ng",
-      "license": null,
-      "status": "integrated",
-      "env_ok": null,
-      "deps": [],
-      "tags": [],
-      "findings": [
-        "Use espeak for TIMING and IPA only; use Piper for audio. Note GPL-3.0: fine for generating audio, but redistribution of the binary would carry the licence."
-      ],
-      "evidence": [
-        "espeakng-loader 0.2.4 (PyPI) bundles libespeak-ng.so 1.52 + espeak-ng-data, 10 MB, no root. Synthesis callback exposes word events (type 1) with audio_position in ms, and espeak_TextToPhonemes with espeakCHARS_IPA returns one IPA cluster per word. Phoneme events (type 7) are compiled out of this build (espeak_SetParameter(21,1,0) returns -1)."
-      ],
-      "artifacts": [
-        "studio/voice.py"
-      ],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "integrated",
-          "note": "created"
-        }
-      ]
-    },
-    {
-      "id": "lip-sync-visemes",
-      "kind": "technique",
-      "name": "IPA viseme set for lip-sync (own implementation)",
-      "url": "local://studio/src/character3d.mjs",
-      "license": null,
-      "status": "integrated",
-      "env_ok": null,
-      "deps": [],
-      "tags": [],
-      "findings": [
-        "Phoneme-driven mouth shapes beat amplitude lip-flap: an 'm' closes the lips and an 'o' rounds them, which amplitude cannot express."
-      ],
-      "evidence": [
-        "53 IPA symbols mapped to mouth parameters {mouthOpen, mouthWide, mouthCurve}; diacritics stripped before lookup; co-articulation blends 30% toward the next phoneme 45 ms early. 57 phonemes driven in exp5-voice.mp4."
-      ],
-      "artifacts": [
-        "research/artifacts/round5/exp5-voice.mp4",
-        "studio/experiments/voiceclip.mjs"
-      ],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "integrated",
-          "note": "created"
-        }
-      ]
-    },
-    {
-      "id": "character3d-rig",
-      "kind": "technique",
-      "name": "Procedural character mesh + 26-joint rig (own implementation)",
-      "url": "local://studio/src/character3d.mjs",
-      "license": null,
-      "status": "integrated",
-      "env_ok": null,
-      "deps": [],
-      "tags": [],
-      "findings": [
-        "Rounded tubes and superellipsoids render flat-shaded at the same cost as boxes, so there is no reason to model a character out of boxes. Screen-space-independent: face features must be placed against a skullZ(x,y) surface function, not at fixed depths."
-      ],
-      "evidence": [
-        "2548 faces per figure at rest. Skeleton: 26 bones (root/hips/spine/chest/neck/head/jaw + shoulder/upperArm/foreArm/hand x2 + thigh/shin/foot/toe x2), FK with R=Ry*Rx*Rz per bone. Analytic two-bone IK with pole vector. Continuous expression space (7 params) with 10 named presets and blending; viseme set keyed on IPA."
-      ],
-      "artifacts": [
-        "studio/src/character3d.mjs",
-        "research/artifacts/round5/exp5-character.png",
-        "research/artifacts/round5/exp5-expressions.png"
-      ],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "integrated",
-          "note": "created"
-        }
-      ]
-    },
-    {
-      "id": "procedural-locomotion",
-      "kind": "technique",
-      "name": "Procedural locomotion + performance (own implementation)",
-      "url": "local://studio/src/animation.mjs",
-      "license": null,
-      "status": "integrated",
-      "env_ok": null,
-      "deps": [],
-      "tags": [],
-      "findings": [
-        "Feet must be IK targets, not joint angles: angle-driven legs skate. Arm poses must ALSO be IK targets — three composed pitch rotations put a 'guard' pose above the character's head."
-      ],
-      "evidence": [
-        "Walk/run cycles via IK foot targets (planted during stance, arcs during swing), jump arc with anticipation/land/recover, impact with wind/strike/recoil/settle, idle breathing. Camera shake from squared trauma with layered band-limited noise; traumaDecay e^-kt."
-      ],
-      "artifacts": [
-        "studio/src/animation.mjs",
-        "research/artifacts/round5/exp5-walk.mp4",
-        "research/artifacts/round5/exp5-impact.mp4"
-      ],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "integrated",
-          "note": "created"
-        }
-      ]
-    },
-    {
-      "id": "cinema-lens-stack",
-      "kind": "technique",
-      "name": "Lens stack: DOF, bloom, grain, CA (own implementation)",
-      "url": "local://studio/src/cinema.mjs",
-      "license": null,
-      "status": "integrated",
-      "env_ok": null,
-      "deps": [],
-      "tags": [],
-      "findings": [
-        "Chromatic aberration must be composited from three ISOLATED channels. Multiplying copies by pure red/blue and adding them doubles those channels against the untouched frame and turns the whole picture magenta."
-      ],
-      "evidence": [
-        "3-radius depth-slicing DOF via ctx.filter blur; bloom bright-pass at threshold 0.80 + blur + lighter; cached grain layer offset per frame; 3-channel chromatic aberration. fitFov() bisects the lens so subject points fit a safe rect in 22 iterations."
-      ],
-      "artifacts": [
-        "studio/src/cinema.mjs",
-        "research/artifacts/round5/exp5-scene.mp4"
-      ],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "integrated",
-          "note": "created"
-        }
-      ]
-    },
-    {
-      "id": "fresnel-rim-flat-shade",
-      "kind": "technique",
-      "name": "Fresnel rim light for flat-shaded night scenes (own implementation)",
-      "url": "local://studio/src/lowpoly.mjs",
-      "license": null,
-      "status": "integrated",
-      "env_ok": null,
-      "deps": [],
-      "tags": [],
-      "findings": [
-        "A flat-shaded subject in a night scene with only key+hemispheric fill reads as unlit cardboard because nothing on its silhouette is brighter than the background. Rim + Fresnel is the cheapest fix. Also: a wall whose albedo matches the sky value makes lit windows look like paper rectangles glued to the sky - pale cornice/plinth/pilaster bands draw the building outline for 2 boxes."
-      ],
-      "evidence": [
-        "rim={eye,dir,colour,intensity,power} added to shadeFace. k = (1-|n.v|)^power * max(0,-n.dir) * intensity. In the night scene at intensity 0.85 the rim was invisible; 1.75 with power 1.9 reads clearly. Plus groundPass hook so contact shadows are not buried by the terrain pre-pass."
-      ],
-      "artifacts": [
-        "research/artifacts/round5/exp5-scene.mp4"
-      ],
-      "reason": null,
-      "first_seen": "2026-11-25",
-      "history": [
-        {
-          "date": "2026-11-25",
-          "status": "integrated",
-          "note": "created"
-        }
-      ]
-    },
-    {
-      "id": "stickman-engine",
-      "kind": "engine",
-      "name": "MASTER PROMPT stickman 2D engine",
-      "url": null,
-      "license": null,
-      "status": "integrated",
-      "env_ok": null,
-      "deps": [],
-      "tags": [
-        "round7",
-        "2d"
-      ],
-      "findings": [
-        "Pure-white wobbly heads + uneven navy ink + outfit-as-body blobs reproduce the master-prompt marker style natively in canvas2d"
-      ],
-      "evidence": [
-        "tanjiro2d.mjs rendered 1657 frames at 159ms/f; contact sheet + 24-shot short inspected; white heads/black stick limbs/checkered haori verified in frames"
-      ],
-      "artifacts": [
-        "research/artifacts/round7/exp7a-contact.jpg"
-      ],
-      "reason": null,
-      "first_seen": "2026-11-26",
-      "history": [
-        {
-          "date": "2026-11-26",
-          "status": "integrated",
-          "note": "created"
-        }
-      ]
-    },
-    {
-      "id": "waterfx",
-      "kind": "technique",
-      "name": "Water Breathing VFX (ribbons/dragon/wheel)",
-      "url": null,
-      "license": null,
-      "status": "integrated",
-      "env_ok": null,
-      "deps": [],
-      "tags": [
-        "round7",
-        "vfx"
-      ],
-      "findings": [
-        "Layered glow+gradient+foam-core+flow-dashes ribbon reads as anime water; serpentine dragon with head/eye/whiskers"
-      ],
-      "evidence": [
-        "waterDragon/waterRibbon/waterWheel rendered in exp7a dragon thumbnail + exp7b dragon shot; viewed"
-      ],
-      "artifacts": [
-        "research/artifacts/round7/exp7a-thumb-dragon.png"
-      ],
-      "reason": null,
-      "first_seen": "2026-11-26",
-      "history": [
-        {
-          "date": "2026-11-26",
-          "status": "integrated",
-          "note": "created"
-        }
-      ]
-    },
-    {
-      "id": "score-jp",
-      "kind": "technique",
-      "name": "Japanese-flavored procedural score + battle SFX",
-      "url": null,
-      "license": null,
-      "status": "integrated",
-      "env_ok": null,
-      "deps": [],
-      "tags": [
-        "round7",
-        "audio"
-      ],
-      "findings": [
-        "Twist section drops melodic music to a drone + sting per master prompt; measured not heard"
-      ],
-      "evidence": [
-        "synthesizeScore hirajoshi koto/taiko/pad/drone with twist-stop; mixed under voice, SFX capped 0.7x voice; loudnorm -14"
-      ],
-      "artifacts": [
-        "research/artifacts/round7/exp7a-qa.json"
-      ],
-      "reason": null,
-      "first_seen": "2026-11-26",
-      "history": [
-        {
-          "date": "2026-11-26",
-          "status": "integrated",
-          "note": "created"
-        }
-      ]
-    },
-    {
-      "id": "tanjiro-2d-short",
-      "kind": "demo",
-      "name": "Experiment A: 2D stickman Water Breathing short",
-      "url": null,
-      "license": null,
-      "status": "integrated",
-      "env_ok": null,
-      "deps": [],
-      "tags": [
-        "round7",
-        "video"
-      ],
-      "findings": [],
-      "evidence": [
-        "55.2s 1080x1920@30 H.264+AAC; QA 0 black>0.4s 0 freezes -15.4 LUFS PASS; 24 shots <=90f no repeated angle"
-      ],
-      "artifacts": [
-        "research/artifacts/round7/exp7a-tanjiro-2d-720.mp4"
-      ],
-      "reason": null,
-      "first_seen": "2026-11-26",
-      "history": [
-        {
-          "date": "2026-11-26",
-          "status": "integrated",
-          "note": "created"
-        }
-      ]
-    },
-    {
-      "id": "tanjiro-3d-short",
-      "kind": "demo",
-      "name": "Experiment B: 3D low-poly Water Breathing short",
-      "url": null,
-      "license": null,
-      "status": "integrated",
-      "env_ok": null,
-      "deps": [],
-      "tags": [
-        "round7",
-        "video"
-      ],
-      "findings": [],
-      "evidence": [
-        "21.6s 1080x1920@30; Round4 rasteriser + Round5 rig re-skinned Tanjiro + katana; QA 0 black 0 freezes after freeze fix"
-      ],
-      "artifacts": [
-        "research/artifacts/round7/exp7b-tanjiro-3d-720.mp4"
-      ],
-      "reason": null,
-      "first_seen": "2026-11-26",
-      "history": [
-        {
-          "date": "2026-11-26",
-          "status": "integrated",
-          "note": "created"
-        }
-      ]
-    },
-    {
-      "id": "remotion-engine",
-      "kind": "engine",
-      "name": "Remotion (React programmatic video)",
-      "url": "https://github.com/remotion-dev/remotion",
-      "license": null,
-      "status": "inspected",
-      "env_ok": null,
-      "deps": [],
-      "tags": [
-        "round8",
-        "motion-graphics"
-      ],
-      "findings": [
-        "interpolate(frame,[in],[out],{easing,clamp}) + spring() keyframe model; frame-by-frame so timing never drifts; port patterns not runtime"
-      ],
-      "evidence": [
-        "remotion.dev/docs/interpolate read; repo ★75.9k via GitHub API"
-      ],
-      "artifacts": [],
-      "reason": null,
-      "first_seen": "2026-11-26",
-      "history": [
-        {
-          "date": "2026-11-26",
-          "status": "inspected",
-          "note": "created"
-        }
-      ]
-    },
-    {
-      "id": "manim-engine",
-      "kind": "engine",
-      "name": "Manim + ecmanim (math animation)",
-      "url": "https://github.com/johnhenry/ecmanim",
-      "license": null,
-      "status": "inspected",
-      "env_ok": null,
-      "deps": [],
-      "tags": [
-        "round8",
-        "math-viz"
-      ],
-      "findings": [
-        "rate functions smooth/rush_into/there_and_back/ease_out_back; ecmanim is a Node port (MP4) closest to our stack; counters/graphs/equations"
-      ],
-      "evidence": [
-        "skills/shared/easing-reference.md read; Manim-Tutorial ★832, ecmanim ★10"
-      ],
-      "artifacts": [],
-      "reason": null,
-      "first_seen": "2026-11-26",
-      "history": [
-        {
-          "date": "2026-11-26",
-          "status": "inspected",
-          "note": "created"
-        }
-      ]
-    },
-    {
-      "id": "video-talkcraft",
-      "kind": "skill-kit",
-      "name": "video-talkcraft agent skill",
-      "url": "https://github.com/Vincentwei1021/video-talkcraft",
-      "license": null,
-      "status": "inspected",
-      "env_ok": null,
-      "deps": [],
-      "tags": [
-        "round8",
-        "methodology"
-      ],
-      "findings": [
-        "7-layer anti-PPT camera (slow push/pull, motion-by-subtraction); one protagonist per beat yields; new elements only at semantic beats; caption sentence boundaries = time anchors; 108 motion recipe cards; auto freeze detection + subagent review"
-      ],
-      "evidence": [
-        "SKILL.md read in full via contents API"
-      ],
-      "artifacts": [],
-      "reason": null,
-      "first_seen": "2026-11-26",
-      "history": [
-        {
-          "date": "2026-11-26",
-          "status": "inspected",
-          "note": "created"
-        }
-      ]
-    },
-    {
-      "id": "iart-motion-skills",
-      "kind": "skill-kit",
-      "name": "iart-ai/motion-skills (56 skills)",
-      "url": "https://github.com/iart-ai/motion-skills",
-      "license": null,
-      "status": "inspected",
-      "env_ok": null,
-      "deps": [],
-      "tags": [
-        "round8",
-        "motion-graphics"
-      ],
-      "findings": [
-        "kinetic typography, data-viz, explainers, TikTok/Reels, WebGL, Manim skills for coding agents"
-      ],
-      "evidence": [
-        "repo ★2.2k; root + tools dir listed via API"
-      ],
-      "artifacts": [],
-      "reason": null,
-      "first_seen": "2026-11-26",
-      "history": [
-        {
-          "date": "2026-11-26",
-          "status": "inspected",
-          "note": "created"
-        }
-      ]
-    },
-    {
-      "id": "whisper-karaoke",
-      "kind": "technique",
-      "name": "Whisper word-timestamps -> ASS karaoke captions",
-      "url": "https://free.ai/video/caption/",
-      "license": null,
-      "status": "inspected",
-      "env_ok": null,
-      "deps": [],
-      "tags": [
-        "round8",
-        "captions"
-      ],
-      "findings": [
-        "word-level STT -> ASS \\k karaoke -> ffmpeg burn; same {words:[{text,start,end}]} schema our align.py emits; enables word-by-word highlight"
-      ],
-      "evidence": [
-        "technique confirmed via web + AlwaysWhisper ★46; align.py schema inspected"
-      ],
-      "artifacts": [],
-      "reason": null,
-      "first_seen": "2026-11-26",
-      "history": [
-        {
-          "date": "2026-11-26",
-          "status": "inspected",
-          "note": "created"
-        }
-      ]
-    },
-    {
-      "id": "kinetic-primitives",
-      "kind": "engine",
-      "name": "kinetic.mjs motion-graphics primitives (OURS)",
-      "url": null,
-      "license": null,
-      "status": "integrated",
-      "env_ok": null,
-      "deps": [],
-      "tags": [
-        "round8",
-        "ours"
-      ],
-      "findings": [
-        "additive module: interpolate/spring/pulse/entrance/exit + karaokeCaption + animatedCounter + rayBackdrop + glassCard; closes word-karaoke/counter/perpetual-backdrop gaps vs V2/V3"
-      ],
-      "evidence": [
-        "kinetic_demo.mjs rendered 240f @50ms/f; QA 0 black 0 freeze; contact sheet + full frame viewed"
-      ],
-      "artifacts": [
-        "research/artifacts/round8/kinetic-demo.mp4"
-      ],
-      "reason": null,
-      "first_seen": "2026-11-26",
-      "history": [
-        {
-          "date": "2026-11-26",
-          "status": "integrated",
-          "note": "created"
-        }
-      ]
-    },
-    {
-      "id": "round8-reference-videos",
-      "kind": "asset",
-      "name": "3 user reference videos (Drive)",
-      "url": null,
-      "license": null,
-      "status": "inspected",
-      "env_ok": null,
-      "deps": [],
-      "tags": [
-        "round8",
-        "reference"
-      ],
-      "findings": [
-        "V1 3D drama (0 cuts, red-keyword karaoke); V2/V3 @Silenthys 2D anime-science explainers (60fps, no hard cuts, eased graphic beats every 2-4s, word-karaoke, counters, perpetual backdrop, -14 LUFS)"
-      ],
-      "evidence": [
-        "downloaded via Drive connector, byte-verified; overview+motion strips+spectrograms analyzed"
-      ],
-      "artifacts": [
-        "research/artifacts/round8/v2-overview.jpg"
-      ],
-      "reason": null,
-      "first_seen": "2026-11-26",
-      "history": [
-        {
-          "date": "2026-11-26",
-          "status": "inspected",
-          "note": "created"
-        }
-      ]
+     "date": "2026-11-25",
+     "status": "discovered",
+     "note": "created"
     }
-  ],
-  "migrated_from": "research/knowledge_base.json (Phase 3, read-only provenance)"
+   ]
+  },
+  {
+   "id": "vsim",
+   "kind": "engine",
+   "name": "vsim — \"Remotion for real 3D\" (pure-TS software rasteriser)",
+   "url": "https://github.com/kunalkushwaha/vsim",
+   "license": "MIT",
+   "status": "tested",
+   "env_ok": true,
+   "deps": [],
+   "tags": [
+    "3d",
+    "software-rasteriser",
+    "deterministic",
+    "gltf",
+    "ik",
+    "cel-shading"
+   ],
+   "findings": [
+    "Architecture: zod-validated JSON scene document -> pure-TS rasteriser -> MP4; no GPU, no Chrome, no node-gyp.",
+    "Determinism is enforced, not promised: Math.random is lint-banned in runtime code and CI compares golden-frame hashes.",
+    "Feature set worth copying conceptually: per-pixel PBR with normal maps, PCF shadows, sorted transparency, ACES tone mapping, bloom, sky-derived hemisphere ambient, linear fog, glTF skeletal clips with crossfades, ground-contact IK with stance locking, spring bones, morph-target lip-sync, Rapier physics, beat-driven audio.",
+    "manga style is a single flag (style:\"manga\") that swaps to cel shading + ink outlines - a good precedent for exposing a \"look\" as one switch.",
+    "Speed verdict: 2040 ms/frame is ~14x too slow for our 9:16 1080x1920 workload next to a Skia path at 123-148 ms/frame.",
+    "Film3D pipeline is the most reusable idea: a director LLM writes a schema-validated Film3DDoc (cast, beats, shots), a compiler lowers it to a scene, and the renderer stays AI-free and deterministic. It also renders its own dailies and re-blocks from them."
+   ],
+   "evidence": [
+    "cloned, pnpm 9.15.0 install + build succeeded",
+    "rendered examples 01-cube, 09-manga, 21-mouse at 1080x1920",
+    "benchmarked 2040 ms/frame @1080x1920 on 2 cores"
+   ],
+   "artifacts": [],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "tested",
+     "note": "seeded from session findings"
+    }
+   ]
+  },
+  {
+   "id": "vsim-film3d",
+   "kind": "technique",
+   "name": "Film3DDoc: validated screenplay -> scene compiler -> self-reviewed dailies",
+   "url": "https://github.com/kunalkushwaha/vsim/tree/main/packages/film3d",
+   "license": "MIT",
+   "status": "inspected",
+   "env_ok": true,
+   "deps": [],
+   "tags": [
+    "pipeline",
+    "llm-direction",
+    "qa",
+    "shot-list"
+   ],
+   "findings": [
+    "Contract: the model may only emit a validated document; it never touches the render loop. A bad scene cannot be rendered, only rejected.",
+    "Shot vocabulary we should adopt: wide / close / follow / orbit, plus an optional handheld drift for documentary feel.",
+    "Self-review loop: one still per shot, two rounds, later rounds see the previous round frames. This is an automated visual QA gate that costs almost nothing.",
+    "Baking trick: HTML artifacts are baked to a frame sequence by a pinned headless Chromium and played back as an in-world texture. With our new browser cell this becomes available to us."
+   ],
+   "evidence": [
+    "README film/3d section + package.json scripts read from raw.githubusercontent via page fetcher",
+    "read film:gen and film3d:fox scripts"
+   ],
+   "artifacts": [],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "inspected",
+     "note": "seeded from session findings"
+    }
+   ]
+  },
+  {
+   "id": "claude-animation-skills",
+   "kind": "skill-kit",
+   "name": "artemnovitckii/claude-animation-skills — 11 video skills for Claude Code",
+   "url": "https://github.com/artemnovitckii/claude-animation-skills",
+   "license": "MIT",
+   "status": "inspected",
+   "env_ok": true,
+   "deps": [],
+   "tags": [
+    "hyperframes",
+    "three.js",
+    "gsap",
+    "kit",
+    "styles"
+   ],
+   "findings": [
+    "Eleven skills, not six: zach-d-films, zach-3d-films (same engine, renamed), stick-figure, minimalistic-graphics, map-route, breakdown, graph, low-poly, minecraft, kurzgesagt, dan-koe.",
+    "anim.py is the whole architecture: spec JSON -> fill __SPEC__/__DURATION__ into template.html -> hyperframes render --fps 30 -q high -> contact sheet with Instagram safe area drawn in red.",
+    "Safe area constants: W1080 H1920 FPS30, SAFE_TOP 220, SAFE_BOTTOM 1500, SAFE_SIDE 100. Encoded as a drawbox overlay on every contact sheet, so the check is visual not manual.",
+    "Duration is declared as a lambda over the spec, and --snap renders individual times without a full render. Cheap iteration is designed in.",
+    "build.py does spec validation with actionable messages (e.g. label column length warnings) instead of silently producing bad output.",
+    "check_setup() fails loudly when GSAP or three.js is missing rather than rendering blank.",
+    "CORRECTION: the supplied upload omitted the entire engine/src directory (human.js, materials.js, props.js, textures.js, anim.js, shots.js, main.js), render.mjs, and the 13 font binaries. Source has now been fetched from the original repo.",
+    "Licence is plain MIT (verified by decoding LICENSE), not NOASSERTION as GitHub's classifier reports",
+    "Repo also ships a real Kokoro voice sample vo_kokoro.wav plus words_ref.json and tools/align.py - evidence they ship neural TTS output, and a forced-alignment approach we can study"
+   ],
+   "evidence": [
+    "full kit read file-by-file: SKILL.md, README.md, anim.py, build.py, build-2.py, words.py, template.html (16993 B), install.sh, setup.sh, manifests",
+    "all 13 text files verified byte-identical to our stored copy by md5",
+    "two contact sheets viewed at full resolution: skills.jpg (6 skills), five-styles.jpg (5 styles)",
+    "original repo found via api.github.com (1259 stars, 179 forks, pushed 2026-11-17); full 111-entry tree listed; engine source downloaded and read"
+   ],
+   "artifacts": [
+    "research/skills/zach-d-films",
+    "research/uploads-2026-11-25"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "inspected",
+     "note": "seeded from session findings"
+    },
+    {
+     "date": "2026-11-25",
+     "status": "inspected",
+     "note": "original repo found via api.github.com (1259 stars, 179 forks, pushed 2026-11-17); full 111-entry tree listed; engine source downloaded and read"
+    }
+   ]
+  },
+  {
+   "id": "sparticuz-chromium",
+   "kind": "project",
+   "name": "@sparticuz/chromium — Chromium binary shipped inside the npm tarball",
+   "url": "https://github.com/Sparticuz/chromium",
+   "license": "MIT",
+   "status": "integrated",
+   "env_ok": true,
+   "deps": [],
+   "tags": [
+    "chromium",
+    "serverless",
+    "browser",
+    "enabler"
+   ],
+   "findings": [
+    "This is the single enabler that turned \"no browser is obtainable\" into \"a browser is obtainable\" in a network-locked sandbox: the binary travels in the npm tarball, not a CDN.",
+    "The AL2023 archive is only auto-extracted when the package detects Amazon Linux 2023, so on Debian-like images the NSS libraries are present but never unpacked. Extract them manually.",
+    "SwiftShader tar (libEGL, libGLESv2, libvk_swiftshader, vulkan ICD) ships too, and its vulkan ICD json uses a RELATIVE library_path that must be rewritten to an absolute path before use."
+   ],
+   "evidence": [
+    "npm install produced 75 MB node_modules, extracted a 227,736,800 B executable to /tmp/chromium",
+    "binary initially failed: \"error while loading shared libraries: libnspr4.so\"",
+    "apt has no libnspr4 and deb.debian.org is unreachable (HTTP 000)",
+    "found libnspr4.so / libnss3.so inside its own bin/al2023.tar.br; brotli-decompressed and tar-extracted; Chromium 158.0.8127.0 then started"
+   ],
+   "artifacts": [
+    "research/tools/browser/provision.sh"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "integrated",
+     "note": "seeded from session findings"
+    }
+   ]
+  },
+  {
+   "id": "webgl-swiftshader",
+   "kind": "technique",
+   "name": "Headless WebGL via ANGLE/SwiftShader in this sandbox",
+   "url": "https://chromium.googlesource.com/chromium/src/+/main/docs/gpu/swiftshader.md",
+   "license": "n/a",
+   "status": "rejected",
+   "env_ok": false,
+   "deps": [],
+   "tags": [
+    "webgl",
+    "swiftshader",
+    "three.js",
+    "blocked"
+   ],
+   "findings": [
+    "Do not retry this: the failure is inside ANGLE/Vulkan initialisation, not in our flags or environment.",
+    "Keep the swiftshader libs extracted anyway - they cost nothing and would be the first thing to try if the image changes."
+   ],
+   "evidence": [
+    "7 flag combinations tried: --use-gl=angle|swiftshader, --use-angle=swiftshader|swiftshader-webgl|vulkan, --in-process-gpu, --headless=old, Vulkan feature flags",
+    "3 ICD configurations: package default, absolute library_path rewrite, VK_DRIVER_FILES",
+    "Chrome stderr: \"Internal Vulkan error (-3)\" at vk_renderer.cpp initialize:2546, then \"eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED\"",
+    "/dev/shm is 2.0 GB and all three SwiftShader libs resolve their deps, so neither memory nor missing libs explain it"
+   ],
+   "artifacts": [],
+   "reason": "eglInitialize SwANGLE failed with EGL_NOT_INITIALIZED in every configuration tried; three.js is therefore unreachable in this sandbox",
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "rejected",
+     "note": "seeded from session findings"
+    }
+   ]
+  },
+  {
+   "id": "remotion",
+   "kind": "engine",
+   "name": "Remotion — React -> video",
+   "url": "https://github.com/remotion-dev/remotion",
+   "license": "company licence, not OSI",
+   "status": "discovered",
+   "env_ok": null,
+   "deps": [],
+   "tags": [
+    "react",
+    "chrome",
+    "renderer",
+    "licence-risk"
+   ],
+   "findings": [
+    "Needs Chrome, which we now have, but the licence is not OSI for company use and HyperFrames already covers the same HTML-to-video niche with a plain-HTML model."
+   ],
+   "evidence": [],
+   "artifacts": [],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "discovered",
+     "note": "seeded from session findings"
+    }
+   ]
+  },
+  {
+   "id": "kokoro-js",
+   "kind": "engine",
+   "name": "kokoro-js — neural TTS on onnxruntime-node",
+   "url": "https://github.com/hexgrad/kokoro",
+   "license": "Apache-2.0",
+   "status": "tested",
+   "env_ok": false,
+   "deps": [],
+   "tags": [
+    "tts",
+    "voice",
+    "onnx"
+   ],
+   "findings": [
+    "Correction to an earlier conclusion: neural TTS is NOT blocked by a postinstall CDN fetch. It is blocked only by model weights.",
+    "One supplied weights file would unblock a natural-voice path - the highest-value unblock available to us."
+   ],
+   "evidence": [
+    "npm install --ignore-scripts succeeded (56 packages)",
+    "require(\"onnxruntime-node\") loaded, version 1.21.0, prebuilt libonnxruntime.so.1.21.0 ships inside the tarball (no postinstall download)",
+    "weights fetch attempted against huggingface.co, hf-mirror.com (HTTP 000) and the GitHub release asset (302 -> release-assets.githubusercontent.com, HTTP 000)"
+   ],
+   "artifacts": [],
+   "reason": "runtime loads but the ~327 MB model weights live on huggingface.co / release assets, all HTTP 000 here",
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "tested",
+     "note": "seeded from session findings"
+    }
+   ]
+  },
+  {
+   "id": "sherpa-onnx",
+   "kind": "engine",
+   "name": "sherpa-onnx — ASR/TTS toolkit",
+   "url": "https://github.com/k2-fsa/sherpa-onnx",
+   "license": "Apache-2.0",
+   "status": "discovered",
+   "env_ok": null,
+   "deps": [],
+   "tags": [
+    "tts",
+    "asr",
+    "onnx",
+    "timing"
+   ],
+   "findings": [
+    "Interesting mainly for forced alignment (word timings for captions), but its models are also on blocked CDNs."
+   ],
+   "evidence": [],
+   "artifacts": [],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "discovered",
+     "note": "seeded from session findings"
+    }
+   ]
+  },
+  {
+   "id": "ossos",
+   "kind": "project",
+   "name": "sketchpunklabs/ossos — character IK/motion",
+   "url": "https://github.com/sketchpunklabs/ossos",
+   "license": "check",
+   "status": "discovered",
+   "env_ok": null,
+   "deps": [],
+   "tags": [
+    "character",
+    "ik",
+    "webgl"
+   ],
+   "findings": [],
+   "evidence": [],
+   "artifacts": [],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "discovered",
+     "note": "seeded from session findings"
+    }
+   ]
+  },
+  {
+   "id": "drawcall-animate",
+   "kind": "project",
+   "name": "drawcall-ai/animate",
+   "url": "https://github.com/drawcall-ai/animate",
+   "license": "check",
+   "status": "discovered",
+   "env_ok": null,
+   "deps": [],
+   "tags": [
+    "character",
+    "webgl"
+   ],
+   "findings": [],
+   "evidence": [],
+   "artifacts": [],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "discovered",
+     "note": "seeded from session findings"
+    }
+   ]
+  },
+  {
+   "id": "software-rasterisers",
+   "kind": "technique",
+   "name": "JS software rasterisers: js-renderer, aisa, facet, SoftwareRenderer, TinyRenderer",
+   "url": "https://github.com/jtsorlinis/js-renderer",
+   "license": "mixed",
+   "status": "inspected",
+   "env_ok": true,
+   "deps": [],
+   "tags": [
+    "3d",
+    "rasteriser",
+    "reference"
+   ],
+   "findings": [
+    "Common lesson: they are all per-pixel JS and therefore slow, which is exactly why our Skia-backed rasteriser beats vsim by ~14x.",
+    "ccajas/JS-TinyRenderer has the clearest pipeline order to copy pedagogically: model -> view -> projection -> clip -> raster -> shade."
+   ],
+   "evidence": [
+    "read design descriptions for jtsorlinis/js-renderer, jdiemke/aisa, bxzex/facet, Sopiro/SoftwareRenderer, ccajas/JS-TinyRenderer"
+   ],
+   "artifacts": [],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "inspected",
+     "note": "seeded from session findings"
+    }
+   ]
+  },
+  {
+   "id": "paper-3dgs",
+   "kind": "paper",
+   "name": "3D Gaussian Splatting for Real-Time Radiance Field Rendering (Kerbl et al. 2023)",
+   "url": "https://arxiv.org/pdf/2308.04079",
+   "license": "arXiv",
+   "status": "inspected",
+   "env_ok": false,
+   "deps": [],
+   "tags": [
+    "paper",
+    "rendering",
+    "neural"
+   ],
+   "findings": [
+    "Not usable here (capture-based, GPU), but the tile-based visibility sorting idea is applicable to any software renderer that needs correct alpha ordering."
+   ],
+   "evidence": [
+    "full text parsed and read (11 chunks) via the page fetcher"
+   ],
+   "artifacts": [],
+   "reason": "needs CUDA-class GPU and multi-view captures; not applicable to procedural explainer rendering",
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "inspected",
+     "note": "seeded from session findings"
+    }
+   ]
+  },
+  {
+   "id": "paper-acg",
+   "kind": "paper",
+   "name": "Papers to fetch for cel shading, outlines and cartoon lighting",
+   "url": null,
+   "license": null,
+   "status": "discovered",
+   "env_ok": null,
+   "deps": [],
+   "tags": [
+    "paper",
+    "cel-shading",
+    "toon",
+    "outline"
+   ],
+   "findings": [
+    "Queue: stylised/cel-shading surveys, ink-outline techniques (depth+normal edge detection), Disney/Pixar BRDF literature for the specular highlight the zach-3d-films look depends on."
+   ],
+   "evidence": [],
+   "artifacts": [],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "discovered",
+     "note": "seeded from session findings"
+    }
+   ]
+  },
+  {
+   "id": "studio-render3d",
+   "kind": "technique",
+   "name": "studio/src/render3d.mjs — software 3D on the Skia canvas",
+   "url": "studio/src/render3d.mjs",
+   "license": "ours",
+   "status": "integrated",
+   "env_ok": true,
+   "deps": [],
+   "tags": [
+    "3d",
+    "skia",
+    "own-engine",
+    "box-only"
+   ],
+   "findings": [
+    "Technique set: lookAt + perspective, backface cull, painter sort, Lambert key + hemisphere fill + rim, ACES tone mapping, contact shadows, 2x supersampling.",
+    "Framing rule for 9:16: horizontal half-extent is d*tan(fov/2)*(9/16), so width binds before height. A 4.6-unit set needs d~16.6 at fov 30; keep sets ~2.5 units and camera at 8.6 with fov 34.",
+    "Limitation: box-only. No meshes, no rigs, no textures, no cel shading."
+   ],
+   "evidence": [
+    "render1 141 ms/frame, render2 148 ms/frame, render3 123 ms/frame at 1080x1920 (60 frames)",
+    "each render inspected as a PNG tile; two defects found and fixed (camera too low, missing ground plane)"
+   ],
+   "artifacts": [
+    "studio/src/render3d.mjs",
+    "studio/experiments/scene3d.mjs"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "integrated",
+     "note": "seeded from session findings"
+    }
+   ]
+  },
+  {
+   "id": "style-references",
+   "kind": "doc",
+   "name": "zach-3d-films / five-styles contact sheets (11 skills)",
+   "url": "research/STYLE_REFERENCE_NOTES.md",
+   "license": "n/a",
+   "status": "inspected",
+   "env_ok": true,
+   "deps": [],
+   "tags": [
+    "style",
+    "reference",
+    "target-quality",
+    "zach-d-films"
+   ],
+   "findings": [
+    "The gap to the reference look is not mesh fidelity: it is (1) a broad stretched specular on curved metal, (2) depth of field with a crisp subject and soft ground, (3) exaggerated proportion, (4) impact read as concentric rings plus one verb.",
+    "Reference staging grammar: one subject, one prop, one action verb, large negative space above.",
+    "Caption grammar: white bold lowercase bottom-centre ~6% of frame height with a soft drop shadow, no box.",
+    "Cheap wins identified for our channel: rounded label chips, impact rings, hairline-on-black variant, yellow no-box captions, DOF."
+   ],
+   "evidence": [
+    "skills.jpg and five-styles.jpg viewed at full resolution; README cross-read for skill list"
+   ],
+   "artifacts": [
+    "research/STYLE_REFERENCE_NOTES.md"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "inspected",
+     "note": "seeded from session findings"
+    }
+   ]
+  },
+  {
+   "id": "qa-defects-001",
+   "kind": "technique",
+   "name": "Visual QA gates: caption collision + motion-energy floor",
+   "url": "research/INSPECTION_CAPABILITIES.md",
+   "license": "ours",
+   "status": "inspected",
+   "env_ok": true,
+   "deps": [],
+   "tags": [
+    "qa",
+    "gate",
+    "defect",
+    "captions"
+   ],
+   "findings": [
+    "The existing 100/100 automated score did not catch either defect, so the score is measuring the wrong things.",
+    "Both are mechanically detectable: text/chart bounding-box intersection, and per-second frame-difference energy below a floor.",
+    "Because frames are the only way I can evaluate motion, these gates are the substitute for watching the video - they should be mandatory before any render is called done."
+   ],
+   "evidence": [
+    "frame at t=6.8 s of studio/out/mining-weekly-01.mp4 shows the karaoke caption box overlapping the chart x-axis label row",
+    "1 fps 6x2 contact sheet shows scene 02 nearly pixel-identical from t=0 to t=5"
+   ],
+   "artifacts": [
+    "research/INSPECTION_CAPABILITIES.md"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "inspected",
+     "note": "seeded from session findings"
+    }
+   ]
+  },
+  {
+   "id": "zach-df-engine",
+   "kind": "technique",
+   "name": "zach-d-films engine: PMREM softbox, Bokeh, Bloom, grade, lathe humans",
+   "url": "https://github.com/artemnovitckii/claude-animation-skills/tree/main/skills/zach-d-films/engine",
+   "license": "MIT",
+   "status": "inspected",
+   "env_ok": null,
+   "deps": [
+    "three",
+    "@fontsource/montserrat"
+   ],
+   "tags": [
+    "three.js",
+    "pmrem",
+    "dof",
+    "bloom",
+    "grade",
+    "character",
+    "procedural-texture",
+    "target-quality"
+   ],
+   "findings": [
+    "PMREM env built from explicit emissive planes (key 8x4 @3.2, rim 4x10 @1.6, fill 10x3 @1.0) prefilters reflections -> the broad directional specular; this is the highest-value technique",
+    "Post chain order: RenderPass -> BokehPass -> UnrealBloom(0.25*0.6, thr 1.6) -> OutputPass -> grade(vignette 0.28 aspect-compensated, grain 0.018)",
+    "Renders at 720x1280 not 1080x1920; deliberate cost trade",
+    "Characters have no rig and no mesh: LatheGeometry over a smoothstep-interpolated radius profile torsoR(y), 11 keys, scaled elliptically 1.13 x 1 x 0.66; armour shells are offset lathes with a Gaussian sternum ridge",
+    "All textures are procedural canvas2d from a seeded RNG: steel = blotches+scratches+pits as roughness with screen-blended colour map; chainmail = alternating tilted ellipse rings + bump map",
+    "Render contract: window.renderAt(t) -> page.screenshot(clip) -> PNG pipe -> ffmpeg libx264 crf 17; shots cached lazily by index",
+    "Per-frame lighting is returned by the shot (dof/bloom/exposure) instead of being a global setting - transferable immediately",
+    "Caption: triple-layer text-shadow + 0.6px dark stroke, 46px on 1280 (~3.6% of height), heavy grotesque, negative tracking"
+   ],
+   "evidence": [
+    "api.github.com git/trees listed 111 entries; identified the engine files the upload omitted",
+    "downloaded and read line by line: human.js (18995 B), materials.js (3089 B), props.js (14413 B), textures.js (5515 B), anim.js (3238 B), shots.js (24450 B), main.js (7875 B), index.html, render.mjs, captions.py, SKILL.md, LICENSE",
+    "LICENSE decoded: plain MIT, Copyright (c) 2026 Artem Novitckii (GitHub classifier reported NOASSERTION)"
+   ],
+   "artifacts": [
+    "research/references/zach-d-films-engine",
+    "research/references/zach-d-films.md"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "inspected",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "studio-lookdev",
+   "kind": "technique",
+   "name": "Look-dev layer: LIGHT_RIG specular, lathe volumes, bloom, grade, impact rings",
+   "url": "studio/src/render3d.mjs",
+   "license": "ours",
+   "status": "integrated",
+   "env_ok": null,
+   "deps": [],
+   "tags": [
+    "3d",
+    "skia",
+    "specular",
+    "lathe",
+    "bloom",
+    "grade",
+    "own-engine"
+   ],
+   "findings": [
+    "Broad directional specular from 3 explicit emissive planes (LIGHT_RIG) reproduces the reference metal look without any WebGL environment map",
+    "Lathed volumes of revolution work in a 2D canvas: project offset points to measure screen radii, then fill silhouette + vertical gradient + cross-shading. Stacking ring ellipses produces horizontal banding and must be avoided",
+    "bloomPass brightness-filter approach blows out mid-grey metal; needs threshold above 2 to be a real bright-pass",
+    "@napi-rs/canvas ABORTS the process on NaN geometry (sk.rs unwrap) instead of throwing - the earlier 'crash in drawBoxes' was undefined width/height being passed by me",
+    "perspective() returns a plain array [x,y,z] and divides x by aspect, so narrow sub-panel renders squash the subject; frame full width",
+    "Rendered proof outputs (studio/out/exp-lookdev.*) are gitignored regenerable intermediates wiped by sandbox snapshot; durable artifacts are the experiment source + render3d.mjs. Re-run: node studio/experiments/lookdev.mjs"
+   ],
+   "evidence": [
+    "lookdev.mjs renders 3 stills + a 30-frame clip; 438-444 ms/frame at 1080x1920 with 2x supersampling, bloom, grain",
+    "defects found by viewing: banding from stacked rings (fixed), wedge cut by ellipse-in-silhouette-path (fixed), bloom blowout (fixed), hard bottom slice (fixed)"
+   ],
+   "artifacts": [
+    "studio/experiments/lookdev.mjs",
+    "studio/src/render3d.mjs"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "integrated",
+     "note": "created"
+    },
+    {
+     "date": "2026-11-26",
+     "status": "integrated",
+     "note": "Round 9: re-pointed artifacts to durable source after snapshot wiped gitignored render outputs"
+    }
+   ]
+  },
+  {
+   "id": "bean-cartoon-engine",
+   "kind": "technique",
+   "name": "bean-cartoon 2D vector character engine (studio/src/cartoon.mjs)",
+   "url": "studio/src/cartoon.mjs",
+   "license": "ours",
+   "status": "integrated",
+   "env_ok": null,
+   "deps": [],
+   "tags": [
+    "2d",
+    "vector",
+    "character",
+    "skia",
+    "rig",
+    "expressions",
+    "own-engine"
+   ],
+   "findings": [
+    "Style recovery: the viral reference frame (image-3.png) is 2D VECTOR, not shaded 3D. Verified by reading its construction: self-coloured outlines (darkened fill, never black ink) and flat fills with at most one hard shadow tone.",
+    "Key correction to round 2: skin is a FLAT fill with no shadow tone. A dark crescent across the cheek reads as a stain. Shading tones belong to clothing only.",
+    "Face is a data table: 9 expressions x (2 eye kinds, 2 brow offsets, 1 mouth kind). Eye kinds lid|happy|squeeze|shock|dot, mouths dash|grin|frown|o|smirk|teeth|laugh. All features derive from E = eye radius = 0.155 rx, which is why the face reads identically at 200px and 1280px.",
+    "Head is ~42% of total height with no neck: the single strongest style cue. Mitt hands, 2-bone IK limbs, stubby tube legs.",
+    "API traps fixed and recorded: (1) walkCycle must return OFFSETS not absolutes, or hands land below the feet; (2) raised arms must be drawn AFTER the head or the hands vanish behind the skull; (3) two same-coloured legs merge into one dark column in front view - the far leg needs a darker tone; (4) squish must floor at 0.70 or a front-view skull squashed sideways reads as a thin egg rather than a profile.",
+    "Round 7: artifact paths repointed to tracked mirrors in research/artifacts/characters (studio/out originals are gitignored, absent in fresh checkout)"
+   ],
+   "evidence": [
+    "charsheet.mjs renders 4 PNG contact sheets and a 150-frame 1080x1920 clip at 171-178 ms/frame",
+    "9 defects found and fixed by viewing output: missing hair, torso shade spilling outside the body, crossed legs, oversized vacant skull, hidden raised arms, hands below feet, merged legs, cheek stain, wart-like nose",
+    "animation strip verified at 3 fps: blinks, neutral->happy walk, walk->run, impact squash with shock->angry, recovery to happy",
+    "artifacts mirrored to research/artifacts/characters for a tracked, shareable copy"
+   ],
+   "artifacts": [
+    "studio/src/cartoon.mjs",
+    "studio/experiments/charsheet.mjs",
+    "research/artifacts/characters/char-expressions.png",
+    "research/artifacts/characters/char-poses.png",
+    "research/artifacts/characters/char-sheet.png",
+    "research/artifacts/characters/char-hero.png",
+    "research/artifacts/characters/char-preview.mp4",
+    "research/artifacts/characters"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "integrated",
+     "note": "created"
+    },
+    {
+     "date": "2026-11-25",
+     "status": "integrated",
+     "note": "artifacts mirrored to research/artifacts/characters for a tracked, shareable copy"
+    }
+   ]
+  },
+  {
+   "id": "cartoon-short-kit",
+   "kind": "project",
+   "name": "jonhelpangan-jpg/cartoon-short-kit — '2D look, 3D motion' house style (rig3d.js, stick.js)",
+   "url": "https://github.com/jonhelpangan-jpg/cartoon-short-kit",
+   "license": "MIT",
+   "status": "inspected",
+   "env_ok": null,
+   "deps": [
+    "three"
+   ],
+   "tags": [
+    "2d-look",
+    "toon",
+    "character",
+    "face-painter"
+   ],
+   "findings": [
+    "LOOK.flat = THREE.MeshToonMaterial with a two-step gradientMap: flat colour plus exactly one hard shadow tone. LOOK.bean scales the head to [0.94, 1.12, 0.94]. This is the mechanism behind the entire look.",
+    "Faces are painted onto a canvas texture with plain 2D calls (drawFace3D -> faceFront), so the expression system is canvas2d code, not shader work - which is why it ports to us without WebGL.",
+    "FACE table: 14 expressions (neutral, stern, grin, laugh, whistle, nervous, shock, relief, relief_open, dazed, pained, smile, smile_closed, lick) over 5 eye kinds and 11 mouths. Feature positions are expressed in units of u = headWidth/100, so the face scales with the head.",
+    "Their rigs still need WebGL, so the reference cannot run here. Only the style and the face-table idea were carried over."
+   ],
+   "evidence": [
+    "api.github.com tree listed 27 blobs; STYLE.md, rig3d.js, paint.js, framing.js, stick.js, motion.js, toonbase.js, README and SKILL.md downloaded (96 KB) and read",
+    "expression vocabulary extracted programmatically from the FACE table in toonbase.js"
+   ],
+   "artifacts": [
+    "research/references/cartoon-short-kit"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "inspected",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "lowpoly-skill",
+   "kind": "project",
+   "name": "claude-animation-skills / low-poly",
+   "url": "https://github.com/artemnovitckii/claude-animation-skills/tree/main/skills/low-poly",
+   "license": null,
+   "status": "integrated",
+   "env_ok": null,
+   "deps": [],
+   "tags": [],
+   "findings": [
+    "The resolution ladder is the single biggest lever on CPU: render small, upscale nearest-neighbour. Also: ordered dither at 15-bit plus vertex snapping is what makes low-poly read as PS1 rather than as 'bad 3D'.",
+    "Both paths verified: 360x640->3x at 36.7 ms/frame, native 1080x1920 at 172.1 ms/frame."
+   ],
+   "evidence": [
+    "template.html inspected (34917 B): 360x640 internal render upscaled 3x nearest-neighbour, PS1 vertex snap in project_vertex, 15-bit Bayer 4x4 dither in dithering_fragment, NearestFilter pixel textures 16-64px, PerspectiveCamera fov 52, Fog 10-30. Reimplemented in canvas2d as studio/src/lowpoly.mjs; measured 36.7 ms/frame vs 438 ms previous best."
+   ],
+   "artifacts": [
+    "research/artifacts/round4/exp-lowpoly-1080.png"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "integrated",
+     "note": "created"
+    },
+    {
+     "date": "2026-11-25",
+     "status": "integrated",
+     "note": "verified"
+    }
+   ]
+  },
+  {
+   "id": "software-rasteriser-ladder",
+   "kind": "technique",
+   "name": "Painter's-algorithm software rasteriser (own implementation)",
+   "url": "local://studio/src/lowpoly.mjs",
+   "license": null,
+   "status": "integrated",
+   "env_ok": null,
+   "deps": [],
+   "tags": [],
+   "findings": [
+    "Terrain must be a separate pre-pass: painter's algorithm cannot interleave a ground plane with objects standing on it. Near-plane clipping is mandatory or the ground tears open in front of the camera.",
+    "Verified both render targets"
+   ],
+   "evidence": [
+    "380 faces, 360x640: render 8.5 ms, post 4.1 ms, upscale 3.1 ms. 1080x1920: render 11.5 ms, post 40.3 ms. Post pass folded tint+grain+dither into one pixel loop: 33.4 ms -> 4.1 ms at 360x640."
+   ],
+   "artifacts": [
+    "studio/src/lowpoly.mjs"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "integrated",
+     "note": "created"
+    },
+    {
+     "date": "2026-11-25",
+     "status": "integrated",
+     "note": "verified"
+    }
+   ]
+  },
+  {
+   "id": "canvas2d-filter-blur",
+   "kind": "engine",
+   "name": "@napi-rs/canvas context filter (gaussian blur)",
+   "url": "https://github.com/Brooooooklyn/canvas",
+   "license": null,
+   "status": "integrated",
+   "env_ok": null,
+   "deps": [],
+   "tags": [],
+   "findings": [
+    "This Skia build exposes ctx.filter, giving cheap gaussian blur with no WebGL: the missing piece for volumetric light, soft shadows and bloom.",
+    "Used for cloud softening, snow dabs and volumetric masks"
+   ],
+   "evidence": [
+    "Probed: g.filter='blur(10px)' applies a real gaussian (centre 240, +2px 99, +8px 48, +40px 3). Used for cloud softening, snow texture dabs and soft occlusion masks."
+   ],
+   "artifacts": [
+    "studio/src/vfx.mjs"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "integrated",
+     "note": "created"
+    },
+    {
+     "date": "2026-11-25",
+     "status": "integrated",
+     "note": "verified"
+    }
+   ]
+  },
+  {
+   "id": "sound-from-first-principles",
+   "kind": "technique",
+   "name": "Procedural sound design (own synthesis)",
+   "url": "local://studio/experiments/sounddesk.mjs",
+   "license": null,
+   "status": "integrated",
+   "env_ok": null,
+   "deps": [],
+   "tags": [],
+   "findings": [
+    "A whole soundtrack can be generated with zero external assets: wind = cascaded one-pole low-pass on white noise; footsteps = enveloped filtered noise; a train horn = four detuned sines with vibrato; whoosh = swept one-pole low-pass.",
+    "Master verified at -1.5 dBFS peak with no clipped samples"
+   ],
+   "evidence": [
+    "10 cues synthesised from noise shaping + additive sines; 16-bit 44.1k stereo master, peak -1.5 dBFS, RMS -16.17 dBFS, crest 14.67 dB, DC -1.4e-4, 0 clipped samples. Band energy low 0.131 / mid 0.075 / high 0.036."
+   ],
+   "artifacts": [
+    "research/artifacts/round4/exp-sound.wav"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "integrated",
+     "note": "created"
+    },
+    {
+     "date": "2026-11-25",
+     "status": "integrated",
+     "note": "verified"
+    }
+   ]
+  },
+  {
+   "id": "piper-neural-tts",
+   "kind": "engine",
+   "name": "Piper (rhasspy/piper) neural TTS",
+   "url": "https://github.com/OHF-Voice/piper1-gpl",
+   "license": null,
+   "status": "integrated",
+   "env_ok": null,
+   "deps": [],
+   "tags": [],
+   "findings": [
+    "Neural TTS is possible here with zero network access to model hubs, because some MIT repos vendor Piper voices directly in their tree. This is the single biggest quality jump in Round 5: formant synthesis (espeak) sounds 1985, Piper sounds human."
+   ],
+   "evidence": [
+    "piper-tts 1.8.0 + onnxruntime 1.32 from PyPI. Model en_US-amy-medium (63 MB ONNX) fetched via api.github.com from Mobile-Artificial-Intelligence/babylon (MIT) because huggingface.co and cdn-lfs return HTTP 000. Measured: 0.40 s to synthesise 5.7 s of speech (14x realtime) on 2 cores; no GPU."
+   ],
+   "artifacts": [
+    "research/artifacts/round5/exp5-voice.wav",
+    "studio/voice.py"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "integrated",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "espeak-ng-timing",
+   "kind": "engine",
+   "name": "espeak-ng phoneme + word event timing",
+   "url": "https://github.com/espeak-ng/espeak-ng",
+   "license": null,
+   "status": "integrated",
+   "env_ok": null,
+   "deps": [],
+   "tags": [],
+   "findings": [
+    "Use espeak for TIMING and IPA only; use Piper for audio. Note GPL-3.0: fine for generating audio, but redistribution of the binary would carry the licence."
+   ],
+   "evidence": [
+    "espeakng-loader 0.2.4 (PyPI) bundles libespeak-ng.so 1.52 + espeak-ng-data, 10 MB, no root. Synthesis callback exposes word events (type 1) with audio_position in ms, and espeak_TextToPhonemes with espeakCHARS_IPA returns one IPA cluster per word. Phoneme events (type 7) are compiled out of this build (espeak_SetParameter(21,1,0) returns -1)."
+   ],
+   "artifacts": [
+    "studio/voice.py"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "integrated",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "lip-sync-visemes",
+   "kind": "technique",
+   "name": "IPA viseme set for lip-sync (own implementation)",
+   "url": "local://studio/src/character3d.mjs",
+   "license": null,
+   "status": "integrated",
+   "env_ok": null,
+   "deps": [],
+   "tags": [],
+   "findings": [
+    "Phoneme-driven mouth shapes beat amplitude lip-flap: an 'm' closes the lips and an 'o' rounds them, which amplitude cannot express."
+   ],
+   "evidence": [
+    "53 IPA symbols mapped to mouth parameters {mouthOpen, mouthWide, mouthCurve}; diacritics stripped before lookup; co-articulation blends 30% toward the next phoneme 45 ms early. 57 phonemes driven in exp5-voice.mp4."
+   ],
+   "artifacts": [
+    "research/artifacts/round5/exp5-voice.mp4",
+    "studio/experiments/voiceclip.mjs"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "integrated",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "character3d-rig",
+   "kind": "technique",
+   "name": "Procedural character mesh + 26-joint rig (own implementation)",
+   "url": "local://studio/src/character3d.mjs",
+   "license": null,
+   "status": "integrated",
+   "env_ok": null,
+   "deps": [],
+   "tags": [],
+   "findings": [
+    "Rounded tubes and superellipsoids render flat-shaded at the same cost as boxes, so there is no reason to model a character out of boxes. Screen-space-independent: face features must be placed against a skullZ(x,y) surface function, not at fixed depths."
+   ],
+   "evidence": [
+    "2548 faces per figure at rest. Skeleton: 26 bones (root/hips/spine/chest/neck/head/jaw + shoulder/upperArm/foreArm/hand x2 + thigh/shin/foot/toe x2), FK with R=Ry*Rx*Rz per bone. Analytic two-bone IK with pole vector. Continuous expression space (7 params) with 10 named presets and blending; viseme set keyed on IPA."
+   ],
+   "artifacts": [
+    "studio/src/character3d.mjs",
+    "research/artifacts/round5/exp5-character.png",
+    "research/artifacts/round5/exp5-expressions.png"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "integrated",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "procedural-locomotion",
+   "kind": "technique",
+   "name": "Procedural locomotion + performance (own implementation)",
+   "url": "local://studio/src/animation.mjs",
+   "license": null,
+   "status": "integrated",
+   "env_ok": null,
+   "deps": [],
+   "tags": [],
+   "findings": [
+    "Feet must be IK targets, not joint angles: angle-driven legs skate. Arm poses must ALSO be IK targets — three composed pitch rotations put a 'guard' pose above the character's head."
+   ],
+   "evidence": [
+    "Walk/run cycles via IK foot targets (planted during stance, arcs during swing), jump arc with anticipation/land/recover, impact with wind/strike/recoil/settle, idle breathing. Camera shake from squared trauma with layered band-limited noise; traumaDecay e^-kt."
+   ],
+   "artifacts": [
+    "studio/src/animation.mjs",
+    "research/artifacts/round5/exp5-walk.mp4",
+    "research/artifacts/round5/exp5-impact.mp4"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "integrated",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "cinema-lens-stack",
+   "kind": "technique",
+   "name": "Lens stack: DOF, bloom, grain, CA (own implementation)",
+   "url": "local://studio/src/cinema.mjs",
+   "license": null,
+   "status": "integrated",
+   "env_ok": null,
+   "deps": [],
+   "tags": [],
+   "findings": [
+    "Chromatic aberration must be composited from three ISOLATED channels. Multiplying copies by pure red/blue and adding them doubles those channels against the untouched frame and turns the whole picture magenta."
+   ],
+   "evidence": [
+    "3-radius depth-slicing DOF via ctx.filter blur; bloom bright-pass at threshold 0.80 + blur + lighter; cached grain layer offset per frame; 3-channel chromatic aberration. fitFov() bisects the lens so subject points fit a safe rect in 22 iterations."
+   ],
+   "artifacts": [
+    "studio/src/cinema.mjs",
+    "research/artifacts/round5/exp5-scene.mp4"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "integrated",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "fresnel-rim-flat-shade",
+   "kind": "technique",
+   "name": "Fresnel rim light for flat-shaded night scenes (own implementation)",
+   "url": "local://studio/src/lowpoly.mjs",
+   "license": null,
+   "status": "integrated",
+   "env_ok": null,
+   "deps": [],
+   "tags": [],
+   "findings": [
+    "A flat-shaded subject in a night scene with only key+hemispheric fill reads as unlit cardboard because nothing on its silhouette is brighter than the background. Rim + Fresnel is the cheapest fix. Also: a wall whose albedo matches the sky value makes lit windows look like paper rectangles glued to the sky - pale cornice/plinth/pilaster bands draw the building outline for 2 boxes."
+   ],
+   "evidence": [
+    "rim={eye,dir,colour,intensity,power} added to shadeFace. k = (1-|n.v|)^power * max(0,-n.dir) * intensity. In the night scene at intensity 0.85 the rim was invisible; 1.75 with power 1.9 reads clearly. Plus groundPass hook so contact shadows are not buried by the terrain pre-pass."
+   ],
+   "artifacts": [
+    "research/artifacts/round5/exp5-scene.mp4"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-25",
+     "status": "integrated",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "stickman-engine",
+   "kind": "engine",
+   "name": "MASTER PROMPT stickman 2D engine",
+   "url": null,
+   "license": null,
+   "status": "integrated",
+   "env_ok": null,
+   "deps": [],
+   "tags": [
+    "round7",
+    "2d"
+   ],
+   "findings": [
+    "Pure-white wobbly heads + uneven navy ink + outfit-as-body blobs reproduce the master-prompt marker style natively in canvas2d"
+   ],
+   "evidence": [
+    "tanjiro2d.mjs rendered 1657 frames at 159ms/f; contact sheet + 24-shot short inspected; white heads/black stick limbs/checkered haori verified in frames"
+   ],
+   "artifacts": [
+    "research/artifacts/round7/exp7a-contact.jpg"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-26",
+   "history": [
+    {
+     "date": "2026-11-26",
+     "status": "integrated",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "waterfx",
+   "kind": "technique",
+   "name": "Water Breathing VFX (ribbons/dragon/wheel)",
+   "url": null,
+   "license": null,
+   "status": "integrated",
+   "env_ok": null,
+   "deps": [],
+   "tags": [
+    "round7",
+    "vfx"
+   ],
+   "findings": [
+    "Layered glow+gradient+foam-core+flow-dashes ribbon reads as anime water; serpentine dragon with head/eye/whiskers"
+   ],
+   "evidence": [
+    "waterDragon/waterRibbon/waterWheel rendered in exp7a dragon thumbnail + exp7b dragon shot; viewed"
+   ],
+   "artifacts": [
+    "research/artifacts/round7/exp7a-thumb-dragon.png"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-26",
+   "history": [
+    {
+     "date": "2026-11-26",
+     "status": "integrated",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "score-jp",
+   "kind": "technique",
+   "name": "Japanese-flavored procedural score + battle SFX",
+   "url": null,
+   "license": null,
+   "status": "integrated",
+   "env_ok": null,
+   "deps": [],
+   "tags": [
+    "round7",
+    "audio"
+   ],
+   "findings": [
+    "Twist section drops melodic music to a drone + sting per master prompt; measured not heard"
+   ],
+   "evidence": [
+    "synthesizeScore hirajoshi koto/taiko/pad/drone with twist-stop; mixed under voice, SFX capped 0.7x voice; loudnorm -14"
+   ],
+   "artifacts": [
+    "research/artifacts/round7/exp7a-qa.json"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-26",
+   "history": [
+    {
+     "date": "2026-11-26",
+     "status": "integrated",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "tanjiro-2d-short",
+   "kind": "demo",
+   "name": "Experiment A: 2D stickman Water Breathing short",
+   "url": null,
+   "license": null,
+   "status": "integrated",
+   "env_ok": null,
+   "deps": [],
+   "tags": [
+    "round7",
+    "video"
+   ],
+   "findings": [],
+   "evidence": [
+    "55.2s 1080x1920@30 H.264+AAC; QA 0 black>0.4s 0 freezes -15.4 LUFS PASS; 24 shots <=90f no repeated angle"
+   ],
+   "artifacts": [
+    "research/artifacts/round7/exp7a-tanjiro-2d-720.mp4"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-26",
+   "history": [
+    {
+     "date": "2026-11-26",
+     "status": "integrated",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "tanjiro-3d-short",
+   "kind": "demo",
+   "name": "Experiment B: 3D low-poly Water Breathing short",
+   "url": null,
+   "license": null,
+   "status": "integrated",
+   "env_ok": null,
+   "deps": [],
+   "tags": [
+    "round7",
+    "video"
+   ],
+   "findings": [],
+   "evidence": [
+    "21.6s 1080x1920@30; Round4 rasteriser + Round5 rig re-skinned Tanjiro + katana; QA 0 black 0 freezes after freeze fix"
+   ],
+   "artifacts": [
+    "research/artifacts/round7/exp7b-tanjiro-3d-720.mp4"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-26",
+   "history": [
+    {
+     "date": "2026-11-26",
+     "status": "integrated",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "remotion-engine",
+   "kind": "engine",
+   "name": "Remotion (React programmatic video)",
+   "url": "https://github.com/remotion-dev/remotion",
+   "license": null,
+   "status": "inspected",
+   "env_ok": null,
+   "deps": [],
+   "tags": [
+    "round8",
+    "motion-graphics"
+   ],
+   "findings": [
+    "interpolate(frame,[in],[out],{easing,clamp}) + spring() keyframe model; frame-by-frame so timing never drifts; port patterns not runtime"
+   ],
+   "evidence": [
+    "remotion.dev/docs/interpolate read; repo ★75.9k via GitHub API"
+   ],
+   "artifacts": [],
+   "reason": null,
+   "first_seen": "2026-11-26",
+   "history": [
+    {
+     "date": "2026-11-26",
+     "status": "inspected",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "manim-engine",
+   "kind": "engine",
+   "name": "Manim + ecmanim (math animation)",
+   "url": "https://github.com/johnhenry/ecmanim",
+   "license": null,
+   "status": "inspected",
+   "env_ok": null,
+   "deps": [],
+   "tags": [
+    "round8",
+    "math-viz"
+   ],
+   "findings": [
+    "rate functions smooth/rush_into/there_and_back/ease_out_back; ecmanim is a Node port (MP4) closest to our stack; counters/graphs/equations"
+   ],
+   "evidence": [
+    "skills/shared/easing-reference.md read; Manim-Tutorial ★832, ecmanim ★10"
+   ],
+   "artifacts": [],
+   "reason": null,
+   "first_seen": "2026-11-26",
+   "history": [
+    {
+     "date": "2026-11-26",
+     "status": "inspected",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "video-talkcraft",
+   "kind": "skill-kit",
+   "name": "video-talkcraft agent skill",
+   "url": "https://github.com/Vincentwei1021/video-talkcraft",
+   "license": null,
+   "status": "inspected",
+   "env_ok": null,
+   "deps": [],
+   "tags": [
+    "round8",
+    "methodology"
+   ],
+   "findings": [
+    "7-layer anti-PPT camera (slow push/pull, motion-by-subtraction); one protagonist per beat yields; new elements only at semantic beats; caption sentence boundaries = time anchors; 108 motion recipe cards; auto freeze detection + subagent review"
+   ],
+   "evidence": [
+    "SKILL.md read in full via contents API"
+   ],
+   "artifacts": [],
+   "reason": null,
+   "first_seen": "2026-11-26",
+   "history": [
+    {
+     "date": "2026-11-26",
+     "status": "inspected",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "iart-motion-skills",
+   "kind": "skill-kit",
+   "name": "iart-ai/motion-skills (56 skills)",
+   "url": "https://github.com/iart-ai/motion-skills",
+   "license": null,
+   "status": "inspected",
+   "env_ok": null,
+   "deps": [],
+   "tags": [
+    "round8",
+    "motion-graphics"
+   ],
+   "findings": [
+    "kinetic typography, data-viz, explainers, TikTok/Reels, WebGL, Manim skills for coding agents"
+   ],
+   "evidence": [
+    "repo ★2.2k; root + tools dir listed via API"
+   ],
+   "artifacts": [],
+   "reason": null,
+   "first_seen": "2026-11-26",
+   "history": [
+    {
+     "date": "2026-11-26",
+     "status": "inspected",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "whisper-karaoke",
+   "kind": "technique",
+   "name": "Whisper word-timestamps -> ASS karaoke captions",
+   "url": "https://free.ai/video/caption/",
+   "license": null,
+   "status": "inspected",
+   "env_ok": null,
+   "deps": [],
+   "tags": [
+    "round8",
+    "captions"
+   ],
+   "findings": [
+    "word-level STT -> ASS \\k karaoke -> ffmpeg burn; same {words:[{text,start,end}]} schema our align.py emits; enables word-by-word highlight"
+   ],
+   "evidence": [
+    "technique confirmed via web + AlwaysWhisper ★46; align.py schema inspected"
+   ],
+   "artifacts": [],
+   "reason": null,
+   "first_seen": "2026-11-26",
+   "history": [
+    {
+     "date": "2026-11-26",
+     "status": "inspected",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "kinetic-primitives",
+   "kind": "engine",
+   "name": "kinetic.mjs motion-graphics primitives (OURS)",
+   "url": null,
+   "license": null,
+   "status": "integrated",
+   "env_ok": null,
+   "deps": [],
+   "tags": [
+    "round8",
+    "ours"
+   ],
+   "findings": [
+    "additive module: interpolate/spring/pulse/entrance/exit + karaokeCaption + animatedCounter + rayBackdrop + glassCard; closes word-karaoke/counter/perpetual-backdrop gaps vs V2/V3"
+   ],
+   "evidence": [
+    "kinetic_demo.mjs rendered 240f @50ms/f; QA 0 black 0 freeze; contact sheet + full frame viewed"
+   ],
+   "artifacts": [
+    "research/artifacts/round8/kinetic-demo.mp4"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-26",
+   "history": [
+    {
+     "date": "2026-11-26",
+     "status": "integrated",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "round8-reference-videos",
+   "kind": "asset",
+   "name": "3 user reference videos (Drive)",
+   "url": null,
+   "license": null,
+   "status": "inspected",
+   "env_ok": null,
+   "deps": [],
+   "tags": [
+    "round8",
+    "reference"
+   ],
+   "findings": [
+    "V1 3D drama (0 cuts, red-keyword karaoke); V2/V3 @Silenthys 2D anime-science explainers (60fps, no hard cuts, eased graphic beats every 2-4s, word-karaoke, counters, perpetual backdrop, -14 LUFS)"
+   ],
+   "evidence": [
+    "downloaded via Drive connector, byte-verified; overview+motion strips+spectrograms analyzed"
+   ],
+   "artifacts": [
+    "research/artifacts/round8/v2-overview.jpg"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-26",
+   "history": [
+    {
+     "date": "2026-11-26",
+     "status": "inspected",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "stick3d-pack",
+   "kind": "skill-kit",
+   "name": "3D Stick Figure Master (Stick3D-Pack-v4)",
+   "url": null,
+   "license": null,
+   "status": "inspected",
+   "env_ok": false,
+   "deps": [],
+   "tags": [
+    "remotion",
+    "three.js",
+    "stick-figure",
+    "toon",
+    "darija"
+   ],
+   "findings": [
+    "Remotion+Three.js 3D toon stick-figure factory; rules+voice tools persisted to research/references/stick3d/",
+    "Scriptwriting: mid-action hook, one narrative, end on payoff; QA/acting/anti-template rules adopted into KB",
+    "Runtime not run here, but its --gl=swangle CPU-render claim VALIDATED via swangle-headless-webgl"
+   ],
+   "evidence": [
+    "Read MASTER-PROMPT + 7 rules + voice tools from Drive zip; adopted patterns into KNOWLEDGE_BASE.md"
+   ],
+   "artifacts": [
+    "research/references/stick3d/MASTER-PROMPT.md"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-26",
+   "history": [
+    {
+     "date": "2026-11-26",
+     "status": "inspected",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "audiopipe",
+   "kind": "engine",
+   "name": "audiopipe.mjs — automated narration post-production + word alignment",
+   "url": null,
+   "license": null,
+   "status": "integrated",
+   "env_ok": true,
+   "deps": [],
+   "tags": [
+    "audio",
+    "ffmpeg",
+    "tts",
+    "captions",
+    "karaoke"
+   ],
+   "findings": [
+    "processVoice atempo+loudnorm+pad; wordsToASS karaoke; whisper DTW + DP alignment (multilingual) + pocketsphinx (English)"
+   ],
+   "evidence": [
+    "E2E: script->processVoice(0.9x,pad12)=12.000s->alignWordsEnglish 14 words speed-tracked->wordsToASS 14 events; processVoice 85%+pad=30.000s -14.45 LUFS"
+   ],
+   "artifacts": [
+    "studio/src/audiopipe.mjs"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-26",
+   "history": [
+    {
+     "date": "2026-11-26",
+     "status": "integrated",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "whisper-cpp-darija",
+   "kind": "engine",
+   "name": "whisper.cpp small — Darija/Arabic ASR + DTW word timestamps",
+   "url": null,
+   "license": null,
+   "status": "tested",
+   "env_ok": true,
+   "deps": [],
+   "tags": [
+    "asr",
+    "darija",
+    "alignment",
+    "whisper"
+   ],
+   "findings": [
+    "whisper-small -l ar recognizes Darija; DTW word times matched burned-in caption (واحد يوريهم @clip-4.16s=full-40.2s)",
+    "Gotchas: -nfa required (flash-attn silently disables DTW); use -ojf + token t_dtw/100, NOT -ml 1 offsets (collapse on short clips); ~0.2-0.3s onset lag"
+   ],
+   "evidence": [
+    "Built whisper.cpp v1.8.2; ggml-small from fmyIo/whisper-models parts (sha256 1be3a9b2...); ran on real kounkan.ma Darija audio; alignWords DP keeps script text, timing from audio"
+   ],
+   "artifacts": [
+    "research/artifacts/round9/align/darija-dtw-10s.json"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-26",
+   "history": [
+    {
+     "date": "2026-11-26",
+     "status": "tested",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "pocketsphinx-align",
+   "kind": "engine",
+   "name": "pocketsphinx forced alignment (Stick3D align.py) — English precise",
+   "url": null,
+   "license": null,
+   "status": "tested",
+   "env_ok": true,
+   "deps": [],
+   "tags": [
+    "alignment",
+    "english"
+   ],
+   "findings": [
+    "Matches acoustic energy onsets (pottery@0.17s, One@2.60s=silence-end 2.612s); more precise than whisper DTW for English",
+    "English-only: on real Darija audio outputs nonsense English — do NOT use for Arabic"
+   ],
+   "evidence": [
+    "pip --break-system-packages pocketsphinx; aligned piper audio, compared to energy RMS + whisper DTW; wrapped as audiopipe.alignWordsEnglish"
+   ],
+   "artifacts": [
+    "research/artifacts/round9/align/pocketsphinx-words.json"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-26",
+   "history": [
+    {
+     "date": "2026-11-26",
+     "status": "tested",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "swangle-headless-webgl",
+   "kind": "technique",
+   "name": "Headless WebGL2/three.js via SwiftShader ANGLE (@sparticuz/chromium)",
+   "url": null,
+   "license": null,
+   "status": "tested",
+   "env_ok": true,
+   "deps": [],
+   "tags": [
+    "webgl",
+    "three.js",
+    "render",
+    "swangle"
+   ],
+   "findings": [
+    "OVERTURNS earlier EGL_NOT_INITIALIZED dead-end: WebGL2 + three.js render headless in this sandbox",
+    "Recipe: npm @sparticuz/chromium + extract bundled al2023 nspr/nss libs; LD_LIBRARY_PATH=/tmp/al2023/lib:/tmp; flags --use-gl=angle --use-angle=swiftshader --enable-unsafe-swiftshader"
+   ],
+   "evidence": [
+    "WebGL2 context renderer 'ANGLE (Google, Vulkan 1.3.0 SwiftShader)'; three.js cube 720x1280 rendered + screenshot-verified non-black"
+   ],
+   "artifacts": [
+    "research/artifacts/round9/swangle-three-test.png"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-26",
+   "history": [
+    {
+     "date": "2026-11-26",
+     "status": "tested",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "edge-tts-darija",
+   "kind": "engine",
+   "name": "edge-tts ar-MA (Moroccan neural voice)",
+   "url": null,
+   "license": null,
+   "status": "rejected",
+   "env_ok": false,
+   "deps": [],
+   "tags": [
+    "tts",
+    "darija"
+   ],
+   "findings": [],
+   "evidence": [
+    "pip edge-tts; Communicate(ar-MA-JamalNeural).save -> ClientConnectorError cannot connect speech.platform.bing.com:443"
+   ],
+   "artifacts": [],
+   "reason": "TESTED blocked: speech.platform.bing.com:443 refused by sandbox egress (0.0s). Free/no-key but unreachable here; also MSA-with-Moroccan-voice, not true Darija prosody",
+   "first_seen": "2026-11-26",
+   "history": [
+    {
+     "date": "2026-11-26",
+     "status": "rejected",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "kounkan-n2-darija",
+   "kind": "demo",
+   "name": "kounkan.ma — Darija 3D stick-figure history story (pottery wheel)",
+   "url": null,
+   "license": null,
+   "status": "inspected",
+   "env_ok": true,
+   "deps": [],
+   "tags": [
+    "darija",
+    "reference",
+    "stick-figure",
+    "history"
+   ],
+   "findings": [
+    "Confirms target: authentic Darija (ديال، فالـ، رويضة), 3D toon stick figures, word-karaoke captions, 60.5K likes",
+    "Loudness -14.37 LUFS (matches our -14 target); whisper ASR transcript is unmistakably Darija"
+   ],
+   "evidence": [
+    "Viewed full-res frames at 40s/120s (caption واحد يوريهم + title أول رويضة ديال الفخار فالعصر الحجري); measured loudnorm; whisper-small ASR"
+   ],
+   "artifacts": [
+    "research/artifacts/round9/n2-arabic-40.png"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-26",
+   "history": [
+    {
+     "date": "2026-11-26",
+     "status": "inspected",
+     "note": "created"
+    }
+   ]
+  },
+  {
+   "id": "darija-tts-landscape",
+   "kind": "doc",
+   "name": "Darija TTS capability matrix (honest, tested where possible)",
+   "url": null,
+   "license": null,
+   "status": "inspected",
+   "env_ok": null,
+   "deps": [],
+   "tags": [
+    "tts",
+    "darija"
+   ],
+   "findings": [
+    "In-sandbox working AI-TTS = platform voice tool + piper(EN). edge-tts TESTED blocked. Hamsa/DarijaTTS/XTTS need user machine or allowed proxy (hosts blocked)",
+    "KandirResearch/DarijaTTS-v0.1-500M (OuteTTS, Apache-2.0) + XTTS v2 = best native paths off-sandbox; Hamsa MOS~4.1 native Casablancan"
+   ],
+   "evidence": [
+    "web research + edge-tts live test; matrix in KNOWLEDGE_BASE.md §5"
+   ],
+   "artifacts": [
+    "research/KNOWLEDGE_BASE.md"
+   ],
+   "reason": null,
+   "first_seen": "2026-11-26",
+   "history": [
+    {
+     "date": "2026-11-26",
+     "status": "inspected",
+     "note": "created"
+    }
+   ]
+  }
+ ],
+ "migrated_from": "research/knowledge_base.json (Phase 3, read-only provenance)"
 }

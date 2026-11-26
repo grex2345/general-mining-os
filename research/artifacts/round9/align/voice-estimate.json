@@ -1,0 +1,196 @@
+{
+  "out": "research/artifacts/round9/align/piper-test.wav",
+  "rate": 22050,
+  "duration": 6.2133,
+  "sentences": 2,
+  "words": [
+    {
+      "word": "The",
+      "t": 0.0,
+      "dur": 0.6182,
+      "ipa": "\u00f0\u0259",
+      "phonemes": [
+        "\u00f0",
+        "\u0259"
+      ]
+    },
+    {
+      "word": "pottery",
+      "t": 0.6182,
+      "dur": 0.6182,
+      "ipa": "p\u02c8\u0251\u02d0\u027e\u025a\u0279i",
+      "phonemes": [
+        "p\u02c8",
+        "\u0251\u02d0",
+        "\u027e",
+        "\u025a",
+        "\u0279",
+        "i"
+      ]
+    },
+    {
+      "word": "wheel",
+      "t": 1.2365,
+      "dur": 0.6182,
+      "ipa": "w\u02c8i\u02d0l",
+      "phonemes": [
+        "w\u02c8",
+        "i\u02d0",
+        "l"
+      ]
+    },
+    {
+      "word": "changed",
+      "t": 1.8547,
+      "dur": 0.6182,
+      "ipa": "t\u0283\u02c8e\u026and\u0292d",
+      "phonemes": [
+        "t\u0283\u02c8",
+        "e",
+        "\u026a",
+        "n",
+        "d\u0292",
+        "d"
+      ]
+    },
+    {
+      "word": "everything",
+      "t": 2.4729,
+      "dur": 0.04,
+      "ipa": "\u02c8\u025bv\u0279\u026a\u03b8\u02cc\u026a\u014b",
+      "phonemes": [
+        "\u025b",
+        "v",
+        "\u0279",
+        "\u026a",
+        "\u03b8\u02cc",
+        "\u026a",
+        "\u014b"
+      ]
+    },
+    {
+      "word": "One",
+      "t": 2.5342,
+      "dur": 0.3159,
+      "ipa": "w\u02c8\u028cn",
+      "phonemes": [
+        "w\u02c8",
+        "\u028c",
+        "n"
+      ]
+    },
+    {
+      "word": "spin",
+      "t": 2.8501,
+      "dur": 0.2756,
+      "ipa": "sp\u02c8\u026an",
+      "phonemes": [
+        "s",
+        "p\u02c8",
+        "\u026a",
+        "n"
+      ]
+    },
+    {
+      "word": "of",
+      "t": 3.1257,
+      "dur": 0.2119,
+      "ipa": "\u028cv",
+      "phonemes": [
+        "\u028c",
+        "v"
+      ]
+    },
+    {
+      "word": "clay",
+      "t": 3.3375,
+      "dur": 0.3705,
+      "ipa": "kl\u02c8e\u026a",
+      "phonemes": [
+        "k",
+        "l\u02c8",
+        "e",
+        "\u026a"
+      ]
+    },
+    {
+      "word": "became",
+      "t": 3.708,
+      "dur": 0.3926,
+      "ipa": "b\u026ak\u02cce\u026am",
+      "phonemes": [
+        "b",
+        "\u026a",
+        "k\u02cc",
+        "e",
+        "\u026a",
+        "m"
+      ]
+    },
+    {
+      "word": "a",
+      "t": 4.1005,
+      "dur": 0.1209,
+      "ipa": "\u0250",
+      "phonemes": [
+        "\u0250"
+      ]
+    },
+    {
+      "word": "thousand",
+      "t": 4.2214,
+      "dur": 0.581,
+      "ipa": "\u03b8\u02c8a\u028az\u0259nd",
+      "phonemes": [
+        "\u03b8\u02c8",
+        "a",
+        "\u028a",
+        "z",
+        "\u0259",
+        "n",
+        "d"
+      ]
+    },
+    {
+      "word": "identical",
+      "t": 4.8025,
+      "dur": 0.7565,
+      "ipa": "a\u026ad\u02c8\u025bnt\u026ak\u0259l",
+      "phonemes": [
+        "a",
+        "\u026a",
+        "d\u02c8",
+        "\u025b",
+        "n",
+        "t",
+        "\u026a",
+        "k",
+        "\u0259",
+        "l"
+      ]
+    },
+    {
+      "word": "bowls",
+      "t": 5.559,
+      "dur": 0.6543,
+      "ipa": "b\u02c8o\u028alz",
+      "phonemes": [
+        "b\u02c8",
+        "o",
+        "\u028a",
+        "l",
+        "z"
+      ]
+    }
+  ],
+  "alignment": "proportional-estimate",
+  "timing_per_sentence": [
+    "even-fallback",
+    "espeak"
+  ],
+  "engine": {
+    "audio": "piper 1.8 (en_US-amy-medium, MIT)",
+    "timing": "espeak-ng 1.52 word events, scaled per sentence"
+  },
+  "text": "The pottery wheel changed everything. One spin of clay became a thousand identical bowls."
+}
