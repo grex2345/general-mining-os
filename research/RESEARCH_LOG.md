@@ -9,10 +9,10 @@ Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `
 | discovered | **6** | a URL or mention exists; nothing opened |
 | inspected | **17** | source, docs or renders actually read/looked at |
 | tested | **6** | executed in this environment, with evidence recorded |
-| integrated | **32** | code/technique landed in our engine, artifact on disk |
+| integrated | **33** | code/technique landed in our engine, artifact on disk |
 | rejected | **2** | deliberately not used, reason recorded |
 
-## integrated (32)
+## integrated (33)
 
 | id | name | licence | environment | source |
 |---|---|---|---|---|
@@ -48,6 +48,7 @@ Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `
 | `catmull-camera` | Catmull-Rom cinematic camera | licence unknown | · untested | studio/src/worldkit.js |
 | `transition-compositor` | In-render transition compositor | licence unknown | · untested | studio/experiments/r11_render.cjs |
 | `potter-film-r11` | The Boy Who Chose Clay (36s English film) | licence unknown | · untested | research/artifacts/round11/the-boy-who-chose-clay.mp4 |
+| `code-animation-studio-skill` | Code Animation Studio — knowledge-transfer skill | licence unknown | · untested | skills/code-animation-studio/SKILL.md |
 
 ## tested (6)
 
@@ -654,4 +655,12 @@ Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `
 
 **Extracted**:
 - First full multi-scene production on the upgraded engine: rich environments, continuous acting, cinematic camera variety, meaningful transitions, beat-synced audio.
+
+### `code-animation-studio-skill` — Code Animation Studio — knowledge-transfer skill
+
+**Evidence**:
+- Re-executed at authoring: FRAMES=3 stickscene_demo -> RENDERED 3 frames @720x1280 563ms/frame; MID=1 r11_render -> 9 frames 839ms/frame, contact sheet VIEWED showing 9 distinct scenes; ffprobe 36.000000s h264 720x1280 30fps aac 9744427B; freezedetect 0; blackdetect 2 intervals both matching intended fadein/dip; loudnorm input_i -14.70 tp -3.98 lra 3.60; kb stats 63 records. Static: 0 broken internal links, 73 cited repo paths all exist, all claimed API members present in source, framing table recomputed and corrected.
+
+**Extracted**:
+- ONE portable skill: SKILL.md entry + START-HERE cold start + 12 linked reference docs + VALIDATION.md. Covers Rounds 1-11 history, architecture/APIs, characters/environments/animation, camera/framing/transitions, audio/alignment/captions/mix, story->shots, 15-step runbook, learning methodology, QA gates, full bug catalogue (symptom/cause/diagnosis/fix/prevention), resource catalog with honest statuses, portability. Indexes the KB without replacing it; flags superseded Round-2 WebGL/Chromium claims.
 

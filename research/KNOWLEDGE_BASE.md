@@ -235,3 +235,30 @@ on top and delivers a full 36s, 9-scene English film: `research/artifacts/round1
   voice via amplitude-envelope ducking, not ffmpeg amix (4.1 averages inputs).
 - **Roadmap next:** 60fps option, more ACTION-LIBRARY recipes (throw/pickup/eat/fight physics),
   look-dev grade pass, longer formats (60–90s), per-subject art direction, caption-sync QA gate.
+
+## 11. Knowledge-transfer skill (Round 12) — start here if you are a new agent
+
+All of the above, plus the full project history, the learning methodology, a 15-step production
+runbook and the complete bug catalogue, is consolidated into ONE portable AI Agent Skill:
+
+**`skills/code-animation-studio/SKILL.md`** — entry point.
+**`skills/code-animation-studio/START-HERE.md`** — cold-start procedure for a brand-new agent.
+
+Supporting docs (all inside the same directory, all linked from SKILL.md):
+`references/01-history.md` (Rounds 1–11 + commit ladder), `02-architecture.md` (render stack +
+verified API index), `03-characters.md` (puppet pose semantics, gestures, locomotion, environments),
+`04-camera.md` (portrait framing math, Catmull-Rom camera, transitions), `05-audio.md` (TTS,
+forced alignment, karaoke, score, SFX, ducking), `06-story.md` (script → beats → storyboard),
+`07-workflow.md` (the 15-step runbook with commands), `08-methodology.md` (how the knowledge was
+acquired), `09-quality.md` (style contract + QA gates), `10-troubleshooting.md` (every significant
+bug: symptom → cause → diagnosis → fix → prevention), `11-resources.md` (repo/library catalog with
+honest statuses), `12-portability.md` (moving to another repo/machine), `VALIDATION.md` (what was
+re-executed vs transcribed).
+
+**This KB is NOT replaced by the skill.** The skill indexes and explains it; this file remains the
+dense technical reference and the ledger remains the evidence record. Append here as before.
+
+**Superseded claims to be aware of:** `ENVIRONMENT.md` ("WebGL unavailable") and
+`INSPECTION_CAPABILITIES.md` ("no Chromium obtainable") are Round-2 conclusions overturned in
+Round 9 — see ledger `swangle-headless-webgl` (tested) vs `webgl-swiftshader` (rejected, historical).
+`research/knowledge_base.json` is superseded by `research/ledger.json`.
