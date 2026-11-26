@@ -199,11 +199,23 @@ git status --short          # confirm ZERO deletions of prior work
 git commit -m "Round N: <what was built>"
 git push origin <current-branch>
 
-# VERIFY the remote bytes, don't assume the push worked
-curl -sL "https://raw.githubusercontent.com/<owner>/<repo>/<branch>/$R/film.mp4" -o /tmp/remote.mp4
+# VERIFY the remote bytes, don't assume the push worked.
+# Preferred: gh api (api.github.com is an allowed host; raw.githubusercontent.com may be blocked)
+gh api "repos/<owner>/<repo>/contents/$R/film.mp4?ref=<branch>" \
+  -H "Accept: application/vnd.github.raw" > /tmp/remote.mp4
 sha256sum "$R/film.mp4" /tmp/remote.mp4        # must be identical
 $FP -v error -show_entries format=duration -of csv=p=0 /tmp/remote.mp4
+
+# Alternative when raw.githubusercontent.com IS reachable (it is a public, clickable link):
+# curl -sL "https://raw.githubusercontent.com/<owner>/<repo>/<branch>/$R/film.mp4" -o /tmp/remote.mp4
 ```
+
+⚠️ **Egress note (verified during skill authoring):** `raw.githubusercontent.com` failed with
+`SSL_ERROR_SYSCALL` in this sandbox, while `gh api … contents/…?ref=…` with
+`Accept: application/vnd.github.raw` succeeded — all 15 skill files were confirmed byte-identical
+that way. **Verify through `gh api`; deliver the raw URL to the user** (their browser is not
+inside the sandbox and can reach it). If the raw host is blocked for you too, say so and give the
+Drive link as the primary.
 
 Optionally upload to Google Drive via the connector and **make it public**, then verify the link
 resolves. Deliver: the file itself (`present_file`), the raw GitHub URL, the Drive URL, and the

@@ -21,6 +21,9 @@ transcribed from existing project records. It is not a marketing page.
 | Loudness gate | `loudnorm=I=-14:TP=-1:LRA=11:print_format=json` | **`input_i −14.70`, `input_tp −3.98`, `input_lra 3.60`** |
 | Ledger CLI | `node research/tools/kb.mjs stats` | printed **63 records** — 6 discovered / 17 inspected / 6 tested / 32 integrated / 2 rejected; 38 evidence-backed. After recording this skill (`code-animation-studio-skill`) the ledger is **64 / 33 integrated / 39 evidence-backed**, and `validate` passes. |
 
+| GitHub byte verification | `gh api repos/…/contents/PATH?ref=BRANCH -H "Accept: application/vnd.github.raw"` + `sha256sum` | **15 / 15 skill files byte-identical on GitHub** |
+| Egress finding | `curl https://raw.githubusercontent.com/…` | **failed** (`SSL_ERROR_SYSCALL`, error 35) — `gh api` used instead; recorded as troubleshooting entry A9 |
+
 The validation sheet is preserved at
 `research/artifacts/round11/skill-validation-sheet.png`.
 

@@ -63,6 +63,20 @@ Available: `fade`, `afade`, `acrossfade`, `blend`, `tblend`, `overlay`.
 **Fix:** re-run `studio/{swangle,voice,whisper}_setup.sh` (all idempotent).
 **Prevention:** treat every `/tmp` path as rebuildable; never commit an assumption that it exists.
 
+### A9 · `raw.githubusercontent.com` fails with `SSL_ERROR_SYSCALL`
+**Symptom:** `curl -sL https://raw.githubusercontent.com/…` returns error 35 and writes no file,
+so a byte-verification step silently compares against a missing file.
+**Cause:** the raw host is not in the sandbox's allowed egress list (only `github.com`,
+`codeload.github.com`, `api.github.com`, `registry.npmjs.org`, `pypi.org`,
+`files.pythonhosted.org` are).
+**Fix:** fetch through the API instead —
+`gh api "repos/OWNER/REPO/contents/PATH?ref=BRANCH" -H "Accept: application/vnd.github.raw" > out`.
+Verified: all 15 skill files confirmed byte-identical this way.
+**Prevention:** the *verification* path and the *delivery* path are different. Verify via `gh api`;
+still give the user the raw URL, because their browser is outside the sandbox and can reach it.
+Also: always check that the downloaded file exists before hashing, or a failed fetch looks like a
+mismatch.
+
 ### A8 · [BLOCKED] Model/weight downloads
 - **HuggingFace** (`huggingface.co`, `cdn-lfs`): blocked. Kills kokoro-js (~327 MB), XTTS v2,
   `KandirResearch/DarijaTTS-v0.1-500M`.
@@ -422,4 +436,5 @@ new search. 64 records already cover the toolchain landscape.
 | Blank transition composite | A4 |
 | `xfade` unknown filter | A5 |
 | Model download fails | A8 |
+| `raw.githubusercontent.com` SSL error | A9 |
 | Work seems lost | G1 |
