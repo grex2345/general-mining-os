@@ -1,6 +1,6 @@
 # Research ledger — generated report
 
-Generated 2026-11-25 from `research/ledger.json`. **Do not hand-edit** — run `node research/tools/kb.mjs report`.
+Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `node research/tools/kb.mjs report`.
 
 ## Scoreboard
 
@@ -9,10 +9,10 @@ Generated 2026-11-25 from `research/ledger.json`. **Do not hand-edit** — run `
 | discovered | **6** | a URL or mention exists; nothing opened |
 | inspected | **8** | source, docs or renders actually read/looked at |
 | tested | **2** | executed in this environment, with evidence recorded |
-| integrated | **4** | code/technique landed in our engine, artifact on disk |
+| integrated | **20** | code/technique landed in our engine, artifact on disk |
 | rejected | **1** | deliberately not used, reason recorded |
 
-## integrated (4)
+## integrated (20)
 
 | id | name | licence | environment | source |
 |---|---|---|---|---|
@@ -20,6 +20,22 @@ Generated 2026-11-25 from `research/ledger.json`. **Do not hand-edit** — run `
 | `studio-render3d` | studio/src/render3d.mjs — software 3D on the Skia canvas | ours | ✔ runs here | studio/src/render3d.mjs |
 | `studio-lookdev` | Look-dev layer: LIGHT_RIG specular, lathe volumes, bloom, grade, impact rings | ours | · untested | studio/src/render3d.mjs |
 | `bean-cartoon-engine` | bean-cartoon 2D vector character engine (studio/src/cartoon.mjs) | ours | · untested | studio/src/cartoon.mjs |
+| `lowpoly-skill` | claude-animation-skills / low-poly | licence unknown | · untested | https://github.com/artemnovitckii/claude-animation-skills/tree/main/skills/low-poly |
+| `software-rasteriser-ladder` | Painter's-algorithm software rasteriser (own implementation) | licence unknown | · untested | local://studio/src/lowpoly.mjs |
+| `canvas2d-filter-blur` | @napi-rs/canvas context filter (gaussian blur) | licence unknown | · untested | https://github.com/Brooooooklyn/canvas |
+| `sound-from-first-principles` | Procedural sound design (own synthesis) | licence unknown | · untested | local://studio/experiments/sounddesk.mjs |
+| `piper-neural-tts` | Piper (rhasspy/piper) neural TTS | licence unknown | · untested | https://github.com/OHF-Voice/piper1-gpl |
+| `espeak-ng-timing` | espeak-ng phoneme + word event timing | licence unknown | · untested | https://github.com/espeak-ng/espeak-ng |
+| `lip-sync-visemes` | IPA viseme set for lip-sync (own implementation) | licence unknown | · untested | local://studio/src/character3d.mjs |
+| `character3d-rig` | Procedural character mesh + 26-joint rig (own implementation) | licence unknown | · untested | local://studio/src/character3d.mjs |
+| `procedural-locomotion` | Procedural locomotion + performance (own implementation) | licence unknown | · untested | local://studio/src/animation.mjs |
+| `cinema-lens-stack` | Lens stack: DOF, bloom, grain, CA (own implementation) | licence unknown | · untested | local://studio/src/cinema.mjs |
+| `fresnel-rim-flat-shade` | Fresnel rim light for flat-shaded night scenes (own implementation) | licence unknown | · untested | local://studio/src/lowpoly.mjs |
+| `stickman-engine` | MASTER PROMPT stickman 2D engine | licence unknown | · untested |  |
+| `waterfx` | Water Breathing VFX (ribbons/dragon/wheel) | licence unknown | · untested |  |
+| `score-jp` | Japanese-flavored procedural score + battle SFX | licence unknown | · untested |  |
+| `tanjiro-2d-short` | Experiment A: 2D stickman Water Breathing short | licence unknown | · untested |  |
+| `tanjiro-3d-short` | Experiment B: 3D low-poly Water Breathing short | licence unknown | · untested |  |
 
 ## tested (2)
 
@@ -257,6 +273,7 @@ Generated 2026-11-25 from `research/ledger.json`. **Do not hand-edit** — run `
 - Face is a data table: 9 expressions x (2 eye kinds, 2 brow offsets, 1 mouth kind). Eye kinds lid|happy|squeeze|shock|dot, mouths dash|grin|frown|o|smirk|teeth|laugh. All features derive from E = eye radius = 0.155 rx, which is why the face reads identically at 200px and 1280px.
 - Head is ~42% of total height with no neck: the single strongest style cue. Mitt hands, 2-bone IK limbs, stubby tube legs.
 - API traps fixed and recorded: (1) walkCycle must return OFFSETS not absolutes, or hands land below the feet; (2) raised arms must be drawn AFTER the head or the hands vanish behind the skull; (3) two same-coloured legs merge into one dark column in front view - the far leg needs a darker tone; (4) squish must floor at 0.70 or a front-view skull squashed sideways reads as a thin egg rather than a profile.
+- Round 7: artifact paths repointed to tracked mirrors in research/artifacts/characters (studio/out originals are gitignored, absent in fresh checkout)
 
 ### `cartoon-short-kit` — jonhelpangan-jpg/cartoon-short-kit — '2D look, 3D motion' house style (rig3d.js, stick.js)
 
@@ -269,4 +286,130 @@ Generated 2026-11-25 from `research/ledger.json`. **Do not hand-edit** — run `
 - Faces are painted onto a canvas texture with plain 2D calls (drawFace3D -> faceFront), so the expression system is canvas2d code, not shader work - which is why it ports to us without WebGL.
 - FACE table: 14 expressions (neutral, stern, grin, laugh, whistle, nervous, shock, relief, relief_open, dazed, pained, smile, smile_closed, lick) over 5 eye kinds and 11 mouths. Feature positions are expressed in units of u = headWidth/100, so the face scales with the head.
 - Their rigs still need WebGL, so the reference cannot run here. Only the style and the face-table idea were carried over.
+
+### `lowpoly-skill` — claude-animation-skills / low-poly
+
+**Evidence**:
+- template.html inspected (34917 B): 360x640 internal render upscaled 3x nearest-neighbour, PS1 vertex snap in project_vertex, 15-bit Bayer 4x4 dither in dithering_fragment, NearestFilter pixel textures 16-64px, PerspectiveCamera fov 52, Fog 10-30. Reimplemented in canvas2d as studio/src/lowpoly.mjs; measured 36.7 ms/frame vs 438 ms previous best.
+
+**Extracted**:
+- The resolution ladder is the single biggest lever on CPU: render small, upscale nearest-neighbour. Also: ordered dither at 15-bit plus vertex snapping is what makes low-poly read as PS1 rather than as 'bad 3D'.
+- Both paths verified: 360x640->3x at 36.7 ms/frame, native 1080x1920 at 172.1 ms/frame.
+
+### `software-rasteriser-ladder` — Painter's-algorithm software rasteriser (own implementation)
+
+**Evidence**:
+- 380 faces, 360x640: render 8.5 ms, post 4.1 ms, upscale 3.1 ms. 1080x1920: render 11.5 ms, post 40.3 ms. Post pass folded tint+grain+dither into one pixel loop: 33.4 ms -> 4.1 ms at 360x640.
+
+**Extracted**:
+- Terrain must be a separate pre-pass: painter's algorithm cannot interleave a ground plane with objects standing on it. Near-plane clipping is mandatory or the ground tears open in front of the camera.
+- Verified both render targets
+
+### `canvas2d-filter-blur` — @napi-rs/canvas context filter (gaussian blur)
+
+**Evidence**:
+- Probed: g.filter='blur(10px)' applies a real gaussian (centre 240, +2px 99, +8px 48, +40px 3). Used for cloud softening, snow texture dabs and soft occlusion masks.
+
+**Extracted**:
+- This Skia build exposes ctx.filter, giving cheap gaussian blur with no WebGL: the missing piece for volumetric light, soft shadows and bloom.
+- Used for cloud softening, snow dabs and volumetric masks
+
+### `sound-from-first-principles` — Procedural sound design (own synthesis)
+
+**Evidence**:
+- 10 cues synthesised from noise shaping + additive sines; 16-bit 44.1k stereo master, peak -1.5 dBFS, RMS -16.17 dBFS, crest 14.67 dB, DC -1.4e-4, 0 clipped samples. Band energy low 0.131 / mid 0.075 / high 0.036.
+
+**Extracted**:
+- A whole soundtrack can be generated with zero external assets: wind = cascaded one-pole low-pass on white noise; footsteps = enveloped filtered noise; a train horn = four detuned sines with vibrato; whoosh = swept one-pole low-pass.
+- Master verified at -1.5 dBFS peak with no clipped samples
+
+### `piper-neural-tts` — Piper (rhasspy/piper) neural TTS
+
+**Evidence**:
+- piper-tts 1.8.0 + onnxruntime 1.32 from PyPI. Model en_US-amy-medium (63 MB ONNX) fetched via api.github.com from Mobile-Artificial-Intelligence/babylon (MIT) because huggingface.co and cdn-lfs return HTTP 000. Measured: 0.40 s to synthesise 5.7 s of speech (14x realtime) on 2 cores; no GPU.
+
+**Extracted**:
+- Neural TTS is possible here with zero network access to model hubs, because some MIT repos vendor Piper voices directly in their tree. This is the single biggest quality jump in Round 5: formant synthesis (espeak) sounds 1985, Piper sounds human.
+
+### `espeak-ng-timing` — espeak-ng phoneme + word event timing
+
+**Evidence**:
+- espeakng-loader 0.2.4 (PyPI) bundles libespeak-ng.so 1.52 + espeak-ng-data, 10 MB, no root. Synthesis callback exposes word events (type 1) with audio_position in ms, and espeak_TextToPhonemes with espeakCHARS_IPA returns one IPA cluster per word. Phoneme events (type 7) are compiled out of this build (espeak_SetParameter(21,1,0) returns -1).
+
+**Extracted**:
+- Use espeak for TIMING and IPA only; use Piper for audio. Note GPL-3.0: fine for generating audio, but redistribution of the binary would carry the licence.
+
+### `lip-sync-visemes` — IPA viseme set for lip-sync (own implementation)
+
+**Evidence**:
+- 53 IPA symbols mapped to mouth parameters {mouthOpen, mouthWide, mouthCurve}; diacritics stripped before lookup; co-articulation blends 30% toward the next phoneme 45 ms early. 57 phonemes driven in exp5-voice.mp4.
+
+**Extracted**:
+- Phoneme-driven mouth shapes beat amplitude lip-flap: an 'm' closes the lips and an 'o' rounds them, which amplitude cannot express.
+
+### `character3d-rig` — Procedural character mesh + 26-joint rig (own implementation)
+
+**Evidence**:
+- 2548 faces per figure at rest. Skeleton: 26 bones (root/hips/spine/chest/neck/head/jaw + shoulder/upperArm/foreArm/hand x2 + thigh/shin/foot/toe x2), FK with R=Ry*Rx*Rz per bone. Analytic two-bone IK with pole vector. Continuous expression space (7 params) with 10 named presets and blending; viseme set keyed on IPA.
+
+**Extracted**:
+- Rounded tubes and superellipsoids render flat-shaded at the same cost as boxes, so there is no reason to model a character out of boxes. Screen-space-independent: face features must be placed against a skullZ(x,y) surface function, not at fixed depths.
+
+### `procedural-locomotion` — Procedural locomotion + performance (own implementation)
+
+**Evidence**:
+- Walk/run cycles via IK foot targets (planted during stance, arcs during swing), jump arc with anticipation/land/recover, impact with wind/strike/recoil/settle, idle breathing. Camera shake from squared trauma with layered band-limited noise; traumaDecay e^-kt.
+
+**Extracted**:
+- Feet must be IK targets, not joint angles: angle-driven legs skate. Arm poses must ALSO be IK targets — three composed pitch rotations put a 'guard' pose above the character's head.
+
+### `cinema-lens-stack` — Lens stack: DOF, bloom, grain, CA (own implementation)
+
+**Evidence**:
+- 3-radius depth-slicing DOF via ctx.filter blur; bloom bright-pass at threshold 0.80 + blur + lighter; cached grain layer offset per frame; 3-channel chromatic aberration. fitFov() bisects the lens so subject points fit a safe rect in 22 iterations.
+
+**Extracted**:
+- Chromatic aberration must be composited from three ISOLATED channels. Multiplying copies by pure red/blue and adding them doubles those channels against the untouched frame and turns the whole picture magenta.
+
+### `fresnel-rim-flat-shade` — Fresnel rim light for flat-shaded night scenes (own implementation)
+
+**Evidence**:
+- rim={eye,dir,colour,intensity,power} added to shadeFace. k = (1-|n.v|)^power * max(0,-n.dir) * intensity. In the night scene at intensity 0.85 the rim was invisible; 1.75 with power 1.9 reads clearly. Plus groundPass hook so contact shadows are not buried by the terrain pre-pass.
+
+**Extracted**:
+- A flat-shaded subject in a night scene with only key+hemispheric fill reads as unlit cardboard because nothing on its silhouette is brighter than the background. Rim + Fresnel is the cheapest fix. Also: a wall whose albedo matches the sky value makes lit windows look like paper rectangles glued to the sky - pale cornice/plinth/pilaster bands draw the building outline for 2 boxes.
+
+### `stickman-engine` — MASTER PROMPT stickman 2D engine
+
+**Evidence**:
+- tanjiro2d.mjs rendered 1657 frames at 159ms/f; contact sheet + 24-shot short inspected; white heads/black stick limbs/checkered haori verified in frames
+
+**Extracted**:
+- Pure-white wobbly heads + uneven navy ink + outfit-as-body blobs reproduce the master-prompt marker style natively in canvas2d
+
+### `waterfx` — Water Breathing VFX (ribbons/dragon/wheel)
+
+**Evidence**:
+- waterDragon/waterRibbon/waterWheel rendered in exp7a dragon thumbnail + exp7b dragon shot; viewed
+
+**Extracted**:
+- Layered glow+gradient+foam-core+flow-dashes ribbon reads as anime water; serpentine dragon with head/eye/whiskers
+
+### `score-jp` — Japanese-flavored procedural score + battle SFX
+
+**Evidence**:
+- synthesizeScore hirajoshi koto/taiko/pad/drone with twist-stop; mixed under voice, SFX capped 0.7x voice; loudnorm -14
+
+**Extracted**:
+- Twist section drops melodic music to a drone + sting per master prompt; measured not heard
+
+### `tanjiro-2d-short` — Experiment A: 2D stickman Water Breathing short
+
+**Evidence**:
+- 55.2s 1080x1920@30 H.264+AAC; QA 0 black>0.4s 0 freezes -15.4 LUFS PASS; 24 shots <=90f no repeated angle
+
+### `tanjiro-3d-short` — Experiment B: 3D low-poly Water Breathing short
+
+**Evidence**:
+- 21.6s 1080x1920@30; Round4 rasteriser + Round5 rig re-skinned Tanjiro + katana; QA 0 black 0 freezes after freeze fix
 

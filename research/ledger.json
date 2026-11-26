@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-25",
+  "updated": "2026-11-26",
   "records": [
     {
       "id": "hf-dom",
@@ -34,7 +34,7 @@
     {
       "id": "vsim",
       "kind": "engine",
-      "name": "vsim — \"Remotion for real 3D\" (pure-TS software rasteriser)",
+      "name": "vsim \u2014 \"Remotion for real 3D\" (pure-TS software rasteriser)",
       "url": "https://github.com/kunalkushwaha/vsim",
       "license": "MIT",
       "status": "tested",
@@ -111,7 +111,7 @@
     {
       "id": "claude-animation-skills",
       "kind": "skill-kit",
-      "name": "artemnovitckii/claude-animation-skills — 11 video skills for Claude Code",
+      "name": "artemnovitckii/claude-animation-skills \u2014 11 video skills for Claude Code",
       "url": "https://github.com/artemnovitckii/claude-animation-skills",
       "license": "MIT",
       "status": "inspected",
@@ -163,7 +163,7 @@
     {
       "id": "sparticuz-chromium",
       "kind": "project",
-      "name": "@sparticuz/chromium — Chromium binary shipped inside the npm tarball",
+      "name": "@sparticuz/chromium \u2014 Chromium binary shipped inside the npm tarball",
       "url": "https://github.com/Sparticuz/chromium",
       "license": "MIT",
       "status": "integrated",
@@ -238,7 +238,7 @@
     {
       "id": "remotion",
       "kind": "engine",
-      "name": "Remotion — React -> video",
+      "name": "Remotion \u2014 React -> video",
       "url": "https://github.com/remotion-dev/remotion",
       "license": "company licence, not OSI",
       "status": "discovered",
@@ -268,7 +268,7 @@
     {
       "id": "kokoro-js",
       "kind": "engine",
-      "name": "kokoro-js — neural TTS on onnxruntime-node",
+      "name": "kokoro-js \u2014 neural TTS on onnxruntime-node",
       "url": "https://github.com/hexgrad/kokoro",
       "license": "Apache-2.0",
       "status": "tested",
@@ -302,7 +302,7 @@
     {
       "id": "sherpa-onnx",
       "kind": "engine",
-      "name": "sherpa-onnx — ASR/TTS toolkit",
+      "name": "sherpa-onnx \u2014 ASR/TTS toolkit",
       "url": "https://github.com/k2-fsa/sherpa-onnx",
       "license": "Apache-2.0",
       "status": "discovered",
@@ -332,7 +332,7 @@
     {
       "id": "ossos",
       "kind": "project",
-      "name": "sketchpunklabs/ossos — character IK/motion",
+      "name": "sketchpunklabs/ossos \u2014 character IK/motion",
       "url": "https://github.com/sketchpunklabs/ossos",
       "license": "check",
       "status": "discovered",
@@ -478,7 +478,7 @@
     {
       "id": "studio-render3d",
       "kind": "technique",
-      "name": "studio/src/render3d.mjs — software 3D on the Skia canvas",
+      "name": "studio/src/render3d.mjs \u2014 software 3D on the Skia canvas",
       "url": "studio/src/render3d.mjs",
       "license": "ours",
       "status": "integrated",
@@ -706,7 +706,8 @@
         "Key correction to round 2: skin is a FLAT fill with no shadow tone. A dark crescent across the cheek reads as a stain. Shading tones belong to clothing only.",
         "Face is a data table: 9 expressions x (2 eye kinds, 2 brow offsets, 1 mouth kind). Eye kinds lid|happy|squeeze|shock|dot, mouths dash|grin|frown|o|smirk|teeth|laugh. All features derive from E = eye radius = 0.155 rx, which is why the face reads identically at 200px and 1280px.",
         "Head is ~42% of total height with no neck: the single strongest style cue. Mitt hands, 2-bone IK limbs, stubby tube legs.",
-        "API traps fixed and recorded: (1) walkCycle must return OFFSETS not absolutes, or hands land below the feet; (2) raised arms must be drawn AFTER the head or the hands vanish behind the skull; (3) two same-coloured legs merge into one dark column in front view - the far leg needs a darker tone; (4) squish must floor at 0.70 or a front-view skull squashed sideways reads as a thin egg rather than a profile."
+        "API traps fixed and recorded: (1) walkCycle must return OFFSETS not absolutes, or hands land below the feet; (2) raised arms must be drawn AFTER the head or the hands vanish behind the skull; (3) two same-coloured legs merge into one dark column in front view - the far leg needs a darker tone; (4) squish must floor at 0.70 or a front-view skull squashed sideways reads as a thin egg rather than a profile.",
+        "Round 7: artifact paths repointed to tracked mirrors in research/artifacts/characters (studio/out originals are gitignored, absent in fresh checkout)"
       ],
       "evidence": [
         "charsheet.mjs renders 4 PNG contact sheets and a 150-frame 1080x1920 clip at 171-178 ms/frame",
@@ -717,11 +718,11 @@
       "artifacts": [
         "studio/src/cartoon.mjs",
         "studio/experiments/charsheet.mjs",
-        "studio/out/char-expressions.png",
-        "studio/out/char-poses.png",
-        "studio/out/char-sheet.png",
-        "studio/out/char-hero.png",
-        "studio/out/char-preview.mp4",
+        "research/artifacts/characters/char-expressions.png",
+        "research/artifacts/characters/char-poses.png",
+        "research/artifacts/characters/char-sheet.png",
+        "research/artifacts/characters/char-hero.png",
+        "research/artifacts/characters/char-preview.mp4",
         "research/artifacts/characters"
       ],
       "reason": null,
@@ -742,7 +743,7 @@
     {
       "id": "cartoon-short-kit",
       "kind": "project",
-      "name": "jonhelpangan-jpg/cartoon-short-kit — '2D look, 3D motion' house style (rig3d.js, stick.js)",
+      "name": "jonhelpangan-jpg/cartoon-short-kit \u2014 '2D look, 3D motion' house style (rig3d.js, stick.js)",
       "url": "https://github.com/jonhelpangan-jpg/cartoon-short-kit",
       "license": "MIT",
       "status": "inspected",
@@ -1050,7 +1051,7 @@
       "deps": [],
       "tags": [],
       "findings": [
-        "Feet must be IK targets, not joint angles: angle-driven legs skate. Arm poses must ALSO be IK targets — three composed pitch rotations put a 'guard' pose above the character's head."
+        "Feet must be IK targets, not joint angles: angle-driven legs skate. Arm poses must ALSO be IK targets \u2014 three composed pitch rotations put a 'guard' pose above the character's head."
       ],
       "evidence": [
         "Walk/run cycles via IK foot targets (planted during stance, arcs during swing), jump arc with anticipation/land/recover, impact with wind/strike/recoil/settle, idle breathing. Camera shake from squared trauma with layered band-limited noise; traumaDecay e^-kt."
@@ -1124,6 +1125,162 @@
       "history": [
         {
           "date": "2026-11-25",
+          "status": "integrated",
+          "note": "created"
+        }
+      ]
+    },
+    {
+      "id": "stickman-engine",
+      "kind": "engine",
+      "name": "MASTER PROMPT stickman 2D engine",
+      "url": null,
+      "license": null,
+      "status": "integrated",
+      "env_ok": null,
+      "deps": [],
+      "tags": [
+        "round7",
+        "2d"
+      ],
+      "findings": [
+        "Pure-white wobbly heads + uneven navy ink + outfit-as-body blobs reproduce the master-prompt marker style natively in canvas2d"
+      ],
+      "evidence": [
+        "tanjiro2d.mjs rendered 1657 frames at 159ms/f; contact sheet + 24-shot short inspected; white heads/black stick limbs/checkered haori verified in frames"
+      ],
+      "artifacts": [
+        "research/artifacts/round7/exp7a-contact.jpg"
+      ],
+      "reason": null,
+      "first_seen": "2026-11-26",
+      "history": [
+        {
+          "date": "2026-11-26",
+          "status": "integrated",
+          "note": "created"
+        }
+      ]
+    },
+    {
+      "id": "waterfx",
+      "kind": "technique",
+      "name": "Water Breathing VFX (ribbons/dragon/wheel)",
+      "url": null,
+      "license": null,
+      "status": "integrated",
+      "env_ok": null,
+      "deps": [],
+      "tags": [
+        "round7",
+        "vfx"
+      ],
+      "findings": [
+        "Layered glow+gradient+foam-core+flow-dashes ribbon reads as anime water; serpentine dragon with head/eye/whiskers"
+      ],
+      "evidence": [
+        "waterDragon/waterRibbon/waterWheel rendered in exp7a dragon thumbnail + exp7b dragon shot; viewed"
+      ],
+      "artifacts": [
+        "research/artifacts/round7/exp7a-thumb-dragon.png"
+      ],
+      "reason": null,
+      "first_seen": "2026-11-26",
+      "history": [
+        {
+          "date": "2026-11-26",
+          "status": "integrated",
+          "note": "created"
+        }
+      ]
+    },
+    {
+      "id": "score-jp",
+      "kind": "technique",
+      "name": "Japanese-flavored procedural score + battle SFX",
+      "url": null,
+      "license": null,
+      "status": "integrated",
+      "env_ok": null,
+      "deps": [],
+      "tags": [
+        "round7",
+        "audio"
+      ],
+      "findings": [
+        "Twist section drops melodic music to a drone + sting per master prompt; measured not heard"
+      ],
+      "evidence": [
+        "synthesizeScore hirajoshi koto/taiko/pad/drone with twist-stop; mixed under voice, SFX capped 0.7x voice; loudnorm -14"
+      ],
+      "artifacts": [
+        "research/artifacts/round7/exp7a-qa.json"
+      ],
+      "reason": null,
+      "first_seen": "2026-11-26",
+      "history": [
+        {
+          "date": "2026-11-26",
+          "status": "integrated",
+          "note": "created"
+        }
+      ]
+    },
+    {
+      "id": "tanjiro-2d-short",
+      "kind": "demo",
+      "name": "Experiment A: 2D stickman Water Breathing short",
+      "url": null,
+      "license": null,
+      "status": "integrated",
+      "env_ok": null,
+      "deps": [],
+      "tags": [
+        "round7",
+        "video"
+      ],
+      "findings": [],
+      "evidence": [
+        "55.2s 1080x1920@30 H.264+AAC; QA 0 black>0.4s 0 freezes -15.4 LUFS PASS; 24 shots <=90f no repeated angle"
+      ],
+      "artifacts": [
+        "research/artifacts/round7/exp7a-tanjiro-2d-720.mp4"
+      ],
+      "reason": null,
+      "first_seen": "2026-11-26",
+      "history": [
+        {
+          "date": "2026-11-26",
+          "status": "integrated",
+          "note": "created"
+        }
+      ]
+    },
+    {
+      "id": "tanjiro-3d-short",
+      "kind": "demo",
+      "name": "Experiment B: 3D low-poly Water Breathing short",
+      "url": null,
+      "license": null,
+      "status": "integrated",
+      "env_ok": null,
+      "deps": [],
+      "tags": [
+        "round7",
+        "video"
+      ],
+      "findings": [],
+      "evidence": [
+        "21.6s 1080x1920@30; Round4 rasteriser + Round5 rig re-skinned Tanjiro + katana; QA 0 black 0 freezes after freeze fix"
+      ],
+      "artifacts": [
+        "research/artifacts/round7/exp7b-tanjiro-3d-720.mp4"
+      ],
+      "reason": null,
+      "first_seen": "2026-11-26",
+      "history": [
+        {
+          "date": "2026-11-26",
           "status": "integrated",
           "note": "created"
         }

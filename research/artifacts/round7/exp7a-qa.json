@@ -1,0 +1,17 @@
+{
+  "blackSpans": [],
+  "freezeSpans": [],
+  "loudness": {
+    "input_i": "-15.40",
+    "input_tp": "-3.47",
+    "input_lra": "5.20",
+    "input_thresh": "-25.97",
+    "output_i": "-14.04",
+    "output_tp": "-1.90",
+    "output_lra": "5.30",
+    "output_thresh": "-24.57",
+    "normalization_type": "dynamic",
+    "target_offset": "0.04"
+  },
+  "pass": true
+}
