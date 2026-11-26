@@ -1909,6 +1909,209 @@
           "note": "created"
         }
       ]
+    },
+    {
+      "id": "worldkit",
+      "kind": "engine",
+      "name": "WorldKit prop/atmosphere/camera library",
+      "url": "studio/src/worldkit.js",
+      "license": null,
+      "status": "integrated",
+      "env_ok": null,
+      "deps": [],
+      "tags": [],
+      "findings": [
+        "Ported extra.tsx lit-window buildings + glow + canvas planes; added pottery-village props, ornate LatheGeometry masterpiece vase with zellige texture, groundDetail scatter to fill empty foregrounds."
+      ],
+      "evidence": [
+        "Rendered 9-shot film headless; 25+ props (hut/building/marketStall/kiln/wheel/masterpiece lathe vase/groundDetail), day/night/warm lighting, glow sprites, stars/dust, Catmull-Rom camera. 1080 frames @720x1280."
+      ],
+      "artifacts": [
+        "studio/src/worldkit.js"
+      ],
+      "reason": null,
+      "first_seen": "2026-11-26",
+      "history": [
+        {
+          "date": "2026-11-26",
+          "status": "integrated",
+          "note": "created"
+        }
+      ]
+    },
+    {
+      "id": "actor-kit",
+      "kind": "engine",
+      "name": "ActorKit continuous acting + locomotion",
+      "url": "studio/src/actor.js",
+      "license": null,
+      "status": "integrated",
+      "env_ok": null,
+      "deps": [],
+      "tags": [],
+      "findings": [
+        "path() integrates distance for walk phase; idle() adds weight-shift/breath/glance so standing chars never freeze; G recipes map narration beats to body/facial acting."
+      ],
+      "evidence": [
+        "Distance-driven walk cycles (no foot-slide), idle micro-motion, 12 gesture recipes; drove Sami + crowds across 9 shots, verified no freezedetect hits."
+      ],
+      "artifacts": [
+        "studio/src/actor.js"
+      ],
+      "reason": null,
+      "first_seen": "2026-11-26",
+      "history": [
+        {
+          "date": "2026-11-26",
+          "status": "integrated",
+          "note": "created"
+        }
+      ]
+    },
+    {
+      "id": "score-world",
+      "kind": "engine",
+      "name": "Warm cinematic world score",
+      "url": "studio/src/score_world.mjs",
+      "license": null,
+      "status": "integrated",
+      "env_ok": null,
+      "deps": [],
+      "tags": [],
+      "findings": [
+        "Major-pentatonic warm plucks + frame drum + pad + wonder bells; additive to score.mjs Japanese palette; sections follow story beats."
+      ],
+      "evidence": [
+        "synthesizeWorldScore 7 moods (dawn/tense/build/night/swell/wonder/joy) mixed under narration at -14 LUFS."
+      ],
+      "artifacts": [
+        "studio/src/score_world.mjs"
+      ],
+      "reason": null,
+      "first_seen": "2026-11-26",
+      "history": [
+        {
+          "date": "2026-11-26",
+          "status": "integrated",
+          "note": "created"
+        }
+      ]
+    },
+    {
+      "id": "sfxkit",
+      "kind": "engine",
+      "name": "World SFX library + narration mixer",
+      "url": "studio/src/sfxkit.mjs",
+      "license": null,
+      "status": "integrated",
+      "env_ok": null,
+      "deps": [],
+      "tags": [],
+      "findings": [
+        "Precise JS Float32 mix avoids ffmpeg-4.1 amix averaging; ducking envelope from voice amplitude; SFX placed on action beats."
+      ],
+      "evidence": [
+        "13 procedural SFX (wheel/clay/shatter/fire/door/gasp/applause/chime/birds/wind/whoosh/crickets); mixNarration reads+resamples voice, ducks music/SFX up to 45% under voice; final -14.7 LUFS TP -3.98."
+      ],
+      "artifacts": [
+        "studio/src/sfxkit.mjs"
+      ],
+      "reason": null,
+      "first_seen": "2026-11-26",
+      "history": [
+        {
+          "date": "2026-11-26",
+          "status": "integrated",
+          "note": "created"
+        }
+      ]
+    },
+    {
+      "id": "catmull-camera",
+      "kind": "technique",
+      "name": "Catmull-Rom cinematic camera",
+      "url": "studio/src/worldkit.js",
+      "license": null,
+      "status": "integrated",
+      "env_ok": null,
+      "deps": [],
+      "tags": [],
+      "findings": [
+        "Portrait 720x1280 has narrow horizontal FOV: two/three-shots need camera z>=9 or fov>=55 to fit x=+-2 characters."
+      ],
+      "evidence": [
+        "camAt/Cam ported from extra.tsx; velocity-continuous paths + micro-handheld + impact shake + FOV kick + roll; used in all 9 shots (crane/two-shot/orbit/push/close-up/pull-back)."
+      ],
+      "artifacts": [
+        "studio/src/worldkit.js"
+      ],
+      "reason": null,
+      "first_seen": "2026-11-26",
+      "history": [
+        {
+          "date": "2026-11-26",
+          "status": "integrated",
+          "note": "created"
+        }
+      ]
+    },
+    {
+      "id": "transition-compositor",
+      "kind": "technique",
+      "name": "In-render transition compositor",
+      "url": "studio/experiments/r11_render.cjs",
+      "license": null,
+      "status": "integrated",
+      "env_ok": null,
+      "deps": [],
+      "tags": [],
+      "findings": [
+        "Capture previous shot's last frame as still; blend incoming live over it during its first D seconds = proper dissolve without shifting the timeline."
+      ],
+      "evidence": [
+        "Dissolve/bloom/dip/fade composited on a 2D output canvas; keeps narration timing exact (no xfade in ffmpeg-4.1). 0 unintended black/freeze in final."
+      ],
+      "artifacts": [
+        "studio/experiments/r11_render.cjs"
+      ],
+      "reason": null,
+      "first_seen": "2026-11-26",
+      "history": [
+        {
+          "date": "2026-11-26",
+          "status": "integrated",
+          "note": "created"
+        }
+      ]
+    },
+    {
+      "id": "potter-film-r11",
+      "kind": "demo",
+      "name": "The Boy Who Chose Clay (36s English film)",
+      "url": "research/artifacts/round11/the-boy-who-chose-clay.mp4",
+      "license": null,
+      "status": "integrated",
+      "env_ok": null,
+      "deps": [],
+      "tags": [],
+      "findings": [
+        "First full multi-scene production on the upgraded engine: rich environments, continuous acting, cinematic camera variety, meaningful transitions, beat-synced audio."
+      ],
+      "evidence": [
+        "9 distinct scenes, 1080 frames @720x1280 30fps, voice-02 narration + word-synced captions + warm score + SFX, 36.0s h264+aac, -14.7 LUFS, 0 black/0 freeze. QA sheet viewed."
+      ],
+      "artifacts": [
+        "research/artifacts/round11/the-boy-who-chose-clay.mp4"
+      ],
+      "reason": null,
+      "first_seen": "2026-11-26",
+      "history": [
+        {
+          "date": "2026-11-26",
+          "status": "integrated",
+          "note": "created"
+        }
+      ]
     }
   ],
   "migrated_from": "research/knowledge_base.json (Phase 3, read-only provenance)"

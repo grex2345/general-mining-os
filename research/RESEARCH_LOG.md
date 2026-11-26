@@ -9,10 +9,10 @@ Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `
 | discovered | **6** | a URL or mention exists; nothing opened |
 | inspected | **17** | source, docs or renders actually read/looked at |
 | tested | **6** | executed in this environment, with evidence recorded |
-| integrated | **25** | code/technique landed in our engine, artifact on disk |
+| integrated | **32** | code/technique landed in our engine, artifact on disk |
 | rejected | **2** | deliberately not used, reason recorded |
 
-## integrated (25)
+## integrated (32)
 
 | id | name | licence | environment | source |
 |---|---|---|---|---|
@@ -41,6 +41,13 @@ Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `
 | `puppet2d` | puppet2d.js — ported Stick3D 2D acting puppet (full emotion/IK/outfit system) | licence unknown | ✔ runs here |  |
 | `stickworld` | stickworld.js — 3D toon world + puppet billboard + cinematic camera | licence unknown | ✔ runs here |  |
 | `english-default` | English as default production language (audiopipe DEFAULT_LANG=en) | licence unknown | ✔ runs here |  |
+| `worldkit` | WorldKit prop/atmosphere/camera library | licence unknown | · untested | studio/src/worldkit.js |
+| `actor-kit` | ActorKit continuous acting + locomotion | licence unknown | · untested | studio/src/actor.js |
+| `score-world` | Warm cinematic world score | licence unknown | · untested | studio/src/score_world.mjs |
+| `sfxkit` | World SFX library + narration mixer | licence unknown | · untested | studio/src/sfxkit.mjs |
+| `catmull-camera` | Catmull-Rom cinematic camera | licence unknown | · untested | studio/src/worldkit.js |
+| `transition-compositor` | In-render transition compositor | licence unknown | · untested | studio/experiments/r11_render.cjs |
+| `potter-film-r11` | The Boy Who Chose Clay (36s English film) | licence unknown | · untested | research/artifacts/round11/the-boy-who-chose-clay.mp4 |
 
 ## tested (6)
 
@@ -591,4 +598,60 @@ Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `
 
 **Extracted**:
 - 8.67s 720x1280, 0 black/freeze, -13.62 LUFS; acting beats match narration (point->spin clay, shock->crazy, celebrate->village stared); keyword-coloured karaoke
+
+### `worldkit` — WorldKit prop/atmosphere/camera library
+
+**Evidence**:
+- Rendered 9-shot film headless; 25+ props (hut/building/marketStall/kiln/wheel/masterpiece lathe vase/groundDetail), day/night/warm lighting, glow sprites, stars/dust, Catmull-Rom camera. 1080 frames @720x1280.
+
+**Extracted**:
+- Ported extra.tsx lit-window buildings + glow + canvas planes; added pottery-village props, ornate LatheGeometry masterpiece vase with zellige texture, groundDetail scatter to fill empty foregrounds.
+
+### `actor-kit` — ActorKit continuous acting + locomotion
+
+**Evidence**:
+- Distance-driven walk cycles (no foot-slide), idle micro-motion, 12 gesture recipes; drove Sami + crowds across 9 shots, verified no freezedetect hits.
+
+**Extracted**:
+- path() integrates distance for walk phase; idle() adds weight-shift/breath/glance so standing chars never freeze; G recipes map narration beats to body/facial acting.
+
+### `score-world` — Warm cinematic world score
+
+**Evidence**:
+- synthesizeWorldScore 7 moods (dawn/tense/build/night/swell/wonder/joy) mixed under narration at -14 LUFS.
+
+**Extracted**:
+- Major-pentatonic warm plucks + frame drum + pad + wonder bells; additive to score.mjs Japanese palette; sections follow story beats.
+
+### `sfxkit` — World SFX library + narration mixer
+
+**Evidence**:
+- 13 procedural SFX (wheel/clay/shatter/fire/door/gasp/applause/chime/birds/wind/whoosh/crickets); mixNarration reads+resamples voice, ducks music/SFX up to 45% under voice; final -14.7 LUFS TP -3.98.
+
+**Extracted**:
+- Precise JS Float32 mix avoids ffmpeg-4.1 amix averaging; ducking envelope from voice amplitude; SFX placed on action beats.
+
+### `catmull-camera` — Catmull-Rom cinematic camera
+
+**Evidence**:
+- camAt/Cam ported from extra.tsx; velocity-continuous paths + micro-handheld + impact shake + FOV kick + roll; used in all 9 shots (crane/two-shot/orbit/push/close-up/pull-back).
+
+**Extracted**:
+- Portrait 720x1280 has narrow horizontal FOV: two/three-shots need camera z>=9 or fov>=55 to fit x=+-2 characters.
+
+### `transition-compositor` — In-render transition compositor
+
+**Evidence**:
+- Dissolve/bloom/dip/fade composited on a 2D output canvas; keeps narration timing exact (no xfade in ffmpeg-4.1). 0 unintended black/freeze in final.
+
+**Extracted**:
+- Capture previous shot's last frame as still; blend incoming live over it during its first D seconds = proper dissolve without shifting the timeline.
+
+### `potter-film-r11` — The Boy Who Chose Clay (36s English film)
+
+**Evidence**:
+- 9 distinct scenes, 1080 frames @720x1280 30fps, voice-02 narration + word-synced captions + warm score + SFX, 36.0s h264+aac, -14.7 LUFS, 0 black/0 freeze. QA sheet viewed.
+
+**Extracted**:
+- First full multi-scene production on the upgraded engine: rich environments, continuous acting, cinematic camera variety, meaningful transitions, beat-synced audio.
 

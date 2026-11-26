@@ -62,3 +62,6 @@ studio/piper/
 
 # Round 8: user reference videos are inputs (live in Google Drive), not repo assets
 google_drive/
+
+# Round 11 regenerable audio intermediates (keep the MP4 deliverable)
+research/artifacts/round11/*.wav

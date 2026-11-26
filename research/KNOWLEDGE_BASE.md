@@ -205,3 +205,33 @@ fully-3D characters. Ported from Stick3D-Pack into reusable headless modules:
 - **P2:** 60 fps toggle; caption-sync QA gate; vector character states; test Remotion+swangle here;
   3D-drama mode; native Darija TTS integration (user machine / allowed proxy).
 - **Preserve always:** all prior rounds, ledger, QA gates, placeholder-script swap path.
+
+## 10. Round 11 — production layer (rich multi-scene films)
+The integration tests (round9/round10) proved the pipeline; Round 11 builds the PRODUCTION layer
+on top and delivers a full 36s, 9-scene English film: `research/artifacts/round11/the-boy-who-chose-clay.mp4`.
+- **WorldKit (`studio/src/worldkit.js`)** extends StickWorld: 25+ props (hut, lit-window building,
+  marketStall, kiln w/ animated fire+embers, pottery wheel, crate/barrel/sack/lantern/fence/well/
+  cart/bench/streetLamp/banner/shelf/cloud/mountain), `groundDetail` scatter (stones/tufts/flowers/
+  shards) to kill empty foregrounds, `masterpiece` ornate LatheGeometry vase with zellige canvas
+  texture + handles, glow sprites, stars/dustMotes, day/night/warmInterior lighting presets, and a
+  Catmull-Rom `catmullCam` (ported from extra.tsx: velocity-continuous paths, handheld, impact
+  shake, FOV kick, roll).
+- **ActorKit (`studio/src/actor.js`)**: distance-driven walk cycles (no foot-slide), idle micro-
+  motion (weight-shift/breath/glance so standing chars never freeze), waypoint `path()` locomotion,
+  and 12 gesture recipes (workWheel/shapeClay/throwPot/fireKiln/reveal/celebrate/mock/greedy/
+  resolve/carry/gasp/applaud) mapping narration beats to body+facial acting.
+- **Shot director (`studio/src/film_potter.js`)**: 9 shots, each its OWN location, camera language,
+  acting and props, timed to the narration word track. `build(i,ctx)->{sc,cam,update(localT)}`.
+- **Transition compositor (`studio/experiments/r11_render.cjs`)**: dissolve/bloom/dip/fade drawn on
+  a 2D output canvas. Capture prev shot's last frame as a still, blend incoming live over its first
+  D seconds = proper dissolve WITHOUT shifting narration timing (ffmpeg-4.1 has no xfade).
+- **Audio**: `score_world.mjs` (warm major-pentatonic plucks/frame-drum/pad/wonder-bells; 7 moods
+  dawn/tense/build/night/swell/wonder/joy) + `sfxkit.mjs` (13 procedural SFX + precise Float32 mixer
+  that reads/resamples the voice and ducks music/SFX up to 45% under it). Final -14.7 LUFS, TP -3.98.
+- **LESSONS:** (1) portrait 720x1280 has a NARROW horizontal FOV — two/three-shots need camera
+  z>=9 or fov>=55 to fit characters at x=+-2; close-ups stay narrow. (2) W.box/ball return Groups;
+  material is on children[0]. (3) drawPuppet needs pose.t (inject in Actor.update). (4) Render
+  ~519 ms/frame @720x1280 with rich scenes+shadows (1080 frames ~9.3 min). (5) Keep music/SFX under
+  voice via amplitude-envelope ducking, not ffmpeg amix (4.1 averages inputs).
+- **Roadmap next:** 60fps option, more ACTION-LIBRARY recipes (throw/pickup/eat/fight physics),
+  look-dev grade pass, longer formats (60–90s), per-subject art direction, caption-sync QA gate.
