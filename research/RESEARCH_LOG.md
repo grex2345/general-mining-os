@@ -8,11 +8,11 @@ Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `
 |---|---:|---|
 | discovered | **6** | a URL or mention exists; nothing opened |
 | inspected | **17** | source, docs or renders actually read/looked at |
-| tested | **5** | executed in this environment, with evidence recorded |
-| integrated | **22** | code/technique landed in our engine, artifact on disk |
+| tested | **6** | executed in this environment, with evidence recorded |
+| integrated | **25** | code/technique landed in our engine, artifact on disk |
 | rejected | **2** | deliberately not used, reason recorded |
 
-## integrated (22)
+## integrated (25)
 
 | id | name | licence | environment | source |
 |---|---|---|---|---|
@@ -38,8 +38,11 @@ Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `
 | `tanjiro-3d-short` | Experiment B: 3D low-poly Water Breathing short | licence unknown | · untested |  |
 | `kinetic-primitives` | kinetic.mjs motion-graphics primitives (OURS) | licence unknown | · untested |  |
 | `audiopipe` | audiopipe.mjs — automated narration post-production + word alignment | licence unknown | ✔ runs here |  |
+| `puppet2d` | puppet2d.js — ported Stick3D 2D acting puppet (full emotion/IK/outfit system) | licence unknown | ✔ runs here |  |
+| `stickworld` | stickworld.js — 3D toon world + puppet billboard + cinematic camera | licence unknown | ✔ runs here |  |
+| `english-default` | English as default production language (audiopipe DEFAULT_LANG=en) | licence unknown | ✔ runs here |  |
 
-## tested (5)
+## tested (6)
 
 | id | name | licence | environment | source |
 |---|---|---|---|---|
@@ -48,6 +51,7 @@ Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `
 | `whisper-cpp-darija` | whisper.cpp small — Darija/Arabic ASR + DTW word timestamps | licence unknown | ✔ runs here |  |
 | `pocketsphinx-align` | pocketsphinx forced alignment (Stick3D align.py) — English precise | licence unknown | ✔ runs here |  |
 | `swangle-headless-webgl` | Headless WebGL2/three.js via SwiftShader ANGLE (@sparticuz/chromium) | licence unknown | ✔ runs here |  |
+| `stickscene-english-demo` | English integration proof — 3D toon village + acting + English narration + word-sync captions | licence unknown | ✔ runs here |  |
 
 ## inspected (17)
 
@@ -554,4 +558,37 @@ Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `
 **Extracted**:
 - In-sandbox working AI-TTS = platform voice tool + piper(EN). edge-tts TESTED blocked. Hamsa/DarijaTTS/XTTS need user machine or allowed proxy (hosts blocked)
 - KandirResearch/DarijaTTS-v0.1-500M (OuteTTS, Apache-2.0) + XTTS v2 = best native paths off-sandbox; Hamsa MOS~4.1 native Casablancan
+
+### `puppet2d` — puppet2d.js — ported Stick3D 2D acting puppet (full emotion/IK/outfit system)
+
+**Evidence**:
+- Ported from Stick3D puppet.ts; rendered in stickscene_demo + english-integration.mp4 (smile->point->shock w/ sweat->laugh verified by viewing frames)
+
+**Extracted**:
+- drawPuppet: moods, arms+IK hand targets, walk, nerv tremble+sweat, squash/stretch, outfits/hair/glasses/hat; drawn 512x768 for billboard
+
+### `stickworld` — stickworld.js — 3D toon world + puppet billboard + cinematic camera
+
+**Evidence**:
+- stickscene_demo.cjs renders 8.6s @720x1280 ~263ms/frame; village env + acting + cinematic camera verified by viewing
+
+**Extracted**:
+- Ink-outlined toon primitives, canvas pattern textures, soft contact shadows, yaw-only puppet billboard, cineCam keyframes+handheld
+- Reference architecture = 2D puppet billboard in 3D toon world (NOT full-3D characters)
+
+### `english-default` — English as default production language (audiopipe DEFAULT_LANG=en)
+
+**Evidence**:
+- narrationBundle on piper + voice-02 English: 26 words precise alignment (Meet@0.08..stared@9.68); english-integration.mp4 word-synced English captions
+
+**Extracted**:
+- User correction: videos English by default; Darija only for communication. alignWords routes en->precise pocketsphinx (whisper fallback); narrationBundle codifies script->voice->captions
+
+### `stickscene-english-demo` — English integration proof — 3D toon village + acting + English narration + word-sync captions
+
+**Evidence**:
+- Rendered headless SwANGLE; voice-02 natural English; pocketsphinx word timing; score.mjs mystery->resolve bed; QA clean; viewed contact sheet
+
+**Extracted**:
+- 8.67s 720x1280, 0 black/freeze, -13.62 LUFS; acting beats match narration (point->spin clay, shock->crazy, celebrate->village stared); keyword-coloured karaoke
 

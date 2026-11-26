@@ -4,6 +4,12 @@ Reusable techniques for animation, storytelling, visual explanation, audio, rend
 and production — learned from real references and tested where possible. Update this instead of
 rediscovering. Companion: `research/ledger.json` (tool records), round reports, `references/`.
 
+**LANGUAGE RULE (Round 10, user correction):** videos are produced in **ENGLISH by default** —
+English script, natural AI English narration, English word-synced captions, English hooks.
+Moroccan Darija is the language we COMMUNICATE in, NOT the default video language. Only switch a
+video's language when the user explicitly asks. Engine: `audiopipe.DEFAULT_LANG = 'en'`;
+`alignWords`/`narrationBundle` default to English (precise pocketsphinx alignment, whisper fallback).
+
 **Honesty rules (always):** audio is *measured*, never "heard"; motion is judged from *sampled
 frames*, never "watched"; never claim access to something not actually opened; state limits.
 
@@ -61,6 +67,23 @@ frames*, never "watched"; never claim access to something not actually opened; s
   day→night (sun/moon arc + sky gradient + light colour + window glow + twinkling stars).
 - Our rig: `stickman.mjs` (bean body, stick limbs, big head, idleT breathing), `character3d.mjs`
   (26-bone), `animation.mjs` (ease, smoothNoise, cameraMove, blinkAt, poseIdle/poseGait).
+
+### 3b. Reference architecture — PORTED + TESTED (Round 10), the path to reference quality
+The references are **2D canvas stick puppets on upright billboards inside a 3D toon world** — NOT
+fully-3D characters. Ported from Stick3D-Pack into reusable headless modules:
+- `studio/src/puppet2d.js` — `drawPuppet(ctx,W,H,look,pose)`: full acting vocabulary (moods grin/
+  smile/shock/deadpan/worry/angry/laugh/gulp; arms down/up/hold/point/head/chest/box/shrug + IK hand
+  targets; walk phase; nerv tremble + sliding/flung sweat; squash/stretch; tilt/hunch/air; outfits
+  suit/leather/blazer/hoodie/shirt; hair short/bob/swept/grey; glasses; badge; hat). Drawn 512×768.
+- `studio/src/stickworld.js` — `StickWorld(THREE)`: ink-outlined toon box/ball/cyl/cone, canvas
+  pattern textures (brick/wood/plank/tile/marble/carpet/grass), `surface`, soft radial `shadow`,
+  `billboard` (yaw-only, feet on floor, redraws puppet each frame), `cineCam` (smoothstep pos/look/
+  fov keyframes + micro-handheld ≤0.004 + impact shake).
+- `studio/experiments/stickscene_demo.cjs` — headless renderer (SwANGLE) combining them; verified
+  8.6s scene @720×1280 ~263 ms/frame, acting + cinematic camera + village environment.
+- **Why this matters:** gives reference-quality character acting immediately (the puppet already has
+  the full emotion/IK/outfit system) while the 3D world supplies depth, props, lighting, camera.
+  Proof: `research/artifacts/round10/english-integration.mp4` (English narration + word-sync captions).
 
 ## 4. Motion graphics (the explainer engine)
 - **Word-karaoke captions:** 1–2 words (or a 3–5 word sliding window), current word bold + accent,

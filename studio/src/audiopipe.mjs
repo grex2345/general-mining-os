@@ -147,6 +147,11 @@ export async function burnCaptions(videoFile, assFile, outFile, { crf = 18 } = {
 export const WHISPER_CLI = process.env.WHISPER_CLI || '/tmp/wcpp/whisper.cpp-1.8.2/build/bin/whisper-cli';
 export const WHISPER_MODEL = process.env.WHISPER_MODEL || '/tmp/whisper-dl/ggml-small.bin';
 
+// PRODUCTION LANGUAGE DEFAULT = ENGLISH (user correction, Round 10). Moroccan Darija is the
+// language we COMMUNICATE in, NOT the default video language. Videos are English unless the
+// user explicitly requests another language. Pass { lang: 'ar' } etc. to override per-video.
+export const DEFAULT_LANG = 'en';
+
 /**
  * Run whisper.cpp on audio; return [{word, t, dur}] in seconds (word-level).
  *
@@ -158,7 +163,7 @@ export const WHISPER_MODEL = process.env.WHISPER_MODEL || '/tmp/whisper-dl/ggml-
  * centiseconds (verified in whisper.cpp source: printed as t_dtw/100).
  * Falls back to `-ml 1 -sow` segment offsets if DTW times are absent.
  */
-export async function whisperWords(audioFile, { lang = 'ar', cli = WHISPER_CLI, model = WHISPER_MODEL, threads = 4, dtw = 'small' } = {}) {
+export async function whisperWords(audioFile, { lang = DEFAULT_LANG, cli = WHISPER_CLI, model = WHISPER_MODEL, threads = 4, dtw = 'small' } = {}) {
   const tmp = `/tmp/apipe-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
   await run(FFMPEG, ['-y', '-v', 'error', '-i', audioFile, '-ar', '16000', '-ac', '1', `${tmp}.wav`]);
   const base = ['-m', model, '-l', lang, '-f', `${tmp}.wav`, '-t', String(threads), '-nt'];
@@ -278,10 +283,34 @@ export function alignScriptToWords(scriptText, asrWords) {
   return out.map(({ word, t, dur }) => ({ word, t, dur }));
 }
 
-/** Full real-alignment path: audio + script -> word-timed captions (any language whisper supports). */
+/**
+ * Full real-alignment path: audio + script -> word-timed captions. DEFAULT LANGUAGE = ENGLISH.
+ * English routes to precise pocketsphinx forced alignment (matches acoustic onsets), falling
+ * back to whisper+DP if a script word is outside the cmudict dictionary. Other languages use
+ * whisper+DP (multilingual). Override with { lang: 'ar' } etc. for non-English videos.
+ */
 export async function alignWords(audioFile, scriptText, opts = {}) {
-  const asr = await whisperWords(audioFile, opts);
+  const lang = opts.lang || DEFAULT_LANG;
+  if (lang === 'en' || lang.startsWith('en-')) {
+    try { return await alignWordsEnglish(audioFile, scriptText, opts); }
+    catch { /* unknown word / aligner issue -> robust multilingual fallback */ }
+  }
+  const asr = await whisperWords(audioFile, { ...opts, lang });
   return alignScriptToWords(scriptText, asr);
+}
+
+/**
+ * English-default narration bundle: the repeatable script -> voice -> captions workflow.
+ * Given a raw TTS voice file + the exact script, returns { duration, words, ass } after
+ * loudness processing + word alignment + karaoke ASS. This is the standard production path;
+ * narration language defaults to English (DEFAULT_LANG).
+ */
+export async function narrationBundle(script, voiceFile, { outAudio, lang = DEFAULT_LANG, speed = 1, targetLUFS = -14, padToSec = null, captionOpts = {} } = {}) {
+  const audio = outAudio || `/tmp/narr-${Date.now()}.wav`;
+  const duration = await processVoice(voiceFile, audio, { speed, targetLUFS, padToSec });
+  const words = await alignWords(audio, script, { lang });
+  const ass = wordsToASS(words, captionOpts);
+  return { audio, duration, words, ass };
 }
 
 /**
