@@ -118,10 +118,7 @@ class BridgeServer:
         self._authed_clients: dict[ServerConnection, str] = {}  # ws -> session_id
         self._session_ws: dict[str, ServerConnection] = {}  # session_id -> ws
         self._pending_approvals: dict[str, asyncio.Future[bool]] = {}
-<<<<<<< HEAD
-=======
         self._approval_owner: dict[str, ServerConnection] = {}  # approval_id -> owning WS
->>>>>>> 24354b0 (feat(arena-pc-control): complete extension-Arena integration and security hardening)
         self._ws_server: Any = None
 
     # ── Session management ─────────────────────────────────────────────
@@ -241,9 +238,6 @@ class BridgeServer:
             },
         }
         self.write_audit("approval_requested", prompt_payload["approval"])
-<<<<<<< HEAD
-        await self._broadcast(prompt_payload)
-=======
         # Send approval request ONLY to the WS that owns the session making the call.
         # Never broadcast to all authenticated clients — that would allow a
         # different connected agent to approve/deny another agent's action.
@@ -257,7 +251,6 @@ class BridgeServer:
                 self._approval_owner.pop(approval_id, None)
                 self._pending_approvals.pop(approval_id, None)
                 return False
->>>>>>> 24354b0 (feat(arena-pc-control): complete extension-Arena integration and security hardening)
 
         try:
             approved = await asyncio.wait_for(fut, timeout=self.approval_timeout)
@@ -265,10 +258,7 @@ class BridgeServer:
             approved = False
         finally:
             self._pending_approvals.pop(approval_id, None)
-<<<<<<< HEAD
-=======
             self._approval_owner.pop(approval_id, None)
->>>>>>> 24354b0 (feat(arena-pc-control): complete extension-Arena integration and security hardening)
 
         self.write_audit(
             "approval_resolved",
@@ -440,8 +430,6 @@ class BridgeServer:
                     aid = str(msg.get("approval_id") or "")
                     approved = bool(msg.get("approved", False))
                     fut = self._pending_approvals.get(aid)
-<<<<<<< HEAD
-=======
                     owner_ws = self._approval_owner.get(aid)
                     if owner_ws is not None and owner_ws is not ws:
                         # The WS sending this decision is NOT the one that owns
@@ -457,7 +445,6 @@ class BridgeServer:
                             )
                         )
                         continue
->>>>>>> 24354b0 (feat(arena-pc-control): complete extension-Arena integration and security hardening)
                     if fut and not fut.done():
                         fut.set_result(approved)
                     await ws.send(

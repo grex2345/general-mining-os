@@ -14,8 +14,6 @@ import { BaseProviderAdapter } from "./base_adapter.js";
 class ArenaDirectAdapter extends BaseProviderAdapter {
   constructor(options = {}) {
     super({ ...options, name: "arena_direct", provider: "arena" });
-<<<<<<< HEAD
-=======
     // Bridge session ID (set after successful create_session on the Bridge)
     this.bridgeSessionId = null;
   }
@@ -27,7 +25,6 @@ class ArenaDirectAdapter extends BaseProviderAdapter {
 
   getBridgeSessionId() {
     return this.bridgeSessionId;
->>>>>>> 24354b0 (feat(arena-pc-control): complete extension-Arena integration and security hardening)
   }
 
   /* ── 1. Agent Detection ────────────────────────────────────────── */
@@ -175,8 +172,6 @@ class ArenaDirectAdapter extends BaseProviderAdapter {
     const errorMsg = document.querySelector('[role="alert"], .error, [data-error]');
     return Boolean(stopBtn || errorMsg);
   }
-<<<<<<< HEAD
-=======
 
   /* ── 8. Session Info ──────────────────────────────────────────── */
   getSessionInfo() {
@@ -189,7 +184,6 @@ class ArenaDirectAdapter extends BaseProviderAdapter {
       bridgeSessionId: this.bridgeSessionId,
     };
   }
->>>>>>> 24354b0 (feat(arena-pc-control): complete extension-Arena integration and security hardening)
 }
 
 export { ArenaDirectAdapter };

@@ -23,19 +23,11 @@
   // MV3 content scripts can import ES modules. We import adapters dynamically.
   let ArenaDirectAdapterClass = null;
   try {
-<<<<<<< HEAD
-    // The adapter module is loaded via import map or direct path
-    const mod = chrome.extension.getURL("providers/arena_direct.js");
-    // We'll load it via import() if supported, otherwise fallback to inline detection
-  } catch {
-    // Ignore import errors — inline fallback below
-=======
     const mod = await import(chrome.extension.getURL("providers/arena_direct.js"));
     ArenaDirectAdapterClass = mod.ArenaDirectAdapter;
   } catch (e) {
     console.warn("[Arena PC Control] Failed to load ArenaDirectAdapter module:", e);
     // Fall back to inline adapter below
->>>>>>> 24354b0 (feat(arena-pc-control): complete extension-Arena integration and security hardening)
   }
 
   let sessionActive = false;
@@ -154,84 +146,6 @@
       document.querySelector('form button[type="submit"]');
 
     if (ol && textarea && sendBtn) {
-<<<<<<< HEAD
-      // Inline Arena Direct adapter (falls back if ES module import not available)
-      activeAdapter = {
-        name: "arena_direct",
-        provider: "arena",
-        detect: () => true,
-        identifyConversation: () => ({
-          conversationId: `arena_conv_${Date.now()}`,
-          title: document.querySelector("h1")?.textContent || document.title || "Arena Conversation",
-          url: window.location.href,
-        }),
-        observeNewMessages: () => {
-          const assistantTurns = getOrderedAssistantMessages();
-          const newMessages = assistantTurns.slice(processedTurnCount);
-          processedTurnCount = assistantTurns.length;
-          return newMessages;
-        },
-        deliverToolCall: (toolName, argumentsObj) => {
-          const payload = JSON.stringify({ tool: toolName, arguments: argumentsObj });
-          const block = `\n@@@ARENA_PC@@@\n${payload}\n@@@END_ARENA_PC@@@\n`;
-          const textareaEl = findTextarea();
-          if (!textareaEl) return false;
-          const nativeSetter = Object.getOwnPropertyDescriptor(
-            window.HTMLTextAreaElement.prototype,
-            "value"
-          ).set;
-          nativeSetter.call(textareaEl, textareaEl.value + block);
-          textareaEl.dispatchEvent(new Event("input", { bubbles: true }));
-          const btn =
-            document.querySelector('form button[aria-label*="Send" i]') ||
-            document.querySelector('form button[type="submit"]');
-          if (btn && !btn.disabled) {
-            btn.click();
-            return true;
-          }
-          return false;
-        },
-        deliverObservation: (toolName, result) => {
-          const status = result && result.ok ? "SUCCESS" : "ERROR";
-          const body = (result && result.text) ? String(result.text) : JSON.stringify(result || {});
-          const imgNote =
-            result && Array.isArray(result.images) && result.images.length > 0
-              ? `\n[Attached ${result.images.length} screenshot image(s)]`
-              : "";
-          const observation = `[OBSERVATION — ${toolName} — ${status}]\n${body.slice(0, 12000)}${imgNote}`;
-          const textareaEl = findTextarea();
-          if (!textareaEl) return false;
-          const nativeSetter = Object.getOwnPropertyDescriptor(
-            window.HTMLTextAreaElement.prototype,
-            "value"
-          ).set;
-          nativeSetter.call(textareaEl, textareaEl.value + "\n" + observation);
-          textareaEl.dispatchEvent(new Event("input", { bubbles: true }));
-          const btn =
-            document.querySelector('form button[aria-label*="Send" i]') ||
-            document.querySelector('form button[type="submit"]');
-          if (btn && !btn.disabled) {
-            btn.click();
-            return true;
-          }
-          return false;
-        },
-        isStreamingIncomplete: (text) => Protocol.isStreamingIncomplete(text),
-        detectError: () => {
-          const stopBtn = document.querySelector('button[aria-label*="Stop" i]');
-          const errorMsg = document.querySelector('[role="alert"], .error, [data-error]');
-          return Boolean(stopBtn || errorMsg);
-        },
-        startSession: () => {},
-        endSession: () => {},
-        getSessionInfo: () => ({
-          name: "arena_direct",
-          provider: "arena",
-          sessionId: `apc-${Date.now()}`,
-          enabled: true,
-        }),
-      };
-=======
       // Use the imported ArenaDirectAdapter class if available,
       // otherwise fall back to inline adapter.
       if (ArenaDirectAdapterClass) {
@@ -315,7 +229,6 @@
           }),
         };
       }
->>>>>>> 24354b0 (feat(arena-pc-control): complete extension-Arena integration and security hardening)
 
       // Register adapter with background service worker
       chrome.runtime.sendMessage({
@@ -442,39 +355,27 @@
     consecutiveErrors = 0;
     processedTurnCount = getOrderedAssistantMessages().length;
 
-<<<<<<< HEAD
-    // Create a session on the bridge
-    try {
-      await chrome.runtime.sendMessage({
-=======
     // Create a session on the bridge and capture the bridge session_id
     let bridgeSessionId = null;
     try {
       const res = await chrome.runtime.sendMessage({
->>>>>>> 24354b0 (feat(arena-pc-control): complete extension-Arena integration and security hardening)
         action: "create_session",
         agent_type: "arena_agent",
         provider: activeAdapter.provider || "arena",
         metadata: { adapter: activeAdapter.name, url: window.location.href },
       });
-<<<<<<< HEAD
-=======
       if (res && res.session_id) {
         bridgeSessionId = res.session_id;
       }
->>>>>>> 24354b0 (feat(arena-pc-control): complete extension-Arena integration and security hardening)
     } catch {
       // Session creation failed but we can still proceed
     }
 
-<<<<<<< HEAD
-=======
     // Set the bridge session ID on the adapter so tool calls carry the real session ID
     if (activeAdapter && activeAdapter.setBridgeSessionId && bridgeSessionId) {
       activeAdapter.setBridgeSessionId(bridgeSessionId);
     }
 
->>>>>>> 24354b0 (feat(arena-pc-control): complete extension-Arena integration and security hardening)
     renderDockState();
 
     // Send bootstrap prompt to Arena

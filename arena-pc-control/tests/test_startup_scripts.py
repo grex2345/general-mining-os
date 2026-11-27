@@ -171,7 +171,7 @@ def _js(name: str) -> str:
 def test_arena_adapter_imports_arena_direct() -> None:
     """arena_adapter.js must import ArenaDirectAdapter from the separate module."""
     text = _js("arena_adapter.js")
-    assert 'import(' in text, "arena_adapter.js must use dynamic import()"
+    assert "import(" in text, "arena_adapter.js must use dynamic import()"
     assert "arena_direct.js" in text, "arena_adapter.js must reference arena_direct.js"
     assert "ArenaDirectAdapter" in text, (
         "arena_adapter.js must reference ArenaDirectAdapter class"
@@ -198,7 +198,6 @@ def test_background_routes_approvals_to_owning_tab() -> None:
 def test_background_does_not_broadcast_approvals() -> None:
     """background.js must NOT broadcast approval_required to all tabs."""
     text = _js("background.js")
-    # Check that approval_required is handled via sendToTabForSession, not bare broadcast
     approval_section = text[
         text.find('msg.type === "approval_required"') : text.find('msg.type === "approval_required"') + 500
     ]
