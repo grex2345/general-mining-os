@@ -161,6 +161,79 @@ def test_requirements_has_no_httpx_or_aiohttp() -> None:
     assert "aiohttp" not in text, "requirements.txt must not contain aiohttp"
 
 
+# ── Extension integration tests ─────────────────────────────────────────
+
+
+def _js(name: str) -> str:
+    return (ROOT / "extension" / name).read_text(encoding="utf-8")
+
+
+def test_arena_adapter_imports_arena_direct() -> None:
+    """arena_adapter.js must import ArenaDirectAdapter from the separate module."""
+    text = _js("arena_adapter.js")
+    assert 'import(' in text, "arena_adapter.js must use dynamic import()"
+    assert "arena_direct.js" in text, "arena_adapter.js must reference arena_direct.js"
+    assert "ArenaDirectAdapter" in text, (
+        "arena_adapter.js must reference ArenaDirectAdapter class"
+    )
+
+
+def test_background_routes_approvals_to_owning_tab() -> None:
+    """background.js must route approval_required only to the owning tab."""
+    text = _js("background.js")
+    assert "sendToTabForSession" in text, (
+        "background.js must have sendToTabForSession function for targeted approval routing"
+    )
+    assert "tabSessionMap" in text, (
+        "background.js must have tabSessionMap for tab-to-session routing"
+    )
+    assert "sessionTabMap" in text, (
+        "background.js must have sessionTabMap for session-to-tab routing"
+    )
+    assert "pendingFrameTabs" in text, (
+        "background.js must have pendingFrameTabs for frame-to-tab correlation"
+    )
+
+
+def test_background_does_not_broadcast_approvals() -> None:
+    """background.js must NOT broadcast approval_required to all tabs."""
+    text = _js("background.js")
+    # Check that approval_required is handled via sendToTabForSession, not bare broadcast
+    approval_section = text[
+        text.find('msg.type === "approval_required"') : text.find('msg.type === "approval_required"') + 500
+    ]
+    assert "sendToTabForSession" in approval_section, (
+        "approval_required must be routed via sendToTabForSession (targeted), not bare broadcast"
+    )
+
+
+def test_arena_direct_exports_class() -> None:
+    """arena_direct.js must export ArenaDirectAdapter class."""
+    text = _js("providers/arena_direct.js")
+    assert "export { ArenaDirectAdapter }" in text, (
+        "arena_direct.js must export ArenaDirectAdapter"
+    )
+    assert "class ArenaDirectAdapter" in text, (
+        "arena_direct.js must define ArenaDirectAdapter class"
+    )
+
+
+def test_base_adapter_exports_class() -> None:
+    """base_adapter.js must export BaseProviderAdapter class."""
+    text = _js("providers/base_adapter.js")
+    assert "export class BaseProviderAdapter" in text, (
+        "base_adapter.js must export BaseProviderAdapter class"
+    )
+
+
+def test_manifest_has_content_scripts() -> None:
+    """manifest.json must register content scripts for arena.ai."""
+    text = (ROOT / "extension" / "manifest.json").read_text(encoding="utf-8")
+    assert "arena.ai" in text, "manifest.json must match arena.ai URLs"
+    assert "protocol.js" in text, "manifest.json must load protocol.js"
+    assert "arena_adapter.js" in text, "manifest.json must load arena_adapter.js"
+
+
 def test_no_removed_mode_a_files_exist() -> None:
     """All MODE A AI-brain files must be deleted."""
     forbidden_files = [

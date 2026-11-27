@@ -89,3 +89,24 @@ test("BaseProviderAdapter detect and identify throw by default", () => {
   assert.throws(() => adapter.deliverToolCall("t", {}));
   assert.throws(() => adapter.deliverObservation("t", {}));
 });
+
+test("ArenaDirectAdapter bridge session ID get/set", () => {
+  const adapter = new ArenaDirectAdapter();
+  assert.equal(adapter.getBridgeSessionId(), null);
+
+  adapter.setBridgeSessionId("sess_12345");
+  assert.equal(adapter.getBridgeSessionId(), "sess_12345");
+
+  // getSessionInfo should prefer bridgeSessionId
+  const info = adapter.getSessionInfo();
+  assert.equal(info.sessionId, "sess_12345");
+  assert.equal(info.bridgeSessionId, "sess_12345");
+
+  // Clear it
+  adapter.setBridgeSessionId(null);
+  assert.equal(adapter.getBridgeSessionId(), null);
+  // Should fall back to local sessionId
+  const info2 = adapter.getSessionInfo();
+  assert.notEqual(info2.sessionId, null);
+  assert.equal(info2.bridgeSessionId, null);
+});

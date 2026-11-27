@@ -43,6 +43,15 @@ function getAdapterForTab(tabId, url) {
 // Map tabId -> active adapter instance
 const tabActiveAdapters = new Map();
 
+<<<<<<< HEAD
+=======
+// Map tabId -> bridge session_id (for routing approvals to the correct tab)
+const tabSessionMap = new Map();
+
+// Map session_id -> tabId (reverse lookup for routing)
+const sessionTabMap = new Map();
+
+>>>>>>> 24354b0 (feat(arena-pc-control): complete extension-Arena integration and security hardening)
 // ── WebSocket & Bridge State ───────────────────────────────────────────
 let socket = null;
 let connected = false;
@@ -52,6 +61,10 @@ let toolsCatalog = [];
 let serverStatuses = [];
 let seqId = 1;
 const pendingRequests = new Map();
+<<<<<<< HEAD
+=======
+const pendingFrameTabs = new Map(); // frame id -> tabId (for session routing)
+>>>>>>> 24354b0 (feat(arena-pc-control): complete extension-Arena integration and security hardening)
 let reconnectTimer = null;
 let heartbeatTimer = null;
 
@@ -73,6 +86,24 @@ function broadcastToArenaTabs(message) {
   });
 }
 
+<<<<<<< HEAD
+=======
+/**
+ * Send a message only to the tab that owns a given bridge session.
+ * Falls back to broadcast if no session-to-tab mapping exists.
+ */
+function sendToTabForSession(session_id, message) {
+  const tabId = sessionTabMap.get(session_id);
+  if (tabId) {
+    chrome.tabs.sendMessage(tabId, message).catch(() => {});
+    return true;
+  }
+  // Fallback: broadcast to all arena tabs (safer than dropping)
+  broadcastToArenaTabs(message);
+  return false;
+}
+
+>>>>>>> 24354b0 (feat(arena-pc-control): complete extension-Arena integration and security hardening)
 function broadcastToTab(tabId, message) {
   chrome.tabs.sendMessage(tabId, message).catch(() => {});
 }
@@ -95,14 +126,26 @@ function broadcastState() {
   broadcastToArenaTabs({ type: "bridge_state", state: currentStateSnapshot() });
 }
 
+<<<<<<< HEAD
 function sendFrame(payload, timeoutMs = 135000) {
+=======
+function sendFrame(payload, timeoutMs = 135000, tabId = null) {
+>>>>>>> 24354b0 (feat(arena-pc-control): complete extension-Arena integration and security hardening)
   return new Promise((resolve) => {
     if (!socket || socket.readyState !== WebSocket.OPEN) {
       resolve({ ok: false, error: "Local bridge is offline. Start start.bat." });
       return;
     }
     const id = seqId++;
+<<<<<<< HEAD
     const timer = setTimeout(() => {
+=======
+    if (tabId) {
+      pendingFrameTabs.set(id, tabId);
+    }
+    const timer = setTimeout(() => {
+      pendingFrameTabs.delete(id);
+>>>>>>> 24354b0 (feat(arena-pc-control): complete extension-Arena integration and security hardening)
       pendingRequests.delete(id);
       resolve({ ok: false, error: `Bridge request timed out after ${Math.round(timeoutMs / 1000)}s.` });
     }, timeoutMs);
@@ -148,7 +191,23 @@ async function ensureConnected() {
     }
 
     if (msg.type === "approval_required") {
+<<<<<<< HEAD
       broadcastToArenaTabs({ type: "approval_required", approval: msg.approval });
+=======
+      // Send approval ONLY to the tab that owns this session — never broadcast
+      // to all Arena tabs. The approval payload includes session_id so we can
+      // route it to the correct content script.
+      const approvalSessionId = msg.approval && msg.approval.session_id;
+      if (approvalSessionId) {
+        sendToTabForSession(approvalSessionId, {
+          type: "approval_required",
+          approval: msg.approval,
+        });
+      } else {
+        // Fallback: broadcast if no session_id (should not happen)
+        broadcastToArenaTabs({ type: "approval_required", approval: msg.approval });
+      }
+>>>>>>> 24354b0 (feat(arena-pc-control): complete extension-Arena integration and security hardening)
       return;
     }
 
@@ -167,10 +226,23 @@ async function ensureConnected() {
       serverStatuses = msg.servers || [];
       broadcastState();
     } else if (msg.type === "session_created") {
+<<<<<<< HEAD
       // Notify the specific tab that a session was created
       if (msg.session_id) {
         // Find which tab this relates to and notify
         broadcastToArenaTabs({
+=======
+      // Link this session to the tab that requested it
+      if (msg.session_id) {
+        const tabId = pendingFrameTabs.get(msg.id);
+        if (tabId) {
+          tabSessionMap.set(tabId, msg.session_id);
+          sessionTabMap.set(msg.session_id, tabId);
+          pendingFrameTabs.delete(msg.id);
+        }
+        // Send only to the owning tab
+        sendToTabForSession(msg.session_id, {
+>>>>>>> 24354b0 (feat(arena-pc-control): complete extension-Arena integration and security hardening)
           type: "session_created",
           session: { session_id: msg.session_id, agent_type: msg.agent_type, provider: msg.provider },
         });
@@ -341,7 +413,12 @@ chrome.runtime.onMessage.addListener((req, _sender, sendResponse) => {
           provider: req.provider || null,
           metadata: req.metadata || {},
         },
+<<<<<<< HEAD
         10000
+=======
+        10000,
+        tabId
+>>>>>>> 24354b0 (feat(arena-pc-control): complete extension-Arena integration and security hardening)
       );
       sendResponse(res);
       return true;
@@ -379,6 +456,14 @@ chrome.runtime.onMessage.addListener((req, _sender, sendResponse) => {
 
 chrome.tabs.onRemoved.addListener((tabId) => {
   tabActiveAdapters.delete(tabId);
+<<<<<<< HEAD
+=======
+  const sessionId = tabSessionMap.get(tabId);
+  if (sessionId) {
+    sessionTabMap.delete(sessionId);
+    tabSessionMap.delete(tabId);
+  }
+>>>>>>> 24354b0 (feat(arena-pc-control): complete extension-Arena integration and security hardening)
 });
 
 ensureConnected();
