@@ -69,6 +69,12 @@
     },
   };
 
+  // Intended subject height in metres per scale. A composition is only readable if the
+  // thing it is ABOUT occupies a sane share of the frame - this is the framing standard
+  // the motion gate cannot see (a film can move constantly and still frame nothing).
+  const FOCUS = { macro: 0.9, close: 1.3, medium: 2.5, wide: 12 };
+  const BAND = { macro: [0.35, 1.05], close: [0.30, 0.95], medium: [0.35, 1.10], wide: [0.45, 1.30] };
+
   /* ---- planner: validates the comp list against cinematic rules ---- */
   function plan(comps, { maxComp = 2.2 } = {}) {
     const problems = [];
@@ -104,6 +110,7 @@
       const sub = subOf(c, gt);
       return { pos: place(sub, f), look: [sub[0] + (f.lx || 0), sub[1] + (f.ly || 0), sub[2] + (f.lz || 0)], fov: f.fov, roll: f.roll };
     }
+    let last = null;
     function idxAt(t) {
       let i = 0; while (i < bounds.length - 1 && t >= bounds[i][1]) i++;
       return i;
@@ -143,9 +150,24 @@
       cam.fov = fr.fov; cam.updateProjectionMatrix();
       cam.up.set(Math.sin(roll), Math.cos(roll), 0);
       cam.lookAt(fr.look[0], fr.look[1], fr.look[2]);
-      return { ci, kind: comps[ci].kind, why: comps[ci].why, roll, shake };
+      last = { ci, kind: comps[ci].kind, why: comps[ci].why, roll, shake };
+      return last;
     }
-    return { cam, at, total, comps, bounds, plan: plan(comps) };
+    // Framing report for the CURRENT camera state (call after at()).
+    function framing(globalT) {
+      if (!last) return null;
+      const c = comps[last.ci];
+      const focus = c.focus ?? FOCUS[c.kind] ?? 2;
+      const sub = subOf(c, globalT ?? 0);
+      const d = Math.hypot(cam.position.x - sub[0], cam.position.y - sub[1], cam.position.z - sub[2]);
+      const visH = 2 * d * Math.tan(cam.fov * Math.PI / 360);
+      const coverage = focus / Math.max(1e-4, visH);
+      const band = BAND[c.kind] || [0.2, 1.3];
+      const verdict = coverage < band[0] ? 'TOO SMALL' : coverage > band[1] ? 'OVERFLOWS' : 'ok';
+      return { ci: last.ci, kind: c.kind, why: c.why, dist: +d.toFixed(2), visH: +visH.toFixed(2),
+               focus, coverage: +coverage.toFixed(3), band, verdict };
+    }
+    return { cam, at, framing, total, comps, bounds, plan: plan(comps) };
   }
 
   window.Cinema2 = function () { return { Director, moves, plan, F }; };
