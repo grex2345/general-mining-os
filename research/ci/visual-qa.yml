@@ -1,0 +1,85 @@
+name: Visual QA gate
+
+# Runs the vendored Ricks motion gate on every committed film, on GitHub's own runners.
+# This exists because Round 13 shipped a film that fails 3 of 7 visual targets and nothing
+# caught it: picture QA was an eyeball check on a contact sheet.
+# See research/audits/ROUND13_VISUAL_AUDIT.md.
+
+on:
+  push:
+    paths:
+      - 'research/artifacts/**/film/*.mp4'
+      - 'research/artifacts/*/*.mp4'
+      - 'studio/src/**'
+      - 'research/tools/visual_gate.py'
+      - 'research/references/ricksclips/tools/study/**'
+      - '.github/workflows/visual-qa.yml'
+  pull_request:
+    paths:
+      - 'research/artifacts/**'
+      - 'studio/src/**'
+      - '.github/workflows/visual-qa.yml'
+  workflow_dispatch:
+    inputs:
+      film:
+        description: 'Path to a film to check'
+        required: false
+        default: 'research/artifacts/round13/film/the-bell-of-vellara.mp4'
+
+permissions:
+  contents: read
+
+jobs:
+  gate:
+    name: Motion gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install measurement dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy opencv-python-headless
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ffmpeg
+          ffmpeg -version | head -1
+
+      - name: Pick films to check
+        id: films
+        run: |
+          if [ -n "${{ github.event.inputs.film }}" ]; then
+            echo "list=${{ github.event.inputs.film }}" >> "$GITHUB_OUTPUT"
+          else
+            LIST=$(find research/artifacts -name '*.mp4' -path '*film*' | sort | tr '\n' ' ')
+            echo "list=$LIST" >> "$GITHUB_OUTPUT"
+          fi
+          echo "Films: $LIST"
+
+      - name: Run gate (ratchet vs recorded baseline)
+        run: |
+          set -o pipefail
+          STATUS=0
+          for FILM in ${{ steps.films.outputs.list }}; do
+            echo "::group::$FILM"
+            BASE=""
+            case "$FILM" in
+              *round13*) BASE="--baseline research/audits/round13-visual-gate.json" ;;
+            esac
+            python research/tools/visual_gate.py "$FILM" $BASE \
+              --out "gate-$(basename "$FILM" .mp4).json" || STATUS=1
+            echo "::endgroup::"
+          done
+          exit $STATUS
+
+      - name: Upload measurements
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-gate-results
+          path: gate-*.json
+          if-no-files-found: warn
