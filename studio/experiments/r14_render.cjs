@@ -39,6 +39,7 @@ const WORDS = JSON.parse(fs.readFileSync(path.join(ROOT, 'research/artifacts/rou
       ctx: { THREE: T, W: Wk, K, A, S, C: window.Cinema2, lip: window.LipSync(words), words } };
   }, WORDS, Wd, Hd);
 
+  await page.evaluate((raw) => { window.__rawMode = raw; }, !!(process.env.COMPS || process.env.PROBES));
   const film = await page.evaluate(() => window.BellFilm2.spec());
   const TOTAL = await page.evaluate(() => window.BellFilm2.TOTAL);
   const FRAME_OFFSET = parseInt(process.env.FRAME_OFFSET || '0', 10);
@@ -58,16 +59,24 @@ const WORDS = JSON.parse(fs.readFileSync(path.join(ROOT, 'research/artifacts/rou
     }, si);
     report.push({ scene: si, name: shot.name, start: shot.start, dur: shot.dur, ...meta });
     if (meta.problems.length) console.log(`  !! ${shot.name} plan problems:`, meta.problems);
-    const nFrames = process.env.SMOKE ? 2 : ((process.env.MID || process.env.PROBE) ? 1 : Math.round(shot.dur * FPS));
+    // COMPS=1 renders one frame at the MIDPOINT of every composition, past all transitions.
+    // This is the inspection mode: one image per intended framing, so a human can judge each.
+    const bounds = process.env.COMPS ? await page.evaluate((si) => window.__p.scenes[si].dir.bounds, si) : null;
+    const probes = process.env.PROBES ? process.env.PROBES.split(',').map(Number) : null;
+    const nFrames = process.env.COMPS ? bounds.length
+      : probes ? probes.length
+      : process.env.SMOKE ? 2 : ((process.env.MID || process.env.PROBE) ? 1 : Math.round(shot.dur * FPS));
     const tr = shot.trans || { type: 'cut' };
     for (let k = 0; k < nFrames; k++) {
-      const localT = process.env.PROBE ? (parseFloat(process.env.PROBE) * shot.dur) : (process.env.MID ? shot.dur * 0.6 : k / FPS);
+      const localT = process.env.COMPS ? (bounds[k][0] + bounds[k][1]) / 2
+        : probes ? probes[k] * shot.dur
+        : process.env.PROBE ? (parseFloat(process.env.PROBE) * shot.dur) : (process.env.MID ? shot.dur * 0.6 : k / FPS);
       const globalT = shot.start + localT;
       await page.evaluate((si, lt) => { const p = window.__p, s = p.scenes[si]; s.update(lt); p.r.render(s.sc, s.cam); }, si, localT);
       await page.evaluate((mode, lt, dur, gT, TOTAL, W, H) => {
         const p = window.__p, oc = p.oc, cv = p.r.domElement;
         oc.globalAlpha = 1; oc.clearRect(0, 0, W, H);
-        const inTrans = lt < dur && dur > 0;
+        const inTrans = lt < dur && dur > 0 && !window.__rawMode;
         const u = inTrans ? Math.min(1, lt / dur) : 1;
         const ease = u * u * (3 - 2 * u);
         if (mode === 'dissolve' && inTrans) {
