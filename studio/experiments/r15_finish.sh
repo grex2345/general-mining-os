@@ -24,7 +24,13 @@ echo "=== burn captions + mux the NEW stronger-direction master ==="
 $FF -y -hide_banner -loglevel error -i /tmp/r15video.mp4 -i "$R15/final-audio.wav" \
   -map 0:v:0 -map 1:a:0 -vf "subtitles=/tmp/r15caps.ass" \
   -c:v libx264 -crf 18 -preset medium -pix_fmt yuv420p \
-  -c:a aac -b:a 192k -ac 2 -shortest "$OUT"
+  -c:a aac -b:a 192k -ac 2 "$OUT"
+
+echo "=== frame-count assertion (a truncated tail must never ship) ==="
+NV=$($FP -v error -select_streams v:0 -count_frames -show_entries stream=nb_read_frames -of csv=p=0 "$OUT")
+VD=$($FP -v error -select_streams v:0 -show_entries stream=duration -of csv=p=0 "$OUT")
+echo "video frames: $NV (expected 1980), video duration: $VD"
+if [ "$NV" != "1980" ]; then echo "FRAME COUNT MISMATCH — aborting"; exit 1; fi
 
 echo "=== probe ==="
 $FP -v error -show_entries format=duration,size:stream=codec_name,width,height,channels,sample_rate \
