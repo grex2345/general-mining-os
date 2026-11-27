@@ -365,7 +365,7 @@
       sc.add(foreground(T, W, K, S, 'post', [-4.4, 3.0, 2.6]));
       const M = C().moves;
       const comps = [
-        M.macro([0.1, 1.75, -1.2], { d: 1.60, az: 0.35, h: 0.20, fov: 60, dur: 1.7, focus: 2.2, why: 'they poured bronze — shown literally' }),
+        M.macro([0.1, 1.75, -1.2], { d: 1.60, az: 0.35, h: 0.20, fov: 60, dur: 1.7, kind: 'medium', focus: 2.2, why: 'they poured bronze — shown literally' }),
         M.push([-2.6, 2.45, -0.5], { d0: 2.3, d1: 1.5, az: -0.35, h0: 0.35, h1: 0.2, fov0: 58, fov1: 50, dur: 1.7, why: 'they tuned the crown', kind: 'close' }),
         M.crane([3.2, 2.4, -2.4], { d: 5.6, az: 0.25, h0: 0.4, h1: 5.4, fov0: 68, fov1: 60, dur: 1.8, why: 'they hung it higher', focus: 5.0 }),
       ];
