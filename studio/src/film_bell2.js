@@ -25,15 +25,15 @@
   function bell2(T, W, K, S, { p = [0, 0, 0], s = 1, color = '#b8862b' } = {}) {
     const pivot = new T.Group(); pivot.position.set(p[0], p[1], p[2]);
     const g = new T.Group(); g.scale.setScalar(s);
-    g.add(W.cone({ p: [0, -0.62, 0], r: 0.78, h: 1.25, color, seg: 24, rot: [Math.PI, 0, 0] }));
+    g.add(W.cone({ p: [0, -0.62, 0], r: 0.78, h: 1.25, color, seg: 24 }));   // apex up = narrow crown, wide lip below
     g.add(W.cyl({ p: [0, -1.2, 0], rt: 0.82, h: 0.14, color: '#8f6a1e', seg: 24 }));      // lip
-    g.add(W.cyl({ p: [0, -0.30, 0], rt: 0.50, h: 0.05, color: '#a8791f', seg: 24, ink: 0.01 })); // cast band
-    g.add(W.cyl({ p: [0, -0.95, 0], rt: 0.72, h: 0.04, color: '#a8791f', seg: 24, ink: 0.01 }));
-    g.add(W.box({ p: [0, -0.62, 0.52], s: [0.035, 1.1, 0.03], color: '#8f6a1e', ink: 0 }));      // cast seam
+    g.add(W.cyl({ p: [0, -0.30, 0], rt: 0.21, h: 0.05, color: '#a8791f', seg: 24, ink: 0.01 })); // cast band
+    g.add(W.cyl({ p: [0, -0.95, 0], rt: 0.61, h: 0.04, color: '#a8791f', seg: 24, ink: 0.01 }));
+    g.add(W.box({ p: [0, -1.00, 0.63], s: [0.035, 0.40, 0.03], color: '#8f6a1e', ink: 0 }));    // cast seam
     g.add(W.cyl({ p: [0, 0.06, 0], rt: 0.2, h: 0.22, color: '#8f6a1e', seg: 12 }));
     g.add(W.ball({ p: [0, 0.2, 0], r: 0.13, color: '#6f5216' }));
     // maker's mark: a small engraved plate, readable in macro
-    g.add(K.canvasPlane({ p: [0, -0.72, 0.60], s: [0.42, 0.20], px: [168, 80], transparent: true, draw: (c, CW, CH) => {
+    g.add(K.canvasPlane({ p: [0, -0.72, 0.47], s: [0.34, 0.16], px: [168, 80], transparent: true, draw: (c, CW, CH) => {
       c.clearRect(0, 0, CW, CH); c.fillStyle = 'rgba(90,66,16,.85)'; c.fillRect(0, 0, CW, CH);
       c.strokeStyle = '#e8c877'; c.lineWidth = 3; c.strokeRect(4, 4, CW - 8, CH - 8);
       c.fillStyle = '#e8c877'; c.textAlign = 'center'; c.font = '700 26px Georgia, serif';
@@ -293,10 +293,10 @@
       sc.add(foreground(T, W, K, S, 'arch', [-3.2, 3.0, 2.4]));   // parallax near the lens
       const M = C().moves;
       const comps = [
-        M.macro([0, 12.45, -5.4], { d: 0.82, az: 0.18, h: 0.06, fov: 64, dur: 1.5, why: 'open on the bell that never sounded' }),
-        M.pull([0, 12.4, -5.6], { d0: 1.0, d1: 9.6, h0: 0.2, h1: 2.0, fov0: 72, fov1: 52, az: 0.1, dur: 1.9, why: 'the silence belongs to this tower' }),
-        M.low([0, 6.2, -8], { d: 4.4, h: 0.3, fov: 74, dur: 1.7, why: 'the tower looms as the obstacle', rise: 0.5 }),
-        M.bird([0, 2.0, -1], { d: 12, h: 10, az: 0.3, fov: 58, dur: 1.5, why: 'Vellara: a whole valley that waited' }),
+        M.macro([0, 12.50, -5.30], { d: 1.50, az: 0.18, h: 0.10, fov: 58, dur: 1.5, focus: 1.6, why: 'open on the bell that never sounded' }),
+        M.pull([0, 12.4, -5.6], { d0: 1.6, d1: 14.0, h0: 0.2, h1: 3.0, fov0: 70, fov1: 56, az: 0.1, dur: 1.9, focus: 12.0, why: 'the silence belongs to this tower' }),
+        M.low([0, 7.0, -8], { d: 13.0, h: -4.0, fov: 74, dur: 1.7, why: 'the tower looms as the obstacle', rise: 1.2, focus: 18.0 }),
+        M.bird([0, 2.0, -6], { d: 20, h: 14, az: 0.3, fov: 60, dur: 1.5, focus: 20.0, why: 'Vellara: a whole valley that waited' }),
       ];
       const dir = C().Director({ comps, impacts: [], handheld: 0.006 });
       return { sc, cam: dir.cam, dir, update(t) {
@@ -321,7 +321,7 @@
       sc.add(foreground(T, W, K, S, 'post', [2.9, 3.0, 2.2]));
       const M = C().moves;
       const comps = [
-        M.push([0.6, 1.5, -0.6], { d0: 5.0, d1: 3.9, az: 0.32, h0: 1.6, h1: 1.4, fov0: 60, fov1: 55, dur: 1.5, why: 'every founder in the valley tried', kind: 'medium' }),
+        M.push([0.4, 1.5, 0.0], { d0: 5.8, d1: 5.2, az: 0.10, h0: 1.6, h1: 1.4, fov0: 68, fov1: 66, dur: 1.5, focus: 2.6, why: 'every founder in the valley tried', kind: 'medium' }),
         M.dutch([1.9, 1.62, 0.2], { d: 1.75, az: -0.22, fov: 50, roll: 0.10, dur: 1.4, why: 'they were skilled, not careless' }),
       ];
       const dir = C().Director({ comps, handheld: 0.008 });
@@ -353,7 +353,7 @@
       sc.add(foreground(T, W, K, S, 'post', [-4.4, 3.0, 2.6]));
       const M = C().moves;
       const comps = [
-        M.macro([0.1, 1.5, -1.2], { d: 0.95, az: 0.35, h: 0.25, fov: 66, dur: 1.7, why: 'they poured bronze — shown literally' }),
+        M.macro([0.1, 1.75, -1.2], { d: 1.60, az: 0.35, h: 0.20, fov: 60, dur: 1.7, focus: 1.5, why: 'they poured bronze — shown literally' }),
         M.push([-2.6, 2.45, -0.5], { d0: 2.3, d1: 1.5, az: -0.35, h0: 0.35, h1: 0.2, fov0: 58, fov1: 50, dur: 1.7, why: 'they tuned the crown', kind: 'close' }),
         M.crane([3.2, 2.4, -2.4], { d: 4.6, az: 0.25, h0: 0.4, h1: 5.4, fov0: 68, fov1: 52, dur: 1.8, why: 'they hung it higher' }),
       ];
@@ -384,9 +384,9 @@
       sc.add(foreground(T, W, K, S, 'arch', [3.4, 3.0, 2.0]));
       const M = C().moves;
       const comps = [
-        M.pull([0, 3.4, -3], { d0: 7.5, d1: 11.5, az: 0.12, h0: 1.6, h1: 3.0, fov0: 60, fov1: 54, dur: 1.8, why: 'every time, the whole town waited' }),
-        M.push([-1.2, 1.6, 3.9], { d0: 3.0, d1: 2.0, az: -0.15, h0: 0.2, h1: 0.1, fov0: 54, fov1: 48, dur: 1.7, why: 'hope turning into disappointment', kind: 'close' }),
-        M.macro([0, 12.55, -5.5], { d: 0.78, az: -0.2, h: 0.05, fov: 62, dur: 1.6, why: 'the clapper never moved: the tower stayed silent' }),
+        M.pull([0, 4.0, -2], { d0: 12.0, d1: 15.5, az: 0.12, h0: 2.2, h1: 2.8, fov0: 62, fov1: 60, dur: 1.8, focus: 17.0, why: 'every time, the whole town waited' }),
+        M.push([-1.2, 1.62, 4.6], { d0: 2.9, d1: 2.2, az: -0.15, h0: 0.16, h1: 0.06, fov0: 52, fov1: 50, dur: 1.7, focus: 1.5, why: 'hope turning into disappointment', kind: 'close' }),
+        M.macro([0, 12.50, -5.30], { d: 1.45, az: -0.2, h: 0.08, fov: 58, dur: 1.6, focus: 1.6, why: 'the clapper never moved: the tower stayed silent' }),
       ];
       const dir = C().Director({ comps, handheld: 0.005 });
       return { sc, cam: dir.cam, dir, update(t) {
@@ -409,23 +409,23 @@
       const noraAt = (t) => { const u = smooth(clamp(t / 6.3, 0, 1)); const idx = lerp(2, 15, u); const p = st.at(idx); return [p[0], p[1] + 0.02, p[2]]; };
       const M = C().moves;
       const comps = [
-        M.macro([0, 1.2, 0], { d: 0.62, az: 0.5, h: 0.1, fov: 66, dur: 1.5, why: 'a hammer no bigger than her hand' }),
+        M.macro([0, 1.2, 0], { d: 0.72, az: 0.5, h: 0.1, fov: 62, dur: 1.5, focus: 0.45, why: 'a hammer no bigger than her hand' }),
         M.track((t) => { const p = noraAt(t); return [p[0], p[1] + 1.2, p[2]]; }, { d: 3.4, az: 0.85, h: 0.5, fov: 60, dur: 1.8, why: 'she climbs', kind: 'medium' }),
         M.low([0, 3.0, -4.0], { d: 6.2, az: 0.1, h: -1.6, fov: 76, dur: 1.6, why: 'the stairwell is long and she is small', kind: 'wide', rise: 0.8 }),
         M.dutch([0, 5.0, -6.6], { d: 1.8, az: 0.3, h: 0.15, fov: 50, roll: 0.11, dur: 1.4, why: 'resolve on her face' }),
       ];
       const dir = C().Director({ comps, handheld: 0.010 });
       return { sc, cam: dir.cam, dir, update(t) {
-        dir.at(t, { globalT: t }); anim.forEach(a => a.update(t));
         const p = noraAt(t);
+        // aim BEFORE the camera reads it
+        comps[0].sub = [p[0] + 0.34, p[1] + 1.05, p[2] + 0.16];
+        comps[3].sub = [p[0], p[1] + 1.55, p[2]];
+        dir.at(t, { globalT: t }); anim.forEach(a => a.update(t));
         nora.setPos(p[0], p[2]); nora.group.position.y = p[1] + nora.h * 0.483;
         nora.shadow.position.set(p[0], p[1] + 0.02, p[2]);
         const climb = A.G.climb(t);
         nora.update(dir.cam, t, Object.assign(climb, { mood: t > 4.9 ? 'grin' : 'deadpan', walk: t * 5.2, speed: 0.7, brow: -0.3, blinkSeed: 0.4, flip: false }));
         hm.position.set(p[0] + 0.34, p[1] + 1.05 + Math.sin(t * 3.4) * 0.05, p[2] + 0.16); hm.rotation.z = 0.3 + Math.sin(t * 3.4) * 0.15;
-        // keep the macro comp aimed at the actual hand
-        comps[0].sub = [p[0] + 0.34, p[1] + 1.05, p[2] + 0.16];
-        comps[3].sub = [p[0], p[1] + 1.55, p[2]];
       } };
     } });
 
@@ -441,7 +441,7 @@
       sc.add(foreground(T, W, K, S, 'rope', [-1.1, 3.0, 1.9]));
       const M = C().moves;
       const comps = [
-        M.macro([0.62, 2.25, 0.45], { d: 0.72, az: 0.55, h: 0.12, fov: 64, dur: 1.5, why: 'her hand passes the bell without touching it' }),
+        M.macro([0.78, 2.15, 0.50], { d: 1.15, az: 0.55, h: 0.12, fov: 60, dur: 1.5, focus: 1.2, why: 'her hand passes the bell without touching it' }),
         M.orbit([1.5, 1.5, 0.5], { d: 2.7, az0: -0.75, az1: 0.45, h0: 1.2, h1: 1.5, fov: 56, dur: 1.4, why: 'she is facing the wall, not the bell', kind: 'medium' }),
       ];
       const dir = C().Director({ comps, handheld: 0.006 });
@@ -472,7 +472,7 @@
       const M = C().moves;
       const comps = [
         M.push([1.75, 1.6, 0.6], { d0: 2.6, d1: 1.9, az: -0.5, h0: 0.25, h1: 0.12, fov0: 56, fov1: 50, dur: 1.6, why: 'she raises the hammer', kind: 'close' }),
-        M.macro([2.32, 1.62, 0.5], { d: 0.66, az: -1.15, h: 0.06, fov: 64, dur: 1.9, why: 'once — the first tap on stone' }),
+        M.macro([2.30, 1.62, 0.5], { d: 1.25, az: -0.90, h: 0.06, fov: 60, dur: 1.9, focus: 1.1, why: 'once — the first tap on stone' }),
         M.push([2.30, 1.60, 0.5], { d0: 1.5, d1: 1.15, az: -0.95, h0: 0.16, h1: 0.08, fov0: 58, fov1: 52, dur: 1.9, why: 'twice — she compares the two answers', kind: 'close' }),
         M.dutch([1.62, 1.62, 0.62], { d: 1.55, az: -0.3, h: 0.06, fov: 48, roll: 0.13, dur: 1.8, why: 'listening: her ear to the stone' }),
       ];
@@ -512,7 +512,7 @@
       sc.add(foreground(T, W, K, S, 'post', [-2.6, 3.0, 2.2]));
       const M = C().moves;
       const comps = [
-        M.push([0, 2.2, 3.8], { d0: 9.0, d1: 7.0, az: 0.1, h0: 2.4, h1: 1.9, fov0: 58, fov1: 54, dur: 1.9, why: 'the whole town held its breath', kind: 'wide' }),
+        M.push([0, 2.4, 4.0], { d0: 10.0, d1: 8.2, az: 0.1, h0: 2.6, h1: 2.1, fov0: 62, fov1: 60, dur: 1.9, focus: 7.0, why: 'the whole town held its breath', kind: 'wide' }),
         M.push([-0.9, 1.62, 3.9], { d0: 2.6, d1: 1.85, az: -0.12, h0: 0.16, h1: 0.06, fov0: 52, fov1: 46, dur: 1.9, why: 'three faces, nobody moving', kind: 'close' }),
       ];
       const dir = C().Director({ comps, handheld: 0.003, rollDrift: 0.006 });
@@ -537,7 +537,7 @@
       const nora = A.Actor({ p: [1.7, 0, 0.8], h: 2.4, look: NORA }); addActors(sc, [nora]);
       const M = C().moves;
       const comps = [
-        M.macro([0.1, 2.88, 0.55], { d: 0.68, az: 0.35, h: 0.05, fov: 62, dur: 1.5, why: 'the bell was never broken: no crack, clean cast' }),
+        M.macro([0.1, 2.88, 0.50], { d: 1.00, az: 0.35, h: 0.05, fov: 58, dur: 1.5, focus: 1.0, why: 'the bell was never broken: no crack, clean cast' }),
         M.orbit([0, 2.9, 0], { d: 2.5, az0: -0.85, az1: 0.55, h0: 0.5, h1: 0.9, fov: 56, dur: 1.5, why: 'all the way round it, still flawless', kind: 'medium' }),
       ];
       const dir = C().Director({ comps, handheld: 0.005 });
@@ -563,7 +563,7 @@
       const M = C().moves;
       const comps = [
         M.dutch([1.62, 1.64, 0.7], { d: 1.7, az: -0.25, h: 0.06, fov: 48, roll: 0.15, dur: 1.8, why: 'The tower was. — the twist lands on her face' }),
-        M.macro([2.34, 2.05, 0.2], { d: 0.62, az: -1.2, h: 0.04, fov: 64, dur: 1.9, why: 'the hairline seam in the stone' }),
+        M.macro([2.34, 2.05, 0.2], { d: 1.10, az: -1.2, h: 0.04, fov: 60, dur: 1.9, focus: 1.0, why: 'the hairline seam in the stone' }),
         M.push([2.95, 2.0, 0.0], { d0: 2.2, d1: 1.05, az: -1.0, h0: 0.3, h1: 0.05, fov0: 62, fov1: 54, dur: 2.1, why: 'go inside the stone to see the mechanism', kind: 'close' }),
         M.orbit([3.1, 2.0, 0.0], { d: 1.5, az0: -1.35, az1: -0.55, h0: 0.15, h1: 0.45, fov: 58, dur: 1.9, why: 'every note dies in the voids', kind: 'medium' }),
         M.pull([1.2, 2.4, 0.2], { d0: 1.6, d1: 6.4, az: -0.5, h0: 0.4, h1: 1.9, fov0: 60, fov1: 52, dur: 1.9, why: 'sixty years of swallowed notes belong to this wall' }),
@@ -598,15 +598,15 @@
       const M = C().moves;
       const comps = [
         M.track((t) => [bellX(t), 2.9, 0], { d: 3.0, az: 0.55, h: 0.6, fov: 58, dur: 1.5, why: 'she moves the bell', kind: 'medium' }),
-        M.macro([0.0, 4.3, 0.0], { d: 0.7, az: 0.4, h: 0.1, fov: 64, dur: 1.3, why: 'the rope takes the weight' }),
+        M.macro([0.0, 4.3, 0.0], { d: 1.20, az: 0.4, h: 0.1, fov: 60, dur: 1.3, focus: 1.0, why: 'the rope takes the weight' }),
         M.pull([-0.6, 2.6, 0.2], { d0: 1.8, d1: 5.6, az: 0.2, h0: 0.5, h1: 1.7, fov0: 62, fov1: 54, dur: 1.3, why: 'four feet to the left, and it seats' }),
       ];
       const dir = C().Director({ comps, impacts: [{ t: SEATS, amp: 0.06, decay: 10 }], handheld: 0.007 });
       return { sc, cam: dir.cam, dir, update(t) {
-        dir.at(t, { globalT: t }); anim.forEach(a => a.update(t));
         const x = bellX(t);
-        bl.group.position.x = x; bl.swing(Math.sin(t * 2.4) * 0.03 * (t < SEATS ? 1 : 0.3));
         comps[1].sub = [x, 4.3, 0];
+        dir.at(t, { globalT: t }); anim.forEach(a => a.update(t));
+        bl.group.position.x = x; bl.swing(Math.sin(t * 2.4) * 0.03 * (t < SEATS ? 1 : 0.3));
         nora.update(dir.cam, t, Object.assign(A.G.pullRope(t), { mood: 'stern', brow: -0.45, blinkSeed: 0.4 }));
         helper.update(dir.cam, t, Object.assign(A.G.pullRope(t + 0.3), { mood: 'stern', brow: -0.4, blinkSeed: 1.2 }));
         nora.setPos(-1.5 - smooth(clamp(t / 2.2, 0, 1)) * 0.5, 1.1);
@@ -639,9 +639,9 @@
       const R1 = 0.966, R2 = 3.166, CHEER = 2.146;
       const M = C().moves;
       const comps = [
-        M.macro([-1.22, 12.5, -5.45], { d: 0.72, az: 0.3, h: 0.05, fov: 64, dur: 1.7, why: 'the clapper strikes — the first sound in sixty years' }),
-        M.pull([-1.22, 12.6, -5.6], { d0: 1.1, d1: 12.0, az: 0.15, h0: 0.2, h1: 3.4, fov0: 72, fov1: 54, dur: 1.9, why: 'the sound leaves the tower' }),
-        M.bird([0, 2.0, -14], { d: 16, h: 13, az: 0.25, fov: 60, dur: 2.1, why: 'they heard it in three villages', h1: 15 }),
+        M.macro([-1.22, 12.50, -5.30], { d: 1.50, az: 0.3, h: 0.08, fov: 60, dur: 1.7, focus: 1.6, why: 'the clapper strikes — the first sound in sixty years' }),
+        M.pull([-1.22, 12.6, -5.6], { d0: 1.6, d1: 16.0, az: 0.15, h0: 0.2, h1: 3.4, fov0: 70, fov1: 58, dur: 1.9, focus: 16.0, why: 'the sound leaves the tower' }),
+        M.bird([0, 2.0, -20], { d: 26, h: 18, az: 0.25, fov: 62, dur: 2.1, focus: 26.0, why: 'they heard it in three villages', h1: 15 }),
         M.push([-1.0, 1.62, 4.2], { d0: 3.4, d1: 2.2, az: -0.1, h0: 0.2, h1: 0.08, fov0: 54, fov1: 48, dur: 1.8, why: 'the town that mocked her, cheering', kind: 'close' }),
         M.push([0.75, 1.60, 3.0], { d0: 2.6, d1: 1.55, az: 0.22, h0: 0.16, h1: 0.05, fov0: 52, fov1: 46, dur: 1.8, why: 'the girl they ignored became the one they listened to', kind: 'close' }),
       ];
