@@ -107,7 +107,7 @@
     const rope = W.cyl({ p: [0.0, 2.6, 0.0], rt: 0.035, h: 3.6, color: '#c2a068', ink: 0.01 });
     g.add(rope); g.add(S.ropeCoil({ p: [1.4, 0, 1.4], r: 0.3 }));
     // dressing that says "sixty years of attempts"
-    g.add(S.toolWall({ p: [-2.2, 3.2, -2.9], w: 2.4 }));
+    const twl = S.toolWall({ p: [-2.2, 3.2, -2.9], w: 2.4 }); g.add(twl.group); anim.push(twl);
     g.add(K.crate({ p: [-2.0, 0, 1.6], s: 0.62 })); g.add(K.crate({ p: [-2.0, 0.62, 1.6], s: 0.5 }));
     g.add(S.bucket({ p: [-1.4, 0, 2.1], s: 1 }));
     g.add(K.lantern({ p: [-2.3, 3.0, 1.4], on: 1 }));
@@ -220,7 +220,7 @@
     const em = S.embers({ p: [0, 1.2, -1.6], n: 16, spread: 0.6, rise: 3.0, speed: 0.55 }); g.add(em.group); anim.push(em);
     const sm = S.smoke({ p: [0, 2.2, -1.6], n: 6, rise: 2.6, o: 0.22 }); g.add(sm.group); anim.push(sm);
     g.add(anvil(T, W, K, [2.4, 0, 0.4]));
-    g.add(S.toolWall({ p: [-2.6, 3.0, -3.9], w: 3.0 }));
+    const twl = S.toolWall({ p: [-2.6, 3.0, -3.9], w: 3.0 }); g.add(twl.group); anim.push(twl);
     g.add(S.clutter({ p: [3.6, 0, -3.6], w: 2.6, seed: 13 }));
     g.add(K.barrel({ p: [-4.2, 0, 1.6] })); g.add(K.crate({ p: [-4.6, 0, 2.6], s: 0.7 }));
     g.add(S.bucket({ p: [1.5, 0, 1.8], s: 1.1 })); g.add(S.ropeCoil({ p: [-1.8, 0, 2.2], r: 0.28 }));
