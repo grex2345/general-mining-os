@@ -142,9 +142,17 @@ changed the film, not the threshold.
 
 ---
 
-## 5. Current state
+## 5. Measured result
 
-39 compositions, 12 scenes, 66.000 s.
+Film: `research/artifacts/round14/film/the-bell-of-vellara-r14.mp4`
+1980 frames, 720×1280 @ 30 fps, **66.000000 s**, sha256 `f2d49aab7d670649…`
+
+The audio is **bit-identical** to the delivered Round 13 film: the AAC stream was copied,
+not re-encoded (md5 `3d43f40e26761fd8766abc58006d886b` in both). Round 13's deliverables
+were verified untouched. So the two films are a clean A/B — same voice, mix, captions and
+duration; only the pictures differ.
+
+### 5.1 Cinematic gate
 
 | check | result |
 |---|---|
@@ -155,5 +163,47 @@ changed the film, not the threshold.
 | scales used | macro 9, close 13, medium 7, wide 10 |
 | plan problems | 0 |
 | page / console errors | 0 |
-| agent inspection | 39 / 39 viewed, 16 defects found and fixed |
+| agent inspection | 39 / 39 viewed, **17 defects found and fixed** |
 | **human verdict** | **pending** |
+
+### 5.2 Motion gate, Round 13 → Round 14
+
+| metric | R13 | R14 | target | R14 verdict |
+|---|---|---|---|---|
+| anything moving % | 97.63 | 96.07 | ≥ 95 | PASS |
+| local moving % | 97.07 | 95.65 | ≥ 91 | PASS |
+| dead frames % | 2.37 | 3.93 | ≤ 4.5 | PASS |
+| longest dead stretch s | 0.33 | 0.47 | ≤ 0.7 | PASS |
+| avg moving area % | 24.07 | **29.89** | ≥ 30 | **FAIL** |
+| composition change s | 5.07 | **1.43** | ≤ 2.2 | **PASS** (was FAIL) |
+| hard cuts | 4 | **0** | ≤ 2 | **PASS** (was FAIL) |
+| camera roll frames % | 17.53 | **32.18** | ≥ 25 advisory | ok (was LOW) |
+| pull-back frames % | 8.99 | **19.87** | ≥ 14 advisory | ok (was LOW) |
+
+**6 PASS / 1 FAIL, up from 4 PASS / 3 FAIL.** Both structural failures are fixed, and both
+advisories are now met.
+
+### 5.3 The honest regressions
+
+The ratchet flags four metrics as lower than Round 13: anything-moving, local-moving,
+dead-frames and longest-dead-stretch. **All four remain inside their absolute targets.**
+This is a real trade, not noise: Round 13 drifted constantly everywhere, which scores well
+on movement; Round 14 composes shots and lets some of them settle, and it uses more fades,
+dissolves and wipes, which read as dead frames to a flow metric.
+
+They are recorded rather than chased. Driving them back up would mean adding motion that
+the story does not ask for, which is the specific failure this round was commissioned to
+avoid.
+
+`avg moving area` is still 0.11 short of 30. It improved 5.8 points and is left as an open
+item, not closed by loosening the target.
+
+### 5.4 What is still required
+
+**The human verdict.** `cinema_gate.py` exits non-zero until a person watches the film and
+sets `role: "human"` and `human_verdict: "pass"` in `round14-inspection.json`. The agent
+inspection found seventeen defects, including one — a villager standing exactly on the
+payoff sightline, hiding Nora — that the framing check *passed*, because the distance to
+the intended target was correct and the target was simply behind someone else. No distance
+metric can see occlusion. That is the argument for keeping a human in the loop, stated by
+the work itself.
