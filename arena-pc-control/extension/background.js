@@ -1,12 +1,49 @@
 /**
- * Arena PC Control — Manifest V3 Background Service Worker.
+ * Arena PC Control — Manifest V3 Background Service Worker (Universal Connector).
+ *
  * Maintains the authenticated loopback WebSocket to ws://127.0.0.1:<port>
  * and relays tool calls + Human-in-the-Loop approval prompts to Arena tabs.
+ *
+ * Universal Provider Adapter Architecture:
+ *   • Registers multiple provider adapters (Arena Direct, etc.)
+ *   • Auto-detects which adapter matches the current Arena.ai tab
+ *   • Routes tool calls and observations through the active adapter
+ *   • Each adapter manages its own session per conversation
+ *
+ * Security:
+ *   • Authenticated loopback WebSocket only
+ *   • Origin allowlist for browser extensions
+ *   • 256-bit pairing token
+ *   • Multi-session isolation via correlation IDs
  */
 "use strict";
 
 const DEFAULT_PORT = 18765;
 
+// Import provider adapters (MV3 service workers support ES modules via importScripts or inline)
+// We define adapters inline to avoid module resolution issues in service workers.
+let ArenaDirectAdapter = null;
+let BaseProviderAdapter = null;
+
+// ── Provider Adapter Registry ──────────────────────────────────────────
+const providerAdapters = []; // Array of { name, adapter, detectFn }
+
+// Register a provider adapter
+function registerProviderAdapter(name, adapterClass, detectFn) {
+  providerAdapters.push({ name, adapter: adapterClass, detect: detectFn });
+}
+
+// Find the matching adapter for the current tab (called from content script context)
+function getAdapterForTab(tabId, url) {
+  // In MV3, detection happens in the content script (arena_adapter.js) which
+  // has DOM access. The background stores the active adapter per tab.
+  return tabActiveAdapters.get(tabId) || null;
+}
+
+// Map tabId -> active adapter instance
+const tabActiveAdapters = new Map();
+
+// ── WebSocket & Bridge State ───────────────────────────────────────────
 let socket = null;
 let connected = false;
 let authenticated = false;
@@ -36,6 +73,10 @@ function broadcastToArenaTabs(message) {
   });
 }
 
+function broadcastToTab(tabId, message) {
+  chrome.tabs.sendMessage(tabId, message).catch(() => {});
+}
+
 function currentStateSnapshot() {
   return {
     connected,
@@ -43,6 +84,10 @@ function currentStateSnapshot() {
     lastAuthError,
     toolCount: toolsCatalog.length,
     servers: serverStatuses,
+    activeAdapters: [...tabActiveAdapters.entries()].map(([tid, ad]) => ({
+      tabId: tid,
+      adapter: ad.getSessionInfo(),
+    })),
   };
 }
 
@@ -53,7 +98,7 @@ function broadcastState() {
 function sendFrame(payload, timeoutMs = 135000) {
   return new Promise((resolve) => {
     if (!socket || socket.readyState !== WebSocket.OPEN) {
-      resolve({ ok: false, error: "Local bridge is offline. Start start_windows.bat." });
+      resolve({ ok: false, error: "Local bridge is offline. Start start.bat." });
       return;
     }
     const id = seqId++;
@@ -121,6 +166,20 @@ async function ensureConnected() {
       toolsCatalog = msg.tools || [];
       serverStatuses = msg.servers || [];
       broadcastState();
+    } else if (msg.type === "session_created") {
+      // Notify the specific tab that a session was created
+      if (msg.session_id) {
+        // Find which tab this relates to and notify
+        broadcastToArenaTabs({
+          type: "session_created",
+          session: { session_id: msg.session_id, agent_type: msg.agent_type, provider: msg.provider },
+        });
+      }
+    } else if (msg.type === "sessions_result") {
+      broadcastToArenaTabs({
+        type: "sessions_result",
+        sessions: msg.sessions,
+      });
     }
 
     if (msg.id !== undefined && pendingRequests.has(msg.id)) {
@@ -172,10 +231,12 @@ function stopHeartbeat() {
 
 chrome.runtime.onMessage.addListener((req, _sender, sendResponse) => {
   (async () => {
+    const tabId = _sender.tab ? _sender.tab.id : null;
+
     if (req.action === "get_state") {
       await ensureConnected();
       sendResponse(currentStateSnapshot());
-      return;
+      return true;
     }
 
     if (req.action === "save_settings") {
@@ -188,21 +249,20 @@ chrome.runtime.onMessage.addListener((req, _sender, sendResponse) => {
         socket = null;
       }
       await ensureConnected();
-      // Give auth handshake up to 500ms to settle before responding to popup
       await new Promise((r) => setTimeout(r, 450));
       sendResponse(currentStateSnapshot());
-      return;
+      return true;
     }
 
     if (req.action === "get_bootstrap_tools") {
       await ensureConnected();
       if (!authenticated) {
         sendResponse({ ok: false, error: lastAuthError || "Bridge not authenticated." });
-        return;
+        return true;
       }
       const res = await sendFrame({ type: "list_tools", refresh: true }, 20000);
       sendResponse({ ok: true, tools: res.tools || toolsCatalog });
-      return;
+      return true;
     }
 
     if (req.action === "call_tool") {
@@ -213,7 +273,7 @@ chrome.runtime.onMessage.addListener((req, _sender, sendResponse) => {
           text: lastAuthError || "Bridge offline or unauthenticated.",
           images: [],
         });
-        return;
+        return true;
       }
       const res = await sendFrame(
         {
@@ -221,11 +281,14 @@ chrome.runtime.onMessage.addListener((req, _sender, sendResponse) => {
           tool: req.tool,
           arguments: req.arguments || {},
           timeout: req.timeout || 90,
+          correlation_id: req.correlation_id,
+          session_id: req.session_id,
+          resource_id: req.resource_id,
         },
         140000
       );
       sendResponse(res);
-      return;
+      return true;
     }
 
     if (req.action === "approval_decision") {
@@ -238,12 +301,84 @@ chrome.runtime.onMessage.addListener((req, _sender, sendResponse) => {
         10000
       );
       sendResponse(res);
-      return;
+      return true;
+    }
+
+    if (req.action === "register_adapter") {
+      // Content script registers which adapter is active for this tab
+      if (tabId && req.adapterName) {
+        tabActiveAdapters.set(tabId, {
+          name: req.adapterName,
+          provider: req.provider || "unknown",
+          registeredAt: Date.now(),
+        });
+        broadcastState();
+      }
+      sendResponse({ ok: true });
+      return true;
+    }
+
+    if (req.action === "get_active_adapter") {
+      if (tabId) {
+        const info = tabActiveAdapters.get(tabId);
+        sendResponse({ ok: true, adapter: info || null });
+      } else {
+        sendResponse({ ok: false, error: "No tab context" });
+      }
+      return true;
+    }
+
+    if (req.action === "create_session") {
+      await ensureConnected();
+      if (!authenticated) {
+        sendResponse({ ok: false, error: lastAuthError || "Bridge not authenticated." });
+        return true;
+      }
+      const res = await sendFrame(
+        {
+          type: "create_session",
+          agent_type: req.agent_type || "arena_agent",
+          provider: req.provider || null,
+          metadata: req.metadata || {},
+        },
+        10000
+      );
+      sendResponse(res);
+      return true;
+    }
+
+    if (req.action === "list_sessions") {
+      await ensureConnected();
+      if (!authenticated) {
+        sendResponse({ ok: false, error: lastAuthError || "Bridge not authenticated." });
+        return true;
+      }
+      const res = await sendFrame({ type: "list_sessions" }, 10000);
+      sendResponse(res);
+      return true;
+    }
+
+    if (req.action === "close_session") {
+      await ensureConnected();
+      if (!authenticated) {
+        sendResponse({ ok: false, error: lastAuthError || "Bridge not authenticated." });
+        return true;
+      }
+      const res = await sendFrame(
+        { type: "close_session", session_id: req.session_id },
+        10000
+      );
+      sendResponse(res);
+      return true;
     }
 
     sendResponse({ ok: false, error: "Unknown extension action." });
   })();
   return true;
+});
+
+chrome.tabs.onRemoved.addListener((tabId) => {
+  tabActiveAdapters.delete(tabId);
 });
 
 ensureConnected();

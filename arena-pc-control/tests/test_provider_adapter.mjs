@@ -1,0 +1,91 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+
+// Import BaseProviderAdapter
+import { BaseProviderAdapter } from "../extension/providers/base_adapter.js";
+
+// Import ArenaDirectAdapter
+import { ArenaDirectAdapter } from "../extension/providers/arena_direct.js";
+
+test("BaseProviderAdapter can be instantiated and has required methods", () => {
+  const adapter = new BaseProviderAdapter({ name: "test", provider: "test_provider" });
+  assert.equal(adapter.name, "test");
+  assert.equal(adapter.provider, "test_provider");
+  assert.equal(adapter.enabled, true);
+  assert.equal(adapter.sessionId, null);
+
+  // Required methods exist
+  assert.equal(typeof adapter.detect, "function");
+  assert.equal(typeof adapter.identifyConversation, "function");
+  assert.equal(typeof adapter.observeNewMessages, "function");
+  assert.equal(typeof adapter.deliverToolCall, "function");
+  assert.equal(typeof adapter.deliverObservation, "function");
+  assert.equal(typeof adapter.isStreamingIncomplete, "function");
+  assert.equal(typeof adapter.detectError, "function");
+  assert.equal(typeof adapter.startSession, "function");
+  assert.equal(typeof adapter.endSession, "function");
+  assert.equal(typeof adapter.getSessionInfo, "function");
+});
+
+test("BaseProviderAdapter session management", () => {
+  const adapter = new BaseProviderAdapter({ name: "sess_test", provider: "prov" });
+  const sid = adapter.startSession();
+  assert.equal(typeof sid, "string");
+  assert.equal(sid.length > 0, true);
+  assert.equal(adapter.sessionId, sid);
+
+  const info = adapter.getSessionInfo();
+  assert.equal(info.sessionId, sid);
+  assert.equal(info.name, "sess_test");
+  assert.equal(info.provider, "prov");
+  assert.equal(info.enabled, true);
+
+  adapter.endSession();
+  assert.equal(adapter.sessionId, null);
+});
+
+test("ArenaDirectAdapter has required structure", () => {
+  const adapter = new ArenaDirectAdapter();
+  assert.equal(adapter.name, "arena_direct");
+  assert.equal(adapter.provider, "arena");
+  assert.equal(typeof adapter.detect, "function");
+  assert.equal(typeof adapter.identifyConversation, "function");
+  assert.equal(typeof adapter.observeNewMessages, "function");
+  assert.equal(typeof adapter.deliverToolCall, "function");
+  assert.equal(typeof adapter.deliverObservation, "function");
+  assert.equal(typeof adapter.isStreamingIncomplete, "function");
+});
+
+test("ArenaDirectAdapter streaming detection", () => {
+  const adapter = new ArenaDirectAdapter();
+
+  // Complete block -> not incomplete
+  assert.equal(
+    adapter.isStreamingIncomplete("@@@ARENA_PC@@@ {\"tool\": \"fs_list\"} @@@END_ARENA_PC@@@"),
+    false
+  );
+
+  // Open block without close -> incomplete
+  assert.equal(
+    adapter.isStreamingIncomplete("@@@ARENA_PC@@@ {\"tool\": \"fs_list\"}"),
+    true
+  );
+
+  // No block -> false
+  assert.equal(adapter.isStreamingIncomplete("Hello, how are you?"), false);
+});
+
+test("ArenaDirectAdapter detectError returns boolean", () => {
+  const adapter = new ArenaDirectAdapter();
+  // Without DOM, detectError should return false (no error elements found)
+  assert.equal(typeof adapter.detectError(), "boolean");
+});
+
+test("BaseProviderAdapter detect and identify throw by default", () => {
+  const adapter = new BaseProviderAdapter({ name: "base", provider: "base" });
+  assert.throws(() => adapter.detect());
+  assert.throws(() => adapter.identifyConversation());
+  assert.throws(() => adapter.observeNewMessages());
+  assert.throws(() => adapter.deliverToolCall("t", {}));
+  assert.throws(() => adapter.deliverObservation("t", {}));
+});

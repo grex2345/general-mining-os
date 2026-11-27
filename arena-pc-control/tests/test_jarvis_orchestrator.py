@@ -13,8 +13,16 @@ if str(ROOT) not in sys.path:
 from jarvis_core.orchestrator import build_jarvis_from_config, JarvisOrchestrator  # noqa: E402
 
 
-def test_orchestrator_build_from_config(tmp_path: Path) -> None:
+def _fresh_jarvis(tmp_path: Path) -> JarvisOrchestrator:
+    """Build a JARVIS instance with emergency stop reset to avoid cross-test state leakage."""
     jarvis = build_jarvis_from_config()
+    # Reset emergency stop (may have been activated by a previous test that persisted to disk)
+    jarvis.emergency_reset(authorized_by="test_setup")
+    return jarvis
+
+
+def test_orchestrator_build_from_config(tmp_path: Path) -> None:
+    jarvis = _fresh_jarvis(tmp_path)
     assert jarvis is not None
     assert jarvis.policy is not None
     assert jarvis.router is not None
@@ -25,7 +33,7 @@ def test_orchestrator_build_from_config(tmp_path: Path) -> None:
 
 
 def test_orchestrator_execute_objective_system_info(tmp_path: Path) -> None:
-    jarvis = build_jarvis_from_config()
+    jarvis = _fresh_jarvis(tmp_path)
     try:
         jarvis.start()
         result = jarvis.execute_objective("Check my system information", project="test_proj")
@@ -39,7 +47,7 @@ def test_orchestrator_execute_objective_system_info(tmp_path: Path) -> None:
 
 
 def test_orchestrator_emergency_stop_blocks_execution(tmp_path: Path) -> None:
-    jarvis = build_jarvis_from_config()
+    jarvis = _fresh_jarvis(tmp_path)
     try:
         jarvis.start()
         jarvis.emergency_activate(reason="test_block")
@@ -55,7 +63,7 @@ def test_orchestrator_emergency_stop_blocks_execution(tmp_path: Path) -> None:
 
 
 def test_orchestrator_memory_preferences(tmp_path: Path) -> None:
-    jarvis = build_jarvis_from_config()
+    jarvis = _fresh_jarvis(tmp_path)
     try:
         jarvis.start()
         saved = jarvis.save_preference("test_key", "test_value")
@@ -67,7 +75,7 @@ def test_orchestrator_memory_preferences(tmp_path: Path) -> None:
 
 
 def test_orchestrator_workflow_crud(tmp_path: Path) -> None:
-    jarvis = build_jarvis_from_config()
+    jarvis = _fresh_jarvis(tmp_path)
     try:
         jarvis.start()
         saved = jarvis.save_workflow(

@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Authenticated Local WebSocket Bridge for Arena PC Control.
 
-Security architecture:
+Multi-session shared Bridge architecture:
+
   1. Binds strictly to 127.0.0.1 (never exposed to LAN/WAN).
   2. Refuses elevated Administrator startup on Windows by default.
   3. Enforces WebSocket Origin allowlist: browser extensions (chrome-extension://,
@@ -11,6 +12,9 @@ Security architecture:
      exposing tools or executing commands.
   5. Enforces PolicyEngine (`ALLOW` / `CONFIRM` / `DENY`) with real-time
      Human-in-the-Loop approval modals and JSONL audit logging.
+  6. Multi-session support: each connected agent (independent JARVIS or external
+     Arena agent) gets an isolated session with correlation IDs and resource
+     locking to prevent conflicting PC operations.
 """
 
 from __future__ import annotations
@@ -37,6 +41,7 @@ if str(_ROOT_DIR) not in sys.path:
 
 from bridge.mcp_client import MCPRouter  # noqa: E402
 from bridge.policy import ActionTier, PolicyEngine  # noqa: E402
+from bridge.session_manager import session_manager  # noqa: E402
 
 
 ALLOWED_ORIGIN_PATTERNS = [
@@ -72,7 +77,8 @@ def load_or_create_token(state_dir: Path) -> str:
 
 
 class BridgeServer:
-    """Coordinates WebSocket sessions, PolicyEngine approvals, Audit logs, and MCPRouter."""
+    """Coordinates WebSocket sessions, PolicyEngine approvals, Audit logs, MCPRouter,
+    and multi-agent session isolation."""
 
     def __init__(
         self,
@@ -109,10 +115,49 @@ class BridgeServer:
         self.router = MCPRouter(base_dir=self.base_dir)
         self.router.load_servers(config.get("mcpServers") or {})
 
-        self._authed_clients: set[ServerConnection] = set()
+        self._authed_clients: dict[ServerConnection, str] = {}  # ws -> session_id
+        self._session_ws: dict[str, ServerConnection] = {}  # session_id -> ws
         self._pending_approvals: dict[str, asyncio.Future[bool]] = {}
         self._ws_server: Any = None
 
+    # ── Session management ─────────────────────────────────────────────
+    def _create_session(
+        self,
+        agent_type: str = "arena_agent",
+        provider: str | None = None,
+        metadata: dict[str, Any] | None = None,
+    ) -> str:
+        session = session_manager.create_session(
+            agent_type=agent_type, provider=provider, metadata=metadata
+        )
+        self.write_audit(
+            "session_created",
+            {
+                "session_id": session.session_id,
+                "agent_type": agent_type,
+                "provider": provider,
+            },
+        )
+        return session.session_id
+
+    def _get_session_for_ws(self, ws: ServerConnection) -> str | None:
+        return self._authed_clients.get(ws)
+
+    def _associate_ws_with_session(self, ws: ServerConnection, session_id: str) -> None:
+        self._authed_clients[ws] = session_id
+        self._session_ws[session_id] = ws
+
+    def _disassociate_ws(self, ws: ServerConnection) -> str | None:
+        session_id = self._authed_clients.pop(ws, None)
+        if session_id:
+            self._session_ws.pop(session_id, None)
+            session_manager.close_session(session_id)
+            self.write_audit(
+                "session_closed", {"session_id": session_id}
+            )
+        return session_id
+
+    # ── Audit logging ──────────────────────────────────────────────────
     def write_audit(self, event: str, details: dict[str, Any]) -> None:
         record = {
             "ts": round(time.time(), 3),
@@ -122,6 +167,7 @@ class BridgeServer:
         with open(self.audit_path, "a", encoding="utf-8") as fh:
             fh.write(json.dumps(record, ensure_ascii=False) + "\n")
 
+    # ── Lifecycle ──────────────────────────────────────────────────────
     async def start(self) -> dict[str, str]:
         statuses = await asyncio.to_thread(self.router.start_all)
         self._ws_server = await serve(
@@ -131,10 +177,12 @@ class BridgeServer:
             origins=ALLOWED_ORIGIN_PATTERNS,
             max_size=12 * 1024 * 1024,  # Allow base64 screenshots up to ~12MB
         )
-        # Update self.port if started with port=0 (ephemeral test port)
         if self._ws_server.sockets:
             self.port = self._ws_server.sockets[0].getsockname()[1]
-        self.write_audit("bridge_started", {"host": self.host, "port": self.port, "servers": statuses})
+        self.write_audit(
+            "bridge_started",
+            {"host": self.host, "port": self.port, "servers": statuses},
+        )
         return statuses
 
     async def stop(self) -> None:
@@ -142,6 +190,11 @@ class BridgeServer:
             if not fut.done():
                 fut.set_result(False)
         self._pending_approvals.clear()
+        # Close all sessions
+        for session_id in list(session_manager.list_sessions() and []):
+            pass
+        for sid in [s["session_id"] for s in session_manager.list_sessions()]:
+            session_manager.close_session(sid)
         if self._ws_server is not None:
             self._ws_server.close()
             await self._ws_server.wait_closed()
@@ -151,20 +204,22 @@ class BridgeServer:
     async def _broadcast(self, payload: dict[str, Any]) -> None:
         raw = json.dumps(payload, ensure_ascii=False)
         stale: list[ServerConnection] = []
-        for ws in list(self._authed_clients):
+        for ws in list(self._authed_clients.keys()):
             try:
                 await ws.send(raw)
             except Exception:
                 stale.append(ws)
         for ws in stale:
-            self._authed_clients.discard(ws)
+            self._disassociate_ws(ws)
 
+    # ── Human-in-the-Loop approval ─────────────────────────────────────
     async def _request_human_approval(
         self,
         tool_name: str,
         arguments: dict[str, Any],
         reason: str,
         risk_category: str,
+        session_id: str | None = None,
     ) -> bool:
         approval_id = uuid.uuid4().hex[:12]
         loop = asyncio.get_running_loop()
@@ -180,6 +235,7 @@ class BridgeServer:
                 "reason": reason,
                 "riskCategory": risk_category,
                 "timeoutSeconds": self.approval_timeout,
+                "session_id": session_id,
             },
         }
         self.write_audit("approval_requested", prompt_payload["approval"])
@@ -194,12 +250,14 @@ class BridgeServer:
 
         self.write_audit(
             "approval_resolved",
-            {"id": approval_id, "tool": tool_name, "approved": approved},
+            {"id": approval_id, "tool": tool_name, "approved": approved, "session_id": session_id},
         )
         return approved
 
+    # ── WebSocket client handler ───────────────────────────────────────
     async def _handle_client(self, ws: ServerConnection) -> None:
         authenticated = False
+        session_id: str | None = None
         try:
             async for raw in ws:
                 try:
@@ -217,58 +275,145 @@ class BridgeServer:
 
                 if mtype == "auth":
                     candidate = str(msg.get("token") or "").strip()
+                    agent_type = str(msg.get("agent_type") or "arena_agent")
+                    provider = str(msg.get("provider") or "") or None
+                    metadata = msg.get("metadata") or {}
+
                     if candidate and hmac.compare_digest(candidate, self.auth_token):
                         authenticated = True
-                        self._authed_clients.add(ws)
+                        # Create or reuse a session for this authenticated connection
+                        session_id = self._create_session(
+                            agent_type=agent_type, provider=provider, metadata=metadata
+                        )
+                        self._associate_ws_with_session(ws, session_id)
                         await ws.send(
-                            json.dumps({
-                                "type": "auth_ok",
-                                "id": req_id,
-                                "servers": self.router.server_statuses(),
-                                "tools": self.router.list_tools(),
-                            })
+                            json.dumps(
+                                {
+                                    "type": "auth_ok",
+                                    "id": req_id,
+                                    "session_id": session_id,
+                                    "servers": self.router.server_statuses(),
+                                    "tools": self.router.list_tools(),
+                                }
+                            )
                         )
                     else:
                         self.write_audit("auth_failed", {})
                         await ws.send(
-                            json.dumps({
-                                "type": "auth_error",
-                                "id": req_id,
-                                "error": "Invalid pairing token. Copy token from bridge terminal.",
-                            })
+                            json.dumps(
+                                {
+                                    "type": "auth_error",
+                                    "id": req_id,
+                                    "error": "Invalid pairing token. Copy token from bridge terminal.",
+                                }
+                            )
                         )
                     continue
 
                 if not authenticated:
                     await ws.send(
-                        json.dumps({
-                            "type": "error",
-                            "id": req_id,
-                            "error": "Unauthenticated session. Send {type: 'auth', token} first.",
-                        })
+                        json.dumps(
+                            {
+                                "type": "error",
+                                "id": req_id,
+                                "error": "Unauthenticated session. Send {type: 'auth', token} first.",
+                            }
+                        )
                     )
                     continue
 
+                session_id = self._get_session_for_ws(ws)
+
                 if mtype == "status":
                     await ws.send(
-                        json.dumps({
-                            "type": "status_result",
-                            "id": req_id,
-                            "servers": self.router.server_statuses(),
-                            "toolCount": len(self.router.list_tools()),
-                        })
+                        json.dumps(
+                            {
+                                "type": "status_result",
+                                "id": req_id,
+                                "session_id": session_id,
+                                "servers": self.router.server_statuses(),
+                                "toolCount": len(self.router.list_tools()),
+                                "sessions": session_manager.list_sessions(),
+                            }
+                        )
                     )
                 elif mtype == "list_tools":
                     refresh = bool(msg.get("refresh", False))
                     tools = await asyncio.to_thread(self.router.list_tools, refresh)
                     await ws.send(
-                        json.dumps({
-                            "type": "tools_result",
-                            "id": req_id,
-                            "tools": tools,
-                            "servers": self.router.server_statuses(),
-                        })
+                        json.dumps(
+                            {
+                                "type": "tools_result",
+                                "id": req_id,
+                                "session_id": session_id,
+                                "tools": tools,
+                                "servers": self.router.server_statuses(),
+                            }
+                        )
                     )
+                elif mtype == "create_session":
+                    agent_type = str(msg.get("agent_type") or "arena_agent")
+                    provider = str(msg.get("provider") or "") or None
+                    new_sid = self._create_session(
+                        agent_type=agent_type, provider=provider, metadata=msg.get("metadata") or {}
+                    )
+                    # Re-associate this WS with the new session.
+                    # The previous session (if any) stays alive in the session manager
+                    # but is no longer associated with this WebSocket.
+                    old_sid = self._authed_clients.get(ws)
+                    if old_sid and old_sid in self._session_ws and self._session_ws[old_sid] is ws:
+                        del self._session_ws[old_sid]
+                    self._authed_clients[ws] = new_sid
+                    self._session_ws[new_sid] = ws
+                    session_id = new_sid
+                    await ws.send(
+                        json.dumps(
+                            {
+                                "type": "session_created",
+                                "id": req_id,
+                                "session_id": session_id,
+                                "agent_type": agent_type,
+                                "provider": provider,
+                            }
+                        )
+                    )
+                elif mtype == "list_sessions":
+                    await ws.send(
+                        json.dumps(
+                            {
+                                "type": "sessions_result",
+                                "id": req_id,
+                                "session_id": session_id,
+                                "sessions": session_manager.list_sessions(),
+                            }
+                        )
+                    )
+                elif mtype == "close_session":
+                    sid = str(msg.get("session_id") or session_id or "")
+                    if sid:
+                        session_manager.close_session(sid)
+                        if sid == session_id:
+                            # This WS is closing its own session
+                            self._disassociate_ws(ws)
+                        await ws.send(
+                            json.dumps(
+                                {
+                                    "type": "session_closed",
+                                    "id": req_id,
+                                    "session_id": sid,
+                                }
+                            )
+                        )
+                    else:
+                        await ws.send(
+                            json.dumps(
+                                {
+                                    "type": "error",
+                                    "id": req_id,
+                                    "error": "No session_id provided.",
+                                }
+                            )
+                        )
                 elif mtype == "approval_decision":
                     aid = str(msg.get("approval_id") or "")
                     approved = bool(msg.get("approved", False))
@@ -279,71 +424,111 @@ class BridgeServer:
                         json.dumps({"type": "approval_ack", "id": req_id, "approval_id": aid})
                     )
                 elif mtype == "call_tool":
-                    # Spawn as background task so this socket can still send `approval_decision`!
-                    asyncio.create_task(self._execute_tool_request(ws, req_id, msg))
+                    # Spawn as background task so this socket can still send `approval_decision`
+                    asyncio.create_task(
+                        self._execute_tool_request(ws, req_id, msg, session_id)
+                    )
                 else:
                     await ws.send(
-                        json.dumps({
-                            "type": "error",
-                            "id": req_id,
-                            "error": f"Unknown message type: {mtype}",
-                        })
+                        json.dumps(
+                            {
+                                "type": "error",
+                                "id": req_id,
+                                "error": f"Unknown message type: {mtype}",
+                            }
+                        )
                     )
         finally:
-            self._authed_clients.discard(ws)
+            if session_id:
+                self._disassociate_ws(ws)
+            else:
+                self._authed_clients.discard(ws)
 
     async def _execute_tool_request(
         self,
         ws: ServerConnection,
         req_id: Any,
         msg: dict[str, Any],
+        session_id: str | None,
     ) -> None:
         tool_name = str(msg.get("tool") or "").strip()
         arguments = dict(msg.get("arguments") or {})
         timeout = float(msg.get("timeout") or 60.0)
+        correlation_id = str(msg.get("correlation_id") or session_manager.new_correlation_id(session_id or ""))
 
-        verdict = self.policy.evaluate_tool(tool_name, arguments)
-        if verdict.tier == ActionTier.DENY:
-            self.write_audit(
-                "tool_denied_policy",
-                {"tool": tool_name, "reason": verdict.reason, "category": verdict.risk_category},
-            )
-            await ws.send(
-                json.dumps({
-                    "type": "tool_result",
-                    "id": req_id,
-                    "ok": False,
-                    "policyBlocked": True,
-                    "text": f"POLICY BLOCKED ({verdict.risk_category}): {verdict.reason}",
-                    "images": [],
-                })
-            )
-            return
-
-        if verdict.tier == ActionTier.CONFIRM:
-            approved = await self._request_human_approval(
-                tool_name,
-                arguments,
-                verdict.reason,
-                verdict.risk_category,
-            )
-            if not approved:
+        # Resource locking: check if this tool requires exclusive access to a resource
+        resource_id = str(msg.get("resource_id") or "")
+        if resource_id:
+            if not session_manager.acquire_resource(resource_id, session_id or "", timeout=5.0):
                 await ws.send(
-                    json.dumps({
-                        "type": "tool_result",
-                        "id": req_id,
-                        "ok": False,
-                        "userDenied": True,
-                        "text": (
-                            f"USER DENIED OR TIMED OUT: Action '{tool_name}' was not approved "
-                            f"({verdict.reason}). Do not repeat without asking the user."
-                        ),
-                        "images": [],
-                    })
+                    json.dumps(
+                        {
+                            "type": "tool_result",
+                            "id": req_id,
+                            "session_id": session_id,
+                            "correlation_id": correlation_id,
+                            "ok": False,
+                            "resourceLocked": True,
+                            "text": f"Resource '{resource_id}' is locked by another agent session. Try again later.",
+                            "images": [],
+                        }
+                    )
                 )
                 return
 
         try:
+            verdict = self.policy.evaluate_tool(tool_name, arguments)
+            if verdict.tier == ActionTier.DENY:
+                self.write_audit(
+                    "tool_denied_policy",
+                    {
+                        "tool": tool_name,
+                        "reason": verdict.reason,
+                        "category": verdict.risk_category,
+                        "session_id": session_id,
+                        "correlation_id": correlation_id,
+                    },
+                )
+                await ws.send(
+                    json.dumps(
+                        {
+                            "type": "tool_result",
+                            "id": req_id,
+                            "session_id": session_id,
+                            "correlation_id": correlation_id,
+                            "ok": False,
+                            "policyBlocked": True,
+                            "text": f"POLICY BLOCKED ({verdict.risk_category}): {verdict.reason}",
+                            "images": [],
+                        }
+                    )
+                )
+                return
+
+            if verdict.tier == ActionTier.CONFIRM:
+                approved = await self._request_human_approval(
+                    tool_name, arguments, verdict.reason, verdict.risk_category, session_id
+                )
+                if not approved:
+                    await ws.send(
+                        json.dumps(
+                            {
+                                "type": "tool_result",
+                                "id": req_id,
+                                "session_id": session_id,
+                                "correlation_id": correlation_id,
+                                "ok": False,
+                                "userDenied": True,
+                                "text": (
+                                    f"USER DENIED OR TIMED OUT: Action '{tool_name}' was not approved "
+                                    f"({verdict.reason}). Do not repeat without asking the user."
+                                ),
+                                "images": [],
+                            }
+                        )
+                    )
+                    return
+
             result = await asyncio.to_thread(
                 self.router.call_tool,
                 tool_name,
@@ -357,30 +542,48 @@ class BridgeServer:
                     "ok": result.get("ok"),
                     "server": result.get("server"),
                     "duration_ms": result.get("duration_ms"),
+                    "session_id": session_id,
+                    "correlation_id": correlation_id,
                 },
             )
             await ws.send(
-                json.dumps({
-                    "type": "tool_result",
-                    "id": req_id,
-                    **result,
-                })
+                json.dumps(
+                    {
+                        "type": "tool_result",
+                        "id": req_id,
+                        "session_id": session_id,
+                        "correlation_id": correlation_id,
+                        **result,
+                    }
+                )
             )
         except Exception as exc:
             self.write_audit(
                 "tool_exception",
-                {"tool": tool_name, "error": f"{type(exc).__name__}: {exc}"},
+                {
+                    "tool": tool_name,
+                    "error": f"{type(exc).__name__}: {exc}",
+                    "session_id": session_id,
+                    "correlation_id": correlation_id,
+                },
             )
             await ws.send(
-                json.dumps({
-                    "type": "tool_result",
-                    "id": req_id,
-                    "ok": False,
-                    "is_error": True,
-                    "text": f"Execution error: {exc}",
-                    "images": [],
-                })
+                json.dumps(
+                    {
+                        "type": "tool_result",
+                        "id": req_id,
+                        "session_id": session_id,
+                        "correlation_id": correlation_id,
+                        "ok": False,
+                        "is_error": True,
+                        "text": f"Execution error: {exc}",
+                        "images": [],
+                    }
+                )
             )
+        finally:
+            if resource_id and session_id:
+                session_manager.release_resource(resource_id, session_id)
 
 
 def load_config(config_path: Path | None = None) -> dict[str, Any]:
@@ -397,7 +600,7 @@ async def _main_async(config_path: Path | None) -> None:
     statuses = await bridge.start()
 
     print("=" * 68)
-    print("  ARENA PC CONTROL — LOCAL SECURE MCP BRIDGE")
+    print("  ARENA PC CONTROL — LOCAL SECURE MCP BRIDGE (Multi-Session)")
     print("=" * 68)
     print(f"  Listening on : ws://{bridge.host}:{bridge.port} (loopback only)")
     print(f"  Audit log    : {bridge.audit_path}")
