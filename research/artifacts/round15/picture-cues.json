@@ -1,0 +1,27 @@
+{
+  "anchors": {
+    "tap1": 31.972,
+    "tap2": 33.192,
+    "stoneAnswer": 34.892,
+    "twist": 43.782,
+    "seats": 54.956,
+    "ring1": 57.666,
+    "ring2": 59.866
+  },
+  "cues": {
+    "tapping": {
+      "tap1Local": 2.972,
+      "tap2Local": 4.192
+    },
+    "stoneTruth": {
+      "twistLocal": 0.782
+    },
+    "movingBell": {
+      "seatsLocal": 2.356
+    },
+    "theRing": {
+      "ring1Local": 0.966,
+      "ring2Local": 3.166
+    }
+  }
+}

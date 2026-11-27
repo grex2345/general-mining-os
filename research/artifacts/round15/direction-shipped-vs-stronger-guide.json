@@ -1,0 +1,78 @@
+{
+  "file": "direction-shipped-vs-stronger.wav",
+  "durationSec": 63.8,
+  "purpose": "Hear what the stronger direction changes. Same words, same voice, same pictures, same timing. Only the performance shaping differs.",
+  "A": {
+    "label": "SHIPPED \u2014 the directed take in the Round 13/14 film",
+    "segments": [
+      {
+        "t": [
+          0.0,
+          7.0
+        ],
+        "source": "film 0.0-7.0s (opening: sixty / bell / Vellara)"
+      },
+      {
+        "t": [
+          8.0,
+          31.0
+        ],
+        "source": "film 43.0-66.0s (twist, reveal, ring, resolve)"
+      }
+    ]
+  },
+  "B": {
+    "label": "STRONGER \u2014 Round 15",
+    "segments": [
+      {
+        "t": [
+          32.8,
+          39.8
+        ],
+        "source": "film 0.0-7.0s"
+      },
+      {
+        "t": [
+          40.8,
+          63.8
+        ],
+        "source": "film 43.0-66.0s"
+      }
+    ]
+  },
+  "what_changed": [
+    "Per-word emphasis is now actually rendered (sixty, bell, Vellara, bronze, tower, silent, Nora, stone, four, rang, three). The direction always named these words; the old assembler ignored them.",
+    "Wider gain and spectral-tilt contrast between emotional beats, widened about the mean so the read is not globally darker or quieter.",
+    "A presence lift applied AFTER compression on the upward beats (reveal/surprise/excitement) \u2014 the compressor was previously eating it.",
+    "Pauses carry matched room tone instead of digital silence.",
+    "Deeper breaths at identical durations."
+  ],
+  "measured": {
+    "between_beat_dynamicRange_std": [
+      3.79,
+      4.74
+    ],
+    "between_beat_centroid_std": [
+      420,
+      458.4
+    ],
+    "between_beat_pitchRange_std": [
+      2.4,
+      2.57
+    ],
+    "global_dynamicRangeDb": [
+      47.41,
+      50.79
+    ],
+    "masterLufs": [
+      -14.56,
+      -14.96
+    ],
+    "masterLra": [
+      7.0,
+      8.1
+    ],
+    "beat_t0_drift_sec": 0.0
+  },
+  "note": "0.4 LU quieter than the shipped master because the wider dynamics hit the -2 dBTP ceiling sooner. That is the intended trade, not a defect."
+}

@@ -1,0 +1,10 @@
+# Intermediate audio, reproducible from studio/experiments/r15_film_mix.mjs.
+# Matches the round13/film convention: deliverable MP4 + listening reels are tracked,
+# stems and raw narration are not.
+narration.wav
+final-audio.wav
+final-audio-raw.wav
+stem-voice.wav
+stem-music.wav
+stem-sfx.wav
+stem-ambience.wav

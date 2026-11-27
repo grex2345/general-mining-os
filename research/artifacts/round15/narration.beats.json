@@ -1,0 +1,156 @@
+[
+  {
+    "id": "b01",
+    "index": 0,
+    "emotion": "mystery",
+    "intensity": 0.32,
+    "text": "For sixty years, the bell of Vellara had never made a sound.",
+    "t0": 1,
+    "t1": 6.4,
+    "words": 12,
+    "source": "contextual take, stronger direction"
+  },
+  {
+    "id": "b02",
+    "index": 1,
+    "emotion": "warm",
+    "intensity": 0.46,
+    "text": "Every founder in the valley tried.",
+    "t0": 6.85,
+    "t1": 9.37,
+    "words": 6,
+    "source": "contextual take, stronger direction"
+  },
+  {
+    "id": "b03",
+    "index": 2,
+    "emotion": "warm",
+    "intensity": 0.41,
+    "text": "They poured bronze, they tuned the crown, they hung it higher.",
+    "t0": 9.69,
+    "t1": 14.55,
+    "words": 11,
+    "source": "contextual take, stronger direction"
+  },
+  {
+    "id": "b04",
+    "index": 3,
+    "emotion": "mystery",
+    "intensity": 0.33,
+    "text": "And every time, the tower stayed silent.",
+    "t0": 14.87,
+    "t1": 19.35,
+    "words": 7,
+    "source": "contextual take, stronger direction"
+  },
+  {
+    "id": "b05",
+    "index": 4,
+    "emotion": "warm",
+    "intensity": 0.46,
+    "text": "Then a girl named Nora climbed the stairs with a hammer no bigger than her hand.",
+    "t0": 20.042,
+    "t1": 25.722,
+    "words": 16,
+    "source": "contextual take, stronger direction"
+  },
+  {
+    "id": "b06",
+    "index": 5,
+    "emotion": "tension",
+    "intensity": 0.46,
+    "text": "She did not touch the bell.",
+    "t0": 26.296,
+    "t1": 28.536,
+    "words": 6,
+    "source": "contextual take, stronger direction"
+  },
+  {
+    "id": "b07",
+    "index": 6,
+    "emotion": "mystery",
+    "intensity": 0.37,
+    "text": "She tapped the wall beside it, once, twice, listening.",
+    "t0": 29.202,
+    "t1": 35.962,
+    "words": 9,
+    "source": "contextual take, stronger direction"
+  },
+  {
+    "id": "b08",
+    "index": 7,
+    "emotion": "tension",
+    "intensity": 0.62,
+    "text": "The whole town held its breath.",
+    "t0": 36.412,
+    "t1": 39.772,
+    "words": 6,
+    "source": "contextual take, stronger direction"
+  },
+  {
+    "id": "b09",
+    "index": 8,
+    "emotion": "reveal",
+    "intensity": 0.84,
+    "text": "Because the bell was never broken.",
+    "t0": 40.172,
+    "t1": 42.612,
+    "words": 6,
+    "source": "contextual take, stronger direction"
+  },
+  {
+    "id": "b10",
+    "index": 9,
+    "emotion": "surprise",
+    "intensity": 0.72,
+    "text": "The tower was.",
+    "t0": 43.212,
+    "t1": 45.432,
+    "words": 3,
+    "source": "contextual take, stronger direction"
+  },
+  {
+    "id": "b11",
+    "index": 10,
+    "emotion": "reveal",
+    "intensity": 1,
+    "text": "Something in that stone had been swallowing every note for sixty years.",
+    "t0": 46.254,
+    "t1": 51.954,
+    "words": 12,
+    "source": "contextual take, stronger direction"
+  },
+  {
+    "id": "b12",
+    "index": 11,
+    "emotion": "reveal",
+    "intensity": 0.73,
+    "text": "She moved the bell four feet to the left.",
+    "t0": 52.826,
+    "t1": 56.086,
+    "words": 9,
+    "source": "contextual take, stronger direction"
+  },
+  {
+    "id": "b13",
+    "index": 12,
+    "emotion": "excitement",
+    "intensity": 1,
+    "text": "And when it rang, they heard it in three villages.",
+    "t0": 56.946,
+    "t1": 61.366,
+    "words": 10,
+    "source": "contextual take, stronger direction"
+  },
+  {
+    "id": "b14",
+    "index": 13,
+    "emotion": "resolve",
+    "intensity": 0.77,
+    "text": "The girl they ignored became the one they listened to.",
+    "t0": 61.626,
+    "t1": 64.976,
+    "words": 10,
+    "source": "contextual take, stronger direction"
+  }
+]
