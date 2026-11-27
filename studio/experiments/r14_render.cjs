@@ -53,12 +53,21 @@ const WORDS = JSON.parse(fs.readFileSync(path.join(ROOT, 'research/artifacts/rou
     const meta = await page.evaluate((si) => {
       const p = window.__p;
       if (!p.scenes[si]) p.scenes[si] = window.BellFilm2.build(si, p.ctx);
-      const pl = p.scenes[si].dir.plan;
-      return { problems: pl.problems, count: pl.count, kinds: pl.kinds, total: pl.total,
-        marks: pl.marks.map(m => ({ i: m.i, t0: +m.t0.toFixed(3), t1: +m.t1.toFixed(3), kind: m.kind, why: m.why })) };
+      const d = p.scenes[si].dir, pl = d.plan;
+      // sample the framing standard at each composition midpoint
+      const frames = pl.marks.map(m => {
+        const mid = (m.t0 + m.t1) / 2;
+        p.scenes[si].update(mid); d.at(mid, { globalT: mid });
+        const f = d.framing(mid);
+        return { i: m.i, t0: +m.t0.toFixed(3), t1: +m.t1.toFixed(3), kind: m.kind, why: m.why,
+                 coverage: f.coverage, verdict: f.verdict, dist: f.dist, focus: f.focus };
+      });
+      return { problems: pl.problems, count: pl.count, kinds: pl.kinds, total: pl.total, marks: frames };
     }, si);
     report.push({ scene: si, name: shot.name, start: shot.start, dur: shot.dur, ...meta });
     if (meta.problems.length) console.log(`  !! ${shot.name} plan problems:`, meta.problems);
+    const bad = meta.marks.filter(m => m.verdict !== 'ok');
+    if (bad.length) console.log(`  FRAMING ${shot.name}: ` + bad.map(m => `comp${m.i} ${m.kind} ${m.verdict} (${(m.coverage * 100).toFixed(0)}%)`).join(', '));
     // COMPS=1 renders one frame at the MIDPOINT of every composition, past all transitions.
     // This is the inspection mode: one image per intended framing, so a human can judge each.
     const bounds = process.env.COMPS ? await page.evaluate((si) => window.__p.scenes[si].dir.bounds, si) : null;
