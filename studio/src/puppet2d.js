@@ -1,6 +1,8 @@
 // puppet2d.js — 2D stick-figure puppet, ported from Stick3D-Pack engine/src/style/puppet.ts.
 // Browser-side classic script: defines window.drawPuppet + window.PUPPET_INK.
-// Rich acting: moods (grin/smile/shock/deadpan/worry/angry/laugh/gulp), arms (down/up/hold/
+// Round 14: adds lip-sync (talk + mouthShape visemes), 8 new moods, independent brow,
+// vertical eye aim, and a NATURAL blink cycle (the old (t%100)>96 never fired in a 66s film).
+// Rich acting: moods (grin/smile/shock/deadpan/worry/angry/laugh/gulp/smug/sly/bored/sleepy/stern/nervous/think/wink), arms (down/up/hold/
 // point/head/chest/box/shrug) + IK hand targets, walk phase, nervous tremble + sweat,
 // squash/stretch, tilt, hunch, air; outfits (suit/leather/blazer/hoodie/shirt), hair, glasses, hat.
 // Drawn on a 512x768 canvas, then used as an upright billboard texture in the 3D toon world.
@@ -90,14 +92,23 @@
     }
     if (hair === "bob") { c.fillStyle = hc; c.lineWidth = 7 * S; c.beginPath(); c.arc(hx, hy - hr * 0.1, hr * 0.85, Math.PI * 1.03, Math.PI * 1.97); c.quadraticCurveTo(hx, hy - hr * 0.4, hx - hr * 0.82, hy - hr * 0.1); c.fill(); }
     c.lineWidth = 6 * S; c.strokeStyle = INK; const m = p.mood ?? "smile";
-    const blink = (p.t % 100) > 96, eyeY = hy + hr * 0.03, ex0 = hx - hr * 0.38, ex1 = hx + hr * 0.38;
+    // Natural blink: ~3.4s cycle, 0.11s closure, phase-offset per character so a crowd
+    // does not blink in unison. p.blink (0..1) forces it for directed beats.
+    const bph = (p.t + (p.blinkSeed ?? 0)) % 3.4;
+    const blink = (p.blink !== undefined) ? p.blink > 0.5 : (bph > 3.29);
+    const eyeY = hy + hr * 0.03 + (p.lookY ?? 0) * 5 * S, ex0 = hx - hr * 0.38, ex1 = hx + hr * 0.38;
     const dartX = (nerv ? Math.sin(p.t * 0.33) * 6 * S * nerv : 0) + (p.lookX ?? 0) * 7 * S;
     const eye = (ex) => {
       if (m === "grin" || m === "laugh") { c.beginPath(); c.arc(ex, eyeY + 9 * S, 16 * S, Math.PI * 1.1, Math.PI * 1.9); c.stroke(); return; }
+      if (m === "wink" && ex === ex1) { c.beginPath(); c.moveTo(ex - 14 * S, eyeY); c.lineTo(ex + 14 * S, eyeY); c.stroke(); return; }
       if (blink) { c.beginPath(); c.moveTo(ex - 14 * S, eyeY); c.lineTo(ex + 14 * S, eyeY); c.stroke(); return; }
+      if (m === "bored" || m === "sleepy") { c.lineWidth = 8 * S; c.beginPath(); c.moveTo(ex - 15 * S, eyeY + 2 * S); c.lineTo(ex + 15 * S, eyeY + 2 * S); c.stroke(); c.lineWidth = 6 * S; return; }
       const r = m === "shock" ? 23 * S : 14.5 * S; c.fillStyle = "#fff"; c.beginPath(); c.arc(ex, eyeY, r, 0, 7); c.fill(); c.stroke();
-      c.fillStyle = INK; c.beginPath(); c.arc(ex + dartX, eyeY + 1, m === "shock" ? 4.5 * S : 5.8 * S, 0, 7); c.fill();
-      c.fillStyle = "#fff"; c.beginPath(); c.arc(ex + dartX - 1.5 * S, eyeY - 1.5 * S, 1.6 * S, 0, 7); c.fill();
+      const aimY = m === "think" ? -6 * S : (m === "sleepy" ? 4 * S : 1 * S);
+      c.fillStyle = INK; c.beginPath(); c.arc(ex + dartX, eyeY + aimY, m === "shock" ? 4.5 * S : 5.8 * S, 0, 7); c.fill();
+      c.fillStyle = "#fff"; c.beginPath(); c.arc(ex + dartX - 1.5 * S, eyeY + aimY - 1.5 * S, 1.6 * S, 0, 7); c.fill();
+      // half-lidded smug/sly: a lid cutting the top of the eye
+      if (m === "smug" || m === "sly") { c.fillStyle = look.skin; c.beginPath(); c.rect(ex - r - 2 * S, eyeY - r - 2 * S, r * 2 + 4 * S, r * 0.95); c.fill(); c.lineWidth = 6 * S; c.beginPath(); c.moveTo(ex - r, eyeY - r * 0.05); c.lineTo(ex + r, eyeY - r * 0.05); c.stroke(); }
     };
     eye(ex0); eye(ex1);
     c.lineWidth = 6 * S; c.strokeStyle = INK; c.beginPath();
@@ -105,14 +116,41 @@
     else if (m === "worry" || m === "gulp") { const tw = nerv ? Math.sin(p.t * 0.7) * 3 * S : 0; c.moveTo(ex0 - 16 * S, eyeY - 16 * S + tw); c.lineTo(ex0 + 16 * S, eyeY - 32 * S); c.moveTo(ex1 + 16 * S, eyeY - 16 * S - tw); c.lineTo(ex1 - 16 * S, eyeY - 32 * S); }
     else if (m === "shock") { c.moveTo(ex0 - 16 * S, eyeY - 40 * S); c.lineTo(ex0 + 16 * S, eyeY - 40 * S); c.moveTo(ex1 - 16 * S, eyeY - 40 * S); c.lineTo(ex1 + 16 * S, eyeY - 40 * S); }
     else if (m === "deadpan") { c.moveTo(ex0 - 16 * S, eyeY - 26 * S); c.lineTo(ex0 + 16 * S, eyeY - 22 * S); c.moveTo(ex1 - 16 * S, eyeY - 22 * S); c.lineTo(ex1 + 16 * S, eyeY - 26 * S); }
+    else if (m === "stern") { c.moveTo(ex0 - 18 * S, eyeY - 30 * S); c.lineTo(ex0 + 16 * S, eyeY - 20 * S); c.moveTo(ex1 + 18 * S, eyeY - 30 * S); c.lineTo(ex1 - 16 * S, eyeY - 20 * S); }
+    else if (m === "smug" || m === "sly") { c.moveTo(ex0 - 16 * S, eyeY - 24 * S); c.lineTo(ex0 + 16 * S, eyeY - 30 * S); c.moveTo(ex1 - 16 * S, eyeY - 34 * S); c.lineTo(ex1 + 16 * S, eyeY - 24 * S); }
+    else if (m === "bored" || m === "sleepy") { c.moveTo(ex0 - 16 * S, eyeY - 20 * S); c.lineTo(ex0 + 16 * S, eyeY - 20 * S); c.moveTo(ex1 - 16 * S, eyeY - 20 * S); c.lineTo(ex1 + 16 * S, eyeY - 20 * S); }
+    else if (m === "think") { c.moveTo(ex0 - 16 * S, eyeY - 30 * S); c.lineTo(ex0 + 16 * S, eyeY - 34 * S); c.moveTo(ex1 - 16 * S, eyeY - 26 * S); c.lineTo(ex1 + 16 * S, eyeY - 30 * S); }
+    else if (m === "nervous") { const tw = Math.sin(p.t * 2.3) * 3 * S; c.moveTo(ex0 - 16 * S, eyeY - 18 * S + tw); c.lineTo(ex0 + 16 * S, eyeY - 32 * S); c.moveTo(ex1 + 16 * S, eyeY - 18 * S - tw); c.lineTo(ex1 - 16 * S, eyeY - 32 * S); }
+    // independent brow: +1 raised (surprise/pleading), -1 furrowed (effort/anger)
+    const br = p.brow ?? 0;
+    if (Math.abs(br) > 0.05) { c.lineWidth = 7 * S; c.beginPath(); const lift = -br * 12 * S, tilt = br < 0 ? 8 * S : -3 * S; c.moveTo(ex0 - 17 * S, eyeY - 28 * S + lift + tilt); c.lineTo(ex0 + 15 * S, eyeY - 28 * S + lift - tilt); c.moveTo(ex1 - 15 * S, eyeY - 28 * S + lift - tilt); c.lineTo(ex1 + 17 * S, eyeY - 28 * S + lift + tilt); c.stroke(); }
     c.stroke();
-    const my = hy + hr * 0.46; c.beginPath();
+    const my = hy + hr * 0.46;
+    // Round 14: when talk is active the viseme owns the mouth, so skip the mood mouth.
+    const talk = p.talk ?? 0;
+    if (talk <= 0.02) { c.beginPath();
     if (m === "grin" || m === "laugh") { c.fillStyle = "#fff"; c.roundRect(hx - 34 * S, my - 12 * S, 68 * S, m === "laugh" ? 46 * S : 30 * S, 9 * S); c.fill(); c.stroke(); c.lineWidth = 3 * S; for (let i = -2; i <= 2; i++) { c.beginPath(); c.moveTo(hx + i * 13 * S, my - 12 * S); c.lineTo(hx + i * 13 * S, my + 18 * S); c.stroke(); } }
     else if (m === "shock") { c.fillStyle = "#3a1020"; c.ellipse(hx, my + 8 * S, 13 * S, 21 * S, 0, 0, 7); c.fill(); c.stroke(); }
     else if (m === "worry" || m === "gulp") { const wob = nerv ? Math.sin(p.t * 1.9) * 3 * S : 0; c.moveTo(hx - 26 * S, my + 12 * S); c.quadraticCurveTo(hx, my - 6 * S + wob, hx + 26 * S, my + 12 * S); c.stroke(); }
     else if (m === "angry") { c.moveTo(hx - 26 * S, my + 14 * S); c.quadraticCurveTo(hx, my - 8 * S, hx + 26 * S, my + 14 * S); c.stroke(); }
     else if (m === "deadpan") { c.moveTo(hx - 20 * S, my + 4 * S); c.lineTo(hx + 20 * S, my + 4 * S); c.stroke(); }
     else { c.arc(hx, my - 14 * S, 30 * S, 0.35, Math.PI - 0.35); c.stroke(); }
+    }
+    /* ---- Round 14 lip-sync: real mouth aperture + viseme shape ----
+       talk 0..1 = aperture, mouthShape = viseme. Driven by LipSync from word timings,
+       or by directed non-verbal beats (gasp, cheer, held breath). */
+    if (talk > 0.02) {
+      const sh = p.mouthShape ?? "open";
+      const openY = (sh === "closed" ? 2.5 : sh === "narrow" ? 8 : sh === "wide" ? 13 : sh === "round" ? 18 : 21) * S * talk;
+      const wideX = (sh === "round" ? 16 : sh === "wide" ? 34 : sh === "narrow" ? 25 : 28) * S;
+      c.fillStyle = "#3a1020"; c.strokeStyle = INK; c.lineWidth = 6 * S;
+      c.beginPath(); c.ellipse(hx, my + 6 * S, wideX, Math.max(2.5 * S, openY), 0, 0, 7); c.fill(); c.stroke();
+      if (talk > 0.45 && (sh === "wide" || sh === "open")) {
+        c.fillStyle = "#fff"; c.beginPath();
+        c.roundRect(hx - wideX * 0.76, my + 6 * S - openY * 0.9, wideX * 1.52, Math.min(7 * S, openY * 0.48), 2 * S); c.fill();
+      }
+      if (talk > 0.7 && sh === "open") { c.fillStyle = "#c2506a"; c.beginPath(); c.ellipse(hx, my + 6 * S + openY * 0.48, wideX * 0.48, openY * 0.28, 0, 0, 7); c.fill(); }
+    }
     if (look.glasses) { c.lineWidth = 6 * S; c.fillStyle = "rgba(190,225,255,.28)"; for (const ex of [ex0, ex1]) { c.beginPath(); c.arc(ex, eyeY, 28 * S, 0, 7); c.fill(); c.stroke(); } c.beginPath(); c.moveTo(ex0 + 28 * S, eyeY); c.lineTo(ex1 - 28 * S, eyeY); c.stroke(); }
     const sw = p.sweat ?? 0;
     if (sw > 0) {
