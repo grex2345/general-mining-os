@@ -1,0 +1,31 @@
+{
+  "file": "direction-off-on.wav",
+  "durationSec": 122.58,
+  "A": {
+    "label": "OFF — the contextual take exactly as the TTS produced it (trimmed only)",
+    "startsAtSec": 0,
+    "endsAtSec": 55.4,
+    "durationSec": 55.4
+  },
+  "B": {
+    "label": "ON — same take, cut at sentence boundaries, per-emotion shaping, directed pauses and breaths",
+    "startsAtSec": 57.2,
+    "endsAtSec": 122.58,
+    "durationSec": 65.38
+  },
+  "note": "Identical words and identical voice. The ONLY difference is the audio direction. Listen for whether the emotional turns land, and whether the pauses feel intentional rather than dead air.",
+  "measured": {
+    "off": {
+      "pitchRangeSt": 21.93,
+      "dynamicRangeDb": 48.79,
+      "pauseMaxSec": 1.18,
+      "centroidHz": 666
+    },
+    "on": {
+      "pitchRangeSt": 22.16,
+      "dynamicRangeDb": 48.21,
+      "pauseMaxSec": 1.2,
+      "centroidHz": 540
+    }
+  }
+}

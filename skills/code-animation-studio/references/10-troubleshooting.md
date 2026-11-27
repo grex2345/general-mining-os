@@ -361,6 +361,70 @@ the same word array. Our `audiopipe` path does not have this defect.
 
 ---
 
+## F · Audio & sync — Round 13 additions (all reproduced and fixed)
+
+### F8 · Per-sentence TTS clips sound FLATTER than one continuous read
+**Symptom:** you synthesise each beat separately to control its emotion, and the assembled
+narration varies *less* than a plain single take. Measured: f0-median std across beats
+17.63 Hz isolated vs 41.80 Hz single take.
+**Cause:** an isolated sentence has no story context, so the model returns a neutral-ish
+read every time. DSP cannot restore a performance that was never generated.
+**Fix:** one take of the whole script, then `VK.restructureTake()` — cut at *aligned*
+sentence boundaries and shape per emotion. See `05-audio.md` §R13.1.
+
+### F9 · A whole beat reports an impossible pitch (370–410 Hz on a 130 Hz narrator)
+**Cause:** the beat locked onto a 3rd harmonic. Per-beat outlier rejection compares against
+the beat's OWN median, which is wrong in the same direction, so nothing is rejected.
+**Fix:** compute the speaker median once from the full track and pass `speakerMedianHz`
+into every `analyzeTake` call. `analyzeBeats` does this now.
+
+### F10 · Every short sound effect reports centroid 0
+**Cause:** `powerSpectrum` looped `off + N <= y.length`; a 0.1 s effect is shorter than one
+4096-sample window, so zero frames ran and the spectrum was empty. Silent measurement
+failure — the numbers looked like a real "too dull" verdict.
+**Fix:** zero-pad the input to at least one FFT window.
+
+### F11 · Reverb output explodes; SFX bus measures +53 dBFS
+**Cause:** the allpass wrote `b[p] = 0.5*in + bufOut`, i.e. **unity feedback** on the delay
+line, so it integrated without decay and reached ~1e5. Eight un-normalised combs added
+another ~128x.
+**Fix:** correct Freeverb allpass `v = in + g*bufOut; b[p] = v; out = bufOut - g*v`, `g = 0.5`;
+scale the comb sum by a fixed `0.1`. **Verify with an impulse response**: decay must fall
+monotonically (~-60 dB by 2.4 s) and RT60 must grow with `room`. Do not normalise by
+`(1-fb)` — that makes bigger rooms quieter.
+
+### F12 · "Music 20 dB under voice" measures as 31 dB
+**Cause:** the bed was normalised to a fixed absolute RMS, then attenuated. The -60 dB gate
+re-classifies frames after the gain change, so the relationship drifts.
+**Fix:** measure the voice bus first, normalise each bed to `voiceRms + gainDb`, apply unity
+bus gain.
+
+### F13 · Masking report flags almost every sound effect
+**Cause:** a fixed 80 ms RMS window at the event's start. A footstep's energy is in the first
+15 ms; a 2 s riser is intentionally near-silent at its start. 29 of 53 events were flagged,
+nearly all wrongly.
+**Fix:** measure **peak over each event's own duration** (durations come from
+`renderEvents`' log). Dropped to 1 genuine flag, which was a real gain error.
+
+### F14 · Master cannot reach -14 LUFS without clipping
+**Cause:** TTS narration has a ~18 dB crest factor; the true-peak ceiling binds ~3.5 dB early.
+**Fix:** lookahead peak limiter on the **voice bus only** (5 ms / 60 ms / -9 dB), then master
+with **one linear gain**. Never compress the master.
+
+### F15 · Emotion scorer calls a negated statement sad
+**Symptom:** "Because the bell was never broken" → sadness, because "broken" fired.
+**Fix:** a negator in the two preceding tokens cancels sadness cues and halves others.
+Also: a <=4-word beat right after a "Because..." clause is the twist → force **surprise**.
+
+### F16 · Bell clips the top of frame while the actor's head clips the bottom
+**Cause:** in 720x1280 a prop at y~4.6 and an actor at y~0-2.2 do not share the frame at
+these camera distances.
+**Fix:** hang belfry props at **y~3.6-3.9**, aim the camera at **y~1.9-2.6**. Took two
+MID-sheet review rounds; the first pass had 5 clipped shots.
+
+
+---
+
 ## G · Process, Git and project management
 
 ### G1 · Declaring previous work "lost"
@@ -438,3 +502,40 @@ new search. 64 records already cover the toolchain landscape.
 | Model download fails | A8 |
 | `raw.githubusercontent.com` SSL error | A9 |
 | Work seems lost | G1 |
+| Per-sentence TTS is flatter than one take | F8 |
+| Beat reports impossible pitch | F9 |
+| Short SFX centroid reads 0 | F10 |
+| SFX bus at +53 dBFS / reverb explodes | F11 |
+| Music-under-voice dB is wrong | F12 |
+| Masking report flags everything | F13 |
+| Master clips before -14 LUFS | F14 |
+| Negated line scored as sadness | F15 |
+| Prop and actor both clipped in portrait | F16 |
+| Character invisible but their prop shows | F17 |
+| Hit lands a second before its word | F18 |
+
+### F17 · A moving character disappears completely (only their prop is visible)
+**Symptom:** in the Round 13 stairs shot, Nora vanished for the last ~0.4 s while her
+hammer stayed on screen. `visible` was `true` and her position was inside the frustum.
+**Cause:** `W.billboard.update` faced the camera using the **construction position `p`**:
+`g.rotation.y = atan2(cam.x - p[0], cam.z - p[2])`. Once the actor moved (and especially
+once the camera crossed to the other side of `p`), the yaw was computed for a place the
+actor no longer stood, turning the plane back-facing. The material has no `DoubleSide`,
+so it rendered nothing. A box prop was unaffected, which is why only the hammer showed.
+**Fix:** use the group's **current** position:
+`atan2(cam.x - g.position.x, cam.z - g.position.z)`.
+**Regression check:** rendered all 9 Round-11 MID frames with the old and new code at the
+identical time — **8 of 9 byte-identical**; the one that changed is the only shot with a
+locomoting actor, which is the intended fix. Static actors are provably unaffected.
+**Diagnosis tip:** log `group.rotation.y` per frame. A yaw near ±π/2 or beyond means the
+billboard is edge-on or back-facing, not "missing".
+
+### F18 · Diegetic hits land a second before the word that describes them
+**Symptom:** the two wall taps were **1180 ms** and **1000 ms** before the words "once" and
+"twice"; the bell struck **320 ms** before "rang". Beat-relative offsets (`beat.t0 + 1.55`)
+look reasonable but do not track where the word actually falls inside the beat.
+**Fix:** anchor every diegetic hit to the **aligned word time**, then derive the picture
+cue from the same anchor. `studio/experiments/r13_sync.mjs` writes `picture-cues.json`
+from `narration.words.json`, and the film reads those locals. Offsets after the fix:
+tap +40 ms, twist +20 ms, seats +60 ms, bell +50 ms — the ear hears the word first.
+**Rule:** never hand-place a hit inside a beat. Look up the word.

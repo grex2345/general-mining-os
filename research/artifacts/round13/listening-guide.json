@@ -1,0 +1,22 @@
+{
+  "file": "voice-comparison-ABC.wav",
+  "totalSec": 95.16,
+  "order": [
+    {
+      "version": "A: isolated per-beat",
+      "startSec": 0,
+      "endSec": 32.02
+    },
+    {
+      "version": "B: single take (old method)",
+      "startSec": 33.62,
+      "endSec": 63.23
+    },
+    {
+      "version": "C: hybrid contextual + directed",
+      "startSec": 64.83,
+      "endSec": 95.16
+    }
+  ],
+  "note": "Same voice (voice-03), same story. Only the production method differs. 1.6s of silence separates the versions."
+}

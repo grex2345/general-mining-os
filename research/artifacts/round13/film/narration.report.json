@@ -1,0 +1,148 @@
+{
+  "durationSec": 65.376,
+  "beats": [
+    {
+      "id": "b01",
+      "emotion": "mystery",
+      "srcStart": 0.53,
+      "srcEnd": 5.93,
+      "finalSec": 5.4,
+      "t0": 1,
+      "breathSec": 0,
+      "pauseAfterSec": 0.45
+    },
+    {
+      "id": "b02",
+      "emotion": "warm",
+      "srcStart": 5.79,
+      "srcEnd": 8.31,
+      "finalSec": 2.52,
+      "t0": 6.85,
+      "breathSec": 0,
+      "pauseAfterSec": 0.32
+    },
+    {
+      "id": "b03",
+      "emotion": "warm",
+      "srcStart": 8.17,
+      "srcEnd": 13.03,
+      "finalSec": 4.86,
+      "t0": 9.69,
+      "breathSec": 0,
+      "pauseAfterSec": 0.32
+    },
+    {
+      "id": "b04",
+      "emotion": "mystery",
+      "srcStart": 12.89,
+      "srcEnd": 17.37,
+      "finalSec": 4.48,
+      "t0": 14.87,
+      "breathSec": 0,
+      "pauseAfterSec": 0.45
+    },
+    {
+      "id": "b05",
+      "emotion": "warm",
+      "srcStart": 17.23,
+      "srcEnd": 22.91,
+      "finalSec": 5.68,
+      "t0": 20.042,
+      "breathSec": 0.242,
+      "pauseAfterSec": 0.32
+    },
+    {
+      "id": "b06",
+      "emotion": "tension",
+      "srcStart": 22.77,
+      "srcEnd": 25.01,
+      "finalSec": 2.24,
+      "t0": 26.296,
+      "breathSec": 0.254,
+      "pauseAfterSec": 0.4
+    },
+    {
+      "id": "b07",
+      "emotion": "mystery",
+      "srcStart": 24.87,
+      "srcEnd": 31.63,
+      "finalSec": 6.76,
+      "t0": 29.202,
+      "breathSec": 0.266,
+      "pauseAfterSec": 0.45
+    },
+    {
+      "id": "b08",
+      "emotion": "tension",
+      "srcStart": 31.49,
+      "srcEnd": 34.85,
+      "finalSec": 3.36,
+      "t0": 36.412,
+      "breathSec": 0,
+      "pauseAfterSec": 0.4
+    },
+    {
+      "id": "b09",
+      "emotion": "reveal",
+      "srcStart": 34.71,
+      "srcEnd": 37.15,
+      "finalSec": 2.44,
+      "t0": 40.172,
+      "breathSec": 0,
+      "pauseAfterSec": 0.6
+    },
+    {
+      "id": "b10",
+      "emotion": "surprise",
+      "srcStart": 37.01,
+      "srcEnd": 39.23,
+      "finalSec": 2.22,
+      "t0": 43.212,
+      "breathSec": 0,
+      "pauseAfterSec": 0.55
+    },
+    {
+      "id": "b11",
+      "emotion": "reveal",
+      "srcStart": 39.09,
+      "srcEnd": 44.79,
+      "finalSec": 5.7,
+      "t0": 46.254,
+      "breathSec": 0.272,
+      "pauseAfterSec": 0.6
+    },
+    {
+      "id": "b12",
+      "emotion": "reveal",
+      "srcStart": 44.65,
+      "srcEnd": 47.91,
+      "finalSec": 3.26,
+      "t0": 52.826,
+      "breathSec": 0.272,
+      "pauseAfterSec": 0.6
+    },
+    {
+      "id": "b13",
+      "emotion": "excitement",
+      "srcStart": 47.77,
+      "srcEnd": 52.19,
+      "finalSec": 4.42,
+      "t0": 56.946,
+      "breathSec": 0.26,
+      "pauseAfterSec": 0.26
+    },
+    {
+      "id": "b14",
+      "emotion": "resolve",
+      "srcStart": 52.05,
+      "srcEnd": 55.4,
+      "finalSec": 3.35,
+      "t0": 61.626,
+      "breathSec": 0,
+      "pauseAfterSec": 0.4
+    }
+  ],
+  "alignMethods": {
+    "all": "contextual take, cut at aligned sentence boundaries"
+  }
+}

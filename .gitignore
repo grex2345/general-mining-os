@@ -65,3 +65,11 @@ google_drive/
 
 # Round 11 regenerable audio intermediates (keep the MP4 deliverable)
 research/artifacts/round11/*.wav
+
+# Round 13 audio artifacts. Same convention as Round 11: full-length comparisons,
+# stems and raw narration stay in the workspace for listening but out of Git.
+# Two small audition files ARE committed so the repo carries audible evidence.
+research/artifacts/round13/*.wav
+research/artifacts/round13/*/*.wav
+!research/artifacts/round13/emotion-reel.wav
+!research/artifacts/round13/sound-design-off-on.wav

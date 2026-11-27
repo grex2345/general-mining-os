@@ -1,0 +1,774 @@
+{
+  "leadIn": 1,
+  "beats": [
+    {
+      "id": "b01",
+      "index": 0,
+      "text": "For sixty years, the bell of Vellara had never made a sound.",
+      "ttsText": "For sixty years, the bell of Vellara had never made a sound.",
+      "words": 12,
+      "emotion": "mystery",
+      "intensity": 0.32,
+      "why": [
+        "sound",
+        "position+0.5"
+      ],
+      "ttsChanges": [],
+      "emphasis": [
+        "sixty",
+        "bell",
+        "Vellara"
+      ],
+      "prosody": {
+        "rateHint": 0.92,
+        "pitchHintSt": -1,
+        "pauseAfterSec": 0.45,
+        "breathBeforeProb": 0.55
+      },
+      "dsp": {
+        "gainDb": -2,
+        "tilt": -0.35,
+        "compress": {
+          "thresholdDb": -18,
+          "ratio": 1.8
+        }
+      },
+      "music": {
+        "mood": "night",
+        "intensity": 0.32
+      },
+      "ranked": [
+        {
+          "emotion": "mystery",
+          "score": 1.5
+        },
+        {
+          "emotion": "tension",
+          "score": 1
+        },
+        {
+          "emotion": "surprise",
+          "score": 1
+        }
+      ]
+    },
+    {
+      "id": "b02",
+      "index": 1,
+      "text": "Every founder in the valley tried.",
+      "ttsText": "Every founder in the valley tried.",
+      "words": 6,
+      "emotion": "warm",
+      "intensity": 0.46,
+      "why": [
+        "every",
+        "position+0.8"
+      ],
+      "ttsChanges": [],
+      "emphasis": [],
+      "prosody": {
+        "rateHint": 0.98,
+        "pitchHintSt": 0,
+        "pauseAfterSec": 0.32,
+        "breathBeforeProb": 0.35
+      },
+      "dsp": {
+        "gainDb": 0,
+        "tilt": -0.15,
+        "compress": {
+          "thresholdDb": -14,
+          "ratio": 2.2
+        }
+      },
+      "music": {
+        "mood": "dawn",
+        "intensity": 0.46
+      },
+      "ranked": [
+        {
+          "emotion": "warm",
+          "score": 1.8
+        },
+        {
+          "emotion": "comedy",
+          "score": 0.6
+        },
+        {
+          "emotion": "mystery",
+          "score": 0.5
+        }
+      ]
+    },
+    {
+      "id": "b03",
+      "index": 2,
+      "text": "They poured bronze, they tuned the crown, they hung it higher.",
+      "ttsText": "They poured bronze, they tuned the crown, they hung it higher.",
+      "words": 11,
+      "emotion": "warm",
+      "intensity": 0.41,
+      "why": [
+        "position+0.6"
+      ],
+      "ttsChanges": [],
+      "emphasis": [
+        "bronze"
+      ],
+      "prosody": {
+        "rateHint": 0.98,
+        "pitchHintSt": 0,
+        "pauseAfterSec": 0.32,
+        "breathBeforeProb": 0.35
+      },
+      "dsp": {
+        "gainDb": 0,
+        "tilt": -0.15,
+        "compress": {
+          "thresholdDb": -14,
+          "ratio": 2.2
+        }
+      },
+      "music": {
+        "mood": "dawn",
+        "intensity": 0.41
+      },
+      "ranked": [
+        {
+          "emotion": "warm",
+          "score": 0.6
+        },
+        {
+          "emotion": "tension",
+          "score": 0.4
+        }
+      ]
+    },
+    {
+      "id": "b04",
+      "index": 3,
+      "text": "And every time, the tower stayed silent.",
+      "ttsText": "And every time, the tower stayed silent.",
+      "words": 7,
+      "emotion": "mystery",
+      "intensity": 0.33,
+      "why": [
+        "silent"
+      ],
+      "ttsChanges": [],
+      "emphasis": [
+        "tower",
+        "silent"
+      ],
+      "prosody": {
+        "rateHint": 0.92,
+        "pitchHintSt": -1,
+        "pauseAfterSec": 0.45,
+        "breathBeforeProb": 0.55
+      },
+      "dsp": {
+        "gainDb": -2,
+        "tilt": -0.35,
+        "compress": {
+          "thresholdDb": -18,
+          "ratio": 1.8
+        }
+      },
+      "music": {
+        "mood": "night",
+        "intensity": 0.33
+      },
+      "ranked": [
+        {
+          "emotion": "mystery",
+          "score": 2
+        },
+        {
+          "emotion": "warm",
+          "score": 1.6
+        },
+        {
+          "emotion": "tension",
+          "score": 0.4
+        }
+      ]
+    },
+    {
+      "id": "b05",
+      "index": 4,
+      "text": "Then a girl named Nora climbed the stairs with a hammer no bigger than her hand.",
+      "ttsText": "Then a girl named Nora climbed the stairs with a hammer no bigger than her hand.",
+      "words": 16,
+      "emotion": "warm",
+      "intensity": 0.46,
+      "why": [
+        "girl",
+        "position+0.6"
+      ],
+      "ttsChanges": [],
+      "emphasis": [
+        "Nora"
+      ],
+      "prosody": {
+        "rateHint": 0.98,
+        "pitchHintSt": 0,
+        "pauseAfterSec": 0.32,
+        "breathBeforeProb": 0.35
+      },
+      "dsp": {
+        "gainDb": 0,
+        "tilt": -0.15,
+        "compress": {
+          "thresholdDb": -14,
+          "ratio": 2.2
+        }
+      },
+      "music": {
+        "mood": "dawn",
+        "intensity": 0.46
+      },
+      "ranked": [
+        {
+          "emotion": "warm",
+          "score": 1.6
+        },
+        {
+          "emotion": "tension",
+          "score": 0.4
+        }
+      ]
+    },
+    {
+      "id": "b06",
+      "index": 5,
+      "text": "She did not touch the bell.",
+      "ttsText": "She did not touch the bell…",
+      "words": 6,
+      "emotion": "tension",
+      "intensity": 0.46,
+      "why": [
+        "position+0.8"
+      ],
+      "ttsChanges": [
+        "period->ellipsis: suspense"
+      ],
+      "emphasis": [
+        "bell"
+      ],
+      "prosody": {
+        "rateHint": 0.94,
+        "pitchHintSt": -1,
+        "pauseAfterSec": 0.4,
+        "breathBeforeProb": 0.45
+      },
+      "dsp": {
+        "gainDb": -1,
+        "tilt": -0.2,
+        "compress": {
+          "thresholdDb": -16,
+          "ratio": 2
+        }
+      },
+      "music": {
+        "mood": "tense",
+        "intensity": 0.46
+      },
+      "ranked": [
+        {
+          "emotion": "tension",
+          "score": 0.8
+        },
+        {
+          "emotion": "sadness",
+          "score": 0.5
+        },
+        {
+          "emotion": "resolve",
+          "score": 0.5
+        }
+      ]
+    },
+    {
+      "id": "b07",
+      "index": 6,
+      "text": "She tapped the wall beside it, once, twice, listening.",
+      "ttsText": "She tapped the wall beside it, once, twice, listening.",
+      "words": 9,
+      "emotion": "mystery",
+      "intensity": 0.37,
+      "why": [
+        "tapped",
+        "listening"
+      ],
+      "ttsChanges": [],
+      "emphasis": [],
+      "prosody": {
+        "rateHint": 0.92,
+        "pitchHintSt": -1,
+        "pauseAfterSec": 0.45,
+        "breathBeforeProb": 0.55
+      },
+      "dsp": {
+        "gainDb": -2,
+        "tilt": -0.35,
+        "compress": {
+          "thresholdDb": -18,
+          "ratio": 1.8
+        }
+      },
+      "music": {
+        "mood": "night",
+        "intensity": 0.37
+      },
+      "ranked": [
+        {
+          "emotion": "mystery",
+          "score": 3
+        },
+        {
+          "emotion": "tension",
+          "score": 0.8
+        },
+        {
+          "emotion": "sadness",
+          "score": 0.5
+        }
+      ]
+    },
+    {
+      "id": "b08",
+      "index": 7,
+      "text": "The whole town held its breath.",
+      "ttsText": "The whole town held its breath…",
+      "words": 6,
+      "emotion": "tension",
+      "intensity": 0.62,
+      "why": [
+        "held",
+        "breath",
+        "position+0.8"
+      ],
+      "ttsChanges": [
+        "period->ellipsis: suspense"
+      ],
+      "emphasis": [],
+      "prosody": {
+        "rateHint": 0.94,
+        "pitchHintSt": -1,
+        "pauseAfterSec": 0.4,
+        "breathBeforeProb": 0.45
+      },
+      "dsp": {
+        "gainDb": -1,
+        "tilt": -0.2,
+        "compress": {
+          "thresholdDb": -16,
+          "ratio": 2
+        }
+      },
+      "music": {
+        "mood": "tense",
+        "intensity": 0.62
+      },
+      "ranked": [
+        {
+          "emotion": "tension",
+          "score": 3.8
+        },
+        {
+          "emotion": "sadness",
+          "score": 0.5
+        },
+        {
+          "emotion": "resolve",
+          "score": 0.5
+        }
+      ]
+    },
+    {
+      "id": "b09",
+      "index": 8,
+      "text": "Because the bell was never broken.",
+      "ttsText": "Because the bell was never broken.",
+      "words": 6,
+      "emotion": "reveal",
+      "intensity": 0.84,
+      "why": [
+        "because"
+      ],
+      "ttsChanges": [],
+      "emphasis": [
+        "bell"
+      ],
+      "prosody": {
+        "rateHint": 0.93,
+        "pitchHintSt": 1,
+        "pauseAfterSec": 0.6,
+        "breathBeforeProb": 0.6
+      },
+      "dsp": {
+        "gainDb": 0.5,
+        "tilt": 0.15,
+        "compress": {
+          "thresholdDb": -14,
+          "ratio": 2.2
+        }
+      },
+      "music": {
+        "mood": "wonder",
+        "intensity": 0.84
+      },
+      "ranked": [
+        {
+          "emotion": "reveal",
+          "score": 3
+        },
+        {
+          "emotion": "tension",
+          "score": 1.8
+        },
+        {
+          "emotion": "surprise",
+          "score": 1
+        }
+      ]
+    },
+    {
+      "id": "b10",
+      "index": 9,
+      "text": "The tower was.",
+      "ttsText": "The tower was!",
+      "words": 3,
+      "emotion": "surprise",
+      "intensity": 0.72,
+      "why": [
+        "position+1",
+        "short elliptical twist after a because-clause"
+      ],
+      "ttsChanges": [
+        "period->exclamation: reaction"
+      ],
+      "emphasis": [
+        "tower"
+      ],
+      "prosody": {
+        "rateHint": 1.06,
+        "pitchHintSt": 2,
+        "pauseAfterSec": 0.55,
+        "breathBeforeProb": 0.7
+      },
+      "dsp": {
+        "gainDb": 1.5,
+        "tilt": 0.35,
+        "compress": {
+          "thresholdDb": -12,
+          "ratio": 2.8
+        }
+      },
+      "music": {
+        "mood": "swell",
+        "intensity": 0.72
+      },
+      "ranked": [
+        {
+          "emotion": "tension",
+          "score": 1
+        },
+        {
+          "emotion": "mystery",
+          "score": 0.9
+        }
+      ],
+      "silencePlan": "hold music down, no SFX in the last 0.35s — quiet before the payoff"
+    },
+    {
+      "id": "b11",
+      "index": 10,
+      "text": "Something in that stone had been swallowing every note for sixty years.",
+      "ttsText": "Something in that stone had been swallowing every note for sixty years.",
+      "words": 12,
+      "emotion": "reveal",
+      "intensity": 1,
+      "why": [
+        "something",
+        "stone",
+        "swallowing"
+      ],
+      "ttsChanges": [],
+      "emphasis": [
+        "stone",
+        "sixty"
+      ],
+      "prosody": {
+        "rateHint": 0.93,
+        "pitchHintSt": 1,
+        "pauseAfterSec": 0.6,
+        "breathBeforeProb": 0.6
+      },
+      "dsp": {
+        "gainDb": 0.5,
+        "tilt": 0.15,
+        "compress": {
+          "thresholdDb": -14,
+          "ratio": 2.2
+        }
+      },
+      "music": {
+        "mood": "wonder",
+        "intensity": 1
+      },
+      "ranked": [
+        {
+          "emotion": "reveal",
+          "score": 5
+        },
+        {
+          "emotion": "tension",
+          "score": 1
+        },
+        {
+          "emotion": "warm",
+          "score": 1
+        }
+      ],
+      "silencePlan": "land the reveal after the held silence"
+    },
+    {
+      "id": "b12",
+      "index": 11,
+      "text": "She moved the bell four feet to the left.",
+      "ttsText": "She moved the bell four feet to the left.",
+      "words": 9,
+      "emotion": "reveal",
+      "intensity": 0.73,
+      "why": [
+        "position+1.6"
+      ],
+      "ttsChanges": [],
+      "emphasis": [
+        "bell",
+        "four"
+      ],
+      "prosody": {
+        "rateHint": 0.93,
+        "pitchHintSt": 1,
+        "pauseAfterSec": 0.6,
+        "breathBeforeProb": 0.6
+      },
+      "dsp": {
+        "gainDb": 0.5,
+        "tilt": 0.15,
+        "compress": {
+          "thresholdDb": -14,
+          "ratio": 2.2
+        }
+      },
+      "music": {
+        "mood": "wonder",
+        "intensity": 0.73
+      },
+      "ranked": [
+        {
+          "emotion": "reveal",
+          "score": 1.6
+        },
+        {
+          "emotion": "surprise",
+          "score": 1.2
+        }
+      ]
+    },
+    {
+      "id": "b13",
+      "index": 12,
+      "text": "And when it rang, they heard it in three villages.",
+      "ttsText": "And when it rang, they heard it in three villages!",
+      "words": 10,
+      "emotion": "excitement",
+      "intensity": 1,
+      "why": [
+        "rang",
+        "heard",
+        "position+1"
+      ],
+      "ttsChanges": [
+        "period->exclamation: energy"
+      ],
+      "emphasis": [
+        "rang",
+        "three"
+      ],
+      "prosody": {
+        "rateHint": 1.08,
+        "pitchHintSt": 2,
+        "pauseAfterSec": 0.26,
+        "breathBeforeProb": 0.5
+      },
+      "dsp": {
+        "gainDb": 1.5,
+        "tilt": 0.4,
+        "compress": {
+          "thresholdDb": -12,
+          "ratio": 3
+        }
+      },
+      "music": {
+        "mood": "joy",
+        "intensity": 1
+      },
+      "ranked": [
+        {
+          "emotion": "excitement",
+          "score": 6
+        },
+        {
+          "emotion": "resolve",
+          "score": 1.4
+        },
+        {
+          "emotion": "warm",
+          "score": 0.8
+        }
+      ]
+    },
+    {
+      "id": "b14",
+      "index": 13,
+      "text": "The girl they ignored became the one they listened to.",
+      "ttsText": "The girl they ignored became the one they listened to.",
+      "words": 10,
+      "emotion": "resolve",
+      "intensity": 0.77,
+      "why": [
+        "became",
+        "one",
+        "position+1.4"
+      ],
+      "ttsChanges": [],
+      "emphasis": [],
+      "prosody": {
+        "rateHint": 0.97,
+        "pitchHintSt": 0,
+        "pauseAfterSec": 0.4,
+        "breathBeforeProb": 0.35
+      },
+      "dsp": {
+        "gainDb": 0,
+        "tilt": 0.05,
+        "compress": {
+          "thresholdDb": -14,
+          "ratio": 2.3
+        }
+      },
+      "music": {
+        "mood": "joy",
+        "intensity": 0.77
+      },
+      "ranked": [
+        {
+          "emotion": "resolve",
+          "score": 4.4
+        },
+        {
+          "emotion": "reveal",
+          "score": 2
+        },
+        {
+          "emotion": "warm",
+          "score": 1.8
+        }
+      ]
+    }
+  ],
+  "arc": [
+    {
+      "id": "b01",
+      "emotion": "mystery",
+      "intensity": 0.32
+    },
+    {
+      "id": "b02",
+      "emotion": "warm",
+      "intensity": 0.46
+    },
+    {
+      "id": "b03",
+      "emotion": "warm",
+      "intensity": 0.41
+    },
+    {
+      "id": "b04",
+      "emotion": "mystery",
+      "intensity": 0.33
+    },
+    {
+      "id": "b05",
+      "emotion": "warm",
+      "intensity": 0.46
+    },
+    {
+      "id": "b06",
+      "emotion": "tension",
+      "intensity": 0.46
+    },
+    {
+      "id": "b07",
+      "emotion": "mystery",
+      "intensity": 0.37
+    },
+    {
+      "id": "b08",
+      "emotion": "tension",
+      "intensity": 0.62
+    },
+    {
+      "id": "b09",
+      "emotion": "reveal",
+      "intensity": 0.84
+    },
+    {
+      "id": "b10",
+      "emotion": "surprise",
+      "intensity": 0.72
+    },
+    {
+      "id": "b11",
+      "emotion": "reveal",
+      "intensity": 1
+    },
+    {
+      "id": "b12",
+      "emotion": "reveal",
+      "intensity": 0.73
+    },
+    {
+      "id": "b13",
+      "emotion": "excitement",
+      "intensity": 1
+    },
+    {
+      "id": "b14",
+      "emotion": "resolve",
+      "intensity": 0.77
+    }
+  ],
+  "revealBeat": "b11",
+  "estimatedDurationSec": 42.26,
+  "keywords": [
+    "Vellara",
+    "Nora",
+    "bell",
+    "tower",
+    "sixty",
+    "bronze",
+    "silent",
+    "stone",
+    "four",
+    "three",
+    "rang"
+  ],
+  "notes": [
+    "Speaking rate is NOT time-stretched: the Ricks study measured that even 1.1x atempo smears the voice.",
+    "Pacing comes from sentence length + explicit pauses between beats.",
+    "Each beat is a separate TTS call so the read is contextual, not one flat pass."
+  ]
+}

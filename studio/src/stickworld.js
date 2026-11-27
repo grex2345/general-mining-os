@@ -59,7 +59,13 @@ window.StickWorld = function (THREE) {
     const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
     const g = new THREE.Group(); g.position.set(p[0], p[1] + h * 0.483, p[2]);
     g.add(new THREE.Mesh(new THREE.PlaneGeometry(h * W / H, h), new THREE.MeshBasicMaterial({ map: tex, transparent: true, alphaTest: 0.02 })));
-    return { group: g, update(camera, pose) { window.drawPuppet(ctx, W, H, look, pose); tex.needsUpdate = true; g.rotation.y = Math.atan2(camera.position.x - p[0], camera.position.z - p[2]); } };
+    // Face the camera from the group's CURRENT position, not the construction
+    // position `p`. Using `p` meant a moved actor kept facing as if it still
+    // stood where it was created; once the camera crossed to the other side the
+    // plane turned back-facing and the character vanished entirely (Round 13
+    // stairs shot: only her hammer was visible for the last 0.4 s). Actors that
+    // never move are unaffected, so Round 11 renders identically.
+    return { group: g, update(camera, pose) { window.drawPuppet(ctx, W, H, look, pose); tex.needsUpdate = true; g.rotation.y = Math.atan2(camera.position.x - g.position.x, camera.position.z - g.position.z); } };
   }
   // Cinematic camera: smoothstep keyframes (pos/look/fov) + micro-handheld + optional impact shake.
   function cineCam({ aspect = 720 / 1280, keys = [] }) {

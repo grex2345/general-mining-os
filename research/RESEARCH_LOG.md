@@ -1,16 +1,16 @@
 # Research ledger — generated report
 
-Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `node research/tools/kb.mjs report`.
+Generated 2026-11-27 from `research/ledger.json`. **Do not hand-edit** — run `node research/tools/kb.mjs report`.
 
 ## Scoreboard
 
 | stage | count | meaning |
 |---|---:|---|
 | discovered | **6** | a URL or mention exists; nothing opened |
-| inspected | **17** | source, docs or renders actually read/looked at |
-| tested | **6** | executed in this environment, with evidence recorded |
+| inspected | **20** | source, docs or renders actually read/looked at |
+| tested | **10** | executed in this environment, with evidence recorded |
 | integrated | **33** | code/technique landed in our engine, artifact on disk |
-| rejected | **2** | deliberately not used, reason recorded |
+| rejected | **3** | deliberately not used, reason recorded |
 
 ## integrated (33)
 
@@ -50,7 +50,7 @@ Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `
 | `potter-film-r11` | The Boy Who Chose Clay (36s English film) | licence unknown | · untested | research/artifacts/round11/the-boy-who-chose-clay.mp4 |
 | `code-animation-studio-skill` | Code Animation Studio — knowledge-transfer skill | licence unknown | · untested | skills/code-animation-studio/SKILL.md |
 
-## tested (6)
+## tested (10)
 
 | id | name | licence | environment | source |
 |---|---|---|---|---|
@@ -60,8 +60,12 @@ Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `
 | `pocketsphinx-align` | pocketsphinx forced alignment (Stick3D align.py) — English precise | licence unknown | ✔ runs here |  |
 | `swangle-headless-webgl` | Headless WebGL2/three.js via SwiftShader ANGLE (@sparticuz/chromium) | licence unknown | ✔ runs here |  |
 | `stickscene-english-demo` | English integration proof — 3D toon village + acting + English narration + word-sync captions | licence unknown | ✔ runs here |  |
+| `r13-hybrid-voice` | Round 13 hybrid voice method (contextual take + per-beat restructuring) | licence unknown | · untested |  |
+| `r13-foley-engine` | Round 13 procedural foley + stereo mix desk | licence unknown | · untested |  |
+| `r13-billboard-facing` | Billboard camera-facing must use current group position | licence unknown | · untested |  |
+| `r13-word-anchored-sync` | Word-anchored diegetic sync (sound + picture from one anchor) | licence unknown | · untested |  |
 
-## inspected (17)
+## inspected (20)
 
 | id | name | licence | environment | source |
 |---|---|---|---|---|
@@ -82,6 +86,9 @@ Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `
 | `stick3d-pack` | 3D Stick Figure Master (Stick3D-Pack-v4) | licence unknown | ✘ cannot run here |  |
 | `kounkan-n2-darija` | kounkan.ma — Darija 3D stick-figure history story (pottery wheel) | licence unknown | ✔ runs here |  |
 | `darija-tts-landscape` | Darija TTS capability matrix (honest, tested where possible) | licence unknown | · untested |  |
+| `ricksclips-deep-study` | Ricks Clips measured audio study (19 videos) | licence unknown | · untested | https://github.com/parthandparthfamily-cloud/ricksclips |
+| `ricks-tighten-voice` | Ricks gap-tightening without clipping words | licence unknown | · untested | https://github.com/parthandparthfamily-cloud/ricksclips/blob/main/tools/tighten_voice.py |
+| `procedural-sfx-skill` | procedural-sfx (MIT, agent-oriented sound design) | licence unknown | · untested | https://github.com/bianbianzhu/procedural-sfx |
 
 ## discovered (6)
 
@@ -94,12 +101,13 @@ Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `
 | `drawcall-animate` | drawcall-ai/animate | check | · untested | https://github.com/drawcall-ai/animate |
 | `paper-acg` | Papers to fetch for cel shading, outlines and cartoon lighting | licence unknown | · untested |  |
 
-## rejected (2)
+## rejected (3)
 
 | id | name | licence | environment | source |
 |---|---|---|---|---|
 | `webgl-swiftshader` | Headless WebGL via ANGLE/SwiftShader in this sandbox | n/a | ✘ cannot run here | https://chromium.googlesource.com/chromium/src/+/main/docs/gpu/swiftshader.md |
 | `edge-tts-darija` | edge-tts ar-MA (Moroccan neural voice) | licence unknown | ✘ cannot run here |  |
+| `r13-reverb-unity-feedback` | Freeverb allpass unity-feedback defect (rejected implementation) | licence unknown | · untested |  |
 
 ## Findings by record
 
@@ -663,4 +671,39 @@ Generated 2026-11-26 from `research/ledger.json`. **Do not hand-edit** — run `
 
 **Extracted**:
 - ONE portable skill: SKILL.md entry + START-HERE cold start + 12 linked reference docs + VALIDATION.md. Covers Rounds 1-11 history, architecture/APIs, characters/environments/animation, camera/framing/transitions, audio/alignment/captions/mix, story->shots, 15-step runbook, learning methodology, QA gates, full bug catalogue (symptom/cause/diagnosis/fix/prevention), resource catalog with honest statuses, portability. Indexes the KB without replacing it; flags superseded Round-2 WebGL/Chromium claims.
+
+### `ricksclips-deep-study` — Ricks Clips measured audio study (19 videos)
+
+**Extracted**:
+- MEASURED targets from 19 real @RicksClips3000 videos (~33k frames), MIT: voice 3.67 words/s with almost no pauses (max ~0.45s) - rhythm from SHORT SENTENCES not silence; joke every ~10s; present tense + second person; 145-246 words. Music: ONE continuous playful bed ~20dB under voice, never silent (silent ~5%), mood shifts at the twist. SFX ~7.7 hits/10s peaking ~12dB under voice, half stingers half foley; only 1 in 3 scene changes carries a hit. Master -14 LUFS / TP -2 dBTP; voice alone ~-17 LUFS.
+
+### `ricks-tighten-voice` — Ricks gap-tightening without clipping words
+
+**Extracted**:
+- Cut gaps ONLY below -58 dBFS true silence (NOT -45: that threshold cut word tails/breaths which live between -58 and -45). 90ms guard grown around every loud frame so word edges are never touched; each inner gap keeps >=0.12s. Prefer speed 1.0 - 'even 1.1x smears the voice; shorten the script instead'. Re-run word timing after tightening. ElevenLabs v3 settings used: stability 0.35, style 0.45, speed 1.05 (low stability = expressive).
+
+### `procedural-sfx-skill` — procedural-sfx (MIT, agent-oriented sound design)
+
+**Extracted**:
+- MIT skill explicitly designed for agents that CANNOT LISTEN: 3-layer attack/body/tail model, material-decides-recipe (not action name), numeric metric targets per sound class (attack ms, t-20 ring, spectral centroid, band energy), variation verdicts (identical/barely differ/vary), event mixer with buses+ducking+masking report, one-linear-gain mastering (never compress), and a 'not ear-tuned yet' audition handoff table for human listening. Plan silences: a beat of quiet before a hit lands harder than volume.
+
+### `r13-hybrid-voice` — Round 13 hybrid voice method (contextual take + per-beat restructuring)
+
+**Evidence**:
+- A/B/C on the same 65-word arc with voice-03: between-beat f0-median std A(isolated)=17.63Hz, B(single take)=41.80Hz, C(hybrid)=46.02Hz; C wins 4/5 travel metrics. Raw pre-DSP A == final A, proving the isolated performance was the limit. Implemented as VK.restructureTake in studio/src/voicekit.mjs; artifacts research/artifacts/round13/ab/three-way.json
+
+### `r13-foley-engine` — Round 13 procedural foley + stereo mix desk
+
+**Evidence**:
+- studio/src/foley.mjs 22 recipes: 6/6 published attack/t20/centroid targets pass; all 22 produce finite non-silent audio; variationCheck reports takes vary. studio/src/mixdesk.mjs delivered -14.55 LUFS / -2.0 dBTP, music 21.51dB under voice, SFX p90 11.66dB under voice peak, masking 44 ok/8 note/0 flagged, density 8.03 hits/10s
+
+### `r13-billboard-facing` — Billboard camera-facing must use current group position
+
+**Evidence**:
+- studio/src/stickworld.js billboard.update used construction position p for yaw; a locomoting actor turned back-facing and vanished (only its box prop rendered). Fixed to g.position. Regression: 9 Round-11 MID frames old vs new at identical time, 8/9 byte-identical, the 1 changed frame is the only shot with a moving actor
+
+### `r13-word-anchored-sync` — Word-anchored diegetic sync (sound + picture from one anchor)
+
+**Evidence**:
+- Measured against narration.words.json: wall taps were 1180ms and 1000ms before the words once/twice, bell 320ms before rang. r13_sync.mjs anchors hits to aligned word times (+20..60ms) and emits picture-cues.json consumed by film_bell.js, so audio and animation share one source
 

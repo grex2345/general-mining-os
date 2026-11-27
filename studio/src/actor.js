@@ -72,6 +72,29 @@ window.ActorKit = function (THREE, W, K) {
     gasp(t) { return { mood: 'shock', arms: 'head', nerv: 0.4, lookX: 0 }; },
     // applaud: hands together rhythmically
     applaud(t) { return { mood: 'grin', arms: 'chest', armR: [0.06, 0.55], armL: [-0.06, 0.55], armRK: 0.95, armLK: 0.95, squash: 0.02 * Math.abs(Math.sin(t * 6)) }; },
+
+    /* ---- Round 13 additions: "The Bell of Vellara" ---- */
+    // climbing stairs: effort, forward lean, alternating reach for the rail
+    climb(t) { const s = Math.sin(t * 3.4); return { mood: 'deadpan', arms: 'hold', hunch: 0.28, tilt: 0.06 + s * 0.02, armR: [0.18, 0.46 + s * 0.06], armL: [-0.14, 0.4 - s * 0.05], armRK: 0.9, armLK: 0.85, lookX: 0.15, squash: Math.abs(s) * 0.012 }; },
+    // one deliberate tap on stone: wind-up, strike, recoil. period ~1.4s
+    tapWall(t) {
+      const u = (t % 1.4) / 1.4;
+      if (u < 0.45) return { mood: 'deadpan', arms: 'hold', hunch: 0.18, armR: [0.1 + u * 0.3, 0.62], armRK: 0.7, lookX: 0.45, tilt: -0.03 };
+      if (u < 0.58) return { mood: 'deadpan', arms: 'point', armR: [0.46, 0.5], armRK: 1, hunch: 0.22, lookX: 0.5, tilt: 0.04, squash: -0.02 };
+      return { mood: 'worry', arms: 'hold', armR: [0.2, 0.48], armRK: 0.9, hunch: 0.12, lookX: 0.4, tilt: 0.01 };
+    },
+    // head tilted, ear to the stone: still, listening hard
+    listen(t) { return { mood: 'worry', arms: 'down', hunch: 0.14, tilt: 0.13 + Math.sin(t * 0.7) * 0.01, lookX: 0.5, nerv: 0.15, armR: [0.05, 0.3], armRK: 0.5, squash: Math.sin(t * 1.3) * 0.005 }; },
+    // holding breath: rigid, shoulders up, tiny tremor
+    holdBreath(t) { return { mood: 'shock', arms: 'chest', hunch: 0.1, nerv: 0.25, armR: [0.08, 0.56], armL: [-0.08, 0.56], armRK: 0.95, armLK: 0.95, squash: 0.004 * Math.sin(t * 9), lookX: 0 }; },
+    // hauling a rope: rhythmic pull, weight back
+    pullRope(t) { const s = Math.sin(t * 2.6); return { mood: 'deadpan', arms: 'hold', hunch: 0.3 - s * 0.08, tilt: -0.08 - s * 0.03, armR: [0.12, 0.6 + s * 0.12], armL: [-0.1, 0.52 + s * 0.1], armRK: 0.85, armLK: 0.85, squash: s * 0.012 }; },
+    // struck by a sound: head snaps up, hands open, awe
+    awe(t) { const u = clamp(t / 0.6, 0, 1); return { mood: 'shock', arms: u > 0.4 ? 'up' : 'head', nerv: 0.2 * (1 - u), lookX: 0, tilt: -0.05 * u, squash: 0.02 * u, air: 0.06 * u }; },
+    // quiet pride at the end: still, small smile, breathing
+    listened(t) { return { mood: 'smile', arms: 'down', tilt: Math.sin(t * 0.8) * 0.015, lookX: Math.sin(t * 0.3) * 0.2, squash: Math.sin(t * 1.0) * 0.007 }; },
+    // founders at the forge: hammering rhythm
+    hammer(t) { const u = (t % 0.85) / 0.85; const up = u < 0.55; return { mood: 'deadpan', arms: 'hold', hunch: 0.25, armR: [0.16, up ? 0.66 : 0.4], armRK: up ? 0.7 : 1, armL: [-0.14, 0.42], armLK: 0.9, lookX: 0.3, squash: up ? 0 : -0.025, tilt: 0.03 }; },
   };
 
   return { Actor, path, idle, G };

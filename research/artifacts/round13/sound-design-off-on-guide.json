@@ -1,0 +1,78 @@
+{
+  "file": "sound-design-off-on.wav",
+  "durationSec": 23.8,
+  "excerpt": "the climax, film time 55.0-66.0 s: the bell is moved, then rings; the valley hears it",
+  "A": {
+    "label": "OFF — narration alone",
+    "startsAtSec": 0,
+    "endsAtSec": 11
+  },
+  "B": {
+    "label": "ON — narration + emotional score + foley + ambience, ducked and mastered",
+    "startsAtSec": 12.8,
+    "endsAtSec": 23.8
+  },
+  "note": "Both halves are peak-matched to 0.7 so you are judging the sound design, not the volume. Listen for: does the bell strike land ON the word \"rang\"? Do the distant villages read as far away (they are panned wide and distance-filtered)? Does the music stay out of the way of the words?",
+  "eventsInExcerpt": [
+    {
+      "t": 55.726,
+      "name": "she steps back",
+      "pan": -0.1,
+      "metres": null
+    },
+    {
+      "t": 56.7,
+      "name": "transition theRing",
+      "pan": 0.3,
+      "metres": null
+    },
+    {
+      "t": 57.616,
+      "name": "sound leaves the tower",
+      "pan": 0,
+      "metres": null
+    },
+    {
+      "t": 57.666,
+      "name": "THE BELL RINGS",
+      "pan": 0,
+      "metres": null
+    },
+    {
+      "t": 58.846,
+      "name": "valley cheers",
+      "pan": -0.1,
+      "metres": 4
+    },
+    {
+      "t": 59.866,
+      "name": "bell second strike",
+      "pan": 0.04,
+      "metres": null
+    },
+    {
+      "t": 60.246,
+      "name": "second village hears",
+      "pan": -0.55,
+      "metres": 14
+    },
+    {
+      "t": 60.796,
+      "name": "third village hears",
+      "pan": 0.58,
+      "metres": 18
+    },
+    {
+      "t": 62.026,
+      "name": "wonder in the crowd",
+      "pan": 0.1,
+      "metres": 5
+    },
+    {
+      "t": 63.226,
+      "name": "listened to",
+      "pan": 0.2,
+      "metres": null
+    }
+  ]
+}
