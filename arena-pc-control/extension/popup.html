@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Arena PC Control</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      width: 320px;
+      margin: 0;
+      padding: 14px;
+      background: #0f172a;
+      color: #f8fafc;
+    }
+    h2 {
+      margin: 0 0 8px;
+      font-size: 15px;
+    }
+    label {
+      display: block;
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 10px;
+      margin-bottom: 4px;
+    }
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 7px 9px;
+      border-radius: 6px;
+      border: 1px solid #334155;
+      background: #1e293b;
+      color: #f8fafc;
+      font-size: 12px;
+    }
+    button {
+      margin-top: 12px;
+      width: 100%;
+      padding: 8px;
+      border: none;
+      border-radius: 6px;
+      background: #2563eb;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+    .status {
+      margin-top: 10px;
+      padding: 8px;
+      border-radius: 6px;
+      background: #1e293b;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+  <h2>Arena PC Control</h2>
+  <div id="statusBox" class="status">Checking local bridge...</div>
+
+  <label for="portInput">Local Bridge Port (127.0.0.1)</label>
+  <input id="portInput" type="number" value="18765" />
+
+  <label for="tokenInput">Pairing Token (from start_windows.bat)</label>
+  <input id="tokenInput" type="password" placeholder="Paste token here..." />
+
+  <button id="saveBtn" type="button">Save &amp; Pair Bridge</button>
+  <script src="popup.js"></script>
+</body>
+</html>

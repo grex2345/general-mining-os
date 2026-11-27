@@ -1,0 +1,41 @@
+{
+  "bridge": {
+    "host": "127.0.0.1",
+    "port": 18765,
+    "approvalTimeoutSeconds": 120,
+    "refuseAdminStartup": true
+  },
+  "policy": {
+    "allowedWriteRoots": [
+      "~/Desktop",
+      "~/Documents",
+      "~/Downloads",
+      "~/Projects"
+    ],
+    "requireConfirmForOutsideRoots": true,
+    "requireConfirmForShell": true,
+    "allowReadOnlyShellWithoutConfirm": true,
+    "requireConfirmForInputSimulation": false,
+    "requireConfirmForAppLaunch": false,
+    "requireConfirmForNetworkRequests": true
+  },
+  "mcpServers": {
+    "local_pc": {
+      "enabled": true,
+      "command": "bridge/builtin_mcp_server.py",
+      "args": []
+    },
+    "playwright": {
+      "enabled": false,
+      "comment": "Set enabled=true when Node.js 20+ is installed to give Arena full Playwright browser control (YouTube, search, forms, accessibility snapshots).",
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
+    },
+    "windows_mcp": {
+      "enabled": false,
+      "comment": "Optional: set enabled=true if uv + Python 3.14+ are installed to mount CursorTouch/Windows-MCP alongside local_pc.",
+      "command": "uvx",
+      "args": ["windows-mcp"]
+    }
+  }
+}
