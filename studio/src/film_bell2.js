@@ -524,7 +524,7 @@
         pose.blinkSeed = 0.4;
         nora.update(dir.cam, t, pose);
         const swing = near(TAP1) || near(TAP2) ? 0.5 : 0.16;
-        hm.position.set(2.05 + (t > 5.3 ? -0.3 : 0), 1.6 + (t < 2.6 ? 0.28 : 0.02), 0.62); hm.rotation.z = swing;
+        hm.position.set(t > 5.3 ? 1.30 : 2.05, t > 5.3 ? 0.95 : 1.6 + (t < 2.6 ? 0.28 : 0.02), t > 5.3 ? 0.78 : 0.62); hm.rotation.z = t > 5.3 ? 0.05 : swing;
         bl.swing(Math.sin(t * 0.7) * 0.006);
       } };
     } });
@@ -673,7 +673,7 @@
         M.pull([-1.22, 12.6, -5.6], { d0: 1.6, d1: 16.0, az: 0.15, h0: 0.2, h1: 3.4, fov0: 70, fov1: 58, dur: 1.9, focus: 16.0, why: 'the sound leaves the tower' }),
         M.track((t) => { const u = clamp((t - 3.6) / 2.1, 0, 1); return [lerp(-15, 13, u), 3.2, lerp(-20, -25, u)]; }, { d: 11, az: 0.15, h: 6.5, fov: 66, dur: 2.1, why: 'they heard it in three villages', kind: 'wide', focus: 9.0 }),
         M.push([-1.0, faceY(2.3 * 1.02), 4.2], { d0: 3.4, d1: 2.2, az: -0.1, h0: 0.2, h1: 0.08, fov0: 54, fov1: 48, dur: 1.8, why: 'the town that mocked her, cheering', kind: 'close' }),
-        M.push([0.75, faceY(2.42), 3.0], { d0: 2.6, d1: 1.55, az: 0.22, h0: 0.16, h1: 0.05, fov0: 52, fov1: 46, dur: 1.8, why: 'the girl they ignored became the one they listened to', kind: 'close' }),
+        M.push([0.75, faceY(2.42), 3.0], { d0: 2.8, d1: 1.95, az: 0.22, h0: 0.16, h1: 0.05, fov0: 54, fov1: 50, dur: 1.8, why: 'the girl they ignored became the one they listened to', kind: 'close' }),
       ];
       const dir = C().Director({ comps, impacts: [{ t: R1, amp: 0.085, decay: 7 }, { t: R2, amp: 0.06, decay: 8 }], handheld: 0.007 });
       const lip = ctx.lip;
