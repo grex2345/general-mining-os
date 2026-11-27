@@ -222,9 +222,9 @@
       const stream = W.cyl({ p: [0, -h / 2, 0], rt: 0.055, rb: 0.075, h, color: '#ff9a3c', ink: 0 });
       stream.children[0].material.emissive = new T.Color('#ff6a10');
       g.add(stream);
-      const gl = K.glow({ p: [0, -h, 0], r: 0.8, color: 'rgba(255,150,50,1)', o: 0.5 }); g.add(gl);
+      const gl = K.glow({ p: [0, -h, 0], r: 0.55, color: 'rgba(255,150,50,1)', o: 0.26 }); g.add(gl);
       const em = embers({ p: [0, -h, 0], n: 8, spread: 0.25, rise: 0.9, speed: 0.9 }); g.add(em.group);
-      return { group: g, update(t) { const w = 0.85 + 0.15 * Math.sin(t * 14); stream.scale.set(w, 1, w); gl.material.opacity = 0.4 + 0.18 * Math.sin(t * 9); em.update(t); }, setVisible(v) { g.visible = v; } };
+      return { group: g, update(t) { const w = 0.85 + 0.15 * Math.sin(t * 14); stream.scale.set(w, 1, w); gl.material.opacity = 0.22 + 0.09 * Math.sin(t * 9); em.update(t); }, setVisible(v) { g.visible = v; } };
     }
     function weatherVane({ p = [0, 0, 0], s = 1 } = {}) {
       const g = new T.Group(); g.position.set(p[0], p[1], p[2]); g.scale.setScalar(s);
