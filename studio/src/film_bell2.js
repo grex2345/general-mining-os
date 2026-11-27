@@ -123,9 +123,17 @@
     let cut = null;
     if (cutaway) {
       const cg = new T.Group(); cg.position.set(2.4, 2.0, 0);
-      cg.add(W.box({ p: [0.5, 0, 0], s: [1.0, 2.6, 2.6], color: '#6b6152', ink: 0.03 }));
+      const stoneIn = '#4a4238';
+      cg.add(W.box({ p: [1.02, 0, 0], s: [0.12, 2.6, 2.6], color: stoneIn, ink: 0.03 }));   // back
+      cg.add(W.box({ p: [0.5, 1.32, 0], s: [1.06, 0.12, 2.6], color: stoneIn, ink: 0.03 })); // top
+      cg.add(W.box({ p: [0.5, -1.32, 0], s: [1.06, 0.12, 2.6], color: stoneIn, ink: 0.03 }));// floor
+      cg.add(W.box({ p: [0.5, 0, -1.32], s: [1.06, 2.6, 0.12], color: stoneIn, ink: 0.03 }));
+      cg.add(W.box({ p: [0.5, 0, 1.32], s: [1.06, 2.6, 0.12], color: stoneIn, ink: 0.03 }));
+      // the sawn rim, so the opening reads as a section cut through masonry
+      for (const [ry, rz, sh, sw] of [[1.34, 0, 0.1, 2.7], [-1.34, 0, 0.1, 2.7], [0, -1.34, 2.7, 0.1], [0, 1.34, 2.7, 0.1]])
+        cg.add(W.box({ p: [0.02, ry, rz], s: [0.1, sh, sw], color: '#d8cbb0', ink: 0.04 }));
       const voids = [];
-      for (let i = 0; i < 7; i++) { const b = W.ball({ p: [0.45 + (i % 3) * 0.22, -0.9 + i * 0.3, -0.7 + (i % 4) * 0.45], r: 0.16 + (i % 3) * 0.06, color: '#2a2620', ink: 0.02 }); cg.add(b); voids.push(b); }
+      for (let i = 0; i < 7; i++) { const b = W.ball({ p: [0.45 + (i % 3) * 0.22, -0.9 + i * 0.3, -0.7 + (i % 4) * 0.45], r: 0.16 + (i % 3) * 0.06, color: '#17150f', ink: 0.02 }); cg.add(b); voids.push(b); }
       const rings = [];
       for (let i = 0; i < 4; i++) { const m = new T.Mesh(new T.RingGeometry(0.2, 0.26, 28), new T.MeshBasicMaterial({ color: 0xffd98a, transparent: true, opacity: 0, side: T.DoubleSide, blending: T.AdditiveBlending, depthWrite: false })); m.rotation.y = Math.PI / 2; cg.add(m); rings.push(m); }
       cg.visible = false; g.add(cg);
@@ -139,7 +147,7 @@
     g.add(W.box({ p: [0, -14, -10], s: [220, 0.4, 220], color: '#8f9a72', ink: 0 }));
     for (const [mx, mz] of [[-34, -52], [30, -58], [0, -70]]) g.add(K.mountain({ p: [mx, -14, mz], s: 3.0 }));
     g.add(W.box({ p: [0, 5.4, 0], s: [7.2, 0.4, 7.2], color: '#8a7a62', ink: 0.03 }));
-    g.add(W.box({ p: [0, 2.4, 3.4], s: [6.6, 4.8, 0.4], color: '#bfb298' }));
+    g.add(W.box({ p: [0, 2.4, 8.5], s: [13, 6.4, 0.4], color: '#bfb298' }));
     return { group: g, wall: wallG, cut, update(t) { anim.forEach(a => a.update && a.update(t)); } };
   }
 
@@ -495,7 +503,7 @@
       const comps = [
         M.push([1.75, faceY(2.4), 0.6], { d0: 2.6, d1: 1.9, az: -0.5, h0: 0.25, h1: 0.12, fov0: 56, fov1: 50, dur: 1.6, why: 'she raises the hammer', kind: 'close' }),
         M.macro([2.20, 1.62, 0.60], { d: 1.9, az: -0.70, h: 0.14, fov: 60, dur: 1.9, focus: 1.4, why: 'once — the first tap on stone' }),
-        M.push([2.20, 1.60, 0.60], { d0: 2.8, d1: 2.3, az: -0.85, h0: 0.34, h1: 0.18, fov0: 60, fov1: 56, focus: 1.9, dur: 1.9, why: 'twice — she compares the two answers', kind: 'close' }),
+        M.push([1.98, 1.60, 0.60], { d0: 2.8, d1: 2.3, az: -0.80, h0: 0.34, h1: 0.18, fov0: 60, fov1: 56, focus: 1.9, dur: 1.9, why: 'twice — she compares the two answers', kind: 'close' }),
         M.dutch([1.62, faceY(2.4), 0.62], { d: 1.55, az: -0.3, h: 0.06, fov: 48, roll: 0.13, dur: 1.8, focus: 1.15, why: 'listening: her ear to the stone' }),
       ];
       const dir = C().Director({ comps, impacts: [{ t: TAP1, amp: 0.055, decay: 11 }, { t: TAP2, amp: 0.05, decay: 11 }], handheld: 0.006 });
