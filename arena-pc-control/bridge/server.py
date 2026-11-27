@@ -191,8 +191,6 @@ class BridgeServer:
                 fut.set_result(False)
         self._pending_approvals.clear()
         # Close all sessions
-        for session_id in list(session_manager.list_sessions() and []):
-            pass
         for sid in [s["session_id"] for s in session_manager.list_sessions()]:
             session_manager.close_session(sid)
         if self._ws_server is not None:

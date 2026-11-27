@@ -24,8 +24,15 @@ No OpenAI, Anthropic, Gemini, Ollama, or other AI API is required.
 
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 from typing import Any
+
+# Ensure the project root is on sys.path so `bridge.*` imports resolve
+# regardless of how this package is imported.
+_ROOT = Path(__file__).resolve().parent.parent
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
 
 from bridge.policy import PolicyEngine  # noqa: E402
 from bridge.mcp_client import MCPRouter  # noqa: E402
