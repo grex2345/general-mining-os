@@ -29,6 +29,17 @@
     rollDrift: Math.max(o.rollDrift || 0, 0.032),
   }));
 
+  // Screen-locked diagram callout. World-anchored panels slid out of frame during
+  // orbit moves -- the "100 WATTS" gauge was never fully readable in any comp.
+  // Pinning keeps the diagram at a fixed, fully-visible spot and square to camera.
+  function pinHud(T, obj, cam, dist, x, y) {
+    const f = new T.Vector3(); cam.getWorldDirection(f);
+    const r = new T.Vector3().crossVectors(f, cam.up).normalize();
+    const u = new T.Vector3().crossVectors(r, f).normalize();
+    obj.position.copy(cam.position).addScaledVector(f, dist).addScaledVector(r, x).addScaledVector(u, y);
+    obj.quaternion.copy(cam.quaternion);
+  }
+
   const GOJO = { skin: '#f2d3bd', skinSh: '#d9ab93', hair: '#f6f8fd', hairSh: '#c6cede', coat: '#1b1f33', coatHi: '#2f3552', pants: '#15182a', boot: '#0d0f1a' };
   const H = 2.75;                 // Gojo billboard height in world metres
   const faceY = H * 0.855;        // head centre above the feet (head sits high on this puppet)
@@ -193,7 +204,7 @@
       const th = add(G.thermos({ p: [0, 0.2, 0], h: 3.4 })); anim.push(th);
       const hc = add(G.heatColumn({ p: [0, 0.3, 0], r: 0.7, h: 3.6, n: 14 })); anim.push(hc);
       const label = add(G.hud({
-        p: [1.9, 2.5, 0.2], s: [2.0, 1.0], px: [512, 256],
+        p: [1.9, 2.5, 0.2], s: [1.24, 0.62], px: [512, 256],
         draw: (c, Wd, Hh, t, st) => {
           c.fillStyle = 'rgba(8,14,26,.78)'; c.fillRect(0, 0, Wd, Hh);
           c.strokeStyle = '#66e4ff'; c.lineWidth = 4; c.strokeRect(6, 6, Wd - 12, Hh - 12);
@@ -217,7 +228,7 @@
           anim.forEach((a) => a.update && a.update(gt, {}));
           th.update(gt, { trap: 1 }); hc.update(gt, { intensity: 0.8 });
           label.update(gt, {});
-          label.group.rotation.y = Math.atan2(dir.cam.position.x - 1.9, dir.cam.position.z - 0.2);
+          pinHud(T, label.group, dir.cam, 5.0, -0.70, 1.90);
         },
       };
     }
@@ -302,7 +313,7 @@
       const hc = add(G.heatColumn({ p: [0, 0, 0], r: 1.0, h: 3.2, n: 20 })); anim.push(hc);
       const shell = add(G.infinityShell({ p: [0, 1.35, 0], r: 1.95 })); anim.push(shell);
       const gauge = add(G.hud({
-        p: [2.3, 2.3, 0.4], s: [2.2, 1.5], px: [512, 350],
+        p: [2.3, 2.3, 0.4], s: [1.20, 0.82], px: [512, 350],
         draw: (c, Wd, Hh, t, st2) => {
           c.fillStyle = 'rgba(6,12,22,.82)'; c.fillRect(0, 0, Wd, Hh);
           c.strokeStyle = '#66e4ff'; c.lineWidth = 4; c.strokeRect(6, 6, Wd - 12, Hh - 12);
@@ -332,7 +343,7 @@
           shell.update(gt, { pulse: 0.15, heat: 0.15 });
           hc.update(gt, { intensity: 0.55 });
           gauge.update(gt, {});
-          gauge.group.rotation.y = Math.atan2(dir.cam.position.x - 2.3, dir.cam.position.z - 0.4);
+          pinHud(T, gauge.group, dir.cam, 5.0, -0.70, 1.90);
           gj.update(dir.cam, act(ctx, gt, { mood: 'calm', arms: 'down', blindfold: 1, heat: 0.12, lean: 0.01, lookX: Math.sin(gt * 0.4) * 0.2 }));
         },
       };
@@ -632,7 +643,7 @@
       const kn = add(G.atomStream({ n: 8, kind: 'knife', from: [5.4, 2.6, -0.4], to: [0, 1.5, 0], barrierR: 2.05 })); anim.push(kn);
       const dust = add(G.embers({ bounds: [-6, 6, 0, 6, -5, 3], n: 18, color: 'rgba(140,220,255,1)' })); anim.push(dust);
       const legend = add(G.hud({
-        p: [3.0, 3.0, 0.4], s: [2.5, 1.7], px: [560, 380],
+        p: [3.0, 3.0, 0.4], s: [1.22, 0.83], px: [560, 380],
         draw: (c, Wd, Hh, t, st2) => {
           c.fillStyle = 'rgba(6,14,24,.84)'; c.fillRect(0, 0, Wd, Hh);
           c.strokeStyle = '#66e4ff'; c.lineWidth = 4; c.strokeRect(6, 6, Wd - 12, Hh - 12);
@@ -671,7 +682,7 @@
           heat.update(gt, { active: phase === 1 ? 1 : 0.45 });
           kn.update(gt, { active: phase === 2 ? 1 : 0.4 });
           legend.update(gt, { phase });
-          legend.group.rotation.y = Math.atan2(dir.cam.position.x - 3.0, dir.cam.position.z - 0.4);
+          pinHud(T, legend.group, dir.cam, 5.0, -0.68, 1.88);
           gj.update(dir.cam, act(ctx, gt, {
             mood: 'focus', arms: phase === 1 ? 'palm' : 'chest', blindfold: 1, sixEyes: 1,
             aura: 0.55, focusRings: 0.7, heat: 0.1, curl: phase === 1 ? 0.1 : 0.5,

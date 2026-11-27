@@ -139,6 +139,16 @@ These were all invisible to numerical metrics:
    astronaut; the evaporate macro looked at the back of a HUD panel; the focus
    macro cropped "CONCENTRATION" to "RATION". All six were re-framed and re-viewed.
 
+7. **The "100 WATTS" gauge was never fully readable in any composition.** Three
+   diagram callouts (the thermos vacuum-gap label, the resting-output gauge and the
+   manual-filter legend) were world-anchored, so orbit moves slid them out of frame.
+   They are now pinned to the camera at a fixed, fully-visible spot in the upper
+   left, clear of the character and of the burned captions. Verified by rendering
+   three probe frames per scene and reading them: the gauge shows
+   `RESTING OUTPUT / 100 WATTS / doing nothing at all` in all three compositions,
+   and the filter legend highlights `oxygen IN`, then `heat OUT`, then `knives OUT`
+   in step with the narration.
+
 ### Motion
 
 `outCubic` easing means each composition's camera move is nearly finished by 80 %
@@ -157,9 +167,10 @@ inter-frame difference **0.00 → 0.81**.
   A single character plus diagrams moves less of the frame than the reference's
   busy village scenes. This is a structural difference of subject, not a frozen
   shot: the longest static hold is under 0.7 s.
-- Some HUD panels drift partly out of frame during orbit moves. Each has at least
-  one composition where it is fully readable, and the burned captions carry the
-  exact narrated words regardless.
+- A few secondary HUD panels (the suit callout, the core-temperature readout) still
+  drift partly out of frame during orbit moves. Each has at least one composition
+  where it is fully readable, and the burned captions carry the exact narrated
+  words regardless. The three primary diagrams are pinned and always readable.
 - The street scenes deliberately switch to a second character (dark hair, grey
   coat) for "You've got your own infinity". Gojo stays white-haired and consistent
   in every scene he is in.
