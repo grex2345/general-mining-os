@@ -571,6 +571,55 @@
       "resolved": true,
       "fix": "d 1.55->1.95, fov 46->50",
       "commit": "41b100b"
+    },
+    {
+      "what": "The payoff shot ('the girl they ignored became the one they listened to') showed a red-shirted villager instead of Nora: a crowd member at [0.9,3.7] sat exactly on the camera-to-Nora sightline and, being 1.3m nearer the lens, appeared oversized and cropped at the chin",
+      "resolved": true,
+      "fix": "moved the villager to [2.1,3.9] clear of the sightline; declared the payoff subject as her head (1.05m)",
+      "commit": "87242e4",
+      "note": "Found only by looking at the finished render. The framing check PASSED this composition, because distance to the intended target was correct \u2014 the target was simply hidden behind someone else. Occlusion is a defect class no distance metric can see."
     }
-  ]
+  ],
+  "lipsync_verification": {
+    "method": "LipSync instantiated over the 123 aligned narration words, mouth sampled at all 1980 frame times",
+    "words": 123,
+    "viseme_events": 212,
+    "span_s": 65.21,
+    "frames_per_viseme": {
+      "closed": 446,
+      "narrow": 91,
+      "wide": 366,
+      "open": 1027,
+      "round": 50
+    },
+    "viseme_changes": 143,
+    "mean_aperture": 0.589,
+    "rest_frames_pct": 22.5,
+    "note": "All five mouth shapes are exercised. The narrator is deliberately not mimed; the track drives diegetic speech, the valley cheer, and directed reaction mouths (gasp, held breath)."
+  },
+  "render": {
+    "frames": 1980,
+    "resolution": "720x1280",
+    "fps": 30,
+    "ms_per_frame": 650,
+    "total_s": 1287.8,
+    "page_errors": 0,
+    "console_errors": 0,
+    "plan_problems": 0,
+    "scene_frame_boundaries": [
+      198,
+      285,
+      441,
+      594,
+      783,
+      870,
+      1086,
+      1200,
+      1290,
+      1578,
+      1701,
+      1980
+    ],
+    "note": "Boundaries identical to Round 13, so the unchanged audio stays in sync."
+  }
 }
