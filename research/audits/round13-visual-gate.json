@@ -1,0 +1,81 @@
+{
+  "subject": "research/artifacts/round13/film/the-bell-of-vellara.mp4",
+  "sha256": "deeeead0f397f2f6a559f31b32078250520bcbd0a5088cf092dae66d7b3ae249",
+  "measured_on": "2026-11-26",
+  "tool": "research/references/ricksclips/tools/study/qa_motion.py",
+  "tool_origin": "vendored MIT, parthandparthfamily-cloud/ricksclips",
+  "frame_pairs": 1979,
+  "targets_are": "inherited from the vendored study, NOT measured by us on the channel",
+  "results": [
+    {
+      "metric": "anything_moving_pct",
+      "value": 97.63,
+      "op": ">=",
+      "target": 95,
+      "verdict": "PASS"
+    },
+    {
+      "metric": "local_moving_pct",
+      "value": 97.07,
+      "op": ">=",
+      "target": 91,
+      "verdict": "PASS"
+    },
+    {
+      "metric": "dead_frames_pct",
+      "value": 2.37,
+      "op": "<=",
+      "target": 4.5,
+      "verdict": "PASS"
+    },
+    {
+      "metric": "longest_dead_stretch_s",
+      "value": 0.33,
+      "op": "<=",
+      "target": 0.7,
+      "verdict": "PASS"
+    },
+    {
+      "metric": "avg_moving_area_pct",
+      "value": 24.07,
+      "op": ">=",
+      "target": 30,
+      "verdict": "FAIL"
+    },
+    {
+      "metric": "composition_change_s",
+      "value": 5.07,
+      "op": "<=",
+      "target": 2.2,
+      "verdict": "FAIL"
+    },
+    {
+      "metric": "hard_cuts",
+      "value": 4,
+      "op": "<=",
+      "target": 2,
+      "verdict": "FAIL"
+    },
+    {
+      "metric": "camera_roll_frames_pct",
+      "value": 17.53,
+      "op": ">=",
+      "target": 25,
+      "verdict": "LOW",
+      "advisory": true
+    },
+    {
+      "metric": "pullback_frames_pct",
+      "value": 8.99,
+      "op": ">=",
+      "target": 14,
+      "verdict": "LOW",
+      "advisory": true
+    }
+  ],
+  "summary": {
+    "pass": 4,
+    "fail": 3,
+    "advisory_low": 2
+  }
+}
