@@ -28,44 +28,44 @@
   /* ---- move builders: each returns a comp with from/to framings ---- */
   const moves = {
     // Push in: discover detail. Used when the narration names a thing.
-    push(sub, { d0 = 5, d1 = 2.2, az = 0, h0 = 1.4, h1 = 1.2, fov0 = 58, fov1 = 50, roll = 0, dur = 1.8, why = '', kind = 'medium', look } = {}) {
-      return { dur, why, kind, sub, from: F({ d: d0, az, h: h0, fov: fov0, roll: -roll, ...(look || {}) }), to: F({ d: d1, az: az + 0.06, h: h1, fov: fov1, roll, ...(look || {}) }) };
+    push(sub, { d0 = 5, d1 = 2.2, az = 0, h0 = 1.4, h1 = 1.2, fov0 = 58, fov1 = 50, roll = 0, dur = 1.8, why = '', kind = 'medium', look, focus,} = {}) {
+      return { dur, why, kind, sub, focus, from: F({ d: d0, az, h: h0, fov: fov0, roll: -roll, ...(look || {}) }), to: F({ d: d1, az: az + 0.06, h: h1, fov: fov1, roll, ...(look || {}) }) };
     },
     // Pull back: reveal context. The reference's most common reveal.
-    pull(sub, { d0 = 1.1, d1 = 7.5, az = 0, h0 = 0.9, h1 = 2.6, fov0 = 72, fov1 = 52, roll = 0, dur = 1.9, why = '', kind = 'wide', look } = {}) {
-      return { dur, why, kind, sub, from: F({ d: d0, az, h: h0, fov: fov0, roll, ...(look || {}) }), to: F({ d: d1, az: az - 0.1, h: h1, fov: fov1, roll: -roll, ...(look || {}) }) };
+    pull(sub, { d0 = 1.1, d1 = 7.5, az = 0, h0 = 0.9, h1 = 2.6, fov0 = 72, fov1 = 52, roll = 0, dur = 1.9, why = '', kind = 'wide', look, focus,} = {}) {
+      return { dur, why, kind, sub, focus, from: F({ d: d0, az, h: h0, fov: fov0, roll, ...(look || {}) }), to: F({ d: d1, az: az - 0.1, h: h1, fov: fov1, roll: -roll, ...(look || {}) }) };
     },
     // Orbit: circle the subject so the world sweeps behind. Explanation beats.
-    orbit(sub, { d = 3.4, az0 = -0.6, az1 = 0.7, h0 = 1.3, h1 = 1.6, fov = 56, roll = 0.02, dur = 2.0, why = '', kind = 'medium', look } = {}) {
-      return { dur, why, kind, sub, from: F({ d, az: az0, h: h0, fov, roll: -roll, ...(look || {}) }), to: F({ d: d * 0.94, az: az1, h: h1, fov, roll, ...(look || {}) }) };
+    orbit(sub, { d = 3.4, az0 = -0.6, az1 = 0.7, h0 = 1.3, h1 = 1.6, fov = 56, roll = 0.02, dur = 2.0, why = '', kind = 'medium', look, focus,} = {}) {
+      return { dur, why, kind, sub, focus, from: F({ d, az: az0, h: h0, fov, roll: -roll, ...(look || {}) }), to: F({ d: d * 0.94, az: az1, h: h1, fov, roll, ...(look || {}) }) };
     },
     // Track: follow a moving subject. sub may be a function of global time.
-    track(subFn, { d = 3.6, az = 0.5, h = 1.3, fov = 58, roll = 0.02, dur = 2.0, why = '', kind = 'medium', lead = 0, look } = {}) {
-      return { dur, why, kind, subFn, from: F({ d, az, h, fov, roll: -roll, ...(look || {}) }), to: F({ d: d * 0.97, az: az + 0.08, h: h + 0.1, fov, roll, ...(look || {}) }) };
+    track(subFn, { d = 3.6, az = 0.5, h = 1.3, fov = 58, roll = 0.02, dur = 2.0, why = '', kind = 'medium', lead = 0, look, focus,} = {}) {
+      return { dur, why, kind, subFn, focus, from: F({ d, az, h, fov, roll: -roll, ...(look || {}) }), to: F({ d: d * 0.97, az: az + 0.08, h: h + 0.1, fov, roll, ...(look || {}) }) };
     },
     // Crane: rise or descend. Scale changes, arrival, aftermath.
-    crane(sub, { d = 5, az = 0, h0 = 0.5, h1 = 6.5, fov0 = 66, fov1 = 50, roll = 0.02, dur = 2.1, why = '', kind = 'wide', look } = {}) {
-      return { dur, why, kind, sub, from: F({ d, az, h: h0, fov: fov0, roll: -roll, ...(look || {}) }), to: F({ d: d * 1.05, az: az + 0.12, h: h1, fov: fov1, roll, ...(look || {}) }) };
+    crane(sub, { d = 5, az = 0, h0 = 0.5, h1 = 6.5, fov0 = 66, fov1 = 50, roll = 0.02, dur = 2.1, why = '', kind = 'wide', look, focus,} = {}) {
+      return { dur, why, kind, sub, focus, from: F({ d, az, h: h0, fov: fov0, roll: -roll, ...(look || {}) }), to: F({ d: d * 1.05, az: az + 0.12, h: h1, fov: fov1, roll, ...(look || {}) }) };
     },
     // Macro: extreme close on a named prop. Never held long.
-    macro(sub, { d = 0.75, az = 0.2, h = 0.15, fov = 62, roll = 0.03, dur = 1.3, why = '', look, drift = 0.12 } = {}) {
-      return { dur, why, kind: 'macro', sub, from: F({ d, az, h, fov, roll: -roll, ...(look || {}) }), to: F({ d: d * (1 + drift), az: az + 0.14, h: h + 0.05, fov, roll, ...(look || {}) }) };
+    macro(sub, { d = 0.75, az = 0.2, h = 0.15, fov = 62, roll = 0.03, dur = 1.3, why = '', look, drift = 0.12, focus,} = {}) {
+      return { dur, why, kind: 'macro', sub, focus, from: F({ d, az, h, fov, roll: -roll, ...(look || {}) }), to: F({ d: d * (1 + drift), az: az + 0.14, h: h + 0.05, fov, roll, ...(look || {}) }) };
     },
     // Low / worm: make a thing loom. Threat, effort, the tower.
-    low(sub, { d = 3.2, az = 0, h = 0.22, fov = 72, roll = 0.03, dur = 1.7, why = '', kind = 'close', look, rise = 0.25 } = {}) {
-      return { dur, why, kind, sub, from: F({ d, az, h, fov, roll: -roll, ...(look || {}) }), to: F({ d: d * 0.92, az: az + 0.05, h: h + rise, fov: fov - 4, roll, ...(look || {}) }) };
+    low(sub, { d = 3.2, az = 0, h = 0.22, fov = 72, roll = 0.03, dur = 1.7, why = '', kind = 'close', look, rise = 0.25, focus,} = {}) {
+      return { dur, why, kind, sub, focus, from: F({ d, az, h, fov, roll: -roll, ...(look || {}) }), to: F({ d: d * 0.92, az: az + 0.05, h: h + rise, fov: fov - 4, roll, ...(look || {}) }) };
     },
     // Dutch close: tension on a face.
-    dutch(sub, { d = 1.9, az = 0.15, h = 0.1, fov = 52, roll = 0.14, dur = 1.6, why = '', look } = {}) {
-      return { dur, why, kind: 'close', sub, from: F({ d, az, h, fov, roll: roll * 0.4, ...(look || {}) }), to: F({ d: d * 0.95, az: az + 0.05, h, fov, roll, ...(look || {}) }) };
+    dutch(sub, { d = 1.9, az = 0.15, h = 0.1, fov = 52, roll = 0.14, dur = 1.6, why = '', look, focus,} = {}) {
+      return { dur, why, kind: 'close', sub, focus, from: F({ d, az, h, fov, roll: roll * 0.4, ...(look || {}) }), to: F({ d: d * 0.95, az: az + 0.05, h, fov, roll, ...(look || {}) }) };
     },
     // Bird: high wide for geography (three villages).
-    bird(sub, { d = 9, az = 0.3, h = 9, fov = 56, roll = 0.02, dur = 2.2, why = '', look, h1 } = {}) {
-      return { dur, why, kind: 'wide', sub, from: F({ d, az, h, fov, roll: -roll, ...(look || {}) }), to: F({ d: d * 1.08, az: az + 0.16, h: h1 ?? h * 1.1, fov, roll, ...(look || {}) }) };
+    bird(sub, { d = 9, az = 0.3, h = 9, fov = 56, roll = 0.02, dur = 2.2, why = '', look, h1, focus,} = {}) {
+      return { dur, why, kind: 'wide', sub, focus, from: F({ d, az, h, fov, roll: -roll, ...(look || {}) }), to: F({ d: d * 1.08, az: az + 0.16, h: h1 ?? h * 1.1, fov, roll, ...(look || {}) }) };
     },
     // Hold-with-drift: the ONLY near-static comp, and it still rolls and creeps.
-    drift(sub, { d = 3, az = 0, h = 1.2, fov = 55, roll = 0.02, dur = 1.4, why = '', kind = 'medium', look } = {}) {
-      return { dur, why, kind, sub, from: F({ d, az, h, fov, roll: -roll, ...(look || {}) }), to: F({ d: d * 1.03, az: az + 0.05, h: h + 0.06, fov, roll, ...(look || {}) }) };
+    drift(sub, { d = 3, az = 0, h = 1.2, fov = 55, roll = 0.02, dur = 1.4, why = '', kind = 'medium', look, focus,} = {}) {
+      return { dur, why, kind, sub, focus, from: F({ d, az, h, fov, roll: -roll, ...(look || {}) }), to: F({ d: d * 1.03, az: az + 0.05, h: h + 0.06, fov, roll, ...(look || {}) }) };
     },
   };
 
@@ -164,8 +164,12 @@
       const coverage = focus / Math.max(1e-4, visH);
       const band = BAND[c.kind] || [0.2, 1.3];
       const verdict = coverage < band[0] ? 'TOO SMALL' : coverage > band[1] ? 'OVERFLOWS' : 'ok';
+      // A pull or crane deliberately traverses scales, so also report the endpoints.
+      const covAt = (f) => { const p = place(sub, f); const dd = Math.hypot(p[0]-sub[0], p[1]-sub[1], p[2]-sub[2]);
+        return +(focus / Math.max(1e-4, 2 * dd * Math.tan(f.fov * Math.PI / 360))).toFixed(3); };
       return { ci: last.ci, kind: c.kind, why: c.why, dist: +d.toFixed(2), visH: +visH.toFixed(2),
-               focus, coverage: +coverage.toFixed(3), band, verdict };
+               fov: +cam.fov.toFixed(1), focus, coverage: +coverage.toFixed(3), band, verdict,
+               sweep: [covAt(c.from), covAt(c.to)], explicitFocus: c.focus != null };
     }
     return { cam, at, framing, total, comps, bounds, plan: plan(comps) };
   }
