@@ -284,7 +284,7 @@
       statusTextEl.textContent = bridgeState.lastAuthError || "Paste pairing token in extension icon";
     } else {
       statusDotEl.classList.add("apc-dot-online");
-      const activeLabel = sessionActive ? "JARVIS Active" : "Ready";
+      const activeLabel = sessionActive ? "PC Control Active" : "Ready";
       const adapterLabel = activeAdapter ? ` • ${activeAdapter.name}` : "";
       statusTextEl.textContent = `${activeLabel} • ${bridgeState.toolCount} MCP tools${adapterLabel}`;
     }
