@@ -48,8 +48,8 @@
       return { dur, why, kind, sub, focus, from: F({ d, az, h: h0, fov: fov0, roll: -roll, ...(look || {}) }), to: F({ d: d * 1.05, az: az + 0.12, h: h1, fov: fov1, roll, ...(look || {}) }) };
     },
     // Macro: extreme close on a named prop. Never held long.
-    macro(sub, { d = 0.75, az = 0.2, h = 0.15, fov = 62, roll = 0.03, dur = 1.3, why = '', look, drift = 0.12, focus,} = {}) {
-      return { dur, why, kind: 'macro', sub, focus, from: F({ d, az, h, fov, roll: -roll, ...(look || {}) }), to: F({ d: d * (1 + drift), az: az + 0.14, h: h + 0.05, fov, roll, ...(look || {}) }) };
+    macro(sub, { d = 0.75, az = 0.2, h = 0.15, fov = 62, roll = 0.03, dur = 1.3, why = '', look, drift = 0.12, kind = 'macro', focus,} = {}) {
+      return { dur, why, kind, sub, focus, from: F({ d, az, h, fov, roll: -roll, ...(look || {}) }), to: F({ d: d * (1 + drift), az: az + 0.14, h: h + 0.05, fov, roll, ...(look || {}) }) };
     },
     // Low / worm: make a thing loom. Threat, effort, the tower.
     low(sub, { d = 3.2, az = 0, h = 0.22, fov = 72, roll = 0.03, dur = 1.7, why = '', kind = 'close', look, rise = 0.25, focus,} = {}) {
