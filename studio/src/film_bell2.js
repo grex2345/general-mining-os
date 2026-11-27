@@ -242,6 +242,16 @@
     const shaft = S.lightShaft({ p: [-3.4, 2.8, 1.2], rot: [0, 0.4, 0.3], w: 1.6, h: 5.0, o: 0.18, color: 'rgba(255,210,150,1)' });
     g.add(shaft.group); anim.push(shaft);
     const motes = K.dustMotes({ bounds: [-5, 5, 0.3, 4.4, -3, 3], n: 30, color: 'rgba(255,220,170,1)' }); g.add(motes.group); anim.push(motes);
+    // Enclose the forge: sky, a right wall with a doorway to the yard, and roof rafters
+    // with a smoke vent over the fire, so rising shots find architecture instead of void.
+    g.add(K.skyDome({ top: '#6f9ec8', mid: '#e0d2b4', bottom: '#ffd9a0' }));
+    g.add(W.box({ p: [6.4, 2.6, -2.6], s: [0.5, 5.2, 3.2], color: '#6f5a48' }));
+    g.add(W.box({ p: [6.4, 2.6, 3.0], s: [0.5, 5.2, 2.4], color: '#6f5a48' }));
+    g.add(W.box({ p: [6.4, 4.7, 0.6], s: [0.5, 1.0, 2.4], color: '#6f5a48' }));   // door lintel
+    g.add(W.box({ p: [12, 0.02, 1.0], s: [12, 0.3, 12], color: '#8a7c60', ink: 0 }));  // yard beyond
+    for (let i = 0; i < 6; i++) g.add(W.box({ p: [-5.4 + i * 2.2, 5.3, -0.6], s: [0.28, 0.34, 8.6], color: '#5a4636' }));
+    g.add(W.box({ p: [0, 5.5, -3.0], s: [13.4, 0.24, 3.4], color: '#4e3c2e' }));  // roof, vent left open over fire
+    g.add(W.box({ p: [0, 5.5, 3.0], s: [13.4, 0.24, 2.6], color: '#4e3c2e' }));
     return { group: g, fire, update(t) { anim.forEach(a => a.update(t)); } };
   }
 
@@ -484,8 +494,8 @@
       const M = C().moves;
       const comps = [
         M.push([1.75, faceY(2.4), 0.6], { d0: 2.6, d1: 1.9, az: -0.5, h0: 0.25, h1: 0.12, fov0: 56, fov1: 50, dur: 1.6, why: 'she raises the hammer', kind: 'close' }),
-        M.macro([2.12, 1.60, 0.80], { d: 2.0, az: 0.45, h: 0.12, fov: 60, dur: 1.9, focus: 1.5, why: 'once — the first tap on stone' }),
-        M.push([2.05, 1.55, 0.95], { d0: 2.5, d1: 2.0, az: 0.55, h0: 0.30, h1: 0.16, fov0: 60, fov1: 56, focus: 1.9, dur: 1.9, why: 'twice — she compares the two answers', kind: 'close' }),
+        M.macro([2.20, 1.62, 0.60], { d: 1.9, az: -0.70, h: 0.14, fov: 60, dur: 1.9, focus: 1.4, why: 'once — the first tap on stone' }),
+        M.push([2.20, 1.60, 0.60], { d0: 2.8, d1: 2.3, az: -0.85, h0: 0.34, h1: 0.18, fov0: 60, fov1: 56, focus: 1.9, dur: 1.9, why: 'twice — she compares the two answers', kind: 'close' }),
         M.dutch([1.62, faceY(2.4), 0.62], { d: 1.55, az: -0.3, h: 0.06, fov: 48, roll: 0.13, dur: 1.8, focus: 1.15, why: 'listening: her ear to the stone' }),
       ];
       const dir = C().Director({ comps, impacts: [{ t: TAP1, amp: 0.055, decay: 11 }, { t: TAP2, amp: 0.05, decay: 11 }], handheld: 0.006 });
