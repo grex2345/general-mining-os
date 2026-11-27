@@ -73,3 +73,7 @@ research/artifacts/round13/*.wav
 research/artifacts/round13/*/*.wav
 !research/artifacts/round13/emotion-reel.wav
 !research/artifacts/round13/sound-design-off-on.wav
+
+# Python bytecode: regenerable, causes spurious diffs (untracked 2026-11-26)
+__pycache__/
+*.pyc
