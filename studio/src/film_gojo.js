@@ -21,6 +21,14 @@
   };
   const ramp = (t, a, b) => clamp((t - a) / Math.max(1e-6, b - a), 0, 1);
 
+  // Continuous camera life. Each comp eases out (outCubic), so its move is nearly
+  // finished by 80% of its duration; without a floor the last third of a comp sat
+  // almost still. The horizon sway and handheld drift run through the whole film.
+  const directed = (C, o = {}) => C.Director(Object.assign({}, o, {
+    handheld: Math.max(o.handheld || 0, 0.014),
+    rollDrift: Math.max(o.rollDrift || 0, 0.032),
+  }));
+
   const GOJO = { skin: '#f2d3bd', skinSh: '#d9ab93', hair: '#f6f8fd', hairSh: '#c6cede', coat: '#1b1f33', coatHi: '#2f3552', pants: '#15182a', boot: '#0d0f1a' };
   const H = 2.75;                 // Gojo billboard height in world metres
   const faceY = H * 0.855;        // head centre above the feet (head sits high on this puppet)
@@ -109,7 +117,7 @@
         C.moves.orbit([0, 1.5, 0], { d: 4.60, az0: -0.7, az1: 0.55, h0: 1.0, h1: 1.5, fov: 58, dur: 2.0, why: 'circle the shell so the audience sees it is closed', kind: 'wide' }),
         C.moves.pull([0, 1.4, 0], { d0: 2.30, d1: 6.60, az: 0.15, h0: 0.5, h1: 2.2, fov0: 66, fov1: 52, dur: 2.0, why: "reveal the coffin on 'he's sealed inside it'", kind: 'wide' }),
       ], shot.dur, 4.8);
-      const dir = C.Director({ comps, handheld: 0.006, impacts: [[3.4, 0.05]] });
+      const dir = directed(C, { comps, handheld: 0.006, impacts: [[3.4, 0.05]] });
       return {
         sc, cam: dir.cam, dir,
         update(t) {
@@ -154,7 +162,7 @@
         C.moves.push(subject, { d0: 3.60, d1: 2.20, az: 0.5, h0: 0.25, h1: 0.05, fov0: 58, fov1: 50, dur: 1.5, why: 'his face while heat fails to leave', kind: 'close' }),
         C.moves.pull([0, 1.5, 0], { d0: 2.40, d1: 6.20, az: 0.3, h0: 0.6, h1: 2.0, fov0: 64, fov1: 54, dur: 1.7, why: "show heat bouncing back on 'nothing gets out'", kind: 'wide' }),
       ], shot.dur, 4.8);
-      const dir = C.Director({ comps, impacts: [[0.9, 0.06], [1.5, 0.05]] });
+      const dir = directed(C, { comps, impacts: [[0.9, 0.06], [1.5, 0.05]] });
       return {
         sc, cam: dir.cam, dir,
         update(t) {
@@ -201,7 +209,7 @@
         C.moves.macro([0.0, 1.6, 0.9], { d: 1.25, az: 0.3, h: 0.05, fov: 58, dur: 1.0, why: 'macro into the vacuum gap where heat is trapped' }),
         C.moves.orbit(subject, { d: 6.40, az0: 0.2, az1: 0.9, h0: 0.5, h1: 0.9, fov: 56, dur: 1.2, why: 'read the label beside the flask', kind: 'wide' }),
       ], shot.dur, 3.6);
-      const dir = C.Director({ comps });
+      const dir = directed(C, { comps });
       return {
         sc, cam: dir.cam, dir,
         update(t) {
@@ -235,7 +243,7 @@
         C.moves.crane([0, 1.6, -5], { d: 11.00, az: 0.15, h0: 0.6, h1: 3.0, fov0: 66, fov1: 56, dur: 1.5, why: 'crane up over the console floor: scale of the effort', kind: 'wide' }),
         C.moves.push([0, 3.2, -10.6], { d0: 13.00, d1: 9.60, az: -0.1, h0: 0.2, h1: 0.0, fov0: 56, fov1: 50, dur: 1.4, why: 'push to the main display naming the problem', kind: 'medium', focus: 3.6 }),
       ], shot.dur, 14.0);
-      const dir = C.Director({ comps });
+      const dir = directed(C, { comps });
       return {
         sc, cam: dir.cam, dir,
         update(t) {
@@ -271,7 +279,7 @@
         C.moves.macro([-1.2, 2.4, 0.88], { d: 2.00, az: 3.50, h: 0.05, fov: 58, dur: 1.2, why: 'macro on the backpack radiator throwing heat away', focus: 0.9 }),
         C.moves.orbit([1.0, 1.8, -2.0], { d: 9.00, az0: 0.3, az1: 1.0, h0: 0.8, h1: 1.4, fov: 58, dur: 1.7, why: 'orbit to the station radiator panel: the engineered answer', kind: 'wide' }),
       ], shot.dur, 8.0);
-      const dir = C.Director({ comps });
+      const dir = directed(C, { comps });
       return {
         sc, cam: dir.cam, dir,
         update(t) {
@@ -315,7 +323,7 @@
         C.moves.orbit([0, 1.4, 0], { d: 4.40, az0: 0.2, az1: 0.95, h0: 0.9, h1: 1.3, fov: 58, dur: 1.5, why: 'orbit to read the wattage beside him', kind: 'wide' }),
         C.moves.macro([0.3, 2.0, 0.9], { d: 1.55, az: 0.5, h: 0.1, fov: 60, dur: 1.1, why: 'macro on heat leaving the skin' }),
       ], shot.dur, 4.4);
-      const dir = C.Director({ comps });
+      const dir = directed(C, { comps });
       return {
         sc, cam: dir.cam, dir,
         update(t) {
@@ -367,7 +375,7 @@
         C.moves.dutch(subject, { d: 2.10, az: 0.4, h: 0.05, fov: 54, roll: 0.16, dur: 1.1, why: 'dutch close on strain: effort has a thermal cost' }),
         C.moves.pull([0, 1.5, 0], { d0: 2.60, d1: 6.00, az: 0.2, h0: 0.6, h1: 1.9, fov0: 66, fov1: 54, dur: 1.2, why: 'pull to the gauge and the heat flooding the shell', kind: 'wide' }),
       ], shot.dur, 4.6);
-      const dir = C.Director({ comps, handheld: 0.012, impacts: [[0.0, 0.10], [1.0, 0.07]] });
+      const dir = directed(C, { comps, handheld: 0.012, impacts: [[0.0, 0.10], [1.0, 0.07]] });
       return {
         sc, cam: dir.cam, dir,
         update(t) {
@@ -412,7 +420,7 @@
         C.moves.macro([0.22, faceY + 0.05, 0.55], { d: 1.55, az: 0.25, h: 0.02, fov: 58, dur: 1.0, why: 'macro on sweat forming on the skin' }),
         C.moves.dutch(subject, { d: 1.70, az: -0.25, h: 0.02, fov: 50, roll: 0.12, dur: 0.9, why: 'pull to the face: sweat is not relief here' }),
       ], shot.dur, 2.0);
-      const dir = C.Director({ comps, handheld: 0.008 });
+      const dir = directed(C, { comps, handheld: 0.008 });
       return {
         sc, cam: dir.cam, dir,
         update(t) {
@@ -455,7 +463,7 @@
         C.moves.orbit([0, 1.5, 0], { d: 3.40, az0: -0.5, az1: 0.4, h0: 1.0, h1: 1.5, fov: 58, dur: 1.0, why: 'watch vapour hit the boundary and fall back', kind: 'medium' }),
         C.moves.macro([1.55, 1.9, 0.6], { d: 1.50, az: 0.55, h: 0.05, fov: 58, dur: 0.8, why: 'macro at the shell where droplets re-form' }),
       ], shot.dur, 3.6);
-      const dir = C.Director({ comps });
+      const dir = directed(C, { comps });
       return {
         sc, cam: dir.cam, dir,
         update(t) {
@@ -520,7 +528,7 @@
         C.moves.macro([2.3, 2.2, 0.2], { d: 1.30, az: 0.5, h: 0.05, fov: 58, dur: 1.2, why: 'macro on the brain beginning to cook' }),
         C.moves.pull([0.6, 2.0, 0], { d0: 3.00, d1: 7.00, az: 0.1, h0: 0.6, h1: 2.2, fov0: 66, fov1: 52, dur: 1.6, why: 'pull back: man and brain inside one sealed heat trap', kind: 'wide' }),
       ], shot.dur, 5.0);
-      const dir = C.Director({ comps, handheld: 0.010, impacts: [[3.6, 0.06]] });
+      const dir = directed(C, { comps, handheld: 0.010, impacts: [[3.6, 0.06]] });
       return {
         sc, cam: dir.cam, dir,
         update(t) {
@@ -558,7 +566,7 @@
         C.moves.low([0, 1.4, 0], { d: 3.20, az: 0.3, h: 0.2, fov: 72, dur: 1.1, why: 'the defence is now an oven: loom from below', rise: 0.35 }),
         C.moves.dutch(subject, { d: 1.90, az: -0.3, h: 0.03, fov: 50, roll: 0.20, dur: 1.1, why: "hold on the face for 'his own defence'" }),
       ], shot.dur, 4.0);
-      const dir = C.Director({ comps, handheld: 0.012 });
+      const dir = directed(C, { comps, handheld: 0.012 });
       return {
         sc, cam: dir.cam, dir,
         update(t) {
@@ -590,7 +598,7 @@
         C.moves.push(subject, { d0: 3.00, d1: 1.55, az: 0.12, h0: 0.12, h1: 0.02, fov0: 56, fov1: 44, dur: 1.5, why: 'hard push to the eyes as the blindfold comes off', kind: 'close' }),
         C.moves.macro([0.0, faceY + 0.02, 0.5], { d: 1.55, az: -0.1, h: 0.0, fov: 46, dur: 1.1, why: 'macro: the Six Eyes themselves, the reason he survives' }),
       ], shot.dur, 1.6);
-      const dir = C.Director({ comps, impacts: [[0.55, 0.09]] });
+      const dir = directed(C, { comps, impacts: [[0.55, 0.09]] });
       return {
         sc, cam: dir.cam, dir,
         update(t) {
@@ -651,7 +659,7 @@
         C.moves.orbit([0, 1.5, 0], { d: 5.00, az0: 0.6, az1: 1.3, h0: 1.2, h1: 1.6, fov: 60, dur: 1.6, why: 'knives arrive from the far side and are refused', kind: 'wide' }),
         C.moves.pull([0, 1.6, 0], { d0: 2.60, d1: 6.60, az: 0.2, h0: 0.6, h1: 2.1, fov0: 66, fov1: 52, dur: 1.6, why: 'pull to see all three streams sorted at once', kind: 'wide' }),
       ], shot.dur, 5.2);
-      const dir = C.Director({ comps });
+      const dir = directed(C, { comps });
       return {
         sc, cam: dir.cam, dir,
         update(t) {
@@ -704,7 +712,7 @@
         C.moves.pull([0, 1.5, 0], { d0: 2.30, d1: 5.40, az: -0.3, h0: 0.5, h1: 1.7, fov0: 64, fov1: 54, dur: 1.4, why: 'the lapse: heat floods the shell in one second', kind: 'wide' }),
         C.moves.macro([2.5, 2.6, 0.3], { d: 4.00, az: 0.3, h: 0.05, fov: 56, dur: 1.0, why: 'the concentration meter dropping', kind: 'medium', focus: 2.3 }),
       ], shot.dur, 4.8);
-      const dir = C.Director({ comps, handheld: 0.010, impacts: [[1.35, 0.10]] });
+      const dir = directed(C, { comps, handheld: 0.010, impacts: [[1.35, 0.10]] });
       return {
         sc, cam: dir.cam, dir,
         update(t) {
@@ -766,7 +774,7 @@
         C.moves.push(subject, { d0: 3.60, d1: 2.10, az: -0.3, h0: 0.2, h1: 0.03, fov0: 58, fov1: 48, dur: 1.6, why: 'the man who can never stop doing this', kind: 'close' }),
         C.moves.pull([0.5, 2.2, 0], { d0: 3.00, d1: 7.20, az: 0.15, h0: 0.6, h1: 2.3, fov0: 66, fov1: 52, dur: 1.9, why: 'pull: man and brain, one permanent loop', kind: 'wide' }),
       ], shot.dur, 5.0);
-      const dir = C.Director({ comps });
+      const dir = directed(C, { comps });
       return {
         sc, cam: dir.cam, dir,
         update(t) {
@@ -834,7 +842,7 @@
         C.moves.orbit([2.4, 2.0, 0], { d: 2.40, az0: 0.2, az1: 0.9, h0: 0.3, h1: 0.5, fov: 56, dur: 1.4, why: 'Gojo side: a brain instead of hardware', kind: 'close' }),
         C.moves.pull([0, 2.0, 0], { d0: 6.00, d1: 10.50, az: 0.0, h0: 0.5, h1: 1.8, fov0: 64, fov1: 54, dur: 1.5, why: 'both in one frame: the whole argument', kind: 'wide' }),
       ], shot.dur, 7.0);
-      const dir = C.Director({ comps });
+      const dir = directed(C, { comps });
       return {
         sc, cam: dir.cam, dir,
         update(t) {
@@ -860,7 +868,7 @@
       comps = fit([
         C.moves.dutch(subject, { d: 1.70, az: 0.1, h: 0.02, fov: 48, roll: 0.10, dur: 1.28, why: "punch in on 'that's the difference'" }),
       ], shot.dur, 1.4);
-      const dir = C.Director({ comps, impacts: [[0.0, 0.06]] });
+      const dir = directed(C, { comps, impacts: [[0.0, 0.06]] });
       return {
         sc, cam: dir.cam, dir,
         update(t) {
@@ -912,7 +920,7 @@
         C.moves.macro([-2.2, 0.95, 0.7], { d: 1.05, az: 0.2, h: -0.02, fov: 56, dur: 1.2, why: 'macro: a switch a human can actually throw', focus: 0.6 }),
         C.moves.orbit([2.0, 2.2, 0], { d: 5.60, az0: 0.3, az1: 0.9, h0: 0.6, h1: 1.0, fov: 58, dur: 1.7, why: 'pan to Gojo: nothing to switch off', kind: 'wide' }),
       ], shot.dur, 6.0);
-      const dir = C.Director({ comps });
+      const dir = directed(C, { comps });
       return {
         sc, cam: dir.cam, dir,
         update(t) {
@@ -947,7 +955,7 @@
         C.moves.push(subject, { d0: 4.00, d1: 2.30, az: -0.25, h0: 0.2, h1: 0.05, fov0: 58, fov1: 50, dur: 1.6, why: "close on them: 'a rule you never break'", kind: 'close' }),
         C.moves.orbit([2.3, 1.3, 2.6], { d: 4.60, az0: -0.5, az1: 0.5, h0: 0.8, h1: 1.2, fov: 58, dur: 1.5, why: 'their own shell, same geometry as his', kind: 'medium' }),
       ], shot.dur, 13.0);
-      const dir = C.Director({ comps });
+      const dir = directed(C, { comps });
       return {
         sc, cam: dir.cam, dir,
         update(t) {
@@ -981,7 +989,7 @@
         C.moves.dutch([2.4, 2.55 * 0.855, 2.6], { d: 2.40, az: 0.3, h: 0.05, fov: 52, roll: 0.10, dur: 1.2, why: 'their face choosing not to reach' }),
         C.moves.pull([4.0, 1.6, 3.0], { d0: 3.40, d1: 7.00, az: 0.4, h0: 0.5, h1: 1.6, fov0: 64, fov1: 54, dur: 1.2, why: 'the unopened door beside them', kind: 'wide', focus: 5.0 }),
       ], shot.dur, 12.0);
-      const dir = C.Director({ comps });
+      const dir = directed(C, { comps });
       return {
         sc, cam: dir.cam, dir,
         update(t) {
@@ -1017,7 +1025,7 @@
         C.moves.orbit([0, 1.3, 0], { d: 3.80, az0: -0.7, az1: 0.3, h0: 0.9, h1: 1.3, fov: 58, dur: 1.4, why: 'the shell closes; warmth stays outside', kind: 'medium' }),
         C.moves.pull([0, 1.3, 0], { d0: 2.60, d1: 6.40, az: 0.2, h0: 0.6, h1: 2.0, fov0: 64, fov1: 52, dur: 1.2, why: 'pull away and leave them alone in it', kind: 'wide' }),
       ], shot.dur, 5.0);
-      const dir = C.Director({ comps });
+      const dir = directed(C, { comps });
       return {
         sc, cam: dir.cam, dir,
         update(t) {
@@ -1053,7 +1061,7 @@
         C.moves.push(subject, { d0: 3.20, d1: 1.55, az: 0.06, h0: 0.10, h1: 0.02, fov0: 56, fov1: 46, dur: 2.0, why: "he looks straight out of the frame on 'so what's yours?'", kind: 'close' }),
         C.moves.drift(subject, { d: 1.68, az: 0.0, h: 0.02, fov: 46, roll: 0.01, dur: 2.0, why: 'hold on the question and let it land', kind: 'close' }),
       ], shot.dur, 1.5);
-      const dir = C.Director({ comps, handheld: 0.004 });
+      const dir = directed(C, { comps, handheld: 0.004 });
       return {
         sc, cam: dir.cam, dir,
         update(t) {

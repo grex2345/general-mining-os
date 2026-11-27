@@ -1,0 +1,57 @@
+{
+  "scriptWords": 207,
+  "recoveredWords": 208,
+  "wer": 0.03864734299516908,
+  "ops": [
+    [
+      "SUB",
+      "kaisen",
+      "kaizen"
+    ],
+    [
+      "SUB",
+      "astronauts'",
+      "astronaut's"
+    ],
+    [
+      "SUB",
+      "you",
+      "to"
+    ],
+    [
+      "SUB",
+      "four",
+      "4"
+    ],
+    [
+      "SUB",
+      "twenty",
+      "20"
+    ],
+    [
+      "INS",
+      "",
+      "eye"
+    ],
+    [
+      "SUB",
+      "eyes",
+      "is"
+    ],
+    [
+      "SUB",
+      "are",
+      "a"
+    ]
+  ],
+  "durationSec": 83.2,
+  "clipped": 0,
+  "clicks": 0,
+  "silenceRuns": [],
+  "sentenceSteps": {
+    "mean": 1.258593589932877,
+    "max": 3.3138484438243463,
+    "over3": 1,
+    "n": 21
+  }
+}
