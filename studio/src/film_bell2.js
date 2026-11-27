@@ -423,7 +423,7 @@
       const comps = [
         M.macro([0, 1.2, 0], { d: 0.72, az: 0.5, h: 0.1, fov: 62, dur: 1.5, focus: 0.45, why: 'a hammer no bigger than her hand' }),
         M.track((t) => { const p = noraAt(t); return [p[0], p[1] + 1.2, p[2]]; }, { d: 3.4, az: 0.85, h: 0.5, fov: 60, dur: 1.8, why: 'she climbs', kind: 'medium' }),
-        M.low([0, 3.0, -4.0], { d: 6.2, az: 0.1, h: -1.6, fov: 76, dur: 1.6, why: 'the stairwell is long and she is small', kind: 'wide', rise: 0.8, focus: 7.0 }),
+        M.low([0, 3.4, -5.0], { d: 9.5, az: 0.1, h: -1.8, fov: 76, dur: 1.6, why: 'the stairwell is long and she is small', kind: 'wide', rise: 0.8, focus: 8.5 }),
         M.dutch([0, 5.0, -6.6], { d: 1.8, az: 0.3, h: 0.15, fov: 50, roll: 0.11, dur: 1.4, why: 'resolve on her face' }),
       ];
       const dir = C().Director({ comps, handheld: 0.010 });
@@ -484,7 +484,7 @@
       const M = C().moves;
       const comps = [
         M.push([1.75, faceY(2.4), 0.6], { d0: 2.6, d1: 1.9, az: -0.5, h0: 0.25, h1: 0.12, fov0: 56, fov1: 50, dur: 1.6, why: 'she raises the hammer', kind: 'close' }),
-        M.macro([2.12, 1.60, 0.80], { d: 1.70, az: 0.45, h: 0.10, fov: 58, dur: 1.9, focus: 1.4, why: 'once — the first tap on stone' }),
+        M.macro([2.12, 1.60, 0.80], { d: 2.0, az: 0.45, h: 0.12, fov: 60, dur: 1.9, focus: 1.5, why: 'once — the first tap on stone' }),
         M.push([2.05, 1.55, 0.95], { d0: 2.5, d1: 2.0, az: 0.55, h0: 0.30, h1: 0.16, fov0: 60, fov1: 56, focus: 1.9, dur: 1.9, why: 'twice — she compares the two answers', kind: 'close' }),
         M.dutch([1.62, faceY(2.4), 0.62], { d: 1.55, az: -0.3, h: 0.06, fov: 48, roll: 0.13, dur: 1.8, why: 'listening: her ear to the stone' }),
       ];
@@ -575,9 +575,9 @@
       const M = C().moves;
       const comps = [
         M.dutch([1.62, faceY(2.4), 0.7], { d: 1.7, az: -0.25, h: 0.06, fov: 48, roll: 0.15, dur: 1.8, why: 'The tower was. — the twist lands on her face' }),
-        M.macro([2.36, 2.05, -0.48], { d: 1.30, az: -1.25, h: 0.04, fov: 58, dur: 1.9, focus: 1.2, why: 'the hairline seam in the stone' }),
-        M.push([2.95, 2.0, 0.0], { d0: 4.6, d1: 3.1, az: -1.0, h0: 0.5, h1: 0.15, fov0: 62, fov1: 58, dur: 2.1, why: 'go inside the stone to see the mechanism', kind: 'close', focus: 2.4 }),
-        M.orbit([3.1, 2.0, 0.0], { d: 3.4, az0: -1.35, az1: -0.55, h0: 0.35, h1: 0.75, fov: 60, focus: 2.6, dur: 1.9, why: 'every note dies in the voids', kind: 'medium' }),
+        M.macro([2.36, 2.05, -0.48], { d: 1.80, az: -1.25, h: 0.06, fov: 58, dur: 1.9, focus: 1.5, why: 'the hairline seam in the stone' }),
+        M.push([2.36, 2.0, 0.0], { d0: 5.2, d1: 4.0, az: -1.0, h0: 0.6, h1: 0.2, fov0: 62, fov1: 58, dur: 2.1, why: 'go inside the stone to see the mechanism', kind: 'medium', focus: 2.8 }),
+        M.orbit([2.36, 2.0, 0.0], { d: 3.8, az0: -1.30, az1: -0.60, h0: 0.4, h1: 0.8, fov: 60, focus: 2.8, dur: 1.9, why: 'every note dies in the voids', kind: 'medium' }),
         M.pull([1.2, 2.4, 0.2], { d0: 2.4, d1: 7.2, az: -0.5, h0: 0.4, h1: 1.9, fov0: 62, fov1: 58, dur: 1.9, focus: 4.6, why: 'sixty years of swallowed notes belong to this wall' }),
       ];
       const dir = C().Director({ comps, impacts: [{ t: TWIST, amp: 0.03, decay: 7 }], handheld: 0.006 });
