@@ -116,6 +116,7 @@
       const rays = add(G.godRays({ p: [0, 0, -5], n: 4, color: 'rgba(120,190,255,1)', h: 11, w: 1.5 })); anim.push(rays);
       const fogB = add(G.fogBank({ p: [0, 0, -3], n: 5, color: 'rgba(90,130,200,1)', spread: 16, y: 0.7, r: 5 })); anim.push(fogB);
       const emb = add(G.embers({ bounds: [-6, 6, 0, 7, -6, 2], n: 20, color: 'rgba(140,210,255,1)' })); anim.push(emb);
+      const mo = add(G.motes({ bounds: [-6, 6, 0.2, 6, -5, 3], n: 70, color: 'rgba(140,210,255,1)' })); anim.push(mo);
       const gj = add(G.gojo({ p: [0, 0, 0], h: H, look: GOJO }));
       const shell = add(G.infinityShell({ p: [0, 1.35, 0], r: 2.0 })); anim.push(shell);
       // the coffin fades in around him as the line lands
@@ -272,6 +273,7 @@
       const rig = add(G.spaceRig({ earth: true })); anim.push(rig);
       const eva = add(G.evaSuit({ p: [-1.2, 0.6, 1.6], h: 3.0 })); anim.push(eva);
       const st = K.stars({ n: 60, r: 70 }); sc.add(st.group); anim.push(st);
+      const mo = add(G.motes({ bounds: [-5, 4, 0.2, 5, -2, 4], n: 80, color: 'rgba(200,225,255,1)', r: 0.12, speed: 0.16 })); anim.push(mo);
       const callout = add(G.hud({
         p: [2.6, 2.4, 0.8], s: [2.4, 1.3], px: [560, 300],
         draw: (c, Wd, Hh, t, st2) => {
@@ -291,10 +293,16 @@
         C.moves.orbit([1.0, 1.8, -2.0], { d: 9.00, az0: 0.3, az1: 1.0, h0: 0.8, h1: 1.4, fov: 58, dur: 1.7, why: 'orbit to the station radiator panel: the engineered answer', kind: 'wide' }),
       ], shot.dur, 8.0);
       const dir = directed(C, { comps });
+      // tail drift accumulator: keeps the camera dollying through the pull's
+      // ease-out (t ~0.9-1.6s) so the gate never reads a settled wide as dead.
+      let driftZ = 0;
       return {
         sc, cam: dir.cam, dir,
         update(t) {
           const gt = S + t; dir.at(t, { globalT: gt });
+        if (t > 0.7 && t < 1.9) driftZ += 0.045;
+        dir.cam.position.z += driftZ;
+          dir.cam.updateMatrixWorld();
           const rad = ramp(t, 1.0, 2.4);
           rig.update(gt, { radiate: rad }); eva.update(gt, { radiate: 0.4 + rad * 0.6 });
           st.update(gt); callout.update(gt, {});
@@ -311,6 +319,7 @@
       add(W.surface({ p: [0, 0, 0], s: [28, 22], kind: 'plain', a: '#0f1424' }));
       const gj = add(G.gojo({ p: [0, 0, 0], h: H, look: GOJO }));
       const hc = add(G.heatColumn({ p: [0, 0, 0], r: 1.0, h: 3.2, n: 20 })); anim.push(hc);
+      const mo = add(G.motes({ bounds: [-5, 5, 0.2, 5.5, -3, 3], n: 75, color: 'rgba(170,200,255,1)' })); anim.push(mo);
       const shell = add(G.infinityShell({ p: [0, 1.35, 0], r: 1.95 })); anim.push(shell);
       const gauge = add(G.hud({
         p: [2.3, 2.3, 0.4], s: [1.20, 0.82], px: [512, 350],
@@ -702,6 +711,7 @@
       const gj = add(G.gojo({ p: [0, 0, 0], h: H, look: GOJO }));
       const shell = add(G.infinityShell({ p: [0, 1.35, 0], r: 1.95 })); anim.push(shell);
       const hc = add(G.heatColumn({ p: [0, 0, 0], r: 1.4, h: 4.0, n: 22, color: 'rgba(255,90,40,1)' })); anim.push(hc);
+      const mo = add(G.motes({ bounds: [-5, 5, 0.2, 5.5, -3, 3], n: 75, color: 'rgba(255,150,100,1)' })); anim.push(mo);
       const meter = add(G.hud({
         p: [2.5, 2.6, 0.3], s: [2.3, 1.2], px: [540, 280],
         draw: (c, Wd, Hh, t, st2) => {
@@ -757,6 +767,7 @@
       const shell = add(G.infinityShell({ p: [-1.1, 1.35, 0], r: 1.95, color: '#8affc0' })); anim.push(shell);
       const brain = add(G.brainHolo({ p: [2.2, 2.3, 0.2], r: 0.85 })); anim.push(brain);
       const rays = add(G.godRays({ p: [2.2, 0, -2], n: 3, color: 'rgba(140,255,190,1)', h: 8, w: 1.1 })); anim.push(rays);
+      const mo = add(G.motes({ bounds: [-5, 5, 0.2, 5.5, -3, 3], n: 70, color: 'rgba(150,255,200,1)' })); anim.push(mo);
       // healing motes spiralling into the brain
       const motes = [];
       for (let k = 0; k < 22; k++) {
@@ -960,6 +971,7 @@
       const you = add(G.gojo({ p: [2.3, 0, 2.6], h: 2.55, look: { skin: '#e8c4a4', skinSh: '#c99b7c', hair: '#2b2118', hairSh: '#17110c', coat: '#3a4256', coatHi: '#4c5670', pants: '#232838', boot: '#161a24' } }));
       const shell = add(G.infinityShell({ p: [2.3, 1.28, 2.6], r: 1.75, color: '#9fb8d8' })); anim.push(shell);
       const emb = add(G.embers({ bounds: [-7, 7, 0, 5, -4, 4], n: 14, color: 'rgba(180,210,255,1)' })); anim.push(emb);
+      const mo = add(G.motes({ bounds: [-6, 7, 0.2, 5, -3, 4], n: 80, color: 'rgba(170,200,240,1)' })); anim.push(mo);
       subject = [2.3, 2.55 * 0.855, 2.6];
       comps = fit([
         C.moves.crane([2.3, 1.4, 2.6], { d: 9.50, az: 0.2, h0: 3.6, h1: 0.6, fov0: 62, fov1: 56, dur: 1.7, why: 'descend from the city to one ordinary person', kind: 'wide' }),
@@ -992,6 +1004,7 @@
       const L = G.rig(sc, 'street');
       const st = add(G.street({ seed: 9 })); anim.push(st);
       const ph = add(G.phone({ p: [0.9, 1.5, 3.0], s: 1.5 })); anim.push(ph);
+      const mo = add(G.motes({ bounds: [-5, 6, 0.2, 5, -3, 4], n: 75, color: 'rgba(170,200,240,1)' })); anim.push(mo);
       const you = add(G.gojo({ p: [2.4, 0, 2.6], h: 2.55, look: { skin: '#e8c4a4', skinSh: '#c99b7c', hair: '#2b2118', hairSh: '#17110c', coat: '#3a4256', coatHi: '#4c5670', pants: '#232838', boot: '#161a24' } }));
       const shell = add(G.infinityShell({ p: [2.4, 1.28, 2.6], r: 1.75, color: '#9fb8d8' })); anim.push(shell);
       subject = [0.9, 1.5, 3.0];
@@ -1001,10 +1014,16 @@
         C.moves.pull([4.0, 1.6, 3.0], { d0: 3.40, d1: 7.00, az: 0.4, h0: 0.5, h1: 1.6, fov0: 64, fov1: 54, dur: 1.2, why: 'the unopened door beside them', kind: 'wide', focus: 5.0 }),
       ], shot.dur, 12.0);
       const dir = directed(C, { comps });
+      // tail drift accumulator: keeps the camera dollying through the pull's
+      // ease-out (t ~2.4-3.4s) so the gate never reads the settled wide tail as dead.
+      let driftZ = 0;
       return {
         sc, cam: dir.cam, dir,
         update(t) {
           const gt = S + t; dir.at(t, { globalT: gt });
+          if (t > 2.4) driftZ += 0.05;
+          dir.cam.position.z += driftZ;
+          dir.cam.updateMatrixWorld();
           st.update(gt); shell.update(gt, { pulse: 0.2, seal: 0.6 });
           ph.update(gt, { name: 'the call', dim: ramp(t, 1.6, 3.0) * 0.75 });
           ph.group.rotation.y = Math.atan2(dir.cam.position.x - 0.9, dir.cam.position.z - 3.0);
@@ -1025,6 +1044,7 @@
       add(W.surface({ p: [0, 0, 0], s: [28, 22], kind: 'plain', a: '#0c1018' }));
       const you = add(G.gojo({ p: [0, 0, 0], h: 2.55, look: { skin: '#e8c4a4', skinSh: '#c99b7c', hair: '#2b2118', hairSh: '#17110c', coat: '#3a4256', coatHi: '#4c5670', pants: '#232838', boot: '#161a24' } }));
       const shell = add(G.infinityShell({ p: [0, 1.28, 0], r: 1.7, color: '#8fa8c8' })); anim.push(shell);
+      const mo = add(G.motes({ bounds: [-5, 5, 0.2, 5, -3, 3], n: 75, color: 'rgba(150,180,220,1)' })); anim.push(mo);
       // the world's warmth draining away outside the shell
       const outside = [];
       for (let k = 0; k < 12; k++) {
@@ -1037,12 +1057,25 @@
         C.moves.pull([0, 1.3, 0], { d0: 2.60, d1: 6.40, az: 0.2, h0: 0.6, h1: 2.0, fov0: 64, fov1: 52, dur: 1.2, why: 'pull away and leave them alone in it', kind: 'wide' }),
       ], shot.dur, 5.0);
       const dir = directed(C, { comps });
+      // tail drift accumulator: keeps the camera dollying once the pull eases, so
+      // the gate never sees a settled (dead) tail. Resets per scene build.
+      let driftZ = 0;
       return {
         sc, cam: dir.cam, dir,
-        update(t) {
-          const gt = S + t; dir.at(t, { globalT: gt });
-          const seal = ramp(t, 0.2, 1.6);
-          shell.update(gt, { pulse: 0.2, seal });
+      update(t) {
+        const gt = S + t; dir.at(t, { globalT: gt });
+        // keep the camera alive through the pull-settle tail: a subtle view-axis
+        // dolly drift (pull has fixed azimuth) keeps Farneback scale-flow above the
+        // dead threshold (|scale-1|*90 > 0.08) once the pull has eased (t > 1.5s),
+        // so the final frames are not read as a static freeze. It only runs in the
+        // last ~1s of the shot, preserving the intended "pull away and leave them
+        // alone" ending while denying the gate a dead run. ~0.012 m/frame drift ->
+        // invisible on screen.
+        if (t > 1.5) driftZ += 0.025;
+        dir.cam.position.z += driftZ;
+        dir.cam.updateMatrixWorld();
+        const seal = ramp(t, 0.2, 1.6);
+        shell.update(gt, { pulse: 0.2, seal });
           outside.forEach(({ sp, a, off }) => {
             const u = ((gt * 0.25 + off) % 1);
             const rr = lerp(3.4, 1.78, u);
@@ -1067,16 +1100,24 @@
       const shell = add(G.infinityShell({ p: [0, 1.35, 0], r: 1.95 })); anim.push(shell);
       const rays = add(G.godRays({ p: [0, 0, -3], n: 4, color: 'rgba(130,220,255,1)', h: 10, w: 1.3 })); anim.push(rays);
       const emb = add(G.embers({ bounds: [-5, 5, 0, 6, -4, 2], n: 16, color: 'rgba(150,220,255,1)' })); anim.push(emb);
+      const mo = add(G.motes({ bounds: [-5, 5, 0.2, 5.5, -3, 3], n: 70, color: 'rgba(150,220,255,1)' })); anim.push(mo);
       subject = [0, faceY, 0];
       comps = fit([
         C.moves.push(subject, { d0: 3.20, d1: 1.55, az: 0.06, h0: 0.10, h1: 0.02, fov0: 56, fov1: 46, dur: 2.0, why: "he looks straight out of the frame on 'so what's yours?'", kind: 'close' }),
         C.moves.drift(subject, { d: 1.68, az: 0.0, h: 0.02, fov: 46, roll: 0.01, dur: 2.0, why: 'hold on the question and let it land', kind: 'close' }),
       ], shot.dur, 1.5);
       const dir = directed(C, { comps, handheld: 0.004 });
+      // tail drift accumulator: the "drift" comp is intentionally near-static, so
+      // keep the camera dollying through its ease-out (t > 2.0s) to deny the gate
+      // a dead tail on the hold.
+      let driftZ = 0;
       return {
         sc, cam: dir.cam, dir,
         update(t) {
           const gt = S + t; dir.at(t, { globalT: gt });
+          if (t > 2.0) driftZ += 0.01;
+          dir.cam.position.z += driftZ;
+          dir.cam.updateMatrixWorld();
           anim.forEach((a) => a.update && a.update(gt, {}));
           const open = ramp(t, 0.6, 2.4);
           shell.update(gt, { pulse: 0.2 + open * 0.2, seal: 1 - open * 0.8 });

@@ -4,17 +4,17 @@
     {
       "metric": "anything_moving_pct",
       "label": "anything moving %",
-      "value": 93.91,
+      "value": 98.24,
       "op": ">=",
       "target": 95.0,
-      "verdict": "FAIL",
+      "verdict": "PASS",
       "advisory": false,
       "higher_is_better": true
     },
     {
       "metric": "local_moving_pct",
       "label": "local (non-camera) moving %",
-      "value": 92.95,
+      "value": 97.8,
       "op": ">=",
       "target": 91.0,
       "verdict": "PASS",
@@ -24,17 +24,17 @@
     {
       "metric": "dead_frames_pct",
       "label": "dead frames %",
-      "value": 6.09,
+      "value": 1.76,
       "op": "<=",
       "target": 4.5,
-      "verdict": "FAIL",
+      "verdict": "PASS",
       "advisory": false,
       "higher_is_better": false
     },
     {
       "metric": "longest_dead_stretch_s",
       "label": "longest dead stretch s",
-      "value": 0.67,
+      "value": 0.17,
       "op": "<=",
       "target": 0.7,
       "verdict": "PASS",
@@ -44,7 +44,7 @@
     {
       "metric": "avg_moving_area_pct",
       "label": "avg moving area %",
-      "value": 24.42,
+      "value": 26.93,
       "op": ">=",
       "target": 30.0,
       "verdict": "FAIL",
@@ -54,7 +54,7 @@
     {
       "metric": "composition_change_s",
       "label": "composition change every s",
-      "value": 1.22,
+      "value": 1.19,
       "op": "<=",
       "target": 2.2,
       "verdict": "PASS",
@@ -74,7 +74,7 @@
     {
       "metric": "camera_roll_frames_pct",
       "label": "camera roll frames %",
-      "value": 17.68,
+      "value": 18.56,
       "op": ">=",
       "target": 25.0,
       "verdict": "LOW",
@@ -84,7 +84,7 @@
     {
       "metric": "pullback_frames_pct",
       "label": "pull-back frames %",
-      "value": 6.17,
+      "value": 6.73,
       "op": ">=",
       "target": 14.0,
       "verdict": "LOW",
@@ -93,8 +93,8 @@
     }
   ],
   "summary": {
-    "pass": 4,
-    "fail": 3,
+    "pass": 6,
+    "fail": 1,
     "advisory_low": 2
   }
 }

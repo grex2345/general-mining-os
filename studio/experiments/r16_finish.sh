@@ -22,6 +22,10 @@ HAVE=$(ls "$FR"/f*.png 2>/dev/null | wc -l)
 echo "frames present: $HAVE (expected $EXPECT)"
 if [ "$HAVE" != "$EXPECT" ]; then echo "FRAME FILES MISSING — aborting"; exit 1; fi
 
+# libass needs the caption face on the font path. The repo ships Inter; without
+# this the burn silently falls back to DejaVu Sans.
+mkdir -p ~/.fonts
+cp studio/node_modules/@expo-google-fonts/inter/{400Regular,500Medium,600SemiBold,700Bold}/Inter_*.ttf ~/.fonts/ 2>/dev/null || true
 cp "$R16/captions.ass" /tmp/r16caps.ass
 
 echo "=== encode pictures (CRF17) ==="

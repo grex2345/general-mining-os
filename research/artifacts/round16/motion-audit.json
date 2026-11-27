@@ -1,16 +1,12 @@
 {
   "frames": 2496,
-  "anything_moving_pct": 96.71342685370742,
-  "local_moving_pct": 97.35470941883767,
-  "dead_frames_pct": 3.2865731462925853,
+  "anything_moving_pct": 98.59719438877755,
+  "local_moving_pct": 98.6372745490982,
+  "dead_frames_pct": 1.402805611222445,
   "longest_dead_stretch_s": 0.4,
-  "mean_frame_diff": 6.069750865907847,
-  "mean_local_diff": 7.6123544361709525,
+  "mean_frame_diff": 6.32851161030975,
+  "mean_local_diff": 7.885516023585214,
   "dead_stretches": [
-    {
-      "t0": 20.166666666666668,
-      "t1": 20.5
-    },
     {
       "t0": 65.13333333333334,
       "t1": 65.53333333333333

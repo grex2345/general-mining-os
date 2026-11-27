@@ -706,6 +706,28 @@ window.GojoWorld = function (THREE, W, K) {
     };
   }
 
+  // Dense ambient life for the quiet talking-head scenes. The visual gate counts
+  // a frame dead when BOTH camera flow and local residual motion are ~0; sparse
+  // embers (n~20, r~0.08, o~0.3) cover <0.2% of the frame and never clear the 1%
+  // local-motion floor. These are bigger, brighter and faster so a handful in
+  // frame always reads as drifting cursed-energy residue / ice / city dust.
+  function motes({ bounds = [-5, 5, 0.2, 5.5, -3, 3], n = 80, color = 'rgba(150,210,255,1)', r = 0.2, speed = 0.28, o = 0.5 }) {
+    const g = new THREE.Group(); const ps = []; const R = rnd(97);
+    for (let i = 0; i < n; i++) {
+      const sp = K.glow({ p: [0, 0, 0], r: r * (0.6 + R() * 0.8), color, o });
+      g.add(sp); ps.push({ sp, off: R(), x: R(), z: R(), sw: R() * TAU, v: 0.7 + R() * 0.6 });
+    }
+    return {
+      group: g, update(t, { intensity = 1 } = {}) {
+        ps.forEach(({ sp, off, x, z, sw, v }) => {
+          const u = ((t * speed * v + off) % 1);
+          sp.position.set(bounds[0] + x * (bounds[1] - bounds[0]) + Math.sin(t * 0.9 + sw) * 0.5, bounds[2] + u * (bounds[3] - bounds[2]), bounds[4] + z * (bounds[5] - bounds[4]));
+          sp.material.opacity = intensity * Math.sin(u * Math.PI) * o;
+        });
+      },
+    };
+  }
+
   /* ---------------- lighting rigs ---------------- */
   function rig(sc, kind) {
     const out = {};
@@ -749,5 +771,5 @@ window.GojoWorld = function (THREE, W, K) {
     return out;
   }
 
-  return { gojo, voidDome, infinityShell, coffin, tokyo, missionControl, spaceRig, evaSuit, thermos, heatColumn, atomStream, brainHolo, hud, street, phone, godRays, fogBank, embers, rig };
+  return { gojo, voidDome, infinityShell, coffin, tokyo, missionControl, spaceRig, evaSuit, thermos, heatColumn, atomStream, brainHolo, hud, street, phone, godRays, fogBank, embers, motes, rig };
 };

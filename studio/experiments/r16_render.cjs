@@ -46,6 +46,17 @@ const CUES = JSON.parse(fs.readFileSync(path.join(R16, 'scene-cues.json'), 'utf8
 
   await page.evaluate((ns) => { window.__noshadow = ns; }, !!process.env.NOSHADOW);
   await page.evaluate((raw) => { window.__rawMode = raw; }, !!(process.env.COMPS || process.env.PROBES));
+  // Patch renders (ONLY=i) start with a blank `prev` canvas, which would make a
+  // dissolve-in blend from black instead of the previous scene's last frame.
+  // PREV_FRAME seeds it with that exact frame from the main render.
+  if (process.env.PREV_FRAME) {
+    const b64 = fs.readFileSync(process.env.PREV_FRAME).toString('base64');
+    await page.evaluate(async (b64) => {
+      const img = new Image();
+      await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = 'data:image/png;base64,' + b64; });
+      const p = window.__p; p.pc.clearRect(0, 0, p.prev.width, p.prev.height); p.pc.drawImage(img, 0, 0);
+    }, b64);
+  }
   const film = await page.evaluate(() => window.GojoFilm.spec());
   const TOTAL = await page.evaluate(() => window.GojoFilm.TOTAL);
   const FRAME_OFFSET = parseInt(process.env.FRAME_OFFSET || '0', 10);
