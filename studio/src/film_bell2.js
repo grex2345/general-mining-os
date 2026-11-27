@@ -662,7 +662,7 @@
         return { group: g, glow: gl };
       });
       villages.forEach(v => sc.add(v.group));
-      const cw = crowd(T, W, K, A, [[-2.6, 3.6, 1], [-1.0, 4.2, 1.02], [0.9, 3.7, 0.98], [2.5, 4.4, 1], [-4.0, 5.0, 0.94], [3.8, 5.2, 0.96], [0.2, 5.8, 1.04], [-1.9, 6.4, 0.92]], {});
+      const cw = crowd(T, W, K, A, [[-2.6, 3.6, 1], [-1.0, 4.2, 1.02], [2.1, 3.9, 0.98], [2.5, 4.4, 1], [-4.0, 5.0, 0.94], [3.8, 5.2, 0.96], [0.2, 5.8, 1.04], [-1.9, 6.4, 0.92]], {});
       addActors(sc, cw);
       const nora = A.Actor({ p: [0.75, 0, 3.0], h: 2.42, look: NORA }); addActors(sc, [nora]);
       sc.add(foreground(T, W, K, S, 'arch', [-3.0, 3.0, 2.0]));
@@ -673,7 +673,7 @@
         M.pull([-1.22, 12.6, -5.6], { d0: 1.6, d1: 16.0, az: 0.15, h0: 0.2, h1: 3.4, fov0: 70, fov1: 58, dur: 1.9, focus: 16.0, why: 'the sound leaves the tower' }),
         M.track((t) => { const u = clamp((t - 3.6) / 2.1, 0, 1); return [lerp(-15, 13, u), 3.2, lerp(-20, -25, u)]; }, { d: 11, az: 0.15, h: 6.5, fov: 66, dur: 2.1, why: 'they heard it in three villages', kind: 'wide', focus: 9.0 }),
         M.push([-1.0, faceY(2.3 * 1.02), 4.2], { d0: 3.4, d1: 2.2, az: -0.1, h0: 0.2, h1: 0.08, fov0: 54, fov1: 48, dur: 1.8, why: 'the town that mocked her, cheering', kind: 'close' }),
-        M.push([0.75, faceY(2.42), 3.0], { d0: 2.8, d1: 1.95, az: 0.22, h0: 0.16, h1: 0.05, fov0: 54, fov1: 50, dur: 1.8, why: 'the girl they ignored became the one they listened to', kind: 'close' }),
+        M.push([0.75, faceY(2.42), 3.0], { d0: 2.8, d1: 1.95, az: 0.22, h0: 0.16, h1: 0.05, fov0: 54, fov1: 50, dur: 1.8, focus: 1.05, why: 'the girl they ignored became the one they listened to', kind: 'close' }),
       ];
       const dir = C().Director({ comps, impacts: [{ t: R1, amp: 0.085, decay: 7 }, { t: R2, amp: 0.06, decay: 8 }], handheld: 0.007 });
       const lip = ctx.lip;
