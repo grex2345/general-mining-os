@@ -24,7 +24,13 @@ window.WorldKit = function (THREE, W) {
     const m = new THREE.Mesh(new THREE.PlaneGeometry(s[0], s[1]), new THREE.MeshBasicMaterial({ map: tex, transparent, side: THREE.DoubleSide }));
     m.position.set(p[0], p[1], p[2]); m.rotation.set(rot[0], rot[1], rot[2]);
     const grp = new THREE.Group(); grp.add(m);
-    if (frame) { const fr = W.box({ p: [0, 0, -0.01], s: [s[0] + 0.06, s[1] + 0.06, 0.02], color: frame, ink: 0.02 }); grp.add(fr); }
+    if (frame) {
+      // -0.01 put the frame box's FRONT face at exactly z=0, coplanar with the screen
+      // plane: the two z-fought along the quad's triangle diagonal and half of every
+      // framed display rendered as flat frame colour. Seat it clearly behind instead.
+      const fr = W.box({ p: [0, 0, -0.04], s: [s[0] + 0.06, s[1] + 0.06, 0.02], color: frame, ink: 0.02 });
+      grp.add(fr);
+    }
     grp.position.set(p[0], p[1], p[2]); m.position.set(0, 0, 0);
     return grp;
   }
