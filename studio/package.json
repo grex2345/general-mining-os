@@ -6,11 +6,13 @@
   "description": "Programmatic video production studio for General Mining OS (independent of the Next.js app)",
   "dependencies": {
     "@expo-google-fonts/inter": "^0.4.0",
-    "@expo-google-fonts/inter-tight": "^0.4.0",
+    "@expo-google-fonts/inter-tight": "^0.4.2",
     "@expo-google-fonts/jetbrains-mono": "^0.4.0",
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "@ffmpeg-installer/linux-x64": "^4.1.0",
     "@ffprobe-installer/ffprobe": "^2.1.2",
-    "@napi-rs/canvas": "^0.1.80",
+    "@ffprobe-installer/linux-x64": "^5.2.0",
+    "@napi-rs/canvas": "^0.1.100",
     "mespeak": "^2.0.2"
   },
   "scripts": {
