@@ -1,0 +1,93 @@
+{
+ "durationSec": 81.653,
+ "cues": {
+  "hook": {
+   "wordIndex": 0,
+   "t": 0.7
+  },
+  "twoway": {
+   "wordIndex": 16,
+   "t": 7.82
+  },
+  "thermos": {
+   "wordIndex": 30,
+   "t": 13.44
+  },
+  "nasa": {
+   "wordIndex": 37,
+   "t": 16.26
+  },
+  "suit": {
+   "wordIndex": 44,
+   "t": 19.12
+  },
+  "watts100": {
+   "wordIndex": 57,
+   "t": 23.62
+  },
+  "watts1000": {
+   "wordIndex": 66,
+   "t": 27.16
+  },
+  "sweat": {
+   "wordIndex": 72,
+   "t": 30.26
+  },
+  "evaporate": {
+   "wordIndex": 76,
+   "t": 32.1
+  },
+  "cook": {
+   "wordIndex": 80,
+   "t": 33.82
+  },
+  "bakes": {
+   "wordIndex": 92,
+   "t": 39
+  },
+  "sixeyes": {
+   "wordIndex": 98,
+   "t": 41.16
+  },
+  "filter": {
+   "wordIndex": 105,
+   "t": 43.8
+  },
+  "focus": {
+   "wordIndex": 122,
+   "t": 51.16
+  },
+  "rct": {
+   "wordIndex": 131,
+   "t": 54.62
+  },
+  "compare": {
+   "wordIndex": 147,
+   "t": 61.48
+  },
+  "difference": {
+   "wordIndex": 159,
+   "t": 65.74
+  },
+  "switch": {
+   "wordIndex": 162,
+   "t": 67.02
+  },
+  "yourinfinity": {
+   "wordIndex": 172,
+   "t": 70
+  },
+  "call": {
+   "wordIndex": 186,
+   "t": 74.68
+  },
+  "nothing": {
+   "wordIndex": 196,
+   "t": 78.08
+  },
+  "question": {
+   "wordIndex": 202,
+   "t": 80.68
+  }
+ }
+}

@@ -1,0 +1,629 @@
+{
+  "leadIn": 1.2,
+  "beats": [
+    {
+      "id": "b01",
+      "index": 0,
+      "text": "Everyone in the village laughed at Sami.",
+      "ttsText": "Everyone in the village laughed at Sami.",
+      "words": 7,
+      "emotion": "comedy",
+      "intensity": 0.78,
+      "why": [
+        "laughed",
+        "position+0.6"
+      ],
+      "ttsChanges": [],
+      "emphasis": [
+        "Sami"
+      ],
+      "prosody": {
+        "rateHint": 1.04,
+        "pitchHintSt": 1,
+        "pauseAfterSec": 0.34,
+        "breathBeforeProb": 0.3
+      },
+      "dsp": {
+        "gainDb": 0.5,
+        "tilt": 0.2,
+        "compress": {
+          "thresholdDb": -13,
+          "ratio": 2.5
+        }
+      },
+      "music": {
+        "mood": "build",
+        "intensity": 0.78
+      },
+      "ranked": [
+        {
+          "emotion": "comedy",
+          "score": 3.6
+        },
+        {
+          "emotion": "warm",
+          "score": 1.8
+        },
+        {
+          "emotion": "mystery",
+          "score": 0.5
+        }
+      ]
+    },
+    {
+      "id": "b02",
+      "index": 1,
+      "text": "While the others chased gold, he chose clay.",
+      "ttsText": "While the others chased gold, he chose clay.",
+      "words": 8,
+      "emotion": "warm",
+      "intensity": 0.56,
+      "why": [
+        "chose",
+        "clay",
+        "position+0.8"
+      ],
+      "ttsChanges": [],
+      "emphasis": [
+        "gold",
+        "clay"
+      ],
+      "prosody": {
+        "rateHint": 0.98,
+        "pitchHintSt": 0,
+        "pauseAfterSec": 0.32,
+        "breathBeforeProb": 0.35
+      },
+      "dsp": {
+        "gainDb": 0,
+        "tilt": -0.15,
+        "compress": {
+          "thresholdDb": -14,
+          "ratio": 2.2
+        }
+      },
+      "music": {
+        "mood": "dawn",
+        "intensity": 0.56
+      },
+      "ranked": [
+        {
+          "emotion": "warm",
+          "score": 3.8
+        },
+        {
+          "emotion": "comedy",
+          "score": 0.6
+        },
+        {
+          "emotion": "mystery",
+          "score": 0.5
+        }
+      ]
+    },
+    {
+      "id": "b03",
+      "index": 2,
+      "text": "They called him crazy.",
+      "ttsText": "They called him crazy.",
+      "words": 4,
+      "emotion": "comedy",
+      "intensity": 0.8,
+      "why": [
+        "called",
+        "crazy"
+      ],
+      "ttsChanges": [],
+      "emphasis": [
+        "crazy"
+      ],
+      "prosody": {
+        "rateHint": 1.04,
+        "pitchHintSt": 1,
+        "pauseAfterSec": 0.34,
+        "breathBeforeProb": 0.3
+      },
+      "dsp": {
+        "gainDb": 0.5,
+        "tilt": 0.2,
+        "compress": {
+          "thresholdDb": -13,
+          "ratio": 2.5
+        }
+      },
+      "music": {
+        "mood": "build",
+        "intensity": 0.8
+      },
+      "ranked": [
+        {
+          "emotion": "comedy",
+          "score": 4
+        },
+        {
+          "emotion": "warm",
+          "score": 0.6
+        },
+        {
+          "emotion": "tension",
+          "score": 0.4
+        }
+      ]
+    },
+    {
+      "id": "b04",
+      "index": 3,
+      "text": "They called him slow.",
+      "ttsText": "They called him slow.",
+      "words": 4,
+      "emotion": "comedy",
+      "intensity": 0.73,
+      "why": [
+        "called",
+        "slow"
+      ],
+      "ttsChanges": [],
+      "emphasis": [],
+      "prosody": {
+        "rateHint": 1.04,
+        "pitchHintSt": 1,
+        "pauseAfterSec": 0.34,
+        "breathBeforeProb": 0.3
+      },
+      "dsp": {
+        "gainDb": 0.5,
+        "tilt": 0.2,
+        "compress": {
+          "thresholdDb": -13,
+          "ratio": 2.5
+        }
+      },
+      "music": {
+        "mood": "build",
+        "intensity": 0.73
+      },
+      "ranked": [
+        {
+          "emotion": "comedy",
+          "score": 3
+        },
+        {
+          "emotion": "warm",
+          "score": 0.6
+        },
+        {
+          "emotion": "tension",
+          "score": 0.4
+        }
+      ]
+    },
+    {
+      "id": "b05",
+      "index": 4,
+      "text": "But every morning, his hands were already spinning.",
+      "ttsText": "But every morning, his hands were already spinning.",
+      "words": 8,
+      "emotion": "warm",
+      "intensity": 0.57,
+      "why": [
+        "every",
+        "morning",
+        "hands"
+      ],
+      "ttsChanges": [],
+      "emphasis": [
+        "spinning"
+      ],
+      "prosody": {
+        "rateHint": 0.98,
+        "pitchHintSt": 0,
+        "pauseAfterSec": 0.32,
+        "breathBeforeProb": 0.35
+      },
+      "dsp": {
+        "gainDb": 0,
+        "tilt": -0.15,
+        "compress": {
+          "thresholdDb": -14,
+          "ratio": 2.2
+        }
+      },
+      "music": {
+        "mood": "dawn",
+        "intensity": 0.57
+      },
+      "ranked": [
+        {
+          "emotion": "warm",
+          "score": 4
+        },
+        {
+          "emotion": "resolve",
+          "score": 1.5
+        },
+        {
+          "emotion": "excitement",
+          "score": 1
+        }
+      ]
+    },
+    {
+      "id": "b06",
+      "index": 5,
+      "text": "He shaped a thousand pots, and threw a thousand more away.",
+      "ttsText": "He shaped a thousand pots, and threw a thousand more away…",
+      "words": 11,
+      "emotion": "sadness",
+      "intensity": 0.3,
+      "why": [
+        "threw",
+        "away",
+        "position+0.5"
+      ],
+      "ttsChanges": [
+        "period->ellipsis: trailing off"
+      ],
+      "emphasis": [
+        "thousand"
+      ],
+      "prosody": {
+        "rateHint": 0.9,
+        "pitchHintSt": -2,
+        "pauseAfterSec": 0.55,
+        "breathBeforeProb": 0.65
+      },
+      "dsp": {
+        "gainDb": -2.5,
+        "tilt": -0.45,
+        "compress": {
+          "thresholdDb": -20,
+          "ratio": 1.6
+        }
+      },
+      "music": {
+        "mood": "night",
+        "intensity": 0.3
+      },
+      "ranked": [
+        {
+          "emotion": "sadness",
+          "score": 2.5
+        },
+        {
+          "emotion": "excitement",
+          "score": 2
+        },
+        {
+          "emotion": "tension",
+          "score": 0.8
+        }
+      ]
+    },
+    {
+      "id": "b07",
+      "index": 6,
+      "text": "Then one night, he fired the kiln hotter than ever before.",
+      "ttsText": "Then one night, he fired the kiln hotter than ever before…",
+      "words": 11,
+      "emotion": "tension",
+      "intensity": 0.62,
+      "why": [
+        "hotter",
+        "before",
+        "position+0.8"
+      ],
+      "ttsChanges": [
+        "period->ellipsis: suspense"
+      ],
+      "emphasis": [
+        "kiln"
+      ],
+      "prosody": {
+        "rateHint": 0.94,
+        "pitchHintSt": -1,
+        "pauseAfterSec": 0.4,
+        "breathBeforeProb": 0.45
+      },
+      "dsp": {
+        "gainDb": -1,
+        "tilt": -0.2,
+        "compress": {
+          "thresholdDb": -16,
+          "ratio": 2
+        }
+      },
+      "music": {
+        "mood": "tense",
+        "intensity": 0.62
+      },
+      "ranked": [
+        {
+          "emotion": "tension",
+          "score": 3.8
+        },
+        {
+          "emotion": "resolve",
+          "score": 1.5
+        },
+        {
+          "emotion": "mystery",
+          "score": 1
+        }
+      ]
+    },
+    {
+      "id": "b08",
+      "index": 7,
+      "text": "When the doors swung open, the whole village fell silent.",
+      "ttsText": "When the doors swung open, the whole village fell silent.",
+      "words": 10,
+      "emotion": "mystery",
+      "intensity": 0.37,
+      "why": [
+        "swung",
+        "open",
+        "hush override: the line describes silence, so it is spoken hushed"
+      ],
+      "ttsChanges": [],
+      "emphasis": [
+        "silent"
+      ],
+      "prosody": {
+        "rateHint": 0.92,
+        "pitchHintSt": -1,
+        "pauseAfterSec": 0.55,
+        "breathBeforeProb": 0.55
+      },
+      "dsp": {
+        "gainDb": -2,
+        "tilt": -0.35,
+        "compress": {
+          "thresholdDb": -18,
+          "ratio": 1.8
+        }
+      },
+      "music": {
+        "mood": "night",
+        "intensity": 0.37
+      },
+      "ranked": [
+        {
+          "emotion": "surprise",
+          "score": 3
+        },
+        {
+          "emotion": "mystery",
+          "score": 2.9
+        },
+        {
+          "emotion": "tension",
+          "score": 1
+        }
+      ],
+      "silencePlan": "hold music down, no SFX in the last 0.35s — quiet before the payoff"
+    },
+    {
+      "id": "b09",
+      "index": 8,
+      "text": "Because what came out wasn't just pottery.",
+      "ttsText": "Because what came out wasn't just pottery.",
+      "words": 7,
+      "emotion": "reveal",
+      "intensity": 1,
+      "why": [
+        "because",
+        "came",
+        "out",
+        "just",
+        "position+1.6"
+      ],
+      "ttsChanges": [],
+      "emphasis": [
+        "pottery"
+      ],
+      "prosody": {
+        "rateHint": 0.93,
+        "pitchHintSt": 1,
+        "pauseAfterSec": 0.6,
+        "breathBeforeProb": 0.6
+      },
+      "dsp": {
+        "gainDb": 0.5,
+        "tilt": 0.15,
+        "compress": {
+          "thresholdDb": -14,
+          "ratio": 2.2
+        }
+      },
+      "music": {
+        "mood": "wonder",
+        "intensity": 1
+      },
+      "ranked": [
+        {
+          "emotion": "reveal",
+          "score": 6.6
+        },
+        {
+          "emotion": "surprise",
+          "score": 1.2
+        }
+      ],
+      "silencePlan": "land the reveal after the held silence"
+    },
+    {
+      "id": "b10",
+      "index": 9,
+      "text": "It was something no one had ever seen.",
+      "ttsText": "It was something no one had ever seen.",
+      "words": 8,
+      "emotion": "reveal",
+      "intensity": 0.89,
+      "why": [
+        "something",
+        "position+1.6"
+      ],
+      "ttsChanges": [],
+      "emphasis": [],
+      "prosody": {
+        "rateHint": 0.93,
+        "pitchHintSt": 1,
+        "pauseAfterSec": 0.6,
+        "breathBeforeProb": 0.6
+      },
+      "dsp": {
+        "gainDb": 0.5,
+        "tilt": 0.15,
+        "compress": {
+          "thresholdDb": -14,
+          "ratio": 2.2
+        }
+      },
+      "music": {
+        "mood": "wonder",
+        "intensity": 0.89
+      },
+      "ranked": [
+        {
+          "emotion": "reveal",
+          "score": 3.6
+        },
+        {
+          "emotion": "surprise",
+          "score": 2.2
+        },
+        {
+          "emotion": "resolve",
+          "score": 1
+        }
+      ]
+    },
+    {
+      "id": "b11",
+      "index": 10,
+      "text": "And the boy they laughed at became the one they remembered.",
+      "ttsText": "And the boy they laughed at became the one they remembered.",
+      "words": 11,
+      "emotion": "resolve",
+      "intensity": 0.81,
+      "why": [
+        "became",
+        "one",
+        "remembered",
+        "position+1.4"
+      ],
+      "ttsChanges": [],
+      "emphasis": [
+        "remembered"
+      ],
+      "prosody": {
+        "rateHint": 0.97,
+        "pitchHintSt": 0,
+        "pauseAfterSec": 0.4,
+        "breathBeforeProb": 0.35
+      },
+      "dsp": {
+        "gainDb": 0,
+        "tilt": 0.05,
+        "compress": {
+          "thresholdDb": -14,
+          "ratio": 2.3
+        }
+      },
+      "music": {
+        "mood": "joy",
+        "intensity": 0.81
+      },
+      "ranked": [
+        {
+          "emotion": "resolve",
+          "score": 6.4
+        },
+        {
+          "emotion": "reveal",
+          "score": 4
+        },
+        {
+          "emotion": "comedy",
+          "score": 3
+        }
+      ]
+    }
+  ],
+  "arc": [
+    {
+      "id": "b01",
+      "emotion": "comedy",
+      "intensity": 0.78
+    },
+    {
+      "id": "b02",
+      "emotion": "warm",
+      "intensity": 0.56
+    },
+    {
+      "id": "b03",
+      "emotion": "comedy",
+      "intensity": 0.8
+    },
+    {
+      "id": "b04",
+      "emotion": "comedy",
+      "intensity": 0.73
+    },
+    {
+      "id": "b05",
+      "emotion": "warm",
+      "intensity": 0.57
+    },
+    {
+      "id": "b06",
+      "emotion": "sadness",
+      "intensity": 0.3
+    },
+    {
+      "id": "b07",
+      "emotion": "tension",
+      "intensity": 0.62
+    },
+    {
+      "id": "b08",
+      "emotion": "mystery",
+      "intensity": 0.37
+    },
+    {
+      "id": "b09",
+      "emotion": "reveal",
+      "intensity": 1
+    },
+    {
+      "id": "b10",
+      "emotion": "reveal",
+      "intensity": 0.89
+    },
+    {
+      "id": "b11",
+      "emotion": "resolve",
+      "intensity": 0.81
+    }
+  ],
+  "revealBeat": "b09",
+  "estimatedDurationSec": 31.39,
+  "keywords": [
+    "Sami",
+    "clay",
+    "gold",
+    "crazy",
+    "spinning",
+    "thousand",
+    "kiln",
+    "silent",
+    "pottery",
+    "remembered"
+  ],
+  "notes": [
+    "Speaking rate is NOT time-stretched: the Ricks study measured that even 1.1x atempo smears the voice.",
+    "Pacing comes from sentence length + explicit pauses between beats.",
+    "Each beat is a separate TTS call so the read is contextual, not one flat pass."
+  ]
+}

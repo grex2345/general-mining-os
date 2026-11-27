@@ -1,0 +1,100 @@
+{
+  "subject": "research/artifacts/round14/film/the-bell-of-vellara-r14.mp4",
+  "results": [
+    {
+      "metric": "anything_moving_pct",
+      "label": "anything moving %",
+      "value": 96.07,
+      "op": ">=",
+      "target": 95.0,
+      "verdict": "PASS",
+      "advisory": false,
+      "higher_is_better": true
+    },
+    {
+      "metric": "local_moving_pct",
+      "label": "local (non-camera) moving %",
+      "value": 95.65,
+      "op": ">=",
+      "target": 91.0,
+      "verdict": "PASS",
+      "advisory": false,
+      "higher_is_better": true
+    },
+    {
+      "metric": "dead_frames_pct",
+      "label": "dead frames %",
+      "value": 3.93,
+      "op": "<=",
+      "target": 4.5,
+      "verdict": "PASS",
+      "advisory": false,
+      "higher_is_better": false
+    },
+    {
+      "metric": "longest_dead_stretch_s",
+      "label": "longest dead stretch s",
+      "value": 0.47,
+      "op": "<=",
+      "target": 0.7,
+      "verdict": "PASS",
+      "advisory": false,
+      "higher_is_better": false
+    },
+    {
+      "metric": "avg_moving_area_pct",
+      "label": "avg moving area %",
+      "value": 29.89,
+      "op": ">=",
+      "target": 30.0,
+      "verdict": "FAIL",
+      "advisory": false,
+      "higher_is_better": true
+    },
+    {
+      "metric": "composition_change_s",
+      "label": "composition change every s",
+      "value": 1.43,
+      "op": "<=",
+      "target": 2.2,
+      "verdict": "PASS",
+      "advisory": false,
+      "higher_is_better": false
+    },
+    {
+      "metric": "hard_cuts",
+      "label": "hard cuts",
+      "value": 0.0,
+      "op": "<=",
+      "target": 2.0,
+      "verdict": "PASS",
+      "advisory": false,
+      "higher_is_better": false
+    },
+    {
+      "metric": "camera_roll_frames_pct",
+      "label": "camera roll frames %",
+      "value": 32.18,
+      "op": ">=",
+      "target": 25.0,
+      "verdict": "ok",
+      "advisory": true,
+      "higher_is_better": true
+    },
+    {
+      "metric": "pullback_frames_pct",
+      "label": "pull-back frames %",
+      "value": 19.87,
+      "op": ">=",
+      "target": 14.0,
+      "verdict": "ok",
+      "advisory": true,
+      "higher_is_better": true
+    }
+  ],
+  "summary": {
+    "pass": 6,
+    "fail": 1,
+    "advisory_low": 0
+  }
+}

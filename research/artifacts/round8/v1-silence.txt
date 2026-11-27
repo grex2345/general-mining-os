@@ -1,0 +1,4 @@
+[silencedetect @ 0x33875700] silence_start: 0
+[silencedetect @ 0x33875700] silence_end: 1.22147 | silence_duration: 1.22147
+[silencedetect @ 0x33875700] silence_start: 57.1968
+[silencedetect @ 0x33875700] silence_end: 61.1135 | silence_duration: 3.91662

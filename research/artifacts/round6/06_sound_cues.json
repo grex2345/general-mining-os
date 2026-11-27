@@ -1,0 +1,39 @@
+{
+  "out": "/tmp/audio/scene6.wav",
+  "rate": 44100,
+  "duration": 7.253,
+  "voice_in": "/tmp/audio/line.wav",
+  "voice_duration": 6.353,
+  "master_trim": 0.89,
+  "cues": [
+    {
+      "cue": "wind-bed",
+      "at": 0,
+      "dur": 7.253,
+      "gain": 0.055
+    },
+    {
+      "cue": "pad",
+      "at": 3.103,
+      "dur": 4.45,
+      "gain": 0.16
+    },
+    {
+      "cue": "crunch",
+      "at": 0.04,
+      "gain": 0.3
+    },
+    {
+      "cue": "crunch",
+      "at": 3.083,
+      "gain": 0.3
+    },
+    {
+      "cue": "sub-swell",
+      "at": 5.837,
+      "dur": 1.5,
+      "gain": 0.34
+    }
+  ],
+  "note": "Cue times come from align.py, which measures them from the waveform. Nothing here was listened to; the report is numbers, not an opinion."
+}

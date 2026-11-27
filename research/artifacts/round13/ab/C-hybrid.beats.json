@@ -1,0 +1,79 @@
+[
+  {
+    "id": "b01",
+    "index": 0,
+    "emotion": "comedy",
+    "intensity": 0.78,
+    "text": "Everyone in the village laughed at Sami.",
+    "t0": 0.8,
+    "t1": 3.41,
+    "words": 7,
+    "source": "contextual take"
+  },
+  {
+    "id": "b02",
+    "index": 1,
+    "emotion": "warm",
+    "intensity": 0.55,
+    "text": "While the others chased gold, he chose clay.",
+    "t0": 3.75,
+    "t1": 7.04,
+    "words": 8,
+    "source": "contextual take"
+  },
+  {
+    "id": "b03",
+    "index": 2,
+    "emotion": "sadness",
+    "intensity": 0.28,
+    "text": "He shaped a thousand pots, and threw a thousand more away.",
+    "t0": 7.36,
+    "t1": 11.73,
+    "words": 11,
+    "source": "contextual take"
+  },
+  {
+    "id": "b04",
+    "index": 3,
+    "emotion": "tension",
+    "intensity": 0.62,
+    "text": "Then one night, he fired the kiln hotter than ever before.",
+    "t0": 12.28,
+    "t1": 17.27,
+    "words": 11,
+    "source": "contextual take"
+  },
+  {
+    "id": "b05",
+    "index": 4,
+    "emotion": "mystery",
+    "intensity": 0.37,
+    "text": "When the doors swung open, the whole village fell silent.",
+    "t0": 17.936,
+    "t1": 22.266,
+    "words": 10,
+    "source": "contextual take"
+  },
+  {
+    "id": "b06",
+    "index": 5,
+    "emotion": "reveal",
+    "intensity": 1,
+    "text": "Because what came out wasn't just pottery.",
+    "t0": 23.088,
+    "t1": 25.648,
+    "words": 7,
+    "source": "contextual take"
+  },
+  {
+    "id": "b07",
+    "index": 6,
+    "emotion": "resolve",
+    "intensity": 0.81,
+    "text": "And the boy they laughed at became the one they remembered.",
+    "t0": 26.248,
+    "t1": 29.928,
+    "words": 11,
+    "source": "contextual take"
+  }
+]

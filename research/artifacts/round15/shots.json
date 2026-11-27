@@ -1,0 +1,148 @@
+{
+  "TOTAL": 66,
+  "LEAD": 1,
+  "shots": [
+    {
+      "name": "towerDawn",
+      "start": 0,
+      "dur": 6.6,
+      "trans": {
+        "type": "fadein",
+        "dur": 0.9
+      },
+      "beats": [
+        "b01"
+      ]
+    },
+    {
+      "name": "forge",
+      "start": 6.6,
+      "dur": 2.9,
+      "trans": {
+        "type": "dissolve",
+        "dur": 0.4
+      },
+      "beats": [
+        "b02"
+      ]
+    },
+    {
+      "name": "craftMontage",
+      "start": 9.5,
+      "dur": 5.2,
+      "trans": {
+        "type": "cut"
+      },
+      "beats": [
+        "b03"
+      ]
+    },
+    {
+      "name": "silentTower",
+      "start": 14.7,
+      "dur": 5.1,
+      "trans": {
+        "type": "dissolve",
+        "dur": 0.45
+      },
+      "beats": [
+        "b04"
+      ]
+    },
+    {
+      "name": "stairs",
+      "start": 19.8,
+      "dur": 6.3,
+      "trans": {
+        "type": "cut"
+      },
+      "beats": [
+        "b05"
+      ]
+    },
+    {
+      "name": "notTouching",
+      "start": 26.1,
+      "dur": 2.9,
+      "trans": {
+        "type": "dissolve",
+        "dur": 0.4
+      },
+      "beats": [
+        "b06"
+      ]
+    },
+    {
+      "name": "tapping",
+      "start": 29,
+      "dur": 7.2,
+      "trans": {
+        "type": "cut"
+      },
+      "beats": [
+        "b07"
+      ]
+    },
+    {
+      "name": "heldBreath",
+      "start": 36.2,
+      "dur": 3.8,
+      "trans": {
+        "type": "dip",
+        "dur": 0.5
+      },
+      "beats": [
+        "b08"
+      ]
+    },
+    {
+      "name": "bellFine",
+      "start": 40,
+      "dur": 3,
+      "trans": {
+        "type": "bloom",
+        "dur": 0.45
+      },
+      "beats": [
+        "b09"
+      ]
+    },
+    {
+      "name": "stoneTruth",
+      "start": 43,
+      "dur": 9.6,
+      "trans": {
+        "type": "dissolve",
+        "dur": 0.5
+      },
+      "beats": [
+        "b10",
+        "b11"
+      ]
+    },
+    {
+      "name": "movingBell",
+      "start": 52.6,
+      "dur": 4.1,
+      "trans": {
+        "type": "cut"
+      },
+      "beats": [
+        "b12"
+      ]
+    },
+    {
+      "name": "theRing",
+      "start": 56.7,
+      "dur": 9.3,
+      "trans": {
+        "type": "bloom",
+        "dur": 0.6
+      },
+      "beats": [
+        "b13",
+        "b14"
+      ]
+    }
+  ]
+}

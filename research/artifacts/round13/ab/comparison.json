@@ -1,0 +1,671 @@
+{
+  "rawPerBeatA": [
+    {
+      "id": "b01",
+      "emotion": "comedy",
+      "dur": 2.84,
+      "f0MedianHz": 118,
+      "pitchRangeSt": 20.28,
+      "pitchStdSt": 6.6,
+      "dynamicRangeDb": 35.48,
+      "centroidHz": 649,
+      "wordsPerSec": 3.12
+    },
+    {
+      "id": "b02",
+      "emotion": "warm",
+      "dur": 3.83,
+      "f0MedianHz": 157,
+      "pitchRangeSt": 20.92,
+      "pitchStdSt": 6.34,
+      "dynamicRangeDb": 48.94,
+      "centroidHz": 626,
+      "wordsPerSec": 2.71
+    },
+    {
+      "id": "b03",
+      "emotion": "sadness",
+      "dur": 5.04,
+      "f0MedianHz": 145,
+      "pitchRangeSt": 13.43,
+      "pitchStdSt": 4.18,
+      "dynamicRangeDb": 38.66,
+      "centroidHz": 432,
+      "wordsPerSec": 2.68
+    },
+    {
+      "id": "b04",
+      "emotion": "tension",
+      "dur": 4.36,
+      "f0MedianHz": 161,
+      "pitchRangeSt": 19.18,
+      "pitchStdSt": 6,
+      "dynamicRangeDb": 25.33,
+      "centroidHz": 402,
+      "wordsPerSec": 2.9
+    },
+    {
+      "id": "b05",
+      "emotion": "mystery",
+      "dur": 4.42,
+      "f0MedianHz": 130,
+      "pitchRangeSt": 15.36,
+      "pitchStdSt": 5.32,
+      "dynamicRangeDb": 47.44,
+      "centroidHz": 615,
+      "wordsPerSec": 3.09
+    },
+    {
+      "id": "b06",
+      "emotion": "reveal",
+      "dur": 2.81,
+      "f0MedianHz": 153,
+      "pitchRangeSt": 17.62,
+      "pitchStdSt": 5.1,
+      "dynamicRangeDb": 41.07,
+      "centroidHz": 597,
+      "wordsPerSec": 3.35
+    },
+    {
+      "id": "b07",
+      "emotion": "resolve",
+      "dur": 3.78,
+      "f0MedianHz": 121,
+      "pitchRangeSt": 16.03,
+      "pitchStdSt": 4.83,
+      "dynamicRangeDb": 28.64,
+      "centroidHz": 427,
+      "wordsPerSec": 3.45
+    }
+  ],
+  "finalPerBeatA": [
+    {
+      "id": "b01",
+      "emotion": "comedy",
+      "text": "Everyone in the village laughed at Sami.",
+      "dur": 2.84,
+      "f0MedianHz": 118,
+      "pitchRangeSt": 20.28,
+      "pitchStdSt": 6.6,
+      "gesturesPer10s": 21.13,
+      "dynamicRangeDb": 34.9,
+      "centroidHz": 717,
+      "wordsPerSec": 3.11
+    },
+    {
+      "id": "b02",
+      "emotion": "warm",
+      "text": "While the others chased gold, he chose clay.",
+      "dur": 3.83,
+      "f0MedianHz": 157,
+      "pitchRangeSt": 20.89,
+      "pitchStdSt": 6.33,
+      "gesturesPer10s": 15.67,
+      "dynamicRangeDb": 48.13,
+      "centroidHz": 638,
+      "wordsPerSec": 2.72
+    },
+    {
+      "id": "b03",
+      "emotion": "sadness",
+      "text": "He shaped a thousand pots, and threw a thousand more away.",
+      "dur": 5.04,
+      "f0MedianHz": 145,
+      "pitchRangeSt": 13.48,
+      "pitchStdSt": 4.24,
+      "gesturesPer10s": 19.84,
+      "dynamicRangeDb": 34.64,
+      "centroidHz": 406,
+      "wordsPerSec": 2.97
+    },
+    {
+      "id": "b04",
+      "emotion": "tension",
+      "text": "Then one night, he fired the kiln hotter than ever before.",
+      "dur": 4.36,
+      "f0MedianHz": 161,
+      "pitchRangeSt": 19.18,
+      "pitchStdSt": 6,
+      "gesturesPer10s": 22.94,
+      "dynamicRangeDb": 24.04,
+      "centroidHz": 407,
+      "wordsPerSec": 2.91
+    },
+    {
+      "id": "b05",
+      "emotion": "mystery",
+      "text": "When the doors swung open, the whole village fell silent.",
+      "dur": 4.38,
+      "f0MedianHz": 130,
+      "pitchRangeSt": 15.9,
+      "pitchStdSt": 5.36,
+      "gesturesPer10s": 15.98,
+      "dynamicRangeDb": 42.42,
+      "centroidHz": 645,
+      "wordsPerSec": 3.13
+    },
+    {
+      "id": "b06",
+      "emotion": "reveal",
+      "text": "Because what came out wasn't just pottery.",
+      "dur": 2.81,
+      "f0MedianHz": 153,
+      "pitchRangeSt": 17.54,
+      "pitchStdSt": 5.05,
+      "gesturesPer10s": 21.35,
+      "dynamicRangeDb": 39.46,
+      "centroidHz": 599,
+      "wordsPerSec": 3.35
+    },
+    {
+      "id": "b07",
+      "emotion": "resolve",
+      "text": "And the boy they laughed at became the one they remembered.",
+      "dur": 3.77,
+      "f0MedianHz": 121,
+      "pitchRangeSt": 16.11,
+      "pitchStdSt": 4.9,
+      "gesturesPer10s": 26.53,
+      "dynamicRangeDb": 25.91,
+      "centroidHz": 452,
+      "wordsPerSec": 3.45
+    }
+  ],
+  "perBeatB": [
+    {
+      "id": "b01",
+      "emotion": "comedy",
+      "dur": 2.59,
+      "f0MedianHz": 116,
+      "pitchRangeSt": 19.34,
+      "pitchStdSt": 6.37,
+      "gesturesPer10s": 15.44,
+      "dynamicRangeDb": 24.23,
+      "centroidHz": 621,
+      "wordsPerSec": 3.02
+    },
+    {
+      "id": "b02",
+      "emotion": "warm",
+      "dur": 3.27,
+      "f0MedianHz": 181,
+      "pitchRangeSt": 24.24,
+      "pitchStdSt": 7.63,
+      "gesturesPer10s": 33.64,
+      "dynamicRangeDb": 45.72,
+      "centroidHz": 591,
+      "wordsPerSec": 3.15
+    },
+    {
+      "id": "b03",
+      "emotion": "sadness",
+      "dur": 4.36,
+      "f0MedianHz": 137,
+      "pitchRangeSt": 17.43,
+      "pitchStdSt": 5.47,
+      "gesturesPer10s": 18.35,
+      "dynamicRangeDb": 41.42,
+      "centroidHz": 572,
+      "wordsPerSec": 3.11
+    },
+    {
+      "id": "b04",
+      "emotion": "tension",
+      "dur": 4.97,
+      "f0MedianHz": 129,
+      "pitchRangeSt": 15.9,
+      "pitchStdSt": 4.73,
+      "gesturesPer10s": 14.08,
+      "dynamicRangeDb": 45.5,
+      "centroidHz": 263,
+      "wordsPerSec": 2.85
+    },
+    {
+      "id": "b05",
+      "emotion": "mystery",
+      "dur": 4.31,
+      "f0MedianHz": 115,
+      "pitchRangeSt": 17.57,
+      "pitchStdSt": 5.67,
+      "gesturesPer10s": 11.6,
+      "dynamicRangeDb": 39.58,
+      "centroidHz": 577,
+      "wordsPerSec": 3.06
+    },
+    {
+      "id": "b06",
+      "emotion": "reveal",
+      "dur": 2.54,
+      "f0MedianHz": 206,
+      "pitchRangeSt": 20.95,
+      "pitchStdSt": 7.06,
+      "gesturesPer10s": 23.62,
+      "dynamicRangeDb": 43.19,
+      "centroidHz": 726,
+      "wordsPerSec": 3.87
+    },
+    {
+      "id": "b07",
+      "emotion": "resolve",
+      "dur": 3.66,
+      "f0MedianHz": 84,
+      "pitchRangeSt": 15,
+      "pitchStdSt": 4.77,
+      "gesturesPer10s": 19.13,
+      "dynamicRangeDb": 48.16,
+      "centroidHz": 237,
+      "wordsPerSec": 4.09
+    }
+  ],
+  "variationRawA": {
+    "beats": 7,
+    "f0MedianHz": {
+      "min": 118,
+      "max": 161,
+      "std": 17.63
+    },
+    "pitchRangeSt": {
+      "min": 13.43,
+      "max": 20.92,
+      "std": 2.76
+    },
+    "wordsPerSec": {
+      "min": 2.68,
+      "max": 3.45,
+      "std": 0.3
+    },
+    "dynamicRangeDb": {
+      "min": 25.33,
+      "max": 48.94,
+      "std": 8.88
+    },
+    "centroidHz": {
+      "min": 402,
+      "max": 649,
+      "std": 109.15
+    }
+  },
+  "variationFinalA": {
+    "beats": 7,
+    "f0MedianHz": {
+      "min": 118,
+      "max": 161,
+      "std": 17.63
+    },
+    "pitchRangeSt": {
+      "min": 13.48,
+      "max": 20.89,
+      "std": 2.66
+    },
+    "wordsPerSec": {
+      "min": 2.72,
+      "max": 3.45,
+      "std": 0.25
+    },
+    "dynamicRangeDb": {
+      "min": 24.04,
+      "max": 48.13,
+      "std": 8.63
+    },
+    "centroidHz": {
+      "min": 406,
+      "max": 717,
+      "std": 127.68
+    }
+  },
+  "variationB": {
+    "beats": 7,
+    "f0MedianHz": {
+      "min": 84,
+      "max": 206,
+      "std": 41.8
+    },
+    "pitchRangeSt": {
+      "min": 15,
+      "max": 24.24,
+      "std": 3.18
+    },
+    "wordsPerSec": {
+      "min": 2.85,
+      "max": 4.09,
+      "std": 0.47
+    },
+    "dynamicRangeDb": {
+      "min": 24.23,
+      "max": 48.16,
+      "std": 7.98
+    },
+    "centroidHz": {
+      "min": 237,
+      "max": 726,
+      "std": 186.8
+    }
+  },
+  "bWords": [
+    {
+      "word": "Everyone",
+      "t": 0.25,
+      "dur": 0.52
+    },
+    {
+      "word": "in",
+      "t": 0.77,
+      "dur": 0.1
+    },
+    {
+      "word": "the",
+      "t": 0.87,
+      "dur": 0.07
+    },
+    {
+      "word": "village",
+      "t": 0.94,
+      "dur": 0.46
+    },
+    {
+      "word": "laughed",
+      "t": 1.4,
+      "dur": 0.66
+    },
+    {
+      "word": "at",
+      "t": 2.06,
+      "dur": 0.11
+    },
+    {
+      "word": "Sami",
+      "t": 2.17,
+      "dur": 0.55
+    },
+    {
+      "word": "While",
+      "t": 3.3,
+      "dur": 0.13
+    },
+    {
+      "word": "the",
+      "t": 3.43,
+      "dur": 0.13
+    },
+    {
+      "word": "others",
+      "t": 3.56,
+      "dur": 0.29
+    },
+    {
+      "word": "chased",
+      "t": 3.85,
+      "dur": 0.38
+    },
+    {
+      "word": "gold",
+      "t": 4.23,
+      "dur": 0.66
+    },
+    {
+      "word": "he",
+      "t": 5.19,
+      "dur": 0.21
+    },
+    {
+      "word": "chose",
+      "t": 5.4,
+      "dur": 0.41
+    },
+    {
+      "word": "clay",
+      "t": 5.81,
+      "dur": 0.64
+    },
+    {
+      "word": "He",
+      "t": 7.13,
+      "dur": 0.12
+    },
+    {
+      "word": "shaped",
+      "t": 7.25,
+      "dur": 0.49
+    },
+    {
+      "word": "a",
+      "t": 7.74,
+      "dur": 0.06
+    },
+    {
+      "word": "thousand",
+      "t": 7.8,
+      "dur": 0.79
+    },
+    {
+      "word": "pots",
+      "t": 8.59,
+      "dur": 0.62
+    },
+    {
+      "word": "and",
+      "t": 9.46,
+      "dur": 0.15
+    },
+    {
+      "word": "threw",
+      "t": 9.61,
+      "dur": 0.29
+    },
+    {
+      "word": "a",
+      "t": 9.9,
+      "dur": 0.06
+    },
+    {
+      "word": "thousand",
+      "t": 9.93,
+      "dur": 0.55
+    },
+    {
+      "word": "more",
+      "t": 10.48,
+      "dur": 0.41
+    },
+    {
+      "word": "away",
+      "t": 10.89,
+      "dur": 0.48
+    },
+    {
+      "word": "Then",
+      "t": 12.1,
+      "dur": 0.41
+    },
+    {
+      "word": "one",
+      "t": 12.76,
+      "dur": 0.28
+    },
+    {
+      "word": "night",
+      "t": 13.04,
+      "dur": 0.71
+    },
+    {
+      "word": "he",
+      "t": 13.75,
+      "dur": 0.12
+    },
+    {
+      "word": "fired",
+      "t": 13.87,
+      "dur": 0.58
+    },
+    {
+      "word": "the",
+      "t": 14.45,
+      "dur": 0.07
+    },
+    {
+      "word": "kiln",
+      "t": 14.52,
+      "dur": 0.49
+    },
+    {
+      "word": "hotter",
+      "t": 15.01,
+      "dur": 0.64
+    },
+    {
+      "word": "than",
+      "t": 15.65,
+      "dur": 0.26
+    },
+    {
+      "word": "ever",
+      "t": 16.03,
+      "dur": 0.29
+    },
+    {
+      "word": "before",
+      "t": 16.32,
+      "dur": 0.63
+    },
+    {
+      "word": "When",
+      "t": 17.29,
+      "dur": 0.44
+    },
+    {
+      "word": "the",
+      "t": 17.73,
+      "dur": 0.08
+    },
+    {
+      "word": "doors",
+      "t": 17.81,
+      "dur": 0.43
+    },
+    {
+      "word": "swung",
+      "t": 18.24,
+      "dur": 0.35
+    },
+    {
+      "word": "open",
+      "t": 18.59,
+      "dur": 0.45
+    },
+    {
+      "word": "the",
+      "t": 19.47,
+      "dur": 0.06
+    },
+    {
+      "word": "whole",
+      "t": 19.53,
+      "dur": 0.44
+    },
+    {
+      "word": "village",
+      "t": 19.97,
+      "dur": 0.54
+    },
+    {
+      "word": "fell",
+      "t": 20.51,
+      "dur": 0.24
+    },
+    {
+      "word": "silent",
+      "t": 20.75,
+      "dur": 0.73
+    },
+    {
+      "word": "Because",
+      "t": 22.15,
+      "dur": 0.3
+    },
+    {
+      "word": "what",
+      "t": 22.45,
+      "dur": 0.16
+    },
+    {
+      "word": "came",
+      "t": 22.61,
+      "dur": 0.32
+    },
+    {
+      "word": "out",
+      "t": 22.93,
+      "dur": 0.32
+    },
+    {
+      "word": "wasn't",
+      "t": 23.25,
+      "dur": 0.33
+    },
+    {
+      "word": "just",
+      "t": 23.58,
+      "dur": 0.23
+    },
+    {
+      "word": "pottery",
+      "t": 23.81,
+      "dur": 0.76
+    },
+    {
+      "word": "And",
+      "t": 25.21,
+      "dur": 0.13
+    },
+    {
+      "word": "the",
+      "t": 25.34,
+      "dur": 0.06
+    },
+    {
+      "word": "boy",
+      "t": 25.4,
+      "dur": 0.27
+    },
+    {
+      "word": "they",
+      "t": 25.67,
+      "dur": 0.15
+    },
+    {
+      "word": "laughed",
+      "t": 25.82,
+      "dur": 0.43
+    },
+    {
+      "word": "at",
+      "t": 26.25,
+      "dur": 0.25
+    },
+    {
+      "word": "became",
+      "t": 27.05,
+      "dur": 0.38
+    },
+    {
+      "word": "the",
+      "t": 27.43,
+      "dur": 0.06
+    },
+    {
+      "word": "one",
+      "t": 27.49,
+      "dur": 0.37
+    },
+    {
+      "word": "they",
+      "t": 27.86,
+      "dur": 0.12
+    },
+    {
+      "word": "remembered",
+      "t": 27.98,
+      "dur": 0.83
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "file": "emotion-reel.wav",
+  "durationSec": 32.25,
+  "voice": "voice-03",
+  "note": "All six excerpts are the SAME voice from ONE contextual take of the film script, cut at sentence boundaries and shaped per emotion. 1.3 s of silence separates them. This is real generated audio, not a measurement.",
+  "segments": [
+    {
+      "emotion": "mystery",
+      "beat": "b01",
+      "startsAtSec": 0,
+      "endsAtSec": 5.4,
+      "text": "For sixty years, the bell of Vellara had never made a sound."
+    },
+    {
+      "emotion": "tension",
+      "beat": "b08",
+      "startsAtSec": 6.7,
+      "endsAtSec": 10.06,
+      "text": "The whole town held its breath."
+    },
+    {
+      "emotion": "surprise",
+      "beat": "b10",
+      "startsAtSec": 11.36,
+      "endsAtSec": 13.58,
+      "text": "The tower was."
+    },
+    {
+      "emotion": "reveal",
+      "beat": "b11",
+      "startsAtSec": 14.88,
+      "endsAtSec": 20.58,
+      "text": "Something in that stone had been swallowing every note for sixty years."
+    },
+    {
+      "emotion": "excitement",
+      "beat": "b13",
+      "startsAtSec": 21.88,
+      "endsAtSec": 26.3,
+      "text": "And when it rang, they heard it in three villages."
+    },
+    {
+      "emotion": "resolve",
+      "beat": "b14",
+      "startsAtSec": 27.6,
+      "endsAtSec": 30.95,
+      "text": "The girl they ignored became the one they listened to."
+    }
+  ]
+}

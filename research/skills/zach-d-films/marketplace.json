@@ -1,0 +1,15 @@
+{
+  "name": "claude-animation-skills",
+  "owner": {
+    "name": "Artem Novitckii",
+    "url": "https://novitckii.com"
+  },
+  "description": "Artem Novitckii's animation skills for Claude Code.",
+  "plugins": [
+    {
+      "name": "animation-skills",
+      "source": "./",
+      "description": "Eleven skills that make animations for reels with no footage: low-poly 3D, a Minecraft-style voxel build, a 3D cartoon explainer, Kurzgesagt-style flat space, Dan Koe-style line art, a stick-figure explainer, minimal steps, a 3D map route, a 3D exploded view and a line graph."
+    }
+  ]
+}

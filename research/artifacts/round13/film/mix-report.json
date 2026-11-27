@@ -1,0 +1,893 @@
+{
+  "levels": {
+    "voiceRmsDb": -21.27,
+    "musicRmsDb": -42.78,
+    "sfxRmsDb": -38.7,
+    "ambienceRmsDb": -49.72,
+    "mixTruePeakDb": -6.36,
+    "musicUnderVoiceDb": 21.51,
+    "voicePeakDb": -6.61,
+    "sfxEventPeak": {
+      "peakDb": -16.72,
+      "medianDb": -22.81,
+      "p90Db": -18.27
+    },
+    "sfxUnderVoicePeakDb": 11.66,
+    "sfxUnderVoiceDb": 11.66
+  },
+  "masking": [
+    {
+      "t": 1.2,
+      "name": "open on the tower",
+      "durSec": 0.9,
+      "sfxPeakDb": -22.7,
+      "voiceDb": -20.6,
+      "musicDb": -51,
+      "deficitDb": 2.1,
+      "check": "ok"
+    },
+    {
+      "t": 4.1,
+      "name": "dead bell attempt (damped)",
+      "durSec": 1.2,
+      "sfxPeakDb": -30,
+      "voiceDb": -23.5,
+      "musicDb": -45.6,
+      "deficitDb": 6.5,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 7,
+      "name": "founder enters",
+      "durSec": 0.11,
+      "sfxPeakDb": -19.2,
+      "voiceDb": -24,
+      "musicDb": -45.1,
+      "deficitDb": -4.8,
+      "check": "ok"
+    },
+    {
+      "t": 7.47,
+      "name": "founder step",
+      "durSec": 0.11,
+      "sfxPeakDb": -20.5,
+      "voiceDb": -20.1,
+      "musicDb": -46.4,
+      "deficitDb": 0.4,
+      "check": "ok"
+    },
+    {
+      "t": 8.15,
+      "name": "hammer on metal",
+      "durSec": 0.5,
+      "sfxPeakDb": -26.7,
+      "voiceDb": -26.8,
+      "musicDb": -45.6,
+      "deficitDb": -0.1,
+      "check": "ok"
+    },
+    {
+      "t": 9.5,
+      "name": "transition craftMontage",
+      "durSec": 0.55,
+      "sfxPeakDb": -30,
+      "voiceDb": -120,
+      "musicDb": -44.7,
+      "deficitDb": -14.7,
+      "check": "ok"
+    },
+    {
+      "t": 9.99,
+      "name": "bronze pour heat",
+      "durSec": 1.6,
+      "sfxPeakDb": -22.8,
+      "voiceDb": -22.1,
+      "musicDb": -48.8,
+      "deficitDb": 0.7,
+      "check": "ok"
+    },
+    {
+      "t": 10.24,
+      "name": "molten pour (viscous)",
+      "durSec": 0.442,
+      "sfxPeakDb": -22.8,
+      "voiceDb": -16.9,
+      "musicDb": -45.7,
+      "deficitDb": 5.9,
+      "check": "ok"
+    },
+    {
+      "t": 11.54,
+      "name": "tune the crown 1",
+      "durSec": 1.1,
+      "sfxPeakDb": -24.4,
+      "voiceDb": -16,
+      "musicDb": -48.9,
+      "deficitDb": 8.4,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 12.14,
+      "name": "tune the crown 2",
+      "durSec": 1,
+      "sfxPeakDb": -26.5,
+      "voiceDb": -16.9,
+      "musicDb": -51.9,
+      "deficitDb": 9.6,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 13.04,
+      "name": "rope hoist creak",
+      "durSec": 1.1,
+      "sfxPeakDb": -22.4,
+      "voiceDb": -26.6,
+      "musicDb": -51.9,
+      "deficitDb": -4.2,
+      "check": "ok"
+    },
+    {
+      "t": 13.99,
+      "name": "bell seats higher",
+      "durSec": 0.495,
+      "sfxPeakDb": -22.6,
+      "voiceDb": -55.6,
+      "musicDb": -47.2,
+      "deficitDb": -24.6,
+      "check": "ok"
+    },
+    {
+      "t": 15.97,
+      "name": "another dead note",
+      "durSec": 0.9,
+      "sfxPeakDb": -33,
+      "voiceDb": -59,
+      "musicDb": -48.8,
+      "deficitDb": -15.8,
+      "check": "ok"
+    },
+    {
+      "t": 18.27,
+      "name": "crowd shifts, uneasy",
+      "durSec": 0.4,
+      "sfxPeakDb": -18.4,
+      "voiceDb": -60.5,
+      "musicDb": -47.1,
+      "deficitDb": -28.7,
+      "check": "ok"
+    },
+    {
+      "t": 20.49,
+      "name": "stair step 1",
+      "durSec": 0.11,
+      "sfxPeakDb": -20.9,
+      "voiceDb": -15.9,
+      "musicDb": -46,
+      "deficitDb": 5,
+      "check": "ok"
+    },
+    {
+      "t": 21.05,
+      "name": "stair step 2",
+      "durSec": 0.11,
+      "sfxPeakDb": -20.2,
+      "voiceDb": -15.8,
+      "musicDb": -45.4,
+      "deficitDb": 4.4,
+      "check": "ok"
+    },
+    {
+      "t": 21.61,
+      "name": "stair step 3",
+      "durSec": 0.11,
+      "sfxPeakDb": -18.7,
+      "voiceDb": -63.8,
+      "musicDb": -42.9,
+      "deficitDb": -24.2,
+      "check": "ok"
+    },
+    {
+      "t": 22.17,
+      "name": "stair step 4",
+      "durSec": 0.11,
+      "sfxPeakDb": -19.7,
+      "voiceDb": -19.1,
+      "musicDb": -46.1,
+      "deficitDb": 0.6,
+      "check": "ok"
+    },
+    {
+      "t": 22.24,
+      "name": "coat rustle",
+      "durSec": 0.35,
+      "sfxPeakDb": -23.5,
+      "voiceDb": -22.3,
+      "musicDb": -44.8,
+      "deficitDb": 1.2,
+      "check": "ok"
+    },
+    {
+      "t": 22.73,
+      "name": "stair step 5",
+      "durSec": 0.11,
+      "sfxPeakDb": -20.9,
+      "voiceDb": -21,
+      "musicDb": -45,
+      "deficitDb": -0.1,
+      "check": "ok"
+    },
+    {
+      "t": 23.29,
+      "name": "stair step 6",
+      "durSec": 0.11,
+      "sfxPeakDb": -20.2,
+      "voiceDb": -17.1,
+      "musicDb": -45.2,
+      "deficitDb": 3.1,
+      "check": "ok"
+    },
+    {
+      "t": 23.85,
+      "name": "stair step 7",
+      "durSec": 0.11,
+      "sfxPeakDb": -21.3,
+      "voiceDb": -19.6,
+      "musicDb": -45.3,
+      "deficitDb": 1.7,
+      "check": "ok"
+    },
+    {
+      "t": 24.41,
+      "name": "stair step 8",
+      "durSec": 0.11,
+      "sfxPeakDb": -19.7,
+      "voiceDb": -23.6,
+      "musicDb": -45.3,
+      "deficitDb": -3.9,
+      "check": "ok"
+    },
+    {
+      "t": 24.97,
+      "name": "stair step 9",
+      "durSec": 0.11,
+      "sfxPeakDb": -16.9,
+      "voiceDb": -48.5,
+      "musicDb": -42.5,
+      "deficitDb": -25.6,
+      "check": "ok"
+    },
+    {
+      "t": 25.14,
+      "name": "belfry hatch",
+      "durSec": 0.55,
+      "sfxPeakDb": -21.9,
+      "voiceDb": -59.1,
+      "musicDb": -42.3,
+      "deficitDb": -20.4,
+      "check": "ok"
+    },
+    {
+      "t": 26.1,
+      "name": "transition notTouching",
+      "durSec": 0.55,
+      "sfxPeakDb": -28.1,
+      "voiceDb": -43.9,
+      "musicDb": -43.7,
+      "deficitDb": -15.6,
+      "check": "ok"
+    },
+    {
+      "t": 27,
+      "name": "she stops, hand lowered",
+      "durSec": 0.45,
+      "sfxPeakDb": -22.8,
+      "voiceDb": -23.6,
+      "musicDb": -44.7,
+      "deficitDb": -0.8,
+      "check": "ok"
+    },
+    {
+      "t": 30.75,
+      "name": "tap the wall — once",
+      "durSec": 0.11,
+      "sfxPeakDb": -18.3,
+      "voiceDb": -26.3,
+      "musicDb": -46.7,
+      "deficitDb": -8,
+      "check": "ok"
+    },
+    {
+      "t": 32.15,
+      "name": "tap the wall — twice",
+      "durSec": 0.11,
+      "sfxPeakDb": -16.8,
+      "voiceDb": -37.2,
+      "musicDb": -45.5,
+      "deficitDb": -20.4,
+      "check": "ok"
+    },
+    {
+      "t": 33.6,
+      "name": "stone answers, faint",
+      "durSec": 0.7,
+      "sfxPeakDb": -27.6,
+      "voiceDb": -64.6,
+      "musicDb": -45.4,
+      "deficitDb": -17.8,
+      "check": "ok"
+    },
+    {
+      "t": 37.31,
+      "name": "town inhales",
+      "durSec": 0.75,
+      "sfxPeakDb": -37.8,
+      "voiceDb": -22.3,
+      "musicDb": -45.9,
+      "deficitDb": 15.5,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 40,
+      "name": "transition bellFine",
+      "durSec": 0.55,
+      "sfxPeakDb": -29,
+      "voiceDb": -120,
+      "musicDb": -51.5,
+      "deficitDb": -22.5,
+      "check": "ok"
+    },
+    {
+      "t": 40.72,
+      "name": "the bell is sound",
+      "durSec": 1.9,
+      "sfxPeakDb": -27.5,
+      "voiceDb": -19.3,
+      "musicDb": -41.3,
+      "deficitDb": 8.2,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 43.23,
+      "name": "twist anticipation",
+      "durSec": 0.5,
+      "sfxPeakDb": -24.1,
+      "voiceDb": -23.3,
+      "musicDb": -40.5,
+      "deficitDb": 0.8,
+      "check": "ok"
+    },
+    {
+      "t": 43.26,
+      "name": "the tower — twist hit",
+      "durSec": 0.675,
+      "sfxPeakDb": -24.1,
+      "voiceDb": -23.3,
+      "musicDb": -40.5,
+      "deficitDb": 0.8,
+      "check": "ok"
+    },
+    {
+      "t": 46.55,
+      "name": "realisation riser",
+      "durSec": 2.2,
+      "sfxPeakDb": -28.1,
+      "voiceDb": -16.1,
+      "musicDb": -41.8,
+      "deficitDb": 12,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 47.15,
+      "name": "note swallowed 1",
+      "durSec": 0.45,
+      "sfxPeakDb": -29.7,
+      "voiceDb": -17.1,
+      "musicDb": -41.4,
+      "deficitDb": 12.6,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 48.3,
+      "name": "note swallowed 2",
+      "durSec": 0.45,
+      "sfxPeakDb": -28.1,
+      "voiceDb": -15.3,
+      "musicDb": -43.5,
+      "deficitDb": 12.8,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 49.45,
+      "name": "note swallowed 3",
+      "durSec": 0.45,
+      "sfxPeakDb": -32.8,
+      "voiceDb": -33.8,
+      "musicDb": -42.5,
+      "deficitDb": -1,
+      "check": "ok"
+    },
+    {
+      "t": 50.6,
+      "name": "note swallowed 4",
+      "durSec": 0.45,
+      "sfxPeakDb": -31.9,
+      "voiceDb": -32,
+      "musicDb": -44.6,
+      "deficitDb": -0.1,
+      "check": "ok"
+    },
+    {
+      "t": 53.08,
+      "name": "rope takes the weight",
+      "durSec": 0.8,
+      "sfxPeakDb": -21.2,
+      "voiceDb": -18.1,
+      "musicDb": -44,
+      "deficitDb": 3.1,
+      "check": "ok"
+    },
+    {
+      "t": 53.88,
+      "name": "bell slides on beam",
+      "durSec": 0.9,
+      "sfxPeakDb": -22.7,
+      "voiceDb": -18,
+      "musicDb": -46.3,
+      "deficitDb": 4.7,
+      "check": "ok"
+    },
+    {
+      "t": 55.18,
+      "name": "bell seats, four feet left",
+      "durSec": 0.405,
+      "sfxPeakDb": -22.2,
+      "voiceDb": -56.8,
+      "musicDb": -42.7,
+      "deficitDb": -20.5,
+      "check": "ok"
+    },
+    {
+      "t": 55.73,
+      "name": "she steps back",
+      "durSec": 0.11,
+      "sfxPeakDb": -16.7,
+      "voiceDb": -66.9,
+      "musicDb": -40.7,
+      "deficitDb": -24,
+      "check": "ok"
+    },
+    {
+      "t": 56.7,
+      "name": "transition theRing",
+      "durSec": 0.55,
+      "sfxPeakDb": -26.1,
+      "voiceDb": -42.7,
+      "musicDb": -41.9,
+      "deficitDb": -15.8,
+      "check": "ok"
+    },
+    {
+      "t": 57.25,
+      "name": "sound leaves the tower",
+      "durSec": 1.2,
+      "sfxPeakDb": -21.5,
+      "voiceDb": -30.5,
+      "musicDb": -39.8,
+      "deficitDb": -9,
+      "check": "ok"
+    },
+    {
+      "t": 57.3,
+      "name": "THE BELL RINGS",
+      "durSec": 4.2,
+      "sfxPeakDb": -21.5,
+      "voiceDb": -34.5,
+      "musicDb": -40.1,
+      "deficitDb": -13,
+      "check": "ok"
+    },
+    {
+      "t": 58.85,
+      "name": "valley cheers",
+      "durSec": 4.4,
+      "sfxPeakDb": -22,
+      "voiceDb": -25.8,
+      "musicDb": -39.8,
+      "deficitDb": -3.8,
+      "check": "ok"
+    },
+    {
+      "t": 59.5,
+      "name": "bell second strike",
+      "durSec": 3.6,
+      "sfxPeakDb": -22,
+      "voiceDb": -17.5,
+      "musicDb": -40.3,
+      "deficitDb": 4.5,
+      "check": "ok"
+    },
+    {
+      "t": 60.25,
+      "name": "second village hears",
+      "durSec": 2.6,
+      "sfxPeakDb": -25.2,
+      "voiceDb": -28.9,
+      "musicDb": -35.9,
+      "deficitDb": -3.7,
+      "check": "ok"
+    },
+    {
+      "t": 60.8,
+      "name": "third village hears",
+      "durSec": 2.6,
+      "sfxPeakDb": -24.7,
+      "voiceDb": -66,
+      "musicDb": -33.5,
+      "deficitDb": -8.8,
+      "check": "ok"
+    },
+    {
+      "t": 62.03,
+      "name": "wonder in the crowd",
+      "durSec": 0.75,
+      "sfxPeakDb": -32.4,
+      "voiceDb": -17.6,
+      "musicDb": -36.5,
+      "deficitDb": 14.8,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 63.23,
+      "name": "listened to",
+      "durSec": 2.2,
+      "sfxPeakDb": -24.7,
+      "voiceDb": -66.2,
+      "musicDb": -36.8,
+      "deficitDb": -12.1,
+      "check": "ok"
+    }
+  ],
+  "density": {
+    "events": 53,
+    "durationSec": 66,
+    "per10s": 8.03,
+    "targetPer10s": 7.7,
+    "verdict": "in reference range"
+  },
+  "mastered": {
+    "file": "research/artifacts/round13/film/final-audio.wav",
+    "rawFile": "research/artifacts/round13/film/final-audio-raw.wav",
+    "appliedGainDb": 4.36,
+    "capped": true,
+    "requestedLufs": -14,
+    "ceilingDb": -2,
+    "before": {
+      "integratedLufs": -18.91,
+      "truePeakDb": -6.36,
+      "lra": 7,
+      "threshold": -30.06
+    },
+    "after": {
+      "integratedLufs": -14.55,
+      "truePeakDb": -2,
+      "lra": 7,
+      "threshold": -25.71
+    },
+    "reachableLufs": -14.55,
+    "note": "target -14 LUFS would exceed -2 dBTP; mastered to the loudest reachable level instead"
+  },
+  "scoreReport": {
+    "sections": 11,
+    "stingers": 5,
+    "bedSilentFrac": 0.003,
+    "referenceBedSilentFrac": 0.05,
+    "note": "continuous pad guarantees the bed never stops; dips are intentional"
+  },
+  "sections": [
+    {
+      "t0": 0,
+      "t1": 6.85,
+      "mood": "night",
+      "emotion": "mystery",
+      "intensity": 0.32,
+      "beatId": "b01",
+      "beatIds": [
+        "b01"
+      ]
+    },
+    {
+      "t0": 6.85,
+      "t1": 14.87,
+      "mood": "dawn",
+      "emotion": "warm",
+      "intensity": 0.46,
+      "beatId": "b02",
+      "beatIds": [
+        "b02",
+        "b03"
+      ]
+    },
+    {
+      "t0": 14.87,
+      "t1": 20.042,
+      "mood": "night",
+      "emotion": "mystery",
+      "intensity": 0.33,
+      "beatId": "b04",
+      "beatIds": [
+        "b04"
+      ]
+    },
+    {
+      "t0": 20.042,
+      "t1": 26.296,
+      "mood": "dawn",
+      "emotion": "warm",
+      "intensity": 0.46,
+      "beatId": "b05",
+      "beatIds": [
+        "b05"
+      ]
+    },
+    {
+      "t0": 26.296,
+      "t1": 29.202,
+      "mood": "tense",
+      "emotion": "tension",
+      "intensity": 0.46,
+      "beatId": "b06",
+      "beatIds": [
+        "b06"
+      ]
+    },
+    {
+      "t0": 29.202,
+      "t1": 36.412,
+      "mood": "night",
+      "emotion": "mystery",
+      "intensity": 0.37,
+      "beatId": "b07",
+      "beatIds": [
+        "b07"
+      ]
+    },
+    {
+      "t0": 36.412,
+      "t1": 40.172,
+      "mood": "tense",
+      "emotion": "tension",
+      "intensity": 0.62,
+      "beatId": "b08",
+      "beatIds": [
+        "b08"
+      ]
+    },
+    {
+      "t0": 40.172,
+      "t1": 43.212,
+      "mood": "wonder",
+      "emotion": "reveal",
+      "intensity": 0.84,
+      "beatId": "b09",
+      "beatIds": [
+        "b09"
+      ]
+    },
+    {
+      "t0": 43.212,
+      "t1": 46.254,
+      "mood": "swell",
+      "emotion": "surprise",
+      "intensity": 0.72,
+      "beatId": "b10",
+      "beatIds": [
+        "b10"
+      ]
+    },
+    {
+      "t0": 46.254,
+      "t1": 56.946,
+      "mood": "wonder",
+      "emotion": "reveal",
+      "intensity": 1,
+      "beatId": "b11",
+      "beatIds": [
+        "b11",
+        "b12"
+      ]
+    },
+    {
+      "t0": 56.946,
+      "t1": 66,
+      "mood": "joy",
+      "emotion": "excitement",
+      "intensity": 1,
+      "beatId": "b13",
+      "beatIds": [
+        "b13",
+        "b14"
+      ]
+    }
+  ],
+  "stingers": [
+    {
+      "t": 40.212,
+      "beatId": "b09",
+      "emotion": "reveal",
+      "kind": "chime"
+    },
+    {
+      "t": 43.252,
+      "beatId": "b10",
+      "emotion": "surprise",
+      "kind": "chime"
+    },
+    {
+      "t": 46.294,
+      "beatId": "b11",
+      "emotion": "reveal",
+      "kind": "chime"
+    },
+    {
+      "t": 52.866,
+      "beatId": "b12",
+      "emotion": "reveal",
+      "kind": "chime"
+    },
+    {
+      "t": 56.986,
+      "beatId": "b13",
+      "emotion": "excitement",
+      "kind": "bell"
+    }
+  ],
+  "dip": {
+    "t0": 39.822,
+    "t1": 40.172,
+    "gainDb": -9
+  },
+  "shots": [
+    {
+      "name": "towerDawn",
+      "start": 0,
+      "dur": 6.6,
+      "trans": {
+        "type": "fadein",
+        "dur": 0.9
+      },
+      "beats": [
+        "b01"
+      ]
+    },
+    {
+      "name": "forge",
+      "start": 6.6,
+      "dur": 2.9,
+      "trans": {
+        "type": "dissolve",
+        "dur": 0.4
+      },
+      "beats": [
+        "b02"
+      ]
+    },
+    {
+      "name": "craftMontage",
+      "start": 9.5,
+      "dur": 5.2,
+      "trans": {
+        "type": "cut"
+      },
+      "beats": [
+        "b03"
+      ]
+    },
+    {
+      "name": "silentTower",
+      "start": 14.7,
+      "dur": 5.1,
+      "trans": {
+        "type": "dissolve",
+        "dur": 0.45
+      },
+      "beats": [
+        "b04"
+      ]
+    },
+    {
+      "name": "stairs",
+      "start": 19.8,
+      "dur": 6.3,
+      "trans": {
+        "type": "cut"
+      },
+      "beats": [
+        "b05"
+      ]
+    },
+    {
+      "name": "notTouching",
+      "start": 26.1,
+      "dur": 2.9,
+      "trans": {
+        "type": "dissolve",
+        "dur": 0.4
+      },
+      "beats": [
+        "b06"
+      ]
+    },
+    {
+      "name": "tapping",
+      "start": 29,
+      "dur": 7.2,
+      "trans": {
+        "type": "cut"
+      },
+      "beats": [
+        "b07"
+      ]
+    },
+    {
+      "name": "heldBreath",
+      "start": 36.2,
+      "dur": 3.8,
+      "trans": {
+        "type": "dip",
+        "dur": 0.5
+      },
+      "beats": [
+        "b08"
+      ]
+    },
+    {
+      "name": "bellFine",
+      "start": 40,
+      "dur": 3,
+      "trans": {
+        "type": "bloom",
+        "dur": 0.45
+      },
+      "beats": [
+        "b09"
+      ]
+    },
+    {
+      "name": "stoneTruth",
+      "start": 43,
+      "dur": 9.6,
+      "trans": {
+        "type": "dissolve",
+        "dur": 0.5
+      },
+      "beats": [
+        "b10",
+        "b11"
+      ]
+    },
+    {
+      "name": "movingBell",
+      "start": 52.6,
+      "dur": 4.1,
+      "trans": {
+        "type": "cut"
+      },
+      "beats": [
+        "b12"
+      ]
+    },
+    {
+      "name": "theRing",
+      "start": 56.7,
+      "dur": 9.3,
+      "trans": {
+        "type": "bloom",
+        "dur": 0.6
+      },
+      "beats": [
+        "b13",
+        "b14"
+      ]
+    }
+  ]
+}

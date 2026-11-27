@@ -1,0 +1,100 @@
+{
+  "subject": "research/artifacts/round16/infinity-is-a-coffin-r16.mp4",
+  "results": [
+    {
+      "metric": "anything_moving_pct",
+      "label": "anything moving %",
+      "value": 93.91,
+      "op": ">=",
+      "target": 95.0,
+      "verdict": "FAIL",
+      "advisory": false,
+      "higher_is_better": true
+    },
+    {
+      "metric": "local_moving_pct",
+      "label": "local (non-camera) moving %",
+      "value": 92.95,
+      "op": ">=",
+      "target": 91.0,
+      "verdict": "PASS",
+      "advisory": false,
+      "higher_is_better": true
+    },
+    {
+      "metric": "dead_frames_pct",
+      "label": "dead frames %",
+      "value": 6.09,
+      "op": "<=",
+      "target": 4.5,
+      "verdict": "FAIL",
+      "advisory": false,
+      "higher_is_better": false
+    },
+    {
+      "metric": "longest_dead_stretch_s",
+      "label": "longest dead stretch s",
+      "value": 0.67,
+      "op": "<=",
+      "target": 0.7,
+      "verdict": "PASS",
+      "advisory": false,
+      "higher_is_better": false
+    },
+    {
+      "metric": "avg_moving_area_pct",
+      "label": "avg moving area %",
+      "value": 24.42,
+      "op": ">=",
+      "target": 30.0,
+      "verdict": "FAIL",
+      "advisory": false,
+      "higher_is_better": true
+    },
+    {
+      "metric": "composition_change_s",
+      "label": "composition change every s",
+      "value": 1.22,
+      "op": "<=",
+      "target": 2.2,
+      "verdict": "PASS",
+      "advisory": false,
+      "higher_is_better": false
+    },
+    {
+      "metric": "hard_cuts",
+      "label": "hard cuts",
+      "value": 2.0,
+      "op": "<=",
+      "target": 2.0,
+      "verdict": "PASS",
+      "advisory": false,
+      "higher_is_better": false
+    },
+    {
+      "metric": "camera_roll_frames_pct",
+      "label": "camera roll frames %",
+      "value": 17.68,
+      "op": ">=",
+      "target": 25.0,
+      "verdict": "LOW",
+      "advisory": true,
+      "higher_is_better": true
+    },
+    {
+      "metric": "pullback_frames_pct",
+      "label": "pull-back frames %",
+      "value": 6.17,
+      "op": ">=",
+      "target": 14.0,
+      "verdict": "LOW",
+      "advisory": true,
+      "higher_is_better": true
+    }
+  ],
+  "summary": {
+    "pass": 4,
+    "fail": 3,
+    "advisory_low": 2
+  }
+}

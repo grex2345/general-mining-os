@@ -1,0 +1,625 @@
+{
+  "round": 14,
+  "role": "agent",
+  "inspector": "Arena agent \u2014 direct image inspection of rendered frames",
+  "method": "COMPS=1 renders one frame at each composition midpoint with transitions suppressed; every frame viewed as a contact sheet at 270x480 and defects traced by probing single scenes at 13 times across their duration.",
+  "human_verdict": "pending",
+  "human_note": "The user must watch the finished film. This file records what the agent saw and fixed; it is not a human sign-off and cinema_gate.py will not accept it as one.",
+  "compositions": [
+    {
+      "scene": "towerDawn",
+      "comp": 0,
+      "kind": "macro",
+      "t": [
+        0,
+        1.5
+      ],
+      "why": "open on the bell that never sounded",
+      "coverage": 0.867,
+      "verdict": "pass"
+    },
+    {
+      "scene": "towerDawn",
+      "comp": 1,
+      "kind": "wide",
+      "t": [
+        1.5,
+        3.4
+      ],
+      "why": "the silence belongs to this tower",
+      "coverage": 0.855,
+      "verdict": "pass"
+    },
+    {
+      "scene": "towerDawn",
+      "comp": 2,
+      "kind": "close",
+      "t": [
+        3.4,
+        5.1
+      ],
+      "why": "the tower looms as the obstacle",
+      "coverage": 0.893,
+      "verdict": "pass"
+    },
+    {
+      "scene": "towerDawn",
+      "comp": 3,
+      "kind": "wide",
+      "t": [
+        5.1,
+        6.6
+      ],
+      "why": "Vellara: a whole valley that waited",
+      "coverage": 0.572,
+      "verdict": "pass"
+    },
+    {
+      "scene": "forge",
+      "comp": 0,
+      "kind": "medium",
+      "t": [
+        6.6,
+        8.1
+      ],
+      "why": "every founder in the valley tried",
+      "coverage": 0.364,
+      "verdict": "pass"
+    },
+    {
+      "scene": "forge",
+      "comp": 1,
+      "kind": "close",
+      "t": [
+        8.1,
+        9.5
+      ],
+      "why": "they were skilled, not careless",
+      "coverage": 0.833,
+      "verdict": "pass"
+    },
+    {
+      "scene": "craftMontage",
+      "comp": 0,
+      "kind": "medium",
+      "t": [
+        9.5,
+        11.2
+      ],
+      "why": "they poured bronze \u2014 shown literally",
+      "coverage": 1.067,
+      "verdict": "pass"
+    },
+    {
+      "scene": "craftMontage",
+      "comp": 1,
+      "kind": "close",
+      "t": [
+        11.2,
+        12.9
+      ],
+      "why": "they tuned the crown",
+      "coverage": 0.845,
+      "verdict": "pass"
+    },
+    {
+      "scene": "craftMontage",
+      "comp": 2,
+      "kind": "wide",
+      "t": [
+        12.9,
+        14.7
+      ],
+      "why": "they hung it higher",
+      "coverage": 0.562,
+      "verdict": "pass"
+    },
+    {
+      "scene": "silentTower",
+      "comp": 0,
+      "kind": "wide",
+      "t": [
+        14.7,
+        16.5
+      ],
+      "why": "every time, the whole town waited",
+      "coverage": 0.957,
+      "verdict": "pass"
+    },
+    {
+      "scene": "silentTower",
+      "comp": 1,
+      "kind": "close",
+      "t": [
+        16.5,
+        18.2
+      ],
+      "why": "hope turning into disappointment",
+      "coverage": 0.7,
+      "verdict": "pass"
+    },
+    {
+      "scene": "silentTower",
+      "comp": 2,
+      "kind": "macro",
+      "t": [
+        18.2,
+        19.8
+      ],
+      "why": "the clapper never moved: the tower stayed silent",
+      "coverage": 0.897,
+      "verdict": "pass"
+    },
+    {
+      "scene": "stairs",
+      "comp": 0,
+      "kind": "macro",
+      "t": [
+        19.8,
+        21.3
+      ],
+      "why": "a hammer no bigger than her hand",
+      "coverage": 0.464,
+      "verdict": "pass"
+    },
+    {
+      "scene": "stairs",
+      "comp": 1,
+      "kind": "medium",
+      "t": [
+        21.3,
+        23.1
+      ],
+      "why": "she climbs",
+      "coverage": 0.643,
+      "verdict": "pass"
+    },
+    {
+      "scene": "stairs",
+      "comp": 2,
+      "kind": "wide",
+      "t": [
+        23.1,
+        24.7
+      ],
+      "why": "the stairwell is long and she is small",
+      "coverage": 0.651,
+      "verdict": "pass"
+    },
+    {
+      "scene": "stairs",
+      "comp": 3,
+      "kind": "close",
+      "t": [
+        24.7,
+        26.1
+      ],
+      "why": "resolve on her face",
+      "coverage": 0.804,
+      "verdict": "pass"
+    },
+    {
+      "scene": "notTouching",
+      "comp": 0,
+      "kind": "macro",
+      "t": [
+        26.1,
+        27.6
+      ],
+      "why": "her hand passes the bell without touching it",
+      "coverage": 0.812,
+      "verdict": "pass"
+    },
+    {
+      "scene": "notTouching",
+      "comp": 1,
+      "kind": "medium",
+      "t": [
+        27.6,
+        29.0
+      ],
+      "why": "she is facing the wall, not the bell",
+      "coverage": 0.799,
+      "verdict": "pass"
+    },
+    {
+      "scene": "tapping",
+      "comp": 0,
+      "kind": "close",
+      "t": [
+        29,
+        30.6
+      ],
+      "why": "she raises the hammer",
+      "coverage": 0.686,
+      "verdict": "pass"
+    },
+    {
+      "scene": "tapping",
+      "comp": 1,
+      "kind": "macro",
+      "t": [
+        30.6,
+        32.5
+      ],
+      "why": "once \u2014 the first tap on stone",
+      "coverage": 0.577,
+      "verdict": "pass"
+    },
+    {
+      "scene": "tapping",
+      "comp": 2,
+      "kind": "close",
+      "t": [
+        32.5,
+        34.4
+      ],
+      "why": "twice \u2014 she compares the two answers",
+      "coverage": 0.745,
+      "verdict": "pass"
+    },
+    {
+      "scene": "tapping",
+      "comp": 3,
+      "kind": "close",
+      "t": [
+        34.4,
+        36.2
+      ],
+      "why": "listening: her ear to the stone",
+      "coverage": 0.872,
+      "verdict": "pass"
+    },
+    {
+      "scene": "heldBreath",
+      "comp": 0,
+      "kind": "wide",
+      "t": [
+        36.2,
+        38.1
+      ],
+      "why": "the whole town held its breath",
+      "coverage": 0.693,
+      "verdict": "pass"
+    },
+    {
+      "scene": "heldBreath",
+      "comp": 1,
+      "kind": "close",
+      "t": [
+        38.1,
+        40.0
+      ],
+      "why": "three faces, nobody moving",
+      "coverage": 0.774,
+      "verdict": "pass"
+    },
+    {
+      "scene": "bellFine",
+      "comp": 0,
+      "kind": "macro",
+      "t": [
+        40,
+        41.5
+      ],
+      "why": "the bell was never broken: no crack, clean cast",
+      "coverage": 0.813,
+      "verdict": "pass"
+    },
+    {
+      "scene": "bellFine",
+      "comp": 1,
+      "kind": "medium",
+      "t": [
+        41.5,
+        43
+      ],
+      "why": "all the way round it, still flawless",
+      "coverage": 0.935,
+      "verdict": "pass"
+    },
+    {
+      "scene": "stoneTruth",
+      "comp": 0,
+      "kind": "close",
+      "t": [
+        43,
+        44.8
+      ],
+      "why": "The tower was. \u2014 the twist lands on her face",
+      "coverage": 0.893,
+      "verdict": "pass"
+    },
+    {
+      "scene": "stoneTruth",
+      "comp": 1,
+      "kind": "macro",
+      "t": [
+        44.8,
+        46.7
+      ],
+      "why": "the hairline seam in the stone",
+      "coverage": 0.682,
+      "verdict": "pass"
+    },
+    {
+      "scene": "stoneTruth",
+      "comp": 2,
+      "kind": "close",
+      "t": [
+        46.7,
+        48.8
+      ],
+      "why": "go inside the stone to see the mechanism",
+      "coverage": 0.601,
+      "verdict": "pass"
+    },
+    {
+      "scene": "stoneTruth",
+      "comp": 3,
+      "kind": "medium",
+      "t": [
+        48.8,
+        50.7
+      ],
+      "why": "every note dies in the voids",
+      "coverage": 0.659,
+      "verdict": "pass"
+    },
+    {
+      "scene": "stoneTruth",
+      "comp": 4,
+      "kind": "wide",
+      "t": [
+        50.7,
+        52.6
+      ],
+      "why": "sixty years of swallowed notes belong to this wall",
+      "coverage": 0.851,
+      "verdict": "pass"
+    },
+    {
+      "scene": "movingBell",
+      "comp": 0,
+      "kind": "medium",
+      "t": [
+        52.6,
+        54.1
+      ],
+      "why": "she moves the bell",
+      "coverage": 0.752,
+      "verdict": "pass"
+    },
+    {
+      "scene": "movingBell",
+      "comp": 1,
+      "kind": "macro",
+      "t": [
+        54.1,
+        55.4
+      ],
+      "why": "the rope takes the weight",
+      "coverage": 0.649,
+      "verdict": "pass"
+    },
+    {
+      "scene": "movingBell",
+      "comp": 2,
+      "kind": "wide",
+      "t": [
+        55.4,
+        56.7
+      ],
+      "why": "four feet to the left, and it seats",
+      "coverage": 0.66,
+      "verdict": "pass"
+    },
+    {
+      "scene": "theRing",
+      "comp": 0,
+      "kind": "macro",
+      "t": [
+        56.7,
+        58.4
+      ],
+      "why": "the clapper strikes \u2014 the first sound in sixty years",
+      "coverage": 0.833,
+      "verdict": "pass"
+    },
+    {
+      "scene": "theRing",
+      "comp": 1,
+      "kind": "wide",
+      "t": [
+        58.4,
+        60.3
+      ],
+      "why": "the sound leaves the tower",
+      "coverage": 0.965,
+      "verdict": "pass"
+    },
+    {
+      "scene": "theRing",
+      "comp": 2,
+      "kind": "wide",
+      "t": [
+        60.3,
+        62.4
+      ],
+      "why": "they heard it in three villages",
+      "coverage": 0.551,
+      "verdict": "pass"
+    },
+    {
+      "scene": "theRing",
+      "comp": 3,
+      "kind": "close",
+      "t": [
+        62.4,
+        64.2
+      ],
+      "why": "the town that mocked her, cheering",
+      "coverage": 0.611,
+      "verdict": "pass"
+    },
+    {
+      "scene": "theRing",
+      "comp": 4,
+      "kind": "close",
+      "t": [
+        64.2,
+        66.0
+      ],
+      "why": "the girl they ignored became the one they listened to",
+      "coverage": 0.891,
+      "verdict": "pass"
+    }
+  ],
+  "defects": [
+    {
+      "what": "Bell built upside down (wide base at top) since Round 13; also the cause of flat-yellow macro shots aiming at the narrow apex",
+      "resolved": true,
+      "fix": "removed the PI rotation and re-seated bands, cast seam and VELLARA plate on the corrected profile",
+      "commit": "8002404"
+    },
+    {
+      "what": "Ten macro compositions sat inside their own subjects, rendering as flat colour fill",
+      "resolved": true,
+      "fix": "distances raised to 1.0-1.6m with explicit focus heights",
+      "commit": "8002404"
+    },
+    {
+      "what": "Seven tower wides were far too close for a 19m tower",
+      "resolved": true,
+      "fix": "distances 13-20m",
+      "commit": "8002404"
+    },
+    {
+      "what": "Bronze pour glows blown out to white",
+      "resolved": true,
+      "fix": "glow radius 0.8->0.55, opacity 0.5->0.26",
+      "commit": "b200618"
+    },
+    {
+      "what": "Faces sat low in every close-up: puppet head centre is ~62% of billboard height, not the 1.6m assumed",
+      "resolved": true,
+      "fix": "added faceY(h) and applied it to all nine close-ups",
+      "commit": "4c6f316"
+    },
+    {
+      "what": "Belfry had no sky, no valley below and no roof; stairwell was an open shaft \u2014 frames contained black voids",
+      "resolved": true,
+      "fix": "sky dome, valley floor 14m below, distant mountains, roof, enclosing stair shaft",
+      "commit": "4c6f316"
+    },
+    {
+      "what": "'Three villages' composition showed no villages",
+      "resolved": true,
+      "fix": "replaced static bird shot with a lateral track across all three as their windows light in sequence",
+      "commit": "4c6f316"
+    },
+    {
+      "what": "Resolve beat used a grin where the narration is stern determination",
+      "resolved": true,
+      "fix": "mood grin->stern",
+      "commit": "4c6f316"
+    },
+    {
+      "what": "Both stone cutaway cameras aimed at x=3.1, inside the seam wall at x=2.7, rendering flat tan for their whole duration",
+      "resolved": true,
+      "fix": "retargeted to the wall plane at x=2.36; found by probing scene 9 at 13 times",
+      "commit": "ca9a724"
+    },
+    {
+      "what": "Framing standard itself was broken: no move builder accepted or forwarded 'focus', so every explicit subject size was discarded and the checker measured generic defaults",
+      "resolved": true,
+      "fix": "all ten builders accept and forward focus; framing() also reports fov and endpoint coverage sweep",
+      "commit": "5b595de"
+    },
+    {
+      "what": "Forge had no roof, right wall or sky, so the crane ('they hung it higher') rose into black void",
+      "resolved": true,
+      "fix": "sky, right wall with a doorway onto a yard, roof rafters with a smoke vent over the fire",
+      "commit": "a3e7d19"
+    },
+    {
+      "what": "Both tapping inserts used positive azimuth, placing the camera behind the seam wall, filming its back face as flat grey",
+      "resolved": true,
+      "fix": "moved to the room side and stood back so Nora, hammer and stone share the frame",
+      "commit": "a3e7d19"
+    },
+    {
+      "what": "The stone cutaway was a CLOSED solid box: the air voids and dying sound rings \u2014 the central explanation of the story \u2014 were sealed inside and invisible",
+      "resolved": true,
+      "fix": "rebuilt as an open section (five slabs, camera-facing side removed) with a sawn rim, darker interior and darker voids",
+      "commit": "c07f7e8"
+    },
+    {
+      "what": "Front wall added at z=3.4 sat in the path of both pull-backs, which filmed its outer face as flat cream",
+      "resolved": true,
+      "fix": "moved to z=8.5 and widened",
+      "commit": "c07f7e8"
+    },
+    {
+      "what": "Hammer prop sat at head height 0.2m from Nora's face during the listening beat, reading as a hammer stuck in her forehead",
+      "resolved": true,
+      "fix": "drops into her lowered hand, which is also the correct acting beat",
+      "commit": "41b100b"
+    },
+    {
+      "what": "Final payoff close-up cropped her chin",
+      "resolved": true,
+      "fix": "d 1.55->1.95, fov 46->50",
+      "commit": "41b100b"
+    },
+    {
+      "what": "The payoff shot ('the girl they ignored became the one they listened to') showed a red-shirted villager instead of Nora: a crowd member at [0.9,3.7] sat exactly on the camera-to-Nora sightline and, being 1.3m nearer the lens, appeared oversized and cropped at the chin",
+      "resolved": true,
+      "fix": "moved the villager to [2.1,3.9] clear of the sightline; declared the payoff subject as her head (1.05m)",
+      "commit": "87242e4",
+      "note": "Found only by looking at the finished render. The framing check PASSED this composition, because distance to the intended target was correct \u2014 the target was simply hidden behind someone else. Occlusion is a defect class no distance metric can see."
+    }
+  ],
+  "lipsync_verification": {
+    "method": "LipSync instantiated over the 123 aligned narration words, mouth sampled at all 1980 frame times",
+    "words": 123,
+    "viseme_events": 212,
+    "span_s": 65.21,
+    "frames_per_viseme": {
+      "closed": 446,
+      "narrow": 91,
+      "wide": 366,
+      "open": 1027,
+      "round": 50
+    },
+    "viseme_changes": 143,
+    "mean_aperture": 0.589,
+    "rest_frames_pct": 22.5,
+    "note": "All five mouth shapes are exercised. The narrator is deliberately not mimed; the track drives diegetic speech, the valley cheer, and directed reaction mouths (gasp, held breath)."
+  },
+  "render": {
+    "frames": 1980,
+    "resolution": "720x1280",
+    "fps": 30,
+    "ms_per_frame": 650,
+    "total_s": 1287.8,
+    "page_errors": 0,
+    "console_errors": 0,
+    "plan_problems": 0,
+    "scene_frame_boundaries": [
+      198,
+      285,
+      441,
+      594,
+      783,
+      870,
+      1086,
+      1200,
+      1290,
+      1578,
+      1701,
+      1980
+    ],
+    "note": "Boundaries identical to Round 13, so the unchanged audio stays in sync."
+  }
+}

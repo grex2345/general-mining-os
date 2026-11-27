@@ -1,0 +1,1158 @@
+{
+  "TOTAL": 83.2,
+  "ambience": [
+    {
+      "t": 0.2,
+      "kind": "wind",
+      "args": {
+        "dur": 7.3,
+        "strength": 0.22
+      },
+      "gain": 0.34,
+      "pan": -0.15,
+      "room": 0.55,
+      "name": "void air (coffin)"
+    },
+    {
+      "t": 7.7,
+      "kind": "wheelHum",
+      "args": {
+        "dur": 5.4
+      },
+      "gain": 0.3,
+      "pan": 0.1,
+      "room": 0.45,
+      "name": "infinity field hum"
+    },
+    {
+      "t": 13.3,
+      "kind": "wheelHum",
+      "args": {
+        "dur": 2.7
+      },
+      "gain": 0.24,
+      "pan": 0,
+      "room": 0.35,
+      "name": "vacuum flask resonance"
+    },
+    {
+      "t": 16.1,
+      "kind": "wheelHum",
+      "args": {
+        "dur": 2.7
+      },
+      "gain": 0.3,
+      "pan": 0.05,
+      "room": 0.3,
+      "name": "mission control room tone"
+    },
+    {
+      "t": 18.95,
+      "kind": "wind",
+      "args": {
+        "dur": 4.4,
+        "strength": 0.26
+      },
+      "gain": 0.3,
+      "pan": 0.2,
+      "room": 0.2,
+      "name": "suit air / space hiss"
+    },
+    {
+      "t": 23.45,
+      "kind": "wheelHum",
+      "args": {
+        "dur": 3.4
+      },
+      "gain": 0.24,
+      "pan": -0.1,
+      "room": 0.4,
+      "name": "resting body hum"
+    },
+    {
+      "t": 26.95,
+      "kind": "fire",
+      "args": {
+        "dur": 3
+      },
+      "gain": 0.3,
+      "pan": 0.12,
+      "room": 0.35,
+      "name": "fight heat roar"
+    },
+    {
+      "t": 30.05,
+      "kind": "wind",
+      "args": {
+        "dur": 1.8,
+        "strength": 0.18
+      },
+      "gain": 0.22,
+      "pan": 0,
+      "room": 0.5,
+      "name": "still air, no evaporation"
+    },
+    {
+      "t": 31.9,
+      "kind": "wind",
+      "args": {
+        "dur": 1.6,
+        "strength": 0.16
+      },
+      "gain": 0.2,
+      "pan": 0,
+      "room": 0.55,
+      "name": "trapped vapour"
+    },
+    {
+      "t": 33.65,
+      "kind": "fire",
+      "args": {
+        "dur": 5.1
+      },
+      "gain": 0.3,
+      "pan": 0.08,
+      "room": 0.45,
+      "name": "core temperature rising"
+    },
+    {
+      "t": 38.8,
+      "kind": "fire",
+      "args": {
+        "dur": 2.1
+      },
+      "gain": 0.34,
+      "pan": 0,
+      "room": 0.6,
+      "name": "oven interior"
+    },
+    {
+      "t": 41,
+      "kind": "wheelHum",
+      "args": {
+        "dur": 2.5
+      },
+      "gain": 0.22,
+      "pan": 0,
+      "room": 0.35,
+      "name": "six eyes online"
+    },
+    {
+      "t": 43.6,
+      "kind": "wheelHum",
+      "args": {
+        "dur": 7.3
+      },
+      "gain": 0.24,
+      "pan": 0.06,
+      "room": 0.4,
+      "name": "atom filter lattice"
+    },
+    {
+      "t": 50.95,
+      "kind": "fire",
+      "args": {
+        "dur": 3.4
+      },
+      "gain": 0.3,
+      "pan": -0.06,
+      "room": 0.45,
+      "name": "focus lapse heat flood"
+    },
+    {
+      "t": 54.45,
+      "kind": "wheelHum",
+      "args": {
+        "dur": 6.8
+      },
+      "gain": 0.22,
+      "pan": 0.04,
+      "room": 0.4,
+      "name": "reverse cursed technique loop"
+    },
+    {
+      "t": 61.3,
+      "kind": "wheelHum",
+      "args": {
+        "dur": 4.2
+      },
+      "gain": 0.24,
+      "pan": 0,
+      "room": 0.35,
+      "name": "comparison lab"
+    },
+    {
+      "t": 66.85,
+      "kind": "wheelHum",
+      "args": {
+        "dur": 2.9
+      },
+      "gain": 0.24,
+      "pan": -0.08,
+      "room": 0.35,
+      "name": "radiator fan"
+    },
+    {
+      "t": 69.85,
+      "kind": "walla",
+      "args": {
+        "dur": 4.6,
+        "voices": 6
+      },
+      "gain": 0.22,
+      "pan": -0.25,
+      "room": 0.3,
+      "name": "distant city voices"
+    },
+    {
+      "t": 69.9,
+      "kind": "wind",
+      "args": {
+        "dur": 7.9,
+        "strength": 0.3
+      },
+      "gain": 0.28,
+      "pan": 0.18,
+      "room": 0.25,
+      "name": "night street air"
+    },
+    {
+      "t": 70.1,
+      "kind": "crickets",
+      "args": {
+        "dur": 4.4
+      },
+      "gain": 0.16,
+      "pan": 0.3,
+      "room": 0.2,
+      "name": "night insects"
+    },
+    {
+      "t": 77.9,
+      "kind": "wheelHum",
+      "args": {
+        "dur": 2.5
+      },
+      "gain": 0.22,
+      "pan": 0,
+      "room": 0.5,
+      "name": "shell closing again"
+    },
+    {
+      "t": 80.5,
+      "kind": "wind",
+      "args": {
+        "dur": 2.7,
+        "strength": 0.2
+      },
+      "gain": 0.2,
+      "pan": 0,
+      "room": 0.55,
+      "name": "quiet after the question"
+    }
+  ],
+  "sfx": [
+    {
+      "t": 0.1,
+      "kind": "whoosh",
+      "args": {
+        "dur": 1,
+        "up": false
+      },
+      "gain": 0.34,
+      "pan": -0.25,
+      "room": 0.4,
+      "name": "open on the sealed man"
+    },
+    {
+      "t": 2.86,
+      "kind": "chime",
+      "args": {
+        "base": 1180,
+        "dur": 1.2
+      },
+      "gain": 0.22,
+      "pan": 0.12,
+      "room": 0.5,
+      "name": "\"infinity\" — field rings"
+    },
+    {
+      "t": 5,
+      "kind": "thump",
+      "args": {
+        "size": 1.4
+      },
+      "gain": 0.46,
+      "pan": 0,
+      "room": 0.6,
+      "name": "\"coffin\" — lid weight",
+      "metres": 3
+    },
+    {
+      "t": 5.18,
+      "kind": "doorSwing",
+      "args": {
+        "dur": 1.2
+      },
+      "gain": 0.28,
+      "pan": -0.1,
+      "room": 0.6,
+      "name": "coffin seals"
+    },
+    {
+      "t": 6.26,
+      "kind": "thump",
+      "args": {
+        "size": 1.1
+      },
+      "gain": 0.38,
+      "pan": 0.05,
+      "room": 0.65,
+      "name": "\"sealed\" — lock"
+    },
+    {
+      "t": 8.24,
+      "kind": "shatter",
+      "args": {
+        "size": 0.9
+      },
+      "gain": 0.3,
+      "pan": -0.3,
+      "room": 0.35,
+      "name": "\"stops\" — blade hits the boundary"
+    },
+    {
+      "t": 9.3,
+      "kind": "chime",
+      "args": {
+        "base": 2400,
+        "dur": 0.35
+      },
+      "gain": 0.24,
+      "pan": 0.28,
+      "room": 0.3,
+      "name": "\"touching\" — deflection"
+    },
+    {
+      "t": 10.86,
+      "kind": "whoosh",
+      "args": {
+        "dur": 0.5,
+        "up": true
+      },
+      "gain": 0.22,
+      "pan": -0.2,
+      "room": 0.4,
+      "name": "\"gets in\" — nothing enters"
+    },
+    {
+      "t": 12.16,
+      "kind": "whoosh",
+      "args": {
+        "dur": 0.55,
+        "up": false
+      },
+      "gain": 0.22,
+      "pan": 0.2,
+      "room": 0.4,
+      "name": "\"gets out\" — nothing leaves"
+    },
+    {
+      "t": 12.56,
+      "kind": "thump",
+      "args": {
+        "size": 0.9
+      },
+      "gain": 0.28,
+      "pan": 0,
+      "room": 0.55,
+      "name": "heat bounces back"
+    },
+    {
+      "t": 13.19,
+      "kind": "whoosh",
+      "args": {
+        "dur": 0.55,
+        "up": true
+      },
+      "gain": 0.18,
+      "pan": -0.28,
+      "room": 0.3,
+      "name": "transition into thermos"
+    },
+    {
+      "t": 14.28,
+      "kind": "thump",
+      "args": {
+        "size": 0.8
+      },
+      "gain": 0.24,
+      "pan": -0.12,
+      "room": 0.4,
+      "name": "\"wall\" — the wrong model"
+    },
+    {
+      "t": 15.24,
+      "kind": "claySlap",
+      "args": {
+        "size": 1.1
+      },
+      "gain": 0.28,
+      "pan": 0.06,
+      "room": 0.3,
+      "name": "\"thermos\" — flask set down"
+    },
+    {
+      "t": 16.26,
+      "kind": "chime",
+      "args": {
+        "base": 1400,
+        "dur": 0.5
+      },
+      "gain": 0.24,
+      "pan": 0.16,
+      "room": 0.25,
+      "name": "\"NASA\" — console ack"
+    },
+    {
+      "t": 18.08,
+      "kind": "chime",
+      "args": {
+        "base": 1600,
+        "dur": 0.4
+      },
+      "gain": 0.2,
+      "pan": 0.1,
+      "room": 0.25,
+      "name": "\"exact\" — match found"
+    },
+    {
+      "t": 19.12,
+      "kind": "whoosh",
+      "args": {
+        "dur": 0.8,
+        "up": true
+      },
+      "gain": 0.24,
+      "pan": 0.18,
+      "room": 0.2,
+      "name": "cut to orbit"
+    },
+    {
+      "t": 19.96,
+      "kind": "cloth",
+      "args": {
+        "dur": 0.5
+      },
+      "gain": 0.28,
+      "pan": -0.16,
+      "room": 0.2,
+      "name": "\"suit\" — fabric shift"
+    },
+    {
+      "t": 21.1,
+      "kind": "chime",
+      "args": {
+        "base": 2000,
+        "dur": 0.6
+      },
+      "gain": 0.2,
+      "pan": 0.2,
+      "room": 0.25,
+      "name": "\"shield\" — micrometeoroid tick"
+    },
+    {
+      "t": 23,
+      "kind": "wind",
+      "args": {
+        "dur": 1.6,
+        "strength": 0.5
+      },
+      "gain": 0.3,
+      "pan": 0,
+      "room": 0.25,
+      "name": "\"radiator\" — heat rejected"
+    },
+    {
+      "t": 23.37,
+      "kind": "whoosh",
+      "args": {
+        "dur": 0.55,
+        "up": false
+      },
+      "gain": 0.18,
+      "pan": 0.28,
+      "room": 0.3,
+      "name": "transition into watts100"
+    },
+    {
+      "t": 25.1,
+      "kind": "chime",
+      "args": {
+        "base": 880,
+        "dur": 0.8
+      },
+      "gain": 0.62,
+      "pan": 0.1,
+      "room": 0.35,
+      "name": "\"100\" — gauge reads"
+    },
+    {
+      "t": 27.16,
+      "kind": "riser",
+      "args": {
+        "dur": 1
+      },
+      "gain": 0.32,
+      "pan": 0,
+      "room": 0.3,
+      "name": "fight builds"
+    },
+    {
+      "t": 27.38,
+      "kind": "whoosh",
+      "args": {
+        "dur": 0.45,
+        "up": true
+      },
+      "gain": 0.32,
+      "pan": -0.3,
+      "room": 0.25,
+      "name": "\"high-speed\""
+    },
+    {
+      "t": 28.04,
+      "kind": "shatter",
+      "args": {
+        "size": 1.1
+      },
+      "gain": 0.36,
+      "pan": 0.26,
+      "room": 0.3,
+      "name": "\"fight\" — impact"
+    },
+    {
+      "t": 29.42,
+      "kind": "thump",
+      "args": {
+        "size": 1.5
+      },
+      "gain": 0.46,
+      "pan": 0,
+      "room": 0.4,
+      "name": "\"thousand\" — the number lands"
+    },
+    {
+      "t": 29.54,
+      "kind": "chime",
+      "args": {
+        "base": 500,
+        "dur": 1.2
+      },
+      "gain": 0.22,
+      "pan": 0.14,
+      "room": 0.4,
+      "name": "gauge spikes"
+    },
+    {
+      "t": 30.26,
+      "kind": "waterDrip",
+      "args": {},
+      "gain": 0.32,
+      "pan": -0.14,
+      "room": 0.45,
+      "name": "\"Sweating\" — first drop"
+    },
+    {
+      "t": 31.16,
+      "kind": "waterDrip",
+      "args": {},
+      "gain": 0.28,
+      "pan": 0.16,
+      "room": 0.45,
+      "name": "second drop"
+    },
+    {
+      "t": 31.85,
+      "kind": "whoosh",
+      "args": {
+        "dur": 0.55,
+        "up": true
+      },
+      "gain": 0.18,
+      "pan": -0.28,
+      "room": 0.3,
+      "name": "transition into evaporate"
+    },
+    {
+      "t": 32.36,
+      "kind": "waterDrip",
+      "args": {},
+      "gain": 0.3,
+      "pan": -0.1,
+      "room": 0.5,
+      "name": "\"sweat\" — still liquid"
+    },
+    {
+      "t": 32.96,
+      "kind": "whoosh",
+      "args": {
+        "dur": 0.5,
+        "up": false
+      },
+      "gain": 0.26,
+      "pan": 0.12,
+      "room": 0.5,
+      "name": "\"evaporate\" — vapour turns back"
+    },
+    {
+      "t": 33.16,
+      "kind": "thump",
+      "args": {
+        "size": 0.7
+      },
+      "gain": 0.24,
+      "pan": 0,
+      "room": 0.55,
+      "name": "droplet re-forms on the shell"
+    },
+    {
+      "t": 34.34,
+      "kind": "chime",
+      "args": {
+        "base": 1200,
+        "dur": 0.3
+      },
+      "gain": 0.22,
+      "pan": 0.14,
+      "room": 0.35,
+      "name": "\"four\" — countdown tick"
+    },
+    {
+      "t": 36,
+      "kind": "chime",
+      "args": {
+        "base": 1000,
+        "dur": 0.3
+      },
+      "gain": 0.22,
+      "pan": -0.14,
+      "room": 0.35,
+      "name": "\"twenty\" — countdown tick"
+    },
+    {
+      "t": 37.44,
+      "kind": "thump",
+      "args": {
+        "size": 1
+      },
+      "gain": 0.32,
+      "pan": 0,
+      "room": 0.5,
+      "name": "\"brain\" — pulse"
+    },
+    {
+      "t": 38.18,
+      "kind": "fire",
+      "args": {
+        "dur": 1.6
+      },
+      "gain": 0.34,
+      "pan": 0,
+      "room": 0.5,
+      "name": "\"cooking\" — heat blooms"
+    },
+    {
+      "t": 39.18,
+      "kind": "fire",
+      "args": {
+        "dur": 2
+      },
+      "gain": 0.36,
+      "pan": 0,
+      "room": 0.6,
+      "name": "\"bakes\" — oven roar"
+    },
+    {
+      "t": 40.42,
+      "kind": "thump",
+      "args": {
+        "size": 1.3
+      },
+      "gain": 0.42,
+      "pan": 0,
+      "room": 0.65,
+      "name": "\"defense\" — the door is the wall"
+    },
+    {
+      "t": 40.91,
+      "kind": "whoosh",
+      "args": {
+        "dur": 0.55,
+        "up": false
+      },
+      "gain": 0.18,
+      "pan": 0.28,
+      "room": 0.3,
+      "name": "transition into sixeyes"
+    },
+    {
+      "t": 41.16,
+      "kind": "riser",
+      "args": {
+        "dur": 1.3
+      },
+      "gain": 0.36,
+      "pan": 0,
+      "room": 0.3,
+      "name": "the turn"
+    },
+    {
+      "t": 42.04,
+      "kind": "chime",
+      "args": {
+        "base": 1760,
+        "dur": 1.8
+      },
+      "gain": 0.28,
+      "pan": -0.18,
+      "room": 0.4,
+      "name": "\"six\""
+    },
+    {
+      "t": 42.46,
+      "kind": "chime",
+      "args": {
+        "base": 2637,
+        "dur": 2
+      },
+      "gain": 0.26,
+      "pan": 0.18,
+      "room": 0.4,
+      "name": "\"eyes\" — the reveal"
+    },
+    {
+      "t": 42.54,
+      "kind": "bell",
+      "args": {
+        "base": 523,
+        "dur": 2.4
+      },
+      "gain": 0.18,
+      "pan": 0,
+      "room": 0.5,
+      "name": "reveal bloom"
+    },
+    {
+      "t": 46.54,
+      "kind": "chime",
+      "args": {
+        "base": 1500,
+        "dur": 0.4
+      },
+      "gain": 0.2,
+      "pan": 0.12,
+      "room": 0.35,
+      "name": "\"filters\""
+    },
+    {
+      "t": 47.78,
+      "kind": "chime",
+      "args": {
+        "base": 2200,
+        "dur": 0.35
+      },
+      "gain": 0.2,
+      "pan": -0.12,
+      "room": 0.35,
+      "name": "\"atom\""
+    },
+    {
+      "t": 48.54,
+      "kind": "chime",
+      "args": {
+        "base": 1046,
+        "dur": 0.5
+      },
+      "gain": 0.24,
+      "pan": -0.24,
+      "room": 0.35,
+      "name": "\"oxygen\" — in"
+    },
+    {
+      "t": 49.44,
+      "kind": "whoosh",
+      "args": {
+        "dur": 0.5,
+        "up": false
+      },
+      "gain": 0.26,
+      "pan": 0,
+      "room": 0.35,
+      "name": "\"heat\" — out"
+    },
+    {
+      "t": 50.22,
+      "kind": "shatter",
+      "args": {
+        "size": 1
+      },
+      "gain": 0.32,
+      "pan": 0.26,
+      "room": 0.35,
+      "name": "\"knives\" — out"
+    },
+    {
+      "t": 51.96,
+      "kind": "chime",
+      "args": {
+        "base": 1800,
+        "dur": 0.3
+      },
+      "gain": 0.2,
+      "pan": 0.1,
+      "room": 0.35,
+      "name": "\"focus\""
+    },
+    {
+      "t": 52.92,
+      "kind": "chime",
+      "args": {
+        "base": 600,
+        "dur": 0.5
+      },
+      "gain": 0.28,
+      "pan": 0,
+      "room": 0.4,
+      "name": "\"second\" — alarm"
+    },
+    {
+      "t": 53.8,
+      "kind": "fire",
+      "args": {
+        "dur": 1.4
+      },
+      "gain": 0.36,
+      "pan": 0,
+      "room": 0.5,
+      "name": "\"cooks\""
+    },
+    {
+      "t": 54.37,
+      "kind": "whoosh",
+      "args": {
+        "dur": 0.55,
+        "up": true
+      },
+      "gain": 0.18,
+      "pan": -0.28,
+      "room": 0.3,
+      "name": "transition into rct"
+    },
+    {
+      "t": 55.26,
+      "kind": "riser",
+      "args": {
+        "dur": 1.2
+      },
+      "gain": 0.28,
+      "pan": 0,
+      "room": 0.35,
+      "name": "\"reverse\""
+    },
+    {
+      "t": 56.56,
+      "kind": "chime",
+      "args": {
+        "base": 1046,
+        "dur": 1.6
+      },
+      "gain": 0.24,
+      "pan": 0.14,
+      "room": 0.4,
+      "name": "\"24/7\""
+    },
+    {
+      "t": 58.32,
+      "kind": "chime",
+      "args": {
+        "base": 1568,
+        "dur": 1.2
+      },
+      "gain": 0.22,
+      "pan": -0.14,
+      "room": 0.4,
+      "name": "\"heal\""
+    },
+    {
+      "t": 58.72,
+      "kind": "thump",
+      "args": {
+        "size": 0.9
+      },
+      "gain": 0.28,
+      "pan": 0,
+      "room": 0.45,
+      "name": "\"brain\" — repaired pulse"
+    },
+    {
+      "t": 61.48,
+      "kind": "chime",
+      "args": {
+        "base": 1400,
+        "dur": 0.5
+      },
+      "gain": 0.22,
+      "pan": -0.22,
+      "room": 0.3,
+      "name": "\"NASA\""
+    },
+    {
+      "t": 62.42,
+      "kind": "wind",
+      "args": {
+        "dur": 1.4,
+        "strength": 0.5
+      },
+      "gain": 0.26,
+      "pan": -0.22,
+      "room": 0.3,
+      "name": "\"radiator\" — fan"
+    },
+    {
+      "t": 63.06,
+      "kind": "chime",
+      "args": {
+        "base": 900,
+        "dur": 0.6
+      },
+      "gain": 0.22,
+      "pan": 0.22,
+      "room": 0.3,
+      "name": "\"Gojo\""
+    },
+    {
+      "t": 64,
+      "kind": "thump",
+      "args": {
+        "size": 1
+      },
+      "gain": 0.3,
+      "pan": 0.22,
+      "room": 0.4,
+      "name": "\"brain\""
+    },
+    {
+      "t": 66.24,
+      "kind": "bell",
+      "args": {
+        "base": 392,
+        "dur": 1.8
+      },
+      "gain": 0.2,
+      "pan": 0,
+      "room": 0.5,
+      "name": "\"difference\""
+    },
+    {
+      "t": 66.77,
+      "kind": "whoosh",
+      "args": {
+        "dur": 0.55,
+        "up": false
+      },
+      "gain": 0.18,
+      "pan": 0.28,
+      "room": 0.3,
+      "name": "transition into switch"
+    },
+    {
+      "t": 67.52,
+      "kind": "doorCreak",
+      "args": {
+        "dur": 0.5
+      },
+      "gain": 0.32,
+      "pan": -0.2,
+      "room": 0.3,
+      "name": "\"switched\" — lever travels"
+    },
+    {
+      "t": 67.76,
+      "kind": "thump",
+      "args": {
+        "size": 1.1
+      },
+      "gain": 0.42,
+      "pan": -0.2,
+      "room": 0.35,
+      "name": "\"off\" — clunk"
+    },
+    {
+      "t": 68.2,
+      "kind": "wind",
+      "args": {
+        "dur": 1.2,
+        "strength": 0.3
+      },
+      "gain": 0.2,
+      "pan": -0.18,
+      "room": 0.3,
+      "name": "\"maintenance\" — fan spins down"
+    },
+    {
+      "t": 69.3,
+      "kind": "chime",
+      "args": {
+        "base": 500,
+        "dur": 1
+      },
+      "gain": 0.2,
+      "pan": 0.2,
+      "room": 0.4,
+      "name": "\"can't\""
+    },
+    {
+      "t": 70,
+      "kind": "whoosh",
+      "args": {
+        "dur": 0.7,
+        "up": true
+      },
+      "gain": 0.58,
+      "pan": 0.16,
+      "room": 0.25,
+      "name": "cut to the street"
+    },
+    {
+      "t": 70.94,
+      "kind": "chime",
+      "args": {
+        "base": 800,
+        "dur": 1.2
+      },
+      "gain": 0.18,
+      "pan": 0,
+      "room": 0.45,
+      "name": "\"infinity\" — yours"
+    },
+    {
+      "t": 72.86,
+      "kind": "thump",
+      "args": {
+        "size": 0.8
+      },
+      "gain": 0.22,
+      "pan": -0.1,
+      "room": 0.4,
+      "name": "\"break\" — the rule holds"
+    },
+    {
+      "t": 74.96,
+      "kind": "chime",
+      "args": {
+        "base": 1046,
+        "dur": 0.35
+      },
+      "gain": 0.26,
+      "pan": 0.14,
+      "room": 0.25,
+      "name": "\"call\" — ring 1"
+    },
+    {
+      "t": 75.36,
+      "kind": "chime",
+      "args": {
+        "base": 1046,
+        "dur": 0.35
+      },
+      "gain": 0.24,
+      "pan": 0.14,
+      "room": 0.25,
+      "name": "ring 2"
+    },
+    {
+      "t": 76.48,
+      "kind": "chime",
+      "args": {
+        "base": 880,
+        "dur": 0.4
+      },
+      "gain": 0.52,
+      "pan": -0.12,
+      "room": 0.3,
+      "name": "\"thing\""
+    },
+    {
+      "t": 77.83,
+      "kind": "whoosh",
+      "args": {
+        "dur": 0.55,
+        "up": true
+      },
+      "gain": 0.18,
+      "pan": -0.28,
+      "room": 0.3,
+      "name": "transition into nothing"
+    },
+    {
+      "t": 78.72,
+      "kind": "whoosh",
+      "args": {
+        "dur": 0.5,
+        "up": true
+      },
+      "gain": 0.2,
+      "pan": -0.16,
+      "room": 0.45,
+      "name": "\"in\""
+    },
+    {
+      "t": 79.98,
+      "kind": "whoosh",
+      "args": {
+        "dur": 0.55,
+        "up": false
+      },
+      "gain": 0.2,
+      "pan": 0.16,
+      "room": 0.45,
+      "name": "\"out\""
+    },
+    {
+      "t": 80.12,
+      "kind": "thump",
+      "args": {
+        "size": 1
+      },
+      "gain": 0.28,
+      "pan": 0,
+      "room": 0.6,
+      "name": "the shell closes again"
+    },
+    {
+      "t": 80.68,
+      "kind": "chime",
+      "args": {
+        "base": 523,
+        "dur": 2.2
+      },
+      "gain": 0.54,
+      "pan": 0,
+      "room": 0.6,
+      "name": "\"So\" — the question opens"
+    },
+    {
+      "t": 81.22,
+      "kind": "bell",
+      "args": {
+        "base": 262,
+        "dur": 2.6
+      },
+      "gain": 0.2,
+      "pan": 0,
+      "room": 0.65,
+      "name": "\"yours?\" — let it ring out"
+    }
+  ]
+}

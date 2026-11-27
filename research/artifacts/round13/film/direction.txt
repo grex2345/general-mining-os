@@ -1,0 +1,73 @@
+AUDIO DIRECTION — 14 beats, est 42.26s, reveal at b11
+
+b01  [mystery 0.32]  12w  pause 0.45s
+   say: For sixty years, the bell of Vellara had never made a sound.
+   why: sound, position+0.5
+   emphasise: sixty, bell, Vellara
+
+b02  [warm 0.46]  6w  pause 0.32s
+   say: Every founder in the valley tried.
+   why: every, position+0.8
+
+b03  [warm 0.41]  11w  pause 0.32s
+   say: They poured bronze, they tuned the crown, they hung it higher.
+   why: position+0.6
+   emphasise: bronze
+
+b04  [mystery 0.33]  7w  pause 0.45s
+   say: And every time, the tower stayed silent.
+   why: silent
+   emphasise: tower, silent
+
+b05  [warm 0.46]  16w  pause 0.32s
+   say: Then a girl named Nora climbed the stairs with a hammer no bigger than her hand.
+   why: girl, position+0.6
+   emphasise: Nora
+
+b06  [tension 0.46]  6w  pause 0.4s
+   say: She did not touch the bell.
+   tts: She did not touch the bell…
+   why: position+0.8 | shape: period->ellipsis: suspense
+   emphasise: bell
+
+b07  [mystery 0.37]  9w  pause 0.45s
+   say: She tapped the wall beside it, once, twice, listening.
+   why: tapped, listening
+
+b08  [tension 0.62]  6w  pause 0.4s
+   say: The whole town held its breath.
+   tts: The whole town held its breath…
+   why: held, breath, position+0.8 | shape: period->ellipsis: suspense
+
+b09  [reveal 0.84]  6w  pause 0.6s
+   say: Because the bell was never broken.
+   why: because
+   emphasise: bell
+
+b10  [surprise 0.72]  3w  pause 0.55s
+   say: The tower was.
+   tts: The tower was!
+   why: position+1, short elliptical twist after a because-clause | shape: period->exclamation: reaction
+   emphasise: tower
+   SILENCE: hold music down, no SFX in the last 0.35s — quiet before the payoff
+
+b11  [reveal 1]  12w  pause 0.6s
+   say: Something in that stone had been swallowing every note for sixty years.
+   why: something, stone, swallowing
+   emphasise: stone, sixty
+   SILENCE: land the reveal after the held silence
+
+b12  [reveal 0.73]  9w  pause 0.6s
+   say: She moved the bell four feet to the left.
+   why: position+1.6
+   emphasise: bell, four
+
+b13  [excitement 1]  10w  pause 0.26s
+   say: And when it rang, they heard it in three villages.
+   tts: And when it rang, they heard it in three villages!
+   why: rang, heard, position+1 | shape: period->exclamation: energy
+   emphasise: rang, three
+
+b14  [resolve 0.77]  10w  pause 0.4s
+   say: The girl they ignored became the one they listened to.
+   why: became, one, position+1.4

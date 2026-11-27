@@ -1,0 +1,132 @@
+{
+  "shipped": {
+    "global": {
+      "label": "R13 shipped",
+      "durationSec": 65.376,
+      "voicedFrac": 0.511,
+      "f0OutliersRejected": 646,
+      "f0OutlierFrac": 0.279,
+      "f0MedianHz": 141,
+      "f0P05Hz": 91,
+      "f0P95Hz": 328,
+      "pitchRangeSt": 22.16,
+      "pitchStdSt": 6.41,
+      "pitchMoveMeanSt": 1.34,
+      "pitchMoveP90St": 2.515,
+      "intonationGestures": 86,
+      "gesturesPer10s": 13.15,
+      "dynamicRangeDb": 47.41,
+      "rmsStdDb": 17.57,
+      "peakDbfs": -2.26,
+      "speechSec": 35.88,
+      "pauseCount": 79,
+      "pauseMeanSec": 0.321,
+      "pauseMaxSec": 1.21,
+      "pauseTotalSec": 25.32,
+      "silenceFrac": 0.451,
+      "centroidHz": 540,
+      "bands": {
+        "sub": 0.1,
+        "low": 61.3,
+        "lowmid": 31.4,
+        "mid": 3.4,
+        "high": 3.8,
+        "air": 0.1,
+        "centroidHz": 540
+      }
+    },
+    "variation": {
+      "beats": 14,
+      "f0MedianHz": {
+        "min": 110,
+        "max": 185,
+        "std": 22.32
+      },
+      "pitchRangeSt": {
+        "min": 16.38,
+        "max": 24.18,
+        "std": 2.4
+      },
+      "wordsPerSec": {
+        "min": 2.24,
+        "max": 4.96,
+        "std": 0.79
+      },
+      "dynamicRangeDb": {
+        "min": 38.23,
+        "max": 51.89,
+        "std": 3.79
+      },
+      "centroidHz": {
+        "min": 286,
+        "max": 1766,
+        "std": 420
+      }
+    }
+  },
+  "stronger": {
+    "global": {
+      "label": "R15 stronger",
+      "durationSec": 65.376,
+      "voicedFrac": 0.509,
+      "f0OutliersRejected": 642,
+      "f0OutlierFrac": 0.279,
+      "f0MedianHz": 141,
+      "f0P05Hz": 91,
+      "f0P95Hz": 328,
+      "pitchRangeSt": 22.14,
+      "pitchStdSt": 6.39,
+      "pitchMoveMeanSt": 1.323,
+      "pitchMoveP90St": 2.494,
+      "intonationGestures": 87,
+      "gesturesPer10s": 13.31,
+      "dynamicRangeDb": 50.79,
+      "rmsStdDb": 18.93,
+      "peakDbfs": 0.63,
+      "speechSec": 36.18,
+      "pauseCount": 79,
+      "pauseMeanSec": 0.319,
+      "pauseMaxSec": 1.22,
+      "pauseTotalSec": 25.21,
+      "silenceFrac": 0.447,
+      "centroidHz": 479,
+      "bands": {
+        "sub": 0.1,
+        "low": 61.7,
+        "lowmid": 31.9,
+        "mid": 3.4,
+        "high": 2.8,
+        "air": 0.1,
+        "centroidHz": 479
+      }
+    },
+    "variation": {
+      "beats": 14,
+      "f0MedianHz": {
+        "min": 110,
+        "max": 185,
+        "std": 22.36
+      },
+      "pitchRangeSt": {
+        "min": 16.39,
+        "max": 24.44,
+        "std": 2.57
+      },
+      "wordsPerSec": {
+        "min": 2.21,
+        "max": 5,
+        "std": 0.77
+      },
+      "dynamicRangeDb": {
+        "min": 38.13,
+        "max": 53.58,
+        "std": 4.74
+      },
+      "centroidHz": {
+        "min": 309,
+        "max": 1961,
+        "std": 458.4
+      }
+    }
+  }
+}

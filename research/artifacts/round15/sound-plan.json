@@ -1,0 +1,761 @@
+{
+  "ambience": [
+    {
+      "t": 0,
+      "kind": "wind",
+      "args": {
+        "dur": 20,
+        "strength": 0.45
+      },
+      "gain": 0.5,
+      "pan": -0.2,
+      "room": 0.3,
+      "name": "valley wind (open)"
+    },
+    {
+      "t": 0.4,
+      "kind": "birds",
+      "args": {
+        "dur": 6
+      },
+      "gain": 0.35,
+      "pan": 0.35,
+      "metres": 8,
+      "name": "dawn birds"
+    },
+    {
+      "t": 6.6,
+      "kind": "fire",
+      "args": {
+        "dur": 8.2
+      },
+      "gain": 0.55,
+      "pan": 0.15,
+      "room": 0.25,
+      "name": "forge fire"
+    },
+    {
+      "t": 14.9,
+      "kind": "wind",
+      "args": {
+        "dur": 5,
+        "strength": 0.6
+      },
+      "gain": 0.5,
+      "pan": 0.1,
+      "room": 0.4,
+      "name": "tower wind"
+    },
+    {
+      "t": 15.2,
+      "kind": "walla",
+      "args": {
+        "dur": 4.4,
+        "voices": 7
+      },
+      "gain": 0.3,
+      "pan": -0.3,
+      "metres": 6,
+      "name": "crowd below"
+    },
+    {
+      "t": 20,
+      "kind": "wind",
+      "args": {
+        "dur": 6.4,
+        "strength": 0.35
+      },
+      "gain": 0.32,
+      "pan": 0.25,
+      "room": 0.55,
+      "name": "stairwell draught"
+    },
+    {
+      "t": 29.2,
+      "kind": "wind",
+      "args": {
+        "dur": 7,
+        "strength": 0.22
+      },
+      "gain": 0.24,
+      "pan": 0,
+      "room": 0.6,
+      "name": "belfry air"
+    },
+    {
+      "t": 36.4,
+      "kind": "walla",
+      "args": {
+        "dur": 3.4,
+        "voices": 9
+      },
+      "gain": 0.22,
+      "pan": -0.2,
+      "metres": 7,
+      "name": "town hush"
+    },
+    {
+      "t": 43.2,
+      "kind": "wind",
+      "args": {
+        "dur": 9.4,
+        "strength": 0.3
+      },
+      "gain": 0.3,
+      "pan": 0.15,
+      "room": 0.6,
+      "name": "stone chamber air"
+    },
+    {
+      "t": 56.9,
+      "kind": "walla",
+      "args": {
+        "dur": 8.6,
+        "voices": 10
+      },
+      "gain": 0.34,
+      "pan": 0,
+      "metres": 5,
+      "name": "valley crowd"
+    },
+    {
+      "t": 57.2,
+      "kind": "birds",
+      "args": {
+        "dur": 7
+      },
+      "gain": 0.3,
+      "pan": -0.4,
+      "metres": 9,
+      "name": "birds return"
+    }
+  ],
+  "sfx": [
+    {
+      "t": 1.2,
+      "kind": "whoosh",
+      "args": {
+        "dur": 0.9,
+        "up": false
+      },
+      "gain": 0.4,
+      "pan": -0.3,
+      "name": "open on the tower"
+    },
+    {
+      "t": 4.1,
+      "kind": "bell",
+      "args": {
+        "base": 150,
+        "dur": 1.2
+      },
+      "gain": 0.3,
+      "pan": 0.05,
+      "room": 0.5,
+      "metres": 4,
+      "name": "dead bell attempt (damped)"
+    },
+    {
+      "t": 7,
+      "kind": "step",
+      "args": {
+        "surface": "stone"
+      },
+      "gain": 0.66,
+      "pan": -0.35,
+      "room": 0.3,
+      "name": "founder enters"
+    },
+    {
+      "t": 7.47,
+      "kind": "step",
+      "args": {
+        "surface": "stone"
+      },
+      "gain": 0.6,
+      "pan": -0.22,
+      "room": 0.3,
+      "name": "founder step"
+    },
+    {
+      "t": 8.15,
+      "kind": "chime",
+      "args": {
+        "base": 1650,
+        "dur": 0.5
+      },
+      "gain": 0.26,
+      "pan": 0.3,
+      "room": 0.3,
+      "name": "hammer on metal"
+    },
+    {
+      "t": 9.5,
+      "kind": "whoosh",
+      "args": {
+        "dur": 0.55,
+        "up": true
+      },
+      "gain": 0.2,
+      "pan": -0.3,
+      "name": "transition craftMontage"
+    },
+    {
+      "t": 9.99,
+      "kind": "fire",
+      "args": {
+        "dur": 1.6
+      },
+      "gain": 0.42,
+      "pan": 0.2,
+      "room": 0.3,
+      "name": "bronze pour heat"
+    },
+    {
+      "t": 10.24,
+      "kind": "claySquish",
+      "args": {
+        "size": 1.3
+      },
+      "gain": 0.3,
+      "pan": 0.15,
+      "room": 0.3,
+      "name": "molten pour (viscous)"
+    },
+    {
+      "t": 11.54,
+      "kind": "chime",
+      "args": {
+        "base": 720,
+        "dur": 1.1
+      },
+      "gain": 0.3,
+      "pan": -0.15,
+      "room": 0.35,
+      "name": "tune the crown 1"
+    },
+    {
+      "t": 12.14,
+      "kind": "chime",
+      "args": {
+        "base": 905,
+        "dur": 1
+      },
+      "gain": 0.27,
+      "pan": 0.12,
+      "room": 0.35,
+      "name": "tune the crown 2"
+    },
+    {
+      "t": 13.04,
+      "kind": "doorCreak",
+      "args": {
+        "dur": 1.1
+      },
+      "gain": 0.52,
+      "pan": 0.05,
+      "room": 0.4,
+      "name": "rope hoist creak"
+    },
+    {
+      "t": 13.99,
+      "kind": "thump",
+      "args": {
+        "size": 1.1
+      },
+      "gain": 0.34,
+      "pan": 0,
+      "room": 0.4,
+      "name": "bell seats higher"
+    },
+    {
+      "t": 15.97,
+      "kind": "bell",
+      "args": {
+        "base": 148,
+        "dur": 0.9
+      },
+      "gain": 0.24,
+      "pan": 0,
+      "room": 0.55,
+      "metres": 5,
+      "name": "another dead note"
+    },
+    {
+      "t": 18.27,
+      "kind": "cloth",
+      "args": {
+        "dur": 0.4
+      },
+      "gain": 0.42,
+      "pan": -0.3,
+      "room": 0.3,
+      "name": "crowd shifts, uneasy"
+    },
+    {
+      "t": 20.492,
+      "kind": "step",
+      "args": {
+        "surface": "stone",
+        "force": 0.85
+      },
+      "gain": 0.62,
+      "pan": -0.1,
+      "room": 0.55,
+      "seed": 500,
+      "name": "stair step 1"
+    },
+    {
+      "t": 21.052,
+      "kind": "step",
+      "args": {
+        "surface": "stone",
+        "force": 0.97
+      },
+      "gain": 0.71,
+      "pan": -0.03,
+      "room": 0.55,
+      "seed": 513,
+      "name": "stair step 2"
+    },
+    {
+      "t": 21.612,
+      "kind": "step",
+      "args": {
+        "surface": "stone",
+        "force": 1.0899999999999999
+      },
+      "gain": 0.62,
+      "pan": 0.04000000000000001,
+      "room": 0.55,
+      "seed": 526,
+      "name": "stair step 3"
+    },
+    {
+      "t": 22.172,
+      "kind": "step",
+      "args": {
+        "surface": "stone",
+        "force": 0.85
+      },
+      "gain": 0.71,
+      "pan": 0.11000000000000001,
+      "room": 0.55,
+      "seed": 539,
+      "name": "stair step 4"
+    },
+    {
+      "t": 22.242,
+      "kind": "cloth",
+      "args": {
+        "dur": 0.35
+      },
+      "gain": 0.46,
+      "pan": 0.1,
+      "room": 0.5,
+      "name": "coat rustle"
+    },
+    {
+      "t": 22.732,
+      "kind": "step",
+      "args": {
+        "surface": "stone",
+        "force": 0.97
+      },
+      "gain": 0.62,
+      "pan": -0.1,
+      "room": 0.55,
+      "seed": 552,
+      "name": "stair step 5"
+    },
+    {
+      "t": 23.292,
+      "kind": "step",
+      "args": {
+        "surface": "stone",
+        "force": 1.0899999999999999
+      },
+      "gain": 0.71,
+      "pan": -0.03,
+      "room": 0.55,
+      "seed": 565,
+      "name": "stair step 6"
+    },
+    {
+      "t": 23.852,
+      "kind": "step",
+      "args": {
+        "surface": "stone",
+        "force": 0.85
+      },
+      "gain": 0.62,
+      "pan": 0.04000000000000001,
+      "room": 0.55,
+      "seed": 578,
+      "name": "stair step 7"
+    },
+    {
+      "t": 24.412,
+      "kind": "step",
+      "args": {
+        "surface": "stone",
+        "force": 0.97
+      },
+      "gain": 0.71,
+      "pan": 0.11000000000000001,
+      "room": 0.55,
+      "seed": 591,
+      "name": "stair step 8"
+    },
+    {
+      "t": 24.972,
+      "kind": "step",
+      "args": {
+        "surface": "stone",
+        "force": 1.0899999999999999
+      },
+      "gain": 0.62,
+      "pan": -0.1,
+      "room": 0.55,
+      "seed": 604,
+      "name": "stair step 9"
+    },
+    {
+      "t": 25.142,
+      "kind": "doorSwing",
+      "gain": 0.3,
+      "pan": 0.2,
+      "room": 0.55,
+      "name": "belfry hatch"
+    },
+    {
+      "t": 26.1,
+      "kind": "whoosh",
+      "args": {
+        "dur": 0.55,
+        "up": false
+      },
+      "gain": 0.2,
+      "pan": 0.3,
+      "name": "transition notTouching"
+    },
+    {
+      "t": 26.996,
+      "kind": "cloth",
+      "args": {
+        "dur": 0.45
+      },
+      "gain": 0.48,
+      "pan": -0.15,
+      "room": 0.55,
+      "name": "she stops, hand lowered"
+    },
+    {
+      "t": 30.752,
+      "kind": "step",
+      "args": {
+        "surface": "stone",
+        "force": 1.3
+      },
+      "gain": 0.78,
+      "pan": 0.22,
+      "room": 0.6,
+      "name": "tap the wall — once"
+    },
+    {
+      "t": 32.152,
+      "kind": "step",
+      "args": {
+        "surface": "stone",
+        "force": 1.15
+      },
+      "gain": 0.72,
+      "pan": 0.22,
+      "room": 0.6,
+      "seed": 991,
+      "name": "tap the wall — twice"
+    },
+    {
+      "t": 33.602,
+      "kind": "chime",
+      "args": {
+        "base": 2400,
+        "dur": 0.7
+      },
+      "gain": 0.16,
+      "pan": 0.3,
+      "room": 0.7,
+      "name": "stone answers, faint"
+    },
+    {
+      "t": 37.312,
+      "kind": "gaspQuiet",
+      "gain": 0.24,
+      "pan": -0.2,
+      "metres": 6,
+      "room": 0.4,
+      "name": "town inhales"
+    },
+    {
+      "t": 40,
+      "kind": "whoosh",
+      "args": {
+        "dur": 0.55,
+        "up": true
+      },
+      "gain": 0.2,
+      "pan": -0.3,
+      "name": "transition bellFine"
+    },
+    {
+      "t": 40.722,
+      "kind": "chime",
+      "args": {
+        "base": 660,
+        "dur": 1.9
+      },
+      "gain": 0.3,
+      "pan": 0.05,
+      "room": 0.5,
+      "name": "the bell is sound"
+    },
+    {
+      "t": 43.232,
+      "kind": "whoosh",
+      "args": {
+        "dur": 0.5,
+        "up": false
+      },
+      "gain": 0.24,
+      "pan": 0,
+      "name": "twist anticipation"
+    },
+    {
+      "t": 43.262,
+      "kind": "thump",
+      "args": {
+        "size": 1.5
+      },
+      "gain": 0.46,
+      "pan": 0,
+      "room": 0.6,
+      "name": "the tower — twist hit"
+    },
+    {
+      "t": 46.554,
+      "kind": "riser",
+      "args": {
+        "dur": 2.2
+      },
+      "gain": 0.16,
+      "pan": 0,
+      "room": 0.5,
+      "name": "realisation riser"
+    },
+    {
+      "t": 47.154,
+      "kind": "chime",
+      "args": {
+        "base": 520,
+        "dur": 0.45
+      },
+      "gain": 0.2,
+      "pan": -0.25,
+      "room": 0.75,
+      "seed": 700,
+      "name": "note swallowed 1"
+    },
+    {
+      "t": 48.304,
+      "kind": "chime",
+      "args": {
+        "base": 660,
+        "dur": 0.45
+      },
+      "gain": 0.18000000000000002,
+      "pan": -0.09,
+      "room": 0.75,
+      "seed": 729,
+      "name": "note swallowed 2"
+    },
+    {
+      "t": 49.454,
+      "kind": "chime",
+      "args": {
+        "base": 800,
+        "dur": 0.45
+      },
+      "gain": 0.16,
+      "pan": 0.07,
+      "room": 0.75,
+      "seed": 758,
+      "name": "note swallowed 3"
+    },
+    {
+      "t": 50.604,
+      "kind": "chime",
+      "args": {
+        "base": 940,
+        "dur": 0.45
+      },
+      "gain": 0.14,
+      "pan": 0.22999999999999998,
+      "room": 0.75,
+      "seed": 787,
+      "name": "note swallowed 4"
+    },
+    {
+      "t": 53.076,
+      "kind": "doorCreak",
+      "args": {
+        "dur": 0.8
+      },
+      "gain": 0.5,
+      "pan": -0.2,
+      "room": 0.5,
+      "name": "rope takes the weight"
+    },
+    {
+      "t": 53.876,
+      "kind": "cloth",
+      "args": {
+        "dur": 0.9
+      },
+      "gain": 0.52,
+      "pan": 0.1,
+      "room": 0.5,
+      "name": "bell slides on beam"
+    },
+    {
+      "t": 55.176,
+      "kind": "thump",
+      "args": {
+        "size": 0.9
+      },
+      "gain": 0.32,
+      "pan": 0.15,
+      "room": 0.5,
+      "name": "bell seats, four feet left"
+    },
+    {
+      "t": 55.726,
+      "kind": "step",
+      "args": {
+        "surface": "stone"
+      },
+      "gain": 0.56,
+      "pan": -0.1,
+      "room": 0.5,
+      "name": "she steps back"
+    },
+    {
+      "t": 56.7,
+      "kind": "whoosh",
+      "args": {
+        "dur": 0.55,
+        "up": false
+      },
+      "gain": 0.2,
+      "pan": 0.3,
+      "name": "transition theRing"
+    },
+    {
+      "t": 57.246,
+      "kind": "whoosh",
+      "args": {
+        "dur": 1.2,
+        "up": true
+      },
+      "gain": 0.24,
+      "pan": 0,
+      "name": "sound leaves the tower"
+    },
+    {
+      "t": 57.296,
+      "kind": "bell",
+      "args": {
+        "base": 196,
+        "dur": 4.2
+      },
+      "gain": 0.62,
+      "pan": 0,
+      "room": 0.7,
+      "name": "THE BELL RINGS"
+    },
+    {
+      "t": 58.846,
+      "kind": "applause",
+      "args": {
+        "dur": 4.4,
+        "size": 1.2
+      },
+      "gain": 0.36,
+      "pan": -0.1,
+      "metres": 4,
+      "room": 0.4,
+      "name": "valley cheers"
+    },
+    {
+      "t": 59.496,
+      "kind": "bell",
+      "args": {
+        "base": 196,
+        "dur": 3.6
+      },
+      "gain": 0.5,
+      "pan": 0.04,
+      "room": 0.7,
+      "seed": 1201,
+      "name": "bell second strike"
+    },
+    {
+      "t": 60.246,
+      "kind": "bell",
+      "args": {
+        "base": 262,
+        "dur": 2.6
+      },
+      "gain": 0.26,
+      "pan": -0.55,
+      "metres": 14,
+      "room": 0.8,
+      "name": "second village hears"
+    },
+    {
+      "t": 60.796,
+      "kind": "bell",
+      "args": {
+        "base": 220,
+        "dur": 2.6
+      },
+      "gain": 0.22,
+      "pan": 0.58,
+      "metres": 18,
+      "room": 0.8,
+      "name": "third village hears"
+    },
+    {
+      "t": 62.026,
+      "kind": "gasp",
+      "args": {
+        "voices": 6
+      },
+      "gain": 0.5,
+      "pan": 0.1,
+      "metres": 5,
+      "name": "wonder in the crowd"
+    },
+    {
+      "t": 63.226,
+      "kind": "chime",
+      "args": {
+        "base": 1046,
+        "dur": 2.2
+      },
+      "gain": 0.22,
+      "pan": 0.2,
+      "room": 0.6,
+      "name": "listened to"
+    }
+  ]
+}

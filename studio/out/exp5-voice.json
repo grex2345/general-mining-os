@@ -1,0 +1,589 @@
+{
+ "text": "Every night the last train leaves without me. I stopped counting the ones I missed.",
+ "audio": "out/exp5-voice.wav",
+ "mix": "out/exp5-voice-mix.mp3",
+ "video": "out/exp5-voice.mp4",
+ "duration": 5.7489,
+ "frames": 200,
+ "fps": 30,
+ "msPerFrame": 943,
+ "words": 15,
+ "phonemes": 57,
+ "alignment": "proportional-estimate",
+ "timingPerSentence": [
+  "even-fallback",
+  "espeak"
+ ],
+ "timeline": [
+  {
+   "t0": 0,
+   "t1": 0.108225,
+   "ipa": "ɛ",
+   "viseme": {
+    "mouthOpen": 0.38,
+    "mouthWide": 0.42,
+    "mouthCurve": 0.1
+   }
+  },
+  {
+   "t0": 0.108225,
+   "t1": 0.21645,
+   "ipa": "v",
+   "viseme": {
+    "mouthOpen": 0.1,
+    "mouthWide": 0.1,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 0.21645,
+   "t1": 0.324675,
+   "ipa": "ɹ",
+   "viseme": {
+    "mouthOpen": 0.22,
+    "mouthWide": -0.15,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 0.324675,
+   "t1": 0.4329,
+   "ipa": "i",
+   "viseme": {
+    "mouthOpen": 0.16,
+    "mouthWide": 0.55,
+    "mouthCurve": 0.2
+   }
+  },
+  {
+   "t0": 0.4329,
+   "t1": 0.541125,
+   "ipa": "nˈ",
+   "viseme": {
+    "mouthOpen": 0.16,
+    "mouthWide": 0.1,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 0.541125,
+   "t1": 0.64935,
+   "ipa": "a",
+   "viseme": {
+    "mouthOpen": 0.62,
+    "mouthWide": 0.3,
+    "mouthCurve": 0.05
+   }
+  },
+  {
+   "t0": 0.64935,
+   "t1": 0.757575,
+   "ipa": "ɪ",
+   "viseme": {
+    "mouthOpen": 0.22,
+    "mouthWide": 0.5,
+    "mouthCurve": 0.15
+   }
+  },
+  {
+   "t0": 0.757575,
+   "t1": 0.8658,
+   "ipa": "t",
+   "viseme": {
+    "mouthOpen": 0.18,
+    "mouthWide": 0.15,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 0.8658,
+   "t1": 1.08225,
+   "ipa": "ð",
+   "viseme": {
+    "mouthOpen": 0.14,
+    "mouthWide": 0.15,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 1.08225,
+   "t1": 1.2987,
+   "ipa": "ə",
+   "viseme": {
+    "mouthOpen": 0.25,
+    "mouthWide": 0.1,
+    "mouthCurve": 0.05
+   }
+  },
+  {
+   "t0": 1.2987,
+   "t1": 1.406925,
+   "ipa": "lˈ",
+   "viseme": {
+    "mouthOpen": 0.28,
+    "mouthWide": 0.15,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 1.406925,
+   "t1": 1.51515,
+   "ipa": "æ",
+   "viseme": {
+    "mouthOpen": 0.55,
+    "mouthWide": 0.45,
+    "mouthCurve": 0.1
+   }
+  },
+  {
+   "t0": 1.51515,
+   "t1": 1.623375,
+   "ipa": "s",
+   "viseme": {
+    "mouthOpen": 0.12,
+    "mouthWide": 0.35,
+    "mouthCurve": 0.05
+   }
+  },
+  {
+   "t0": 1.623375,
+   "t1": 1.7316,
+   "ipa": "t",
+   "viseme": {
+    "mouthOpen": 0.18,
+    "mouthWide": 0.15,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 1.7315,
+   "t1": 1.8180800000000001,
+   "ipa": "t",
+   "viseme": {
+    "mouthOpen": 0.18,
+    "mouthWide": 0.15,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 1.8180800000000001,
+   "t1": 1.90466,
+   "ipa": "ɹˈ",
+   "viseme": {
+    "mouthOpen": 0.22,
+    "mouthWide": -0.15,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 1.90466,
+   "t1": 1.9912400000000001,
+   "ipa": "e",
+   "viseme": {
+    "mouthOpen": 0.34,
+    "mouthWide": 0.4,
+    "mouthCurve": 0.15
+   }
+  },
+  {
+   "t0": 1.9912400000000001,
+   "t1": 2.07782,
+   "ipa": "ɪ",
+   "viseme": {
+    "mouthOpen": 0.22,
+    "mouthWide": 0.5,
+    "mouthCurve": 0.15
+   }
+  },
+  {
+   "t0": 2.07782,
+   "t1": 2.1644,
+   "ipa": "n",
+   "viseme": {
+    "mouthOpen": 0.16,
+    "mouthWide": 0.1,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 2.1644,
+   "t1": 2.272625,
+   "ipa": "lˈ",
+   "viseme": {
+    "mouthOpen": 0.28,
+    "mouthWide": 0.15,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 2.272625,
+   "t1": 2.38085,
+   "ipa": "iː",
+   "viseme": {
+    "mouthOpen": 0.16,
+    "mouthWide": 0.55,
+    "mouthCurve": 0.2
+   }
+  },
+  {
+   "t0": 2.38085,
+   "t1": 2.489075,
+   "ipa": "v",
+   "viseme": {
+    "mouthOpen": 0.1,
+    "mouthWide": 0.1,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 2.489075,
+   "t1": 2.5973,
+   "ipa": "z",
+   "viseme": {
+    "mouthOpen": 0.12,
+    "mouthWide": 0.32,
+    "mouthCurve": 0.05
+   }
+  },
+  {
+   "t0": 2.5973,
+   "t1": 2.6694500000000003,
+   "ipa": "w",
+   "viseme": {
+    "mouthOpen": 0.18,
+    "mouthWide": -0.55,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 2.6694500000000003,
+   "t1": 2.7416,
+   "ipa": "ɪ",
+   "viseme": {
+    "mouthOpen": 0.22,
+    "mouthWide": 0.5,
+    "mouthCurve": 0.15
+   }
+  },
+  {
+   "t0": 2.7416,
+   "t1": 2.81375,
+   "ipa": "ðˈ",
+   "viseme": {
+    "mouthOpen": 0.14,
+    "mouthWide": 0.15,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 2.81375,
+   "t1": 2.8859000000000004,
+   "ipa": "a",
+   "viseme": {
+    "mouthOpen": 0.62,
+    "mouthWide": 0.3,
+    "mouthCurve": 0.05
+   }
+  },
+  {
+   "t0": 2.8859000000000004,
+   "t1": 2.95805,
+   "ipa": "ʊ",
+   "viseme": {
+    "mouthOpen": 0.32,
+    "mouthWide": -0.35,
+    "mouthCurve": 0.05
+   }
+  },
+  {
+   "t0": 2.95805,
+   "t1": 3.0302000000000002,
+   "ipa": "t",
+   "viseme": {
+    "mouthOpen": 0.18,
+    "mouthWide": 0.15,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 3.0302,
+   "t1": 3.0502,
+   "ipa": "mˌ",
+   "viseme": {
+    "mouthOpen": 0,
+    "mouthWide": -0.05,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 3.0502,
+   "t1": 3.0702,
+   "ipa": "iː",
+   "viseme": {
+    "mouthOpen": 0.16,
+    "mouthWide": 0.55,
+    "mouthCurve": 0.2
+   }
+  },
+  {
+   "t0": 3.0916,
+   "t1": 3.1554,
+   "ipa": "a",
+   "viseme": {
+    "mouthOpen": 0.62,
+    "mouthWide": 0.3,
+    "mouthCurve": 0.05
+   }
+  },
+  {
+   "t0": 3.1554,
+   "t1": 3.2192000000000003,
+   "ipa": "ɪ",
+   "viseme": {
+    "mouthOpen": 0.22,
+    "mouthWide": 0.5,
+    "mouthCurve": 0.15
+   }
+  },
+  {
+   "t0": 3.2192,
+   "t1": 3.3517599999999996,
+   "ipa": "s",
+   "viseme": {
+    "mouthOpen": 0.12,
+    "mouthWide": 0.35,
+    "mouthCurve": 0.05
+   }
+  },
+  {
+   "t0": 3.3517599999999996,
+   "t1": 3.48432,
+   "ipa": "tˈ",
+   "viseme": {
+    "mouthOpen": 0.18,
+    "mouthWide": 0.15,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 3.48432,
+   "t1": 3.6168799999999997,
+   "ipa": "ɑː",
+   "viseme": {
+    "mouthOpen": 0.66,
+    "mouthWide": 0.25,
+    "mouthCurve": 0.05
+   }
+  },
+  {
+   "t0": 3.6168799999999997,
+   "t1": 3.74944,
+   "ipa": "p",
+   "viseme": {
+    "mouthOpen": 0,
+    "mouthWide": 0,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 3.74944,
+   "t1": 3.8819999999999997,
+   "ipa": "t",
+   "viseme": {
+    "mouthOpen": 0.18,
+    "mouthWide": 0.15,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 3.8819,
+   "t1": 3.975,
+   "ipa": "kˈ",
+   "viseme": {
+    "mouthOpen": 0.22,
+    "mouthWide": 0.1,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 3.975,
+   "t1": 4.0681,
+   "ipa": "a",
+   "viseme": {
+    "mouthOpen": 0.62,
+    "mouthWide": 0.3,
+    "mouthCurve": 0.05
+   }
+  },
+  {
+   "t0": 4.0681,
+   "t1": 4.1612,
+   "ipa": "ʊ",
+   "viseme": {
+    "mouthOpen": 0.32,
+    "mouthWide": -0.35,
+    "mouthCurve": 0.05
+   }
+  },
+  {
+   "t0": 4.1612,
+   "t1": 4.2543,
+   "ipa": "n",
+   "viseme": {
+    "mouthOpen": 0.16,
+    "mouthWide": 0.1,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 4.2543,
+   "t1": 4.3473999999999995,
+   "ipa": "t",
+   "viseme": {
+    "mouthOpen": 0.18,
+    "mouthWide": 0.15,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 4.3473999999999995,
+   "t1": 4.4405,
+   "ipa": "ɪ",
+   "viseme": {
+    "mouthOpen": 0.22,
+    "mouthWide": 0.5,
+    "mouthCurve": 0.15
+   }
+  },
+  {
+   "t0": 4.4405,
+   "t1": 4.5336,
+   "ipa": "ŋ",
+   "viseme": {
+    "mouthOpen": 0.2,
+    "mouthWide": 0.05,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 4.5336,
+   "t1": 4.60915,
+   "ipa": "ð",
+   "viseme": {
+    "mouthOpen": 0.14,
+    "mouthWide": 0.15,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 4.60915,
+   "t1": 4.684699999999999,
+   "ipa": "ə",
+   "viseme": {
+    "mouthOpen": 0.25,
+    "mouthWide": 0.1,
+    "mouthCurve": 0.05
+   }
+  },
+  {
+   "t0": 4.6848,
+   "t1": 4.791575,
+   "ipa": "wˈ",
+   "viseme": {
+    "mouthOpen": 0.18,
+    "mouthWide": -0.55,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 4.791575,
+   "t1": 4.89835,
+   "ipa": "ʌ",
+   "viseme": {
+    "mouthOpen": 0.42,
+    "mouthWide": 0.15,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 4.89835,
+   "t1": 5.005125,
+   "ipa": "n",
+   "viseme": {
+    "mouthOpen": 0.16,
+    "mouthWide": 0.1,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 5.005125,
+   "t1": 5.1119,
+   "ipa": "z",
+   "viseme": {
+    "mouthOpen": 0.12,
+    "mouthWide": 0.32,
+    "mouthCurve": 0.05
+   }
+  },
+  {
+   "t0": 5.1118,
+   "t1": 5.171399999999999,
+   "ipa": "a",
+   "viseme": {
+    "mouthOpen": 0.62,
+    "mouthWide": 0.3,
+    "mouthCurve": 0.05
+   }
+  },
+  {
+   "t0": 5.171399999999999,
+   "t1": 5.231,
+   "ipa": "ɪ",
+   "viseme": {
+    "mouthOpen": 0.22,
+    "mouthWide": 0.5,
+    "mouthCurve": 0.15
+   }
+  },
+  {
+   "t0": 5.2311,
+   "t1": 5.36055,
+   "ipa": "mˈ",
+   "viseme": {
+    "mouthOpen": 0,
+    "mouthWide": -0.05,
+    "mouthCurve": 0
+   }
+  },
+  {
+   "t0": 5.36055,
+   "t1": 5.489999999999999,
+   "ipa": "ɪ",
+   "viseme": {
+    "mouthOpen": 0.22,
+    "mouthWide": 0.5,
+    "mouthCurve": 0.15
+   }
+  },
+  {
+   "t0": 5.489999999999999,
+   "t1": 5.61945,
+   "ipa": "s",
+   "viseme": {
+    "mouthOpen": 0.12,
+    "mouthWide": 0.35,
+    "mouthCurve": 0.05
+   }
+  },
+  {
+   "t0": 5.61945,
+   "t1": 5.7489,
+   "ipa": "t",
+   "viseme": {
+    "mouthOpen": 0.18,
+    "mouthWide": 0.15,
+    "mouthCurve": 0
+   }
+  }
+ ]
+}

@@ -1,0 +1,53 @@
+{
+  "file": "pacing-loose-vs-tight.wav",
+  "durationSec": 127.81,
+  "A": {
+    "label": "LOOSE — the film narration as directed (suspense pacing)",
+    "startsAtSec": 0,
+    "endsAtSec": 65.376
+  },
+  "B": {
+    "label": "TIGHT — same audio, silence trimmed with the Ricks rule (-58 dBFS, 90ms guard, keep 0.12s)",
+    "startsAtSec": 66.98,
+    "endsAtSec": 127.81
+  },
+  "note": "The film uses LOOSE. Reference channels run ~3.67 words/sec with pauses rarely over 0.45s; this story deliberately holds longer for suspense. Listen and decide which suits the story — tightening does not change a single word or the emotional shaping.",
+  "measured": [
+    {
+      "metric": "durationSec",
+      "directed": 65.376,
+      "tightened": 60.836
+    },
+    {
+      "metric": "silenceFrac",
+      "directed": 0.451,
+      "tightened": 0.411
+    },
+    {
+      "metric": "wordsPerSecWall"
+    },
+    {
+      "metric": "wordsPerSec"
+    },
+    {
+      "metric": "pauseMaxSec",
+      "directed": 1.21,
+      "tightened": 1.12
+    },
+    {
+      "metric": "pauseMeanSec",
+      "directed": 0.321,
+      "tightened": 0.266
+    },
+    {
+      "metric": "pitchRangeSt",
+      "directed": 22.16,
+      "tightened": 20.48
+    },
+    {
+      "metric": "dynamicRangeDb",
+      "directed": 47.41,
+      "tightened": 46.55
+    }
+  ]
+}

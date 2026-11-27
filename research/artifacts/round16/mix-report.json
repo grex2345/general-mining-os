@@ -1,0 +1,1196 @@
+{
+  "TOTAL": 83.2,
+  "levels": {
+    "voiceRmsDb": -17.06,
+    "musicRmsDb": -42.38,
+    "sfxRmsDb": -41.82,
+    "ambienceRmsDb": -49.29,
+    "mixTruePeakDb": -4.2,
+    "musicUnderVoiceDb": 25.32,
+    "voicePeakDb": -4.18,
+    "sfxEventPeak": {
+      "peakDb": -22.13,
+      "medianDb": -29.76,
+      "p90Db": -24.95
+    },
+    "sfxUnderVoicePeakDb": 20.77,
+    "sfxUnderVoiceDb": 20.77
+  },
+  "masking": [
+    {
+      "t": 0.1,
+      "name": "open on the sealed man",
+      "durSec": 1,
+      "sfxPeakDb": -22.7,
+      "voiceDb": -120,
+      "musicDb": -57.7,
+      "deficitDb": -35,
+      "check": "ok"
+    },
+    {
+      "t": 2.86,
+      "name": "\"infinity\" — field rings",
+      "durSec": 1.2,
+      "sfxPeakDb": -32.5,
+      "voiceDb": -15.1,
+      "musicDb": -43.2,
+      "deficitDb": 17.4,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 5,
+      "name": "\"coffin\" — lid weight",
+      "durSec": 0.63,
+      "sfxPeakDb": -26.7,
+      "voiceDb": -20.1,
+      "musicDb": -44.3,
+      "deficitDb": 6.6,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 5.18,
+      "name": "coffin seals",
+      "durSec": 0.55,
+      "sfxPeakDb": -26.7,
+      "voiceDb": -30.1,
+      "musicDb": -44.3,
+      "deficitDb": -3.4,
+      "check": "ok"
+    },
+    {
+      "t": 6.26,
+      "name": "\"sealed\" — lock",
+      "durSec": 0.495,
+      "sfxPeakDb": -28.3,
+      "voiceDb": -18.2,
+      "musicDb": -45,
+      "deficitDb": 10.1,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 8.24,
+      "name": "\"stops\" — blade hits the boundary",
+      "durSec": 1.1,
+      "sfxPeakDb": -29,
+      "voiceDb": -17,
+      "musicDb": -43.6,
+      "deficitDb": 12,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 9.3,
+      "name": "\"touching\" — deflection",
+      "durSec": 0.35,
+      "sfxPeakDb": -31,
+      "voiceDb": -16.5,
+      "musicDb": -44.8,
+      "deficitDb": 14.5,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 10.86,
+      "name": "\"gets in\" — nothing enters",
+      "durSec": 0.5,
+      "sfxPeakDb": -31.1,
+      "voiceDb": -22.3,
+      "musicDb": -47.4,
+      "deficitDb": 8.8,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 12.16,
+      "name": "\"gets out\" — nothing leaves",
+      "durSec": 0.55,
+      "sfxPeakDb": -29.2,
+      "voiceDb": -20.4,
+      "musicDb": -49.3,
+      "deficitDb": 8.8,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 12.56,
+      "name": "heat bounces back",
+      "durSec": 0.405,
+      "sfxPeakDb": -29.2,
+      "voiceDb": -34.3,
+      "musicDb": -48.6,
+      "deficitDb": -5.1,
+      "check": "ok"
+    },
+    {
+      "t": 13.19,
+      "name": "transition into thermos",
+      "durSec": 0.55,
+      "sfxPeakDb": -33.2,
+      "voiceDb": -15.8,
+      "musicDb": -50,
+      "deficitDb": 17.4,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 14.28,
+      "name": "\"wall\" — the wrong model",
+      "durSec": 0.36,
+      "sfxPeakDb": -31.9,
+      "voiceDb": -23.7,
+      "musicDb": -46.6,
+      "deficitDb": 8.2,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 15.24,
+      "name": "\"thermos\" — flask set down",
+      "durSec": 0.2,
+      "sfxPeakDb": -30.9,
+      "voiceDb": -15.4,
+      "musicDb": -50.8,
+      "deficitDb": 15.5,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 16.26,
+      "name": "\"NASA\" — console ack",
+      "durSec": 0.5,
+      "sfxPeakDb": -31.6,
+      "voiceDb": -18.9,
+      "musicDb": -46,
+      "deficitDb": 12.7,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 18.08,
+      "name": "\"exact\" — match found",
+      "durSec": 0.4,
+      "sfxPeakDb": -33.6,
+      "voiceDb": -22.5,
+      "musicDb": -46,
+      "deficitDb": 11.1,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 19.12,
+      "name": "cut to orbit",
+      "durSec": 0.8,
+      "sfxPeakDb": -31.4,
+      "voiceDb": -18.5,
+      "musicDb": -45.2,
+      "deficitDb": 12.9,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 19.96,
+      "name": "\"suit\" — fabric shift",
+      "durSec": 0.5,
+      "sfxPeakDb": -30.4,
+      "voiceDb": -18.8,
+      "musicDb": -38.5,
+      "deficitDb": 11.6,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 21.1,
+      "name": "\"shield\" — micrometeoroid tick",
+      "durSec": 0.6,
+      "sfxPeakDb": -33,
+      "voiceDb": -20.2,
+      "musicDb": -39.8,
+      "deficitDb": 12.8,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 23,
+      "name": "\"radiator\" — heat rejected",
+      "durSec": 1.6,
+      "sfxPeakDb": -31.2,
+      "voiceDb": -24.6,
+      "musicDb": -41.2,
+      "deficitDb": 6.6,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 23.37,
+      "name": "transition into watts100",
+      "durSec": 0.55,
+      "sfxPeakDb": -31.2,
+      "voiceDb": -96.3,
+      "musicDb": -38.1,
+      "deficitDb": -6.9,
+      "check": "ok"
+    },
+    {
+      "t": 25.1,
+      "name": "\"100\" — gauge reads",
+      "durSec": 0.8,
+      "sfxPeakDb": -23.7,
+      "voiceDb": -13.5,
+      "musicDb": -43.5,
+      "deficitDb": 10.2,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 27.16,
+      "name": "fight builds",
+      "durSec": 1,
+      "sfxPeakDb": -25,
+      "voiceDb": -19.9,
+      "musicDb": -35.7,
+      "deficitDb": 5.1,
+      "check": "ok"
+    },
+    {
+      "t": 27.38,
+      "name": "\"high-speed\"",
+      "durSec": 0.45,
+      "sfxPeakDb": -27.6,
+      "voiceDb": -17.9,
+      "musicDb": -37.8,
+      "deficitDb": 9.7,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 28.04,
+      "name": "\"fight\" — impact",
+      "durSec": 1.1,
+      "sfxPeakDb": -25,
+      "voiceDb": -19.8,
+      "musicDb": -38.9,
+      "deficitDb": 5.2,
+      "check": "ok"
+    },
+    {
+      "t": 29.42,
+      "name": "\"thousand\" — the number lands",
+      "durSec": 0.675,
+      "sfxPeakDb": -27,
+      "voiceDb": -18.4,
+      "musicDb": -34.4,
+      "deficitDb": 8.6,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 29.54,
+      "name": "gauge spikes",
+      "durSec": 1.2,
+      "sfxPeakDb": -28.7,
+      "voiceDb": -23.5,
+      "musicDb": -37.6,
+      "deficitDb": 5.2,
+      "check": "ok"
+    },
+    {
+      "t": 30.26,
+      "name": "\"Sweating\" — first drop",
+      "durSec": 0.25,
+      "sfxPeakDb": -28.8,
+      "voiceDb": -15.1,
+      "musicDb": -42.3,
+      "deficitDb": 13.7,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 31.16,
+      "name": "second drop",
+      "durSec": 0.25,
+      "sfxPeakDb": -30.3,
+      "voiceDb": -20.4,
+      "musicDb": -44.4,
+      "deficitDb": 9.9,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 31.85,
+      "name": "transition into evaporate",
+      "durSec": 0.55,
+      "sfxPeakDb": -29.8,
+      "voiceDb": -79.3,
+      "musicDb": -43.1,
+      "deficitDb": -13.3,
+      "check": "ok"
+    },
+    {
+      "t": 32.36,
+      "name": "\"sweat\" — still liquid",
+      "durSec": 0.25,
+      "sfxPeakDb": -29.8,
+      "voiceDb": -21.8,
+      "musicDb": -45.6,
+      "deficitDb": 8,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 32.96,
+      "name": "\"evaporate\" — vapour turns back",
+      "durSec": 0.5,
+      "sfxPeakDb": -27.1,
+      "voiceDb": -24.3,
+      "musicDb": -45.7,
+      "deficitDb": 2.8,
+      "check": "ok"
+    },
+    {
+      "t": 33.16,
+      "name": "droplet re-forms on the shell",
+      "durSec": 0.315,
+      "sfxPeakDb": -27.1,
+      "voiceDb": -21.4,
+      "musicDb": -45.6,
+      "deficitDb": 5.7,
+      "check": "ok"
+    },
+    {
+      "t": 34.34,
+      "name": "\"four\" — countdown tick",
+      "durSec": 0.3,
+      "sfxPeakDb": -32.5,
+      "voiceDb": -15.2,
+      "musicDb": -46.2,
+      "deficitDb": 17.3,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 36,
+      "name": "\"twenty\" — countdown tick",
+      "durSec": 0.3,
+      "sfxPeakDb": -32.5,
+      "voiceDb": -16.6,
+      "musicDb": -45,
+      "deficitDb": 15.9,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 37.44,
+      "name": "\"brain\" — pulse",
+      "durSec": 0.45,
+      "sfxPeakDb": -30.1,
+      "voiceDb": -14.3,
+      "musicDb": -44.4,
+      "deficitDb": 15.8,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 38.18,
+      "name": "\"cooking\" — heat blooms",
+      "durSec": 1.6,
+      "sfxPeakDb": -25.5,
+      "voiceDb": -23.2,
+      "musicDb": -44.3,
+      "deficitDb": 2.3,
+      "check": "ok"
+    },
+    {
+      "t": 39.18,
+      "name": "\"bakes\" — oven roar",
+      "durSec": 2,
+      "sfxPeakDb": -26,
+      "voiceDb": -18.3,
+      "musicDb": -43.2,
+      "deficitDb": 7.7,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 40.42,
+      "name": "\"defense\" — the door is the wall",
+      "durSec": 0.585,
+      "sfxPeakDb": -26,
+      "voiceDb": -21.2,
+      "musicDb": -43.6,
+      "deficitDb": 4.8,
+      "check": "ok"
+    },
+    {
+      "t": 40.91,
+      "name": "transition into sixeyes",
+      "durSec": 0.55,
+      "sfxPeakDb": -26,
+      "voiceDb": -59,
+      "musicDb": -48.9,
+      "deficitDb": -22.9,
+      "check": "ok"
+    },
+    {
+      "t": 41.16,
+      "name": "the turn",
+      "durSec": 1.3,
+      "sfxPeakDb": -26.3,
+      "voiceDb": -17.9,
+      "musicDb": -39.7,
+      "deficitDb": 8.4,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 42.04,
+      "name": "\"six\"",
+      "durSec": 1.8,
+      "sfxPeakDb": -26.3,
+      "voiceDb": -20.2,
+      "musicDb": -39.1,
+      "deficitDb": 6.1,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 42.46,
+      "name": "\"eyes\" — the reveal",
+      "durSec": 2,
+      "sfxPeakDb": -27.8,
+      "voiceDb": -18,
+      "musicDb": -38.8,
+      "deficitDb": 9.8,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 42.54,
+      "name": "reveal bloom",
+      "durSec": 2.4,
+      "sfxPeakDb": -27.8,
+      "voiceDb": -18.1,
+      "musicDb": -39.6,
+      "deficitDb": 9.7,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 46.54,
+      "name": "\"filters\"",
+      "durSec": 0.4,
+      "sfxPeakDb": -33.4,
+      "voiceDb": -15.6,
+      "musicDb": -43.2,
+      "deficitDb": 17.8,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 47.78,
+      "name": "\"atom\"",
+      "durSec": 0.35,
+      "sfxPeakDb": -33.4,
+      "voiceDb": -19.8,
+      "musicDb": -43.8,
+      "deficitDb": 13.6,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 48.54,
+      "name": "\"oxygen\" — in",
+      "durSec": 0.5,
+      "sfxPeakDb": -31.2,
+      "voiceDb": -18.2,
+      "musicDb": -44.3,
+      "deficitDb": 13,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 49.44,
+      "name": "\"heat\" — out",
+      "durSec": 0.5,
+      "sfxPeakDb": -31.6,
+      "voiceDb": -19,
+      "musicDb": -45.2,
+      "deficitDb": 12.6,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 50.22,
+      "name": "\"knives\" — out",
+      "durSec": 1.1,
+      "sfxPeakDb": -28.7,
+      "voiceDb": -16.4,
+      "musicDb": -41.4,
+      "deficitDb": 12.3,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 51.96,
+      "name": "\"focus\"",
+      "durSec": 0.3,
+      "sfxPeakDb": -33.6,
+      "voiceDb": -18.1,
+      "musicDb": -43.4,
+      "deficitDb": 15.5,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 52.92,
+      "name": "\"second\" — alarm",
+      "durSec": 0.5,
+      "sfxPeakDb": -31.3,
+      "voiceDb": -19.2,
+      "musicDb": -43.8,
+      "deficitDb": 12.1,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 53.8,
+      "name": "\"cooks\"",
+      "durSec": 1.4,
+      "sfxPeakDb": -23.9,
+      "voiceDb": -26,
+      "musicDb": -45.7,
+      "deficitDb": -2.1,
+      "check": "ok"
+    },
+    {
+      "t": 54.37,
+      "name": "transition into rct",
+      "durSec": 0.55,
+      "sfxPeakDb": -24.7,
+      "voiceDb": -84.6,
+      "musicDb": -41.3,
+      "deficitDb": -16.6,
+      "check": "ok"
+    },
+    {
+      "t": 55.26,
+      "name": "\"reverse\"",
+      "durSec": 1.2,
+      "sfxPeakDb": -29.7,
+      "voiceDb": -15.1,
+      "musicDb": -38.3,
+      "deficitDb": 14.6,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 56.56,
+      "name": "\"24/7\"",
+      "durSec": 1.6,
+      "sfxPeakDb": -31.7,
+      "voiceDb": -16.1,
+      "musicDb": -41.8,
+      "deficitDb": 15.6,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 58.32,
+      "name": "\"heal\"",
+      "durSec": 1.2,
+      "sfxPeakDb": -28.6,
+      "voiceDb": -14.4,
+      "musicDb": -40.9,
+      "deficitDb": 14.2,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 58.72,
+      "name": "\"brain\" — repaired pulse",
+      "durSec": 0.405,
+      "sfxPeakDb": -28.6,
+      "voiceDb": -13.9,
+      "musicDb": -40.6,
+      "deficitDb": 14.7,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 61.48,
+      "name": "\"NASA\"",
+      "durSec": 0.5,
+      "sfxPeakDb": -32,
+      "voiceDb": -18,
+      "musicDb": -42.2,
+      "deficitDb": 14,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 62.42,
+      "name": "\"radiator\" — fan",
+      "durSec": 1.4,
+      "sfxPeakDb": -31.1,
+      "voiceDb": -22.6,
+      "musicDb": -43.9,
+      "deficitDb": 8.5,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 63.06,
+      "name": "\"Gojo\"",
+      "durSec": 0.6,
+      "sfxPeakDb": -31.1,
+      "voiceDb": -14,
+      "musicDb": -44.5,
+      "deficitDb": 17.1,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 64,
+      "name": "\"brain\"",
+      "durSec": 0.45,
+      "sfxPeakDb": -29.4,
+      "voiceDb": -15.3,
+      "musicDb": -44.9,
+      "deficitDb": 14.1,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 66.24,
+      "name": "\"difference\"",
+      "durSec": 1.8,
+      "sfxPeakDb": -22.1,
+      "voiceDb": -22.7,
+      "musicDb": -47.8,
+      "deficitDb": -0.6,
+      "check": "ok"
+    },
+    {
+      "t": 66.77,
+      "name": "transition into switch",
+      "durSec": 0.55,
+      "sfxPeakDb": -32.3,
+      "voiceDb": -62.3,
+      "musicDb": -45.3,
+      "deficitDb": -13,
+      "check": "ok"
+    },
+    {
+      "t": 67.52,
+      "name": "\"switched\" — lever travels",
+      "durSec": 0.5,
+      "sfxPeakDb": -22.1,
+      "voiceDb": -18.2,
+      "musicDb": -48.8,
+      "deficitDb": 3.9,
+      "check": "ok"
+    },
+    {
+      "t": 67.76,
+      "name": "\"off\" — clunk",
+      "durSec": 0.495,
+      "sfxPeakDb": -22.1,
+      "voiceDb": -23.6,
+      "musicDb": -49.3,
+      "deficitDb": -1.5,
+      "check": "ok"
+    },
+    {
+      "t": 68.2,
+      "name": "\"maintenance\" — fan spins down",
+      "durSec": 1.2,
+      "sfxPeakDb": -30.8,
+      "voiceDb": -18.2,
+      "musicDb": -44.8,
+      "deficitDb": 12.6,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 69.3,
+      "name": "\"can't\"",
+      "durSec": 1,
+      "sfxPeakDb": -26.3,
+      "voiceDb": -16.5,
+      "musicDb": -50.1,
+      "deficitDb": 9.8,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 70,
+      "name": "cut to the street",
+      "durSec": 0.7,
+      "sfxPeakDb": -24.3,
+      "voiceDb": -13.9,
+      "musicDb": -50,
+      "deficitDb": 10.4,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 70.94,
+      "name": "\"infinity\" — yours",
+      "durSec": 1.2,
+      "sfxPeakDb": -35.1,
+      "voiceDb": -17.8,
+      "musicDb": -44.2,
+      "deficitDb": 17.3,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 72.86,
+      "name": "\"break\" — the rule holds",
+      "durSec": 0.36,
+      "sfxPeakDb": -32.7,
+      "voiceDb": -32.1,
+      "musicDb": -43.9,
+      "deficitDb": 0.6,
+      "check": "ok"
+    },
+    {
+      "t": 74.96,
+      "name": "\"call\" — ring 1",
+      "durSec": 0.35,
+      "sfxPeakDb": -31,
+      "voiceDb": -16.8,
+      "musicDb": -44.8,
+      "deficitDb": 14.2,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 75.36,
+      "name": "ring 2",
+      "durSec": 0.35,
+      "sfxPeakDb": -31.7,
+      "voiceDb": -15.3,
+      "musicDb": -44.7,
+      "deficitDb": 16.4,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 76.48,
+      "name": "\"thing\"",
+      "durSec": 0.4,
+      "sfxPeakDb": -25.1,
+      "voiceDb": -12.4,
+      "musicDb": -44.6,
+      "deficitDb": 12.7,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 77.83,
+      "name": "transition into nothing",
+      "durSec": 0.55,
+      "sfxPeakDb": -33.7,
+      "voiceDb": -17.9,
+      "musicDb": -41.3,
+      "deficitDb": 15.8,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 78.72,
+      "name": "\"in\"",
+      "durSec": 0.5,
+      "sfxPeakDb": -32.5,
+      "voiceDb": -18.6,
+      "musicDb": -45,
+      "deficitDb": 13.9,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 79.98,
+      "name": "\"out\"",
+      "durSec": 0.55,
+      "sfxPeakDb": -28.7,
+      "voiceDb": -23.4,
+      "musicDb": -45.3,
+      "deficitDb": 5.3,
+      "check": "ok"
+    },
+    {
+      "t": 80.12,
+      "name": "the shell closes again",
+      "durSec": 0.45,
+      "sfxPeakDb": -28.7,
+      "voiceDb": -29.1,
+      "musicDb": -45.6,
+      "deficitDb": -0.4,
+      "check": "ok"
+    },
+    {
+      "t": 80.68,
+      "name": "\"So\" — the question opens",
+      "durSec": 2.2,
+      "sfxPeakDb": -25.3,
+      "voiceDb": -13.1,
+      "musicDb": -46.1,
+      "deficitDb": 12.2,
+      "check": "note: under the bed"
+    },
+    {
+      "t": 81.22,
+      "name": "\"yours?\" — let it ring out",
+      "durSec": 2.6,
+      "sfxPeakDb": -29.1,
+      "voiceDb": -20,
+      "musicDb": -46.7,
+      "deficitDb": 9.1,
+      "check": "note: under the bed"
+    }
+  ],
+  "density": {
+    "events": 78,
+    "durationSec": 83.2,
+    "per10s": 9.38,
+    "targetPer10s": 7.7,
+    "verdict": "in reference range"
+  },
+  "mastered": {
+    "file": "research/artifacts/round16/final-audio.wav",
+    "rawFile": "research/artifacts/round16/final-audio-raw.wav",
+    "appliedGainDb": 0.8,
+    "capped": false,
+    "requestedLufs": -14,
+    "ceilingDb": -2,
+    "before": {
+      "integratedLufs": -14.8,
+      "truePeakDb": -3.86,
+      "lra": 2.7,
+      "threshold": -25.35
+    },
+    "after": {
+      "integratedLufs": -14,
+      "truePeakDb": -3.06,
+      "lra": 2.7,
+      "threshold": -24.55
+    },
+    "reachableLufs": -14,
+    "note": "target reached with one linear gain, no compression"
+  },
+  "integrity": {
+    "limiterDelaySamples": -240,
+    "limiterDelayMs": -5,
+    "voiceStemCorrelation": 0.99451,
+    "voiceStemScale": 0.9057,
+    "voiceStemMaxDeviation": 0.2177,
+    "voiceSentenceSteps": {
+      "count": 21,
+      "meanDb": 0.64,
+      "maxDb": 1.68,
+      "over3dB": 0
+    },
+    "voiceOverBed": {
+      "minMarginDb": 14.6,
+      "worstPhrase": "defense.",
+      "phrasesUnder6dB": 0
+    }
+  },
+  "scoreReport": {
+    "sections": 13,
+    "stingers": 4,
+    "bedSilentFrac": 0.001,
+    "referenceBedSilentFrac": 0.05,
+    "note": "continuous pad guarantees the bed never stops; dips are intentional"
+  },
+  "sections": [
+    {
+      "t0": 0,
+      "t1": 7.82,
+      "mood": "night",
+      "emotion": "mystery",
+      "intensity": 0.55,
+      "beatId": "hook",
+      "beatIds": [
+        "hook"
+      ]
+    },
+    {
+      "t0": 7.82,
+      "t1": 13.44,
+      "mood": "tense",
+      "emotion": "tension",
+      "intensity": 0.5,
+      "beatId": "twoway",
+      "beatIds": [
+        "twoway"
+      ]
+    },
+    {
+      "t0": 13.44,
+      "t1": 16.26,
+      "mood": "night",
+      "emotion": "mystery",
+      "intensity": 0.45,
+      "beatId": "thermos",
+      "beatIds": [
+        "thermos"
+      ]
+    },
+    {
+      "t0": 16.26,
+      "t1": 19.12,
+      "mood": "dawn",
+      "emotion": "neutral",
+      "intensity": 0.5,
+      "beatId": "nasa",
+      "beatIds": [
+        "nasa"
+      ]
+    },
+    {
+      "t0": 19.12,
+      "t1": 23.62,
+      "mood": "night",
+      "emotion": "mystery",
+      "intensity": 0.5,
+      "beatId": "suit",
+      "beatIds": [
+        "suit"
+      ]
+    },
+    {
+      "t0": 23.62,
+      "t1": 27.16,
+      "mood": "dawn",
+      "emotion": "neutral",
+      "intensity": 0.45,
+      "beatId": "watts100",
+      "beatIds": [
+        "watts100"
+      ]
+    },
+    {
+      "t0": 27.16,
+      "t1": 30.26,
+      "mood": "joy",
+      "emotion": "excitement",
+      "intensity": 0.85,
+      "beatId": "watts1000",
+      "beatIds": [
+        "watts1000"
+      ]
+    },
+    {
+      "t0": 30.26,
+      "t1": 41.16,
+      "mood": "tense",
+      "emotion": "tension",
+      "intensity": 0.95,
+      "beatId": "sweat",
+      "beatIds": [
+        "sweat",
+        "evaporate",
+        "cook",
+        "bakes"
+      ]
+    },
+    {
+      "t0": 41.16,
+      "t1": 51.16,
+      "mood": "wonder",
+      "emotion": "reveal",
+      "intensity": 0.95,
+      "beatId": "sixeyes",
+      "beatIds": [
+        "sixeyes",
+        "filter"
+      ]
+    },
+    {
+      "t0": 51.16,
+      "t1": 54.62,
+      "mood": "tense",
+      "emotion": "tension",
+      "intensity": 0.9,
+      "beatId": "focus",
+      "beatIds": [
+        "focus"
+      ]
+    },
+    {
+      "t0": 54.62,
+      "t1": 61.48,
+      "mood": "wonder",
+      "emotion": "reveal",
+      "intensity": 0.75,
+      "beatId": "rct",
+      "beatIds": [
+        "rct"
+      ]
+    },
+    {
+      "t0": 61.48,
+      "t1": 70,
+      "mood": "dawn",
+      "emotion": "neutral",
+      "intensity": 0.6,
+      "beatId": "compare",
+      "beatIds": [
+        "compare",
+        "difference",
+        "switch"
+      ]
+    },
+    {
+      "t0": 70,
+      "t1": 83.2,
+      "mood": "night",
+      "emotion": "sadness",
+      "intensity": 0.5,
+      "beatId": "yourinfinity",
+      "beatIds": [
+        "yourinfinity",
+        "call",
+        "nothing",
+        "question"
+      ]
+    }
+  ],
+  "stingers": [
+    {
+      "t": 27.2,
+      "beatId": "watts1000",
+      "emotion": "excitement",
+      "kind": "bell"
+    },
+    {
+      "t": 41.2,
+      "beatId": "sixeyes",
+      "emotion": "reveal",
+      "kind": "chime"
+    },
+    {
+      "t": 43.84,
+      "beatId": "filter",
+      "emotion": "reveal",
+      "kind": "chime"
+    },
+    {
+      "t": 54.66,
+      "beatId": "rct",
+      "emotion": "reveal",
+      "kind": "chime"
+    }
+  ],
+  "dip": {
+    "t0": 40.76,
+    "t1": 41.16,
+    "gainDb": -10
+  },
+  "beats": [
+    {
+      "id": "hook",
+      "t0": 0.7,
+      "t1": 7.82,
+      "emotion": "mystery",
+      "intensity": 0.55
+    },
+    {
+      "id": "twoway",
+      "t0": 7.82,
+      "t1": 13.44,
+      "emotion": "tension",
+      "intensity": 0.5
+    },
+    {
+      "id": "thermos",
+      "t0": 13.44,
+      "t1": 16.26,
+      "emotion": "mystery",
+      "intensity": 0.45
+    },
+    {
+      "id": "nasa",
+      "t0": 16.26,
+      "t1": 19.12,
+      "emotion": "neutral",
+      "intensity": 0.5
+    },
+    {
+      "id": "suit",
+      "t0": 19.12,
+      "t1": 23.62,
+      "emotion": "mystery",
+      "intensity": 0.5
+    },
+    {
+      "id": "watts100",
+      "t0": 23.62,
+      "t1": 27.16,
+      "emotion": "neutral",
+      "intensity": 0.45
+    },
+    {
+      "id": "watts1000",
+      "t0": 27.16,
+      "t1": 30.26,
+      "emotion": "excitement",
+      "intensity": 0.85
+    },
+    {
+      "id": "sweat",
+      "t0": 30.26,
+      "t1": 32.1,
+      "emotion": "tension",
+      "intensity": 0.7
+    },
+    {
+      "id": "evaporate",
+      "t0": 32.1,
+      "t1": 33.82,
+      "emotion": "tension",
+      "intensity": 0.75
+    },
+    {
+      "id": "cook",
+      "t0": 33.82,
+      "t1": 39,
+      "emotion": "tension",
+      "intensity": 0.95
+    },
+    {
+      "id": "bakes",
+      "t0": 39,
+      "t1": 41.16,
+      "emotion": "tension",
+      "intensity": 0.9
+    },
+    {
+      "id": "sixeyes",
+      "t0": 41.16,
+      "t1": 43.8,
+      "emotion": "reveal",
+      "intensity": 0.95
+    },
+    {
+      "id": "filter",
+      "t0": 43.8,
+      "t1": 51.16,
+      "emotion": "reveal",
+      "intensity": 0.8
+    },
+    {
+      "id": "focus",
+      "t0": 51.16,
+      "t1": 54.62,
+      "emotion": "tension",
+      "intensity": 0.9
+    },
+    {
+      "id": "rct",
+      "t0": 54.62,
+      "t1": 61.48,
+      "emotion": "reveal",
+      "intensity": 0.75
+    },
+    {
+      "id": "compare",
+      "t0": 61.48,
+      "t1": 65.74,
+      "emotion": "neutral",
+      "intensity": 0.6
+    },
+    {
+      "id": "difference",
+      "t0": 65.74,
+      "t1": 67.02,
+      "emotion": "neutral",
+      "intensity": 0.5
+    },
+    {
+      "id": "switch",
+      "t0": 67.02,
+      "t1": 70,
+      "emotion": "neutral",
+      "intensity": 0.45
+    },
+    {
+      "id": "yourinfinity",
+      "t0": 70,
+      "t1": 74.68,
+      "emotion": "sadness",
+      "intensity": 0.5
+    },
+    {
+      "id": "call",
+      "t0": 74.68,
+      "t1": 78.08,
+      "emotion": "sadness",
+      "intensity": 0.45
+    },
+    {
+      "id": "nothing",
+      "t0": 78.08,
+      "t1": 80.68,
+      "emotion": "sadness",
+      "intensity": 0.4
+    },
+    {
+      "id": "question",
+      "t0": 80.68,
+      "t1": 83.2,
+      "emotion": "sadness",
+      "intensity": 0.42
+    }
+  ]
+}

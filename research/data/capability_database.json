@@ -1,0 +1,277 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "date": "2026-11-25",
+    "purpose": "Capability-first discovery database for a programmatic video production toolkit. Grouped by CAPABILITY, not by repository, so multiple providers for one job are visible side by side.",
+    "evidence_levels": {
+      "discovered": "Seen in GitHub search / awesome lists / API metadata only. NOT opened.",
+      "inspected": "Repository cloned or tree+SKILL.md read via API. Read README, SKILL.md, and/or source structure.",
+      "tested": "Ran the tool's own gate (e.g. `npx hyperframes lint`) on its artifacts inside this sandbox and recorded the result.",
+      "verified": "Rendered output end-to-end and measured it. NOT achieved in this phase: sandbox cannot download Chrome headless-shell or ffmpeg (TLS reset to those CDNs), so no pixels were produced here."
+    },
+    "sandbox_constraints_observed": [
+      "Chrome/chrome-headless-shell download fails (TLS ECONNRESET) -> HyperFrames render/snapshot blocked.",
+      "ffmpeg absent from image and apt install denied (no root); npm tarballs for ffmpeg-static fail TLS verify.",
+      "raw.githubusercontent.com blocked -> HyperFrames registry add fails; `registry` must be an absolute https URL (file:// rejected). npmjs.org CDN works, so the CLI installs.",
+      "Consequence: every claim below about visual quality comes from the project's own docs/showcase or a third-party benchmark, not from our own render."
+    ]
+  },
+  "capabilities": [
+    {
+      "id": "C1",
+      "name": "Composition & render substrate (the engine everything else draws on)",
+      "candidates": [
+        {
+          "repo": "heygen-com/hyperframes",
+          "url": "https://github.com/heygen-com/hyperframes",
+          "skill": "skills/hyperframes (router) + /hyperframes-cli, /hyperframes-registry, /media-use, /reverse-any-video, /style-sampling, /slideshow, /figma, /remotion-to-hyperframes",
+          "what": "HTML/CSS/JS + GSAP timeline -> deterministic MP4 by seeking a paused timeline frame by frame in headless Chrome. Apache-2.0. npm `hyperframes@0.9.94`, Node>=22, FFmpeg.",
+          "implementation": "Monorepo: packages/{core,engine,producer,player,sdk,cli,lint,parsers,shader-transitions,studio,aws-lambda,gcp-cloud-run}. Engine pins puppeteer ~25.13; producer drives FFmpeg encode; CLI exposes render/snapshot/check/inspect/measure/diff/beats/audio/normalize-audio/compare/keyframes/media-treatment/capture.",
+          "deps": "Node 22+, FFmpeg, Chrome (or HYPERFRAMES_BROWSER_PATH), optional AWS Lambda / GCP Cloud Run render targets",
+          "license": "Apache-2.0",
+          "evidence": "inspected + tested",
+          "tested": "`npx hyperframes@0.9.94 init` scaffolded a project; `check --json` passed; `compositions` reported 'main 4.0s 1080x1920'; lint gate ran over 123 registry blocks (99 clean). render/snapshot blocked only by missing Chrome.",
+          "strengths": ["render contract is machine-checkable (12 numbered rules) + lint/check gate", "210 registry blocks", "best-in-class review doctrine (review.md), sound doctrine (sound.md), motion doctrine", "Studio app makes output human-editable", "port from Remotion", "capture a website as source material"],
+          "limits": ["heavy: 23.5 min for a 15s brief in the independent benchmark (slowest of 16)", "no React; HTML templates for 3D/data work must be hand-written well", "Pro tier gates some templates/credits", "bundled-block assets are placeholders (24/123 blocks fail lint out of the box without their media)"],
+          "combine": "Acts as the renderer for artem's templates, kalem's HTML scenes, iart's data/animation doctrine. Output can be ported from Remotion sources via /remotion-to-hyperframes."
+        },
+        {
+          "repo": "remotion-dev/skills",
+          "url": "https://github.com/remotion-dev/skills",
+          "skill": "14 skills: remotion-best-practices (router), -create, -markup, -interactivity, -elements, -captions, -maps, -multimedia, -render, -studio, -docs, -license, -saas, -upgrade",
+          "what": "Official Remotion agent skills: React/TSX video-as-code. Frame-deterministic; huge component ecosystem.",
+          "implementation": "SKILL.md + REFERENCE.md per skill, version-pinned to 4.0.547. Router pattern: best-practices loads the right REFERENCE for the task.",
+          "deps": "Node, npm; Chrome/Chromium for rendering (puppeteer); package.json has no license field, but SKILL remotion-license points to remotion.dev/docs/license",
+          "license": "UNVERIFIED - repo package.json has no license field; Remotion itself is source-available with a paid company license above a revenue threshold. MUST resolve before commercial build.",
+          "evidence": "inspected",
+          "tested": "Not run (no Chrome). Skill text read: remotion-license, remotion-best-practices, remotion-create.",
+          "strengths": ["official, accurate API knowledge", "export to OpenTimelineIO timeline (interchange!)", "remotion-maps for geographic video", "remotion-captions + word-level timing", "best ecosystem of prebuilt components"],
+          "limits": ["React/JSX authorship is token-heavy for agents", "license risk", "browser-bound render (slow vs canvas/WebCodecs engines)"],
+          "combine": "Source for /remotion-to-hyperframes porting; its map/caption references inform any runtime."
+        },
+        {
+          "repo": "dmtrKovalenko/fframes",
+          "url": "https://github.com/dmtrKovalenko/fframes",
+          "skill": "bundled skill (skills/ dir) - Rust `svgr!` macro per frame",
+          "what": "Rust framework: every frame is an SVG tree from a Rust fn; claims 30x faster than Remotion, real-time preview, native player.",
+          "implementation": "Cargo workspace: fframes (core), fframes-skia-renderer, fframes-lyon-renderer, fframes-three-d, fframes-native-player, fframes-editor, webvtt-parser, media-dir-macro, cargo-fframes. Clone is 1.8 GB (examples + landing).",
+          "deps": "Rust toolchain, system Skia/Lyon deps, FFmpeg",
+          "license": "MIT",
+          "evidence": "inspected",
+          "tested": "Not built (no Rust toolchain in sandbox).",
+          "strengths": ["fastest render path found (native, multithreaded)", "real preview for humans", "3D crate included", "no browser dependency"],
+          "limits": ["Rust-only authorship: agent must write Rust", "small ecosystem / young", "heavy toolchain"],
+          "combine": "Alternative renderer for very long/high-res pieces where render time dominates; not a first-choice authoring format."
+        },
+        {
+          "repo": "staryone/motlab",
+          "url": "https://github.com/staryone/motlab",
+          "skill": "motlab, motlab-assets",
+          "what": "Every scene is a canvas page with `renderAt(t)`; frames encoded with WebCodecs inside Chrome (never leave as images); viewer with frame-accurate notes; 4K export.",
+          "implementation": "npm @motlab/cli; Node 24+, Chrome, ffmpeg; parallel scene render (3 at a time); project.json qp setting.",
+          "deps": "Node 24+, Chrome, ffmpeg/ffprobe, optional Blender for assets",
+          "license": "MIT OR Apache-2.0",
+          "evidence": "inspected",
+          "tested": "Not run (needs Chrome).",
+          "strengths": ["2-4x faster than Remotion/HyperFrames on its benchmark (WebCodecs, no PNG round-trip)", "human review loop in a viewer with drawn notes", "asset kit skill (icons, rigged 2D chars, 3D via Blender)"],
+          "limits": ["instructs the agent NOT to render (user presses Export) - friction for autonomy", "canvas 2D authoring = manual craft", "young project"],
+          "combine": "Good second renderer; its viewer/notes model is the best human-in-the-loop pattern found."
+        },
+        {
+          "repo": "0xS4N4TG/kinetograph",
+          "url": "https://github.com/0xS4N4TG/kinetograph",
+          "skill": "kinetograph-create/-markup/-render/-studio/-migrate/-docs/-upgrade (8)",
+          "what": "Remotion-compatible API that renders WITHOUT a browser; includes migration skill from Remotion.",
+          "implementation": "packages/cli skills; composition API mirrors Remotion (Layer, Rect, Text, Image).",
+          "deps": "Node; no browser for render",
+          "license": "Apache-2.0",
+          "evidence": "inspected (tree + SKILL text via API)",
+          "tested": "Not run.",
+          "strengths": ["browserless render removes the biggest ops fragility", "Remotion source port path", "still/strip/onion diagnostics built into the skill set"],
+          "limits": ["unverified quality claims", "small community (545 stars)"],
+          "combine": "Drop-in render target for existing Remotion compositions when Chrome is unavailable or slow."
+        },
+        {
+          "repo": "OpenMontageInc/OpenMontage",
+          "url": "https://github.com/OpenMontageInc/OpenMontage",
+          "skill": "141 SKILL.md across skills/{core,creative,meta,pipelines} + 660 Python tools",
+          "what": "Agent-first production SYSTEM (not a renderer): YAML pipeline manifests + stage-director Markdown + Python tools + Remotion/FFmpeg composition + self-review gates.",
+          "implementation": "pipeline_defs/*.yaml (13 pipelines), tools/ (tool_registry, provider_routing, provider_pricing, provider_contracts, cost_tracker, analysis, audio, graphics, subtitle, video, avatar, capture...), config.yaml (llm/budget/checkpoint/output), remotion-composer/, ink-theater/.",
+          "deps": "Python 3, Node/Remotion, FFmpeg, provider API keys (optional paid models)",
+          "license": "AGPL-3.0 (copyleft - affects distribution, not internal use)",
+          "evidence": "inspected",
+          "tested": "Not executed (large dependency surface + provider keys). Structure and manifests read.",
+          "strengths": ["the only repo with a full stage-gated pipeline + checkpoint/decision log + cost governance", "runtime selector (Remotion vs HyperFrames vs FFmpeg) with a decision matrix", "3-layer knowledge architecture (tool registry -> project skills -> generic API skills)", "real- footage retrieval path, not just stills"],
+          "limits": ["AGPL", "very large surface; easy to get lost", "third-party benchmark graded it CAUTION on security review and it was slowest-tier (8.6 min)", "much value locked behind paid model providers"],
+          "combine": "Adopt its ARCHITECTURE (manifests, selectors, reviewer, checkpoint) while using lighter engines."
+        }
+      ]
+    },
+    {
+      "id": "C2",
+      "name": "Genre/style skill packs (what the video IS)",
+      "candidates": [
+        {
+          "repo": "artemnovitckii/claude-animation-skills",
+          "url": "https://github.com/artemnovitckii/claude-animation-skills",
+          "skill": "11: zach-d-films, zach-3d-films, stick-figure, minimalistic-graphics, dan-koe, graph, map-route, breakdown, low-poly, minecraft, kurzgesagt",
+          "what": "Spec-JSON -> filled HTML template (GSAP or three.js) -> HyperFrames mp4 1080x1920@30 + contact sheet with Instagram safe-area. Two of them are full 'engines' (canvas 2D stick-figure; three.js cartoon).",
+          "implementation": "kit/anim.py (shared build: load spec, inject __SPEC__/__DURATION__, link fonts+vendor, npx hyperframes render/snapshot, ffmpeg contact sheet with safe-area drawbox), kit/words.py (Kokoro TTS + Parakeet word timings via sherpa-onnx), per-skill build.py + template.html, install.sh links into ~/.claude/skills.",
+          "deps": "ffmpeg, Node 18+, Python 3.9+, npm install three@0.169 + playwright, GSAP from cdnjs (or vendored), ~1GB models for voice",
+          "license": "MIT (LICENSE file) despite GitHub SPDX showing NOASSERTION",
+          "evidence": "inspected + tested",
+          "tested": "Templated all 8 non-engine skills with their default specs and ran `hyperframes lint`: graph, minimalistic-graphics, dan-koe, kurzgesagt = 0 errors; map-route, breakdown, low-poly, minecraft = 1 error each (`missing_timeline_registry` / asset refs). Established: templates are render-valid, partially Studio-editable (graph composition reports 0 clip tracks).",
+          "strengths": ["only pack where the visual style ships as a runnable template + valid spec schema", "fast (2D ~10s, 3D ~1.5min per README)", "free/local voice + word timings, no API key", "safe-area contact sheet as built-in QA", "MIT"],
+          "limits": ["styles are fixed; flexibility = edit template.html", "some templates need the timeline-registry fix for full contract compliance", "kit pulls 3 heavy deps at install"],
+          "combine": "Best 'style cartridge' layer on top of HyperFrames. Its kit/anim.py pattern is a ready-made spec->render interface."
+        },
+        {
+          "repo": "iart-ai/data-animation-skills + explainer-video-skills + kinetic-typography-skills + motion-design-skills + motion-skills",
+          "url": "https://github.com/iart-ai/data-animation-skills",
+          "skill": "data: animated-infographic, chart-animation, presentation-video | explainer: diagram-animation, explainer-video, isometric-animation, whiteboard-animation, wrapped-video | kinetic-typography: 1 | motion-design: 9 (animation-principles, beat-sync-editing, color-motion, shot-composition, logo-animation, motion-art-direction, motion-background, remotion-video, after-effects) | motion-skills: '56 skills' advertised but ZERO SKILL.md in repo (marketing/connector repo)",
+          "what": "Pure doctrine packs: craft rules, timing budgets, checklists and runnable reference code snippets in references/*.md. No scripts shipped.",
+          "implementation": "SKILL.md (~8-14 KB each) + references/ with full component code (e.g. bar-chart-race.md, data-pipeline.md). Targets Remotion primitives (useCurrentFrame/spring/interpolate) but the rules are runtime-agnostic.",
+          "deps": "None shipped; expects the agent to have Remotion (or any frame-deterministic runtime)",
+          "license": "MIT",
+          "evidence": "inspected",
+          "tested": "Not executable (no scripts). Content reviewed: e.g. 'one rule that prevents 90% of bugs' = drive every value from the current frame; verify-stills-before-encode loop.",
+          "strengths": ["highest signal-to-token craft knowledge found (pacing tables, stagger values, ease choices)", "explicit output contracts + verification loops", "MIT, zero dependency"],
+          "limits": ["no implementation: quality depends entirely on the executing agent", "references assume Remotion idioms", "motion-skills repo is a shell (0 SKILL.md)"],
+          "combine": "Use as the 'taste/knowledge' layer that steers whichever renderer is chosen. Pairs directly with artem templates and HyperFrames blocks."
+        },
+        {
+          "repo": "Vincentwei1021/video-shotcraft (+ anything2explainer, video-talkcraft)",
+          "url": "https://github.com/Vincentwei1021/video-shotcraft",
+          "skill": "video-shotcraft (11 KB SKILL.md, 1227 files: 269 tsx, 394 json, 281 md) + siblings",
+          "what": "Cinematic, editable product promos: real page captures + Remotion, 124 components per description. anything2explainer = topic -> narrated explainer.",
+          "implementation": "Remotion TSX component library + SKILL.md + showcase JSON per component.",
+          "deps": "Node/Remotion/Chrome",
+          "license": "Apache-2.0",
+          "evidence": "inspected (tree + SKILL.md via API)",
+          "tested": "Not run.",
+          "strengths": ["largest curated TSX scene library found", "real-UI capture workflow (screenshots as source of truth)", "active (pushed same day)"],
+          "limits": ["Remotion license chain", "promo-shaped, less general"],
+          "combine": "Component source for product/launch videos inside either Remotion or (after port) HyperFrames."
+        },
+        {
+          "repo": "lemomo-ai/lemo-opuscar",
+          "url": "https://github.com/lemomo-ai/lemo-opuscar",
+          "skill": "lemo-opuscar (film styles made in code; 99 ready-made styles advertised; 3944 files, 590 js, 590 webp style refs)",
+          "what": "Style library: each 'style' is a look + code recipe the agent can direct a short film in.",
+          "implementation": "plugin/skills + tools/directory; per-style assets (webp refs) + LICENSES/ (CC-BY variants included for reference material).",
+          "deps": "Node, ffmpeg",
+          "license": "NOASSERTION at repo level; LICENSES/ contains CC-BY-2.0/3.0/4.0 texts - per-asset licensing must be checked",
+          "evidence": "inspected (tree + SKILL.md)",
+          "tested": "Not run.",
+          "strengths": ["largest style vocabulary found (99 styles)", "style-reference images help a VLM judge consistency"],
+          "limits": ["mixed asset licensing", "styles are references, not templates"],
+          "combine": "Style-selection layer feeding artem/iart templates."
+        },
+        {
+          "repo": "kaomei/stickman-video-director",
+          "url": "https://github.com/kaomei/stickman-video-director",
+          "skill": "directing-stickman-videos (19.7 KB SKILL.md; 2207 files: 575 ogg, 489 png, 275 wav, 98 mjs, 88 py)",
+          "what": "Script/topic -> finished stickman animated video; ships its own audio/SFX library.",
+          "implementation": "script-driven scene system + bundled sound effects + mjs renderers + py tooling.",
+          "deps": "Node, Python, ffmpeg",
+          "license": "MIT",
+          "evidence": "inspected (tree + SKILL.md via API)",
+          "tested": "Not run.",
+          "strengths": ["complete vertical slice incl. SFX pack", "highest-starred dedicated stickman system (8.2k)", "multilingual docs"],
+          "limits": ["one style", "777 MB repo"],
+          "combine": "Alternative to artem's /stick-figure when a full SFX+render pipeline is wanted in one package."
+        },
+        {
+          "repo": "Moh4696/cinematic-skill + Moh4696/open-3d-skills",
+          "url": "https://github.com/Moh4696/cinematic-skill",
+          "skill": "cinematic-film (9.6 KB) | open-3d: threejs-scene, exploded-view, scroll-film, frame-capture, alpha-cutout, cursor-rig, motion-assets, site-check",
+          "what": "Narrated cinematic films from code with one continuous camera move; 3D explainer scenes in three.js; frame-capture records any web page (WebGL/canvas/GSAP) to video.",
+          "implementation": "Python + three.js + ffmpeg; frame-capture is a general screen->video harness.",
+          "deps": "Python, Node, Playwright, ffmpeg",
+          "license": "MIT",
+          "evidence": "inspected",
+          "tested": "Not run.",
+          "strengths": ["frame-capture is a reusable fallback when a composition engine can't render something", "explicit 3D explainer patterns (exploded view with staged camera)"],
+          "limits": ["small projects", "three.js authorship is hard to verify without render"],
+          "combine": "open-3d-skills/frame-capture can backstop any runtime."
+        }
+      ]
+    },
+    {
+      "id": "C3",
+      "name": "Data visualization & animated infographics",
+      "candidates": [
+        {"repo": "heygen-com/hyperframes registry: data-chart, bar-chart-race, world-map, us-map-bubble, us-map-flow, us-map-hex, news-ticker, oscilloscope-trace", "url": "https://github.com/heygen-com/hyperframes/tree/main/registry/blocks", "what": "Parameterized, manifest-declared blocks (variables with types/defaults/min/max) - a drop-in chart/map layer with zero code writing for the common case.", "license": "Apache-2.0", "evidence": "inspected + tested (lint)", "tested": "bar-chart-race linted with 0 errors, 2 warnings; 4 map blocks present; each block ships a registry-item.json variable schema.", "combine": "Pairs with iart chart-animation doctrine for pacing/labels."},
+        {"repo": "iart-ai/data-animation-skills", "url": "https://github.com/iart-ai/data-animation-skills", "what": "Doctrine for values->pixels, ranking transitions, counters, template x CSV batch rendering.", "license": "MIT", "evidence": "inspected"},
+        {"repo": "adithya-s-k/manim_skill", "url": "https://github.com/adithya-s-k/manim_skill", "skill": "manim-composer, manimce-best-practices, manimgl-best-practices", "what": "Agent skills for Manim/ManimGL: 3Blue1Brown-grade math animation.", "license": "MIT", "evidence": "inspected", "combine": "For formulas/science/ML: ManimML, chanim (chemistry), manimgx (fast Manim for agents)."},
+        {"repo": "academa-labs/manimgx", "url": "https://github.com/academa-labs/manimgx", "what": "Manim-compatible API with fast math+3D video 'for agents'.", "license": "MIT", "evidence": "discovered (metadata only)"},
+        {"repo": "3b1b/manim + ManimCommunity/manim", "url": "https://github.com/ManimCommunity/manim", "what": "The math animation engines themselves (96.9k / 42.9k stars).", "license": "MIT", "evidence": "discovered"}
+      ]
+    },
+    {
+      "id": "C4",
+      "name": "Characters, cartoons, 2D/3D animation & rigging",
+      "candidates": [
+        {"repo": "artemnovitckii/claude-animation-skills (stick-figure, zach-d-films engines)", "url": "https://github.com/artemnovitckii/claude-animation-skills/tree/main/skills", "what": "Canvas-2D character engine (people with faces, whip transitions) and a three.js cartoon engine (human.js, props.js, materials.js, textures.js, shots.js) with an example film.", "license": "MIT", "evidence": "inspected + tested (lint on quick skills)", "combine": "Engine code is reusable independently of its SKILL.md."},
+        {"repo": "EL4CTEO/blender-skills", "url": "https://github.com/EL4CTEO/blender-skills", "skill": "28: blender-core, -animation, -character-rigging, -facial-shapekeys, -geometry-nodes, -lighting-lookdev, -pbr-materials, -asset-qa, -export-pipelines, -pipeline-automation, ...", "what": "Professional Blender 5.3 workflows as agent skills, driven via bpy/MCP or headless CLI.", "deps": "Blender, Python, optional MCP", "license": "MIT", "evidence": "inspected", "tested": "Not run (no Blender).", "strengths": ["only serious path to true 3D/rigged characters and reference-grade lighting", "asset QA gate (z-fighting, flipped normals)", "export pipelines (glTF/FBX)"], "limits": ["Blender install + GPU for sane render times", "turnaround in hours not minutes"], "combine": "Heavy-asset provider: Blender renders frames -> FFmpeg/HyperFrames package them (the pattern OpenMontage's runtime matrix prescribes)."},
+        {"repo": "squall01337/mixamo-llm-mocap", "url": "https://github.com/squall01337/mixamo-llm-mocap", "what": "Video -> Mixamo-rig animation: GVHMR pose estimation, spec-driven retarget, FK apply in Blender via MCP.", "license": "NOASSERTION", "evidence": "inspected (tree only)"},
+        {"repo": "GenielabsOpenSource/spine-animation-ai", "url": "https://github.com/GenielabsOpenSource/spine-animation-ai", "what": "Auto-rig + animate + preview Spine 2D skeletal characters.", "license": "NOASSERTION", "evidence": "discovered"},
+        {"repo": "aldegad/sprite-gen + patch-gg/pixelfx + nolangz/pixel2motion", "url": "https://github.com/aldegad/sprite-gen", "what": "Sprite/atlas generation (4.3k), 244 pixel-art effects as code + skill (9.2k), raster logo -> smooth SVG motion (2.7k).", "license": "Apache-2.0 / MIT / MIT", "evidence": "inspected (pixel2motion SKILL.md)"},
+        {"repo": "JohnHeibel/ClaudeAnimationBase", "url": "https://github.com/JohnHeibel/ClaudeAnimationBase", "what": "p5.js + p5.brush hand-painted cartoon animation starter kit (3.2k stars).", "license": "MIT", "evidence": "inspected"}
+      ]
+    },
+    {
+      "id": "C5",
+      "name": "Reverse engineering references (turn a viral video into a recipe)",
+      "candidates": [
+        {"repo": "heygen-com/hyperframes (reverse-any-video, measure, diff) + JuneYaooo/rea-video", "url": "https://github.com/heygen-com/hyperframes", "what": "CLI `measure` reports clock, cuts, events, frames, motion, crops, boxes, eases, look; `diff` scores a render against the original frame by frame; `reverse` opens a probe run. rea-video (13.2k) does shot-by-shot classification (live/AI/3D/2D/stop-motion/code-template/screen-rec/ken-burns) and how to remake it.", "license": "Apache-2.0", "evidence": "inspected (CLI help + SKILL text via API)", "combine": "The measurement loop is what makes automatic quality evaluation possible without a human."},
+        {"repo": "NiazMorshed2007/reanimate", "url": "https://github.com/NiazMorshed2007/reanimate", "what": "Reverse-engineers any animation frame by frame then proves the copy matches.", "license": "MIT", "evidence": "discovered"},
+        {"repo": "edenfunf/reelmimic", "url": "https://github.com/edenfunf/reelmimic", "what": "2D animation style cloning from a reference video/YouTube link.", "license": "MIT", "evidence": "discovered"},
+        {"repo": "leodavincs/kalem", "url": "https://github.com/leodavincs/kalem", "what": "Splits a video into scenes and picks the best engine per scene (Paper.js / raw canvas / PixiJS / HyperFrames+GSAP / Three.js / Manim / Levha), assembles with 125 gl-transitions, frame-locked SFX from events.json.", "license": "NOASSERTION", "evidence": "inspected", "combine": "Its per-scene engine routing table is the cleanest instance of multi-engine orchestration found."}
+      ]
+    },
+    {
+      "id": "C6",
+      "name": "Editing, captions & footage",
+      "candidates": [
+        {"repo": "Viprasol-Tech/claude-video-editing-skills", "url": "https://github.com/Viprasol-Tech/claude-video-editing-skills", "skill": "95 (style packs: bold-bounce, chaos-stack, chapter-pro, brand-film, ad-ladder, asmr-video, before-after, accessibility-pack, ...)", "what": "Largest caption/edit STYLE catalogue: one SKILL.md per format, driven with FFmpeg.", "license": "MIT", "evidence": "inspected (tree + SKILL text)", "combine": "Style layer for talking-head/editing pipelines."},
+        {"repo": "MakeMyClip/editor + WhiteTowerAI/cut-as-code + pireel/pireel + JuneYaooo/capsule-cinema + FireRedTeam/FireRed-OpenStoryline", "url": "https://github.com/MakeMyClip/editor", "what": "Transcript-based editing (whisper.cpp) with silence/repeat removal and text-driven cuts; FireRed-OpenStoryline adds 7 editing skills incl. a META skill that learns a new reusable style skill from an edit.", "license": "MIT / MIT / AGPL-3.0 / Apache-2.0 / Apache-2.0", "evidence": "inspected", "tested": "Not run."},
+        {"repo": "smacke/ffsubsync", "url": "https://github.com/smacke/ffsubsync", "what": "Automatically sync subtitles to audio (fixes TTS/timing drift).", "license": "MIT", "evidence": "discovered"},
+        {"repo": "AcademySoftwareFoundation/OpenTimelineIO", "url": "https://github.com/AcademySoftwareFoundation/OpenTimelineIO", "what": "The industry interchange format for editorial timelines; Remotion can export OTIO; pireel exports to Premiere/DaVinci.", "license": "Apache-2.0", "evidence": "discovered", "combine": "Use OTIO as the neutral timeline between our agent and pro NLEs."},
+        {"repo": "jub0t/Concat, storytold/filmcraft, storytold/effectcraft, nexu-io/openmotion", "url": "https://github.com/storytold/filmcraft", "what": "Rust/open-source NLEs and compositors (20.1k / 19.0k / 9.2k / 16.2k) - relevant if we need a real timeline UI or compositing rather than a renderer.", "license": "AGPL-3.0 / Apache-2.0 / Apache-2.0 / Apache-2.0", "evidence": "discovered"}
+      ]
+    },
+    {
+      "id": "C7",
+      "name": "Voice, music & sound design",
+      "candidates": [
+        {"repo": "debpalash/VoiceStudio", "url": "https://github.com/debpalash/VoiceStudio", "what": "Fully local ElevenLabs alternative: cloning, voice design (118k stars).", "license": "AGPL-3.0", "evidence": "discovered"},
+        {"repo": "OpenBMB/VoxCPM + k2-fsa/OmniVoice + QwenLM/Qwen3-TTS + bilibili/GPT-SoVITS + OpenMOSS/MOSS-TTS", "url": "https://github.com/OpenBMB/VoxCPM", "what": "Open TTS/cloning model family: tokenizer-free multilingual + voice design (43k, Apache-2.0); 600+ language cloning (16.8k); few-shot cloning (64k).", "license": "Apache-2.0 / Apache-2.0 / Apache-2.0 / MIT / Apache-2.0", "evidence": "discovered"},
+        {"repo": "Kokoro (via kokoro-onnx) + sherpa-onnx/Parakeet", "url": "https://github.com/thewh1teagle/kokoro-onnx", "what": "Free, on-device, no-API-key voice + word-level timings - exactly what artem's kit uses for caption sync.", "license": "MIT/Apache (models separate)", "evidence": "inspected (used in artem kit/setup.sh, kit/words.py)"},
+        {"repo": "HeartMuLa/heartlib + facebookresearch/audiocraft", "url": "https://github.com/HeartMuLa/heartlib", "what": "Open music generation (2026 model) and MusicGen/AudioGen for beds and SFX.", "license": "Apache-2.0 / MIT", "evidence": "discovered"},
+        {"repo": "heygen-com/hyperframes sound doctrine + `beats`/`audio`/`normalize-audio` CLI", "url": "https://github.com/heygen-com/hyperframes/blob/main/skills/hyperframes/references/sound.md", "what": "Operational sound rules: which SFX on which event, 3-6 dB over bed, -16..-14 LUFS, peak -1 dBTP, music under voice at 0.14, peak 1 frame after picture; beat detection and measured audio checks.", "license": "Apache-2.0", "evidence": "inspected", "combine": "The only measured (not vibes) sound QA found; portable to any pipeline."}
+      ]
+    },
+    {
+      "id": "C8",
+      "name": "Evaluation, QA & self-improvement",
+      "candidates": [
+        {"repo": "heygen-com/hyperframes (check/review/diff/measure/inspect/keyframes)", "url": "https://github.com/heygen-com/hyperframes", "what": "Machine-checkable contract + measurable craft warnings (line_unread, dead_stretch, text_below_floor, first_frame_empty, film_silent) + P0/P1/P2 review protocol + a 'fresh eyes sub-agent' pattern.", "license": "Apache-2.0", "evidence": "inspected + tested (own lint gate reproduced, 24 blocks flagged)", "combine": "Backbone of the automated evaluator (C8 is mostly ONE provider today - a real gap)."},
+        {"repo": "iart-ai packs (verify-stills-before-encode)", "url": "https://github.com/iart-ai/data-animation-skills", "what": "Render 3 stills (frame 0/mid/last) -> inspect fidelity & artifacts -> only then encode; batch case: verify one dataset before N renders.", "license": "MIT", "evidence": "inspected"},
+        {"repo": "echris6/motion-video-kit", "url": "https://github.com/echris6/motion-video-kit", "what": "Independent critic loop for premium business films (small 68 KB repo, best time-per-quality ratio in its class).", "license": "MIT", "evidence": "inspected", "tested": "grep for critic/rubric: no explicit rubric found in SKILL.md"},
+        {"repo": "zhuyansen/awesome-claude-video-skills (independent benchmark)", "url": "https://github.com/zhuyansen/awesome-claude-video-skills", "what": "548-repo index + a reproducible 16-skill bake-off (same 15s brief, 4 checks, timings, evidence pages) - third-party verification we can cite.", "license": "NOASSERTION (README/data); CC0-style facts", "evidence": "inspected"},
+        {"repo": "video-db/skills", "url": "https://github.com/video-db/skills", "what": "Server-side ingest/understand/search/edit/stream - the 'what is actually in this video' side of evaluation.", "license": "MIT", "evidence": "inspected (tree + SKILL text)"}
+      ]
+    },
+    {
+      "id": "C9",
+      "name": "Orchestration & capability routing",
+      "candidates": [
+        {"repo": "OpenMontageInc/OpenMontage", "url": "https://github.com/OpenMontageInc/OpenMontage", "what": "YAML manifests + stage directors + tool registry with capability/provider + scored provider routing (7 dimensions) + cost tracker + checkpoint/decision log + reviewer.", "license": "AGPL-3.0", "evidence": "inspected", "combine": "Primary reference architecture for 'capability accumulation'."},
+        {"repo": "leodavincs/kalem", "url": "https://github.com/leodavincs/kalem", "what": "Per-scene engine routing table + parallel per-scene agents + deterministic frame events for audio.", "license": "NOASSERTION", "evidence": "inspected"},
+        {"repo": "remotion-dev/skills (router skills)", "url": "https://github.com/remotion-dev/skills", "what": "The 'router SKILL.md that loads one REFERENCE.md' pattern - keeps agent context small. Same pattern in HyperFrames and iart.", "license": "unverified", "evidence": "inspected"},
+        {"repo": "johnson-Jia/video-clipforge", "url": "https://github.com/Johnson-Jia/video-clipforge", "what": "9-stage DAG pipeline + self-evolution scoring + daily scheduled runs (HyperFrames based).", "license": "Apache-2.0", "evidence": "inspected (structure only)"}
+      ]
+    }
+  ]
+}

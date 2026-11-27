@@ -1,0 +1,352 @@
+{
+  "durationSec": 65.376,
+  "gridMaxDriftSec": 0,
+  "beats": [
+    {
+      "id": "b01",
+      "emotion": "mystery",
+      "srcStart": 0.53,
+      "srcEnd": 5.93,
+      "t0": 1,
+      "breathSec": 0,
+      "pauseAfterSec": 0.45,
+      "dsp": {
+        "gainDb": -3.575,
+        "tilt": -0.547,
+        "compress": {
+          "thresholdDb": -18,
+          "ratio": 1.8
+        }
+      },
+      "emphasis": [
+        "sixty",
+        "bell",
+        "Vellara"
+      ]
+    },
+    {
+      "id": "b02",
+      "emotion": "warm",
+      "srcStart": 5.79,
+      "srcEnd": 8.31,
+      "t0": 6.85,
+      "breathSec": 0,
+      "pauseAfterSec": 0.32,
+      "dsp": {
+        "gainDb": 0.225,
+        "tilt": -0.217,
+        "compress": {
+          "thresholdDb": -14,
+          "ratio": 2.2
+        }
+      },
+      "emphasis": []
+    },
+    {
+      "id": "b03",
+      "emotion": "warm",
+      "srcStart": 8.17,
+      "srcEnd": 13.03,
+      "t0": 9.69,
+      "breathSec": 0,
+      "pauseAfterSec": 0.32,
+      "dsp": {
+        "gainDb": 0.225,
+        "tilt": -0.217,
+        "compress": {
+          "thresholdDb": -14,
+          "ratio": 2.2
+        }
+      },
+      "emphasis": [
+        "bronze"
+      ]
+    },
+    {
+      "id": "b04",
+      "emotion": "mystery",
+      "srcStart": 12.89,
+      "srcEnd": 17.37,
+      "t0": 14.87,
+      "breathSec": 0,
+      "pauseAfterSec": 0.45,
+      "dsp": {
+        "gainDb": -3.575,
+        "tilt": -0.547,
+        "compress": {
+          "thresholdDb": -18,
+          "ratio": 1.8
+        }
+      },
+      "emphasis": [
+        "tower",
+        "silent"
+      ]
+    },
+    {
+      "id": "b05",
+      "emotion": "warm",
+      "srcStart": 17.23,
+      "srcEnd": 22.91,
+      "t0": 20.042,
+      "breathSec": 0.242,
+      "pauseAfterSec": 0.32,
+      "dsp": {
+        "gainDb": 0.225,
+        "tilt": -0.217,
+        "compress": {
+          "thresholdDb": -14,
+          "ratio": 2.2
+        }
+      },
+      "emphasis": [
+        "Nora"
+      ]
+    },
+    {
+      "id": "b06",
+      "emotion": "tension",
+      "srcStart": 22.77,
+      "srcEnd": 25.01,
+      "t0": 26.296,
+      "breathSec": 0.254,
+      "pauseAfterSec": 0.4,
+      "dsp": {
+        "gainDb": -1.675,
+        "tilt": -0.3,
+        "compress": {
+          "thresholdDb": -16,
+          "ratio": 2
+        }
+      },
+      "emphasis": [
+        "bell"
+      ]
+    },
+    {
+      "id": "b07",
+      "emotion": "mystery",
+      "srcStart": 24.87,
+      "srcEnd": 31.63,
+      "t0": 29.202,
+      "breathSec": 0.266,
+      "pauseAfterSec": 0.45,
+      "dsp": {
+        "gainDb": -3.575,
+        "tilt": -0.547,
+        "compress": {
+          "thresholdDb": -18,
+          "ratio": 1.8
+        }
+      },
+      "emphasis": []
+    },
+    {
+      "id": "b08",
+      "emotion": "tension",
+      "srcStart": 31.49,
+      "srcEnd": 34.85,
+      "t0": 36.412,
+      "breathSec": 0,
+      "pauseAfterSec": 0.4,
+      "dsp": {
+        "gainDb": -1.675,
+        "tilt": -0.3,
+        "compress": {
+          "thresholdDb": -16,
+          "ratio": 2
+        }
+      },
+      "emphasis": []
+    },
+    {
+      "id": "b09",
+      "emotion": "reveal",
+      "srcStart": 34.71,
+      "srcEnd": 37.15,
+      "t0": 40.172,
+      "breathSec": 0,
+      "pauseAfterSec": 0.6,
+      "dsp": {
+        "gainDb": 1.175,
+        "tilt": 0.278,
+        "compress": {
+          "thresholdDb": -14,
+          "ratio": 2.2
+        }
+      },
+      "emphasis": [
+        "bell"
+      ]
+    },
+    {
+      "id": "b10",
+      "emotion": "surprise",
+      "srcStart": 37.01,
+      "srcEnd": 39.23,
+      "t0": 43.212,
+      "breathSec": 0,
+      "pauseAfterSec": 0.55,
+      "dsp": {
+        "gainDb": 3.075,
+        "tilt": 0.608,
+        "compress": {
+          "thresholdDb": -12,
+          "ratio": 2.8
+        }
+      },
+      "emphasis": [
+        "tower"
+      ]
+    },
+    {
+      "id": "b11",
+      "emotion": "reveal",
+      "srcStart": 39.09,
+      "srcEnd": 44.79,
+      "t0": 46.254,
+      "breathSec": 0.272,
+      "pauseAfterSec": 0.6,
+      "dsp": {
+        "gainDb": 1.175,
+        "tilt": 0.278,
+        "compress": {
+          "thresholdDb": -14,
+          "ratio": 2.2
+        }
+      },
+      "emphasis": [
+        "stone",
+        "sixty"
+      ]
+    },
+    {
+      "id": "b12",
+      "emotion": "reveal",
+      "srcStart": 44.65,
+      "srcEnd": 47.91,
+      "t0": 52.826,
+      "breathSec": 0.272,
+      "pauseAfterSec": 0.6,
+      "dsp": {
+        "gainDb": 1.175,
+        "tilt": 0.278,
+        "compress": {
+          "thresholdDb": -14,
+          "ratio": 2.2
+        }
+      },
+      "emphasis": [
+        "bell",
+        "four"
+      ]
+    },
+    {
+      "id": "b13",
+      "emotion": "excitement",
+      "srcStart": 47.77,
+      "srcEnd": 52.19,
+      "t0": 56.946,
+      "breathSec": 0.26,
+      "pauseAfterSec": 0.26,
+      "dsp": {
+        "gainDb": 3.075,
+        "tilt": 0.69,
+        "compress": {
+          "thresholdDb": -12,
+          "ratio": 3
+        }
+      },
+      "emphasis": [
+        "rang",
+        "three"
+      ]
+    },
+    {
+      "id": "b14",
+      "emotion": "resolve",
+      "srcStart": 52.05,
+      "srcEnd": 55.4,
+      "t0": 61.626,
+      "breathSec": 0,
+      "pauseAfterSec": 0.4,
+      "dsp": {
+        "gainDb": 0.225,
+        "tilt": 0.113,
+        "compress": {
+          "thresholdDb": -14,
+          "ratio": 2.3
+        }
+      },
+      "emphasis": []
+    }
+  ],
+  "emphasisRendered": [
+    {
+      "id": "b01",
+      "words": [
+        "sixty",
+        "bell",
+        "Vellara"
+      ]
+    },
+    {
+      "id": "b03",
+      "words": [
+        "bronze,"
+      ]
+    },
+    {
+      "id": "b04",
+      "words": [
+        "tower",
+        "silent."
+      ]
+    },
+    {
+      "id": "b05",
+      "words": [
+        "Nora"
+      ]
+    },
+    {
+      "id": "b06",
+      "words": [
+        "bell."
+      ]
+    },
+    {
+      "id": "b09",
+      "words": [
+        "bell"
+      ]
+    },
+    {
+      "id": "b10",
+      "words": [
+        "tower"
+      ]
+    },
+    {
+      "id": "b11",
+      "words": [
+        "stone",
+        "sixty"
+      ]
+    },
+    {
+      "id": "b12",
+      "words": [
+        "bell",
+        "four"
+      ]
+    },
+    {
+      "id": "b13",
+      "words": [
+        "rang,",
+        "three"
+      ]
+    }
+  ]
+}

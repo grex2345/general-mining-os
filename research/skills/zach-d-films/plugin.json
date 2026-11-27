@@ -1,0 +1,23 @@
+{
+  "name": "animation-skills",
+  "version": "1.1.0",
+  "description": "Eleven Claude Code skills that make animations for reels, no footage needed: low-poly, minecraft, zach-3d-films, kurzgesagt, dan-koe, zach-d-films, stick-figure, minimalistic-graphics, map-route, breakdown and graph. Rendered on your computer with HyperFrames, three.js and Playwright.",
+  "author": {
+    "name": "Artem Novitckii",
+    "url": "https://novitckii.com"
+  },
+  "homepage": "https://novitckii.com/resources/animation-skills/",
+  "repository": "https://github.com/artemnovitckii/claude-animation-skills",
+  "license": "MIT",
+  "keywords": [
+    "animation",
+    "hyperframes",
+    "instagram",
+    "kurzgesagt",
+    "low-poly",
+    "motion-graphics",
+    "reels",
+    "three.js",
+    "voxel"
+  ]
+}

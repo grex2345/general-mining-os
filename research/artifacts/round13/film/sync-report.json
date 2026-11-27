@@ -1,0 +1,92 @@
+{
+  "changes": [
+    {
+      "name": "tap the wall — once",
+      "wasSec": 30.752,
+      "nowSec": 31.972,
+      "shiftMs": 1220,
+      "why": "word \"once\""
+    },
+    {
+      "name": "tap the wall — twice",
+      "wasSec": 32.152,
+      "nowSec": 33.192,
+      "shiftMs": 1040,
+      "why": "word \"twice\""
+    },
+    {
+      "name": "stone answers, faint",
+      "wasSec": 33.602,
+      "nowSec": 34.892,
+      "shiftMs": 1290,
+      "why": "after word \"listening\""
+    },
+    {
+      "name": "the tower — twist hit",
+      "wasSec": 43.262,
+      "nowSec": 43.782,
+      "shiftMs": 520,
+      "why": "word \"tower\" (the twist)"
+    },
+    {
+      "name": "twist anticipation",
+      "wasSec": 43.232,
+      "nowSec": 43.562,
+      "shiftMs": 330,
+      "why": "220 ms before the twist"
+    },
+    {
+      "name": "bell seats, four feet left",
+      "wasSec": 55.176,
+      "nowSec": 54.956,
+      "shiftMs": -220,
+      "why": "word \"left\""
+    },
+    {
+      "name": "THE BELL RINGS",
+      "wasSec": 57.296,
+      "nowSec": 57.666,
+      "shiftMs": 370,
+      "why": "word \"rang\""
+    },
+    {
+      "name": "bell second strike",
+      "wasSec": 59.496,
+      "nowSec": 59.866,
+      "shiftMs": 370,
+      "why": "second strike, 2.2 s later"
+    },
+    {
+      "name": "sound leaves the tower",
+      "wasSec": 57.246,
+      "nowSec": 57.616,
+      "shiftMs": 370,
+      "why": "with the first strike"
+    }
+  ],
+  "anchors": {
+    "tap1": 31.972,
+    "tap2": 33.192,
+    "stoneAnswer": 34.892,
+    "twist": 43.782,
+    "seats": 54.956,
+    "ring1": 57.666,
+    "ring2": 59.866
+  },
+  "cues": {
+    "tapping": {
+      "tap1Local": 2.972,
+      "tap2Local": 4.192
+    },
+    "stoneTruth": {
+      "twistLocal": 0.782
+    },
+    "movingBell": {
+      "seatsLocal": 2.356
+    },
+    "theRing": {
+      "ring1Local": 0.966,
+      "ring2Local": 3.166
+    }
+  }
+}

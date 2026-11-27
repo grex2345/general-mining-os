@@ -1,0 +1,78 @@
+{
+  "durationSec": 30.328,
+  "beats": [
+    {
+      "id": "b01",
+      "emotion": "comedy",
+      "srcStart": 0.17,
+      "srcEnd": 2.78,
+      "finalSec": 2.61,
+      "t0": 0.8,
+      "breathSec": 0,
+      "pauseAfterSec": 0.34
+    },
+    {
+      "id": "b02",
+      "emotion": "warm",
+      "srcStart": 3.22,
+      "srcEnd": 6.51,
+      "finalSec": 3.29,
+      "t0": 3.75,
+      "breathSec": 0,
+      "pauseAfterSec": 0.32
+    },
+    {
+      "id": "b03",
+      "emotion": "sadness",
+      "srcStart": 7.05,
+      "srcEnd": 11.42,
+      "finalSec": 4.37,
+      "t0": 7.36,
+      "breathSec": 0,
+      "pauseAfterSec": 0.55
+    },
+    {
+      "id": "b04",
+      "emotion": "tension",
+      "srcStart": 12.02,
+      "srcEnd": 17.01,
+      "finalSec": 4.99,
+      "t0": 12.28,
+      "breathSec": 0,
+      "pauseAfterSec": 0.4
+    },
+    {
+      "id": "b05",
+      "emotion": "mystery",
+      "srcStart": 17.21,
+      "srcEnd": 21.54,
+      "finalSec": 4.33,
+      "t0": 17.936,
+      "breathSec": 0.266,
+      "pauseAfterSec": 0.55
+    },
+    {
+      "id": "b06",
+      "emotion": "reveal",
+      "srcStart": 22.07,
+      "srcEnd": 24.63,
+      "finalSec": 2.56,
+      "t0": 23.088,
+      "breathSec": 0.272,
+      "pauseAfterSec": 0.6
+    },
+    {
+      "id": "b07",
+      "emotion": "resolve",
+      "srcStart": 25.13,
+      "srcEnd": 28.81,
+      "finalSec": 3.68,
+      "t0": 26.248,
+      "breathSec": 0,
+      "pauseAfterSec": 0.4
+    }
+  ],
+  "alignMethods": {
+    "all": "contextual take, cut at aligned sentence boundaries"
+  }
+}

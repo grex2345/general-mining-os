@@ -1,0 +1,84 @@
+{
+ "explainer-video-skills": {
+  "repo": "iart-ai/explainer-video-skills",
+  "head": "3c13a1b 2026-11-11 README: link iart.ai/skills and the matching page, list all 19 packs",
+  "size_kb": 3496,
+  "license": "LICENSE",
+  "license_head": "MIT License  Copyright (c) 2026 iart.ai  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Soft",
+  "skill_count": 5,
+  "skills": [
+   {
+    "name": "diagram-animation",
+    "path": "skills/diagram-animation/SKILL.md",
+    "desc": "This skill should be used when the user asks to \"animate this diagram\", \"build a flowchart that reveals step by step\", \"animate an architecture/sequence diagram\", \"make a chart animate in\", \"grow the ",
+    "bytes": 8391,
+    "has_scripts": false,
+    "has_refs": true
+   },
+   {
+    "name": "explainer-video",
+    "path": "skills/explainer-video/SKILL.md",
+    "desc": "This skill should be used when the user asks to \"make an explainer video\", \"turn this into a short explainer\", \"write a script and storyboard for a product video\", \"produce a how-it-works/onboarding v",
+    "bytes": 9899,
+    "has_scripts": false,
+    "has_refs": true
+   },
+   {
+    "name": "isometric-animation",
+    "path": "skills/isometric-animation/SKILL.md",
+    "desc": "This skill should be used when the user asks to \"make an isometric animation\", \"build a 2.5D isometric scene\", \"create an isometric infographic\", \"animate an exploded diagram\", \"do an isometric city/s",
+    "bytes": 11081,
+    "has_scripts": false,
+    "has_refs": true
+   },
+   {
+    "name": "whiteboard-animation",
+    "path": "skills/whiteboard-animation/SKILL.md",
+    "desc": "This skill should be used when the user asks to \"make a whiteboard animation\", \"draw-on explainer\", \"VideoScribe style\", \"hand-drawn explainer video\", \"animate a sketch being drawn\", \"do a doodle/scri",
+    "bytes": 11676,
+    "has_scripts": false,
+    "has_refs": true
+   },
+   {
+    "name": "wrapped-video",
+    "path": "skills/wrapped-video/SKILL.md",
+    "desc": "This skill should be used when the user asks to \"make a Spotify Wrapped style video\", \"build a year in review / year-in-review video\", \"create a personalized data video\", \"generate a recap video\", \"bu",
+    "bytes": 12655,
+    "has_scripts": false,
+    "has_refs": true
+   }
+  ],
+  "depfiles": {},
+  "signals": {
+   "ffmpeg": 4,
+   "remotion": 69,
+   "three.js": 35,
+   "gsap": 81,
+   "manim": 6,
+   "playwright": 8,
+   "puppeteer": 0,
+   "canvas2d": 0,
+   "wgsl/glsl": 0,
+   "d3": 15,
+   "svg-anim": 16,
+   "blender": 0,
+   "moviepy": 0,
+   "whisper": 0,
+   "elevenlabs": 0,
+   "kokoro": 0,
+   "edge-tts": 0,
+   "lottie": 0,
+   "framer-motion": 1,
+   "chromium-cdp": 0,
+   "python": 40,
+   "typescript": 6
+  },
+  "file_types": {
+   ".md": 20,
+   ".html": 1,
+   ".json": 2,
+   ".sh": 3
+  },
+  "readme_head": "# Explainer Video Skills\n\n> Explainer video skills for AI coding agents: script, storyboard, and render narrated explainers, year-in-review recaps, and animated diagrams.\n\n![Explainer Video Skills \u2014 animated showcase](./showcase.gif)\n\n## Install\n\n```bash\nnpx skills add iart-ai/explainer-video-skills\n```\n\nOr add it as a Claude Code plugin marketplace:\n\n```bash\n/plugin marketplace add iart-ai/explainer-video-skills\n```\n\nthen `/plugin install explainer-video-skills`.\n\nThe skills run in Claude Code, Cursor, Codex, and 40+ agents. The full agent runs at **[iart.ai](https://www.iart.ai/explainer-video?utm_source=github&utm_medium=readme&utm_campaign=explainer-video-skills&utm_content=funnel)**.\n\n## What's included\n\n| Skill | What it does |\n|---|---|\n| [explainer-video](./skills/explainer-video) | Turn one message into a paced, narrated 30\u201390s short \u2014 script \u2192 storyboard \u2192 scene build \u2192 narration/caption sync \u2192 edit \u2192 polish. |\n| [wrapped-video](./skills/wrapped-video) | Build \"Spotify Wrapped\"-style recaps: one template \u00d7 a data table \u2192 many personalized 9:16 videos. |\n| [diagram-animation](./skills/diagram-animation) | Reveal diagrams and charts over time \u2014 progressive node/edge reveals, flowing connectors, growing bars, count-ups. |\n| [whiteboard-animation](./skills/whiteboard-animation) | Draw-on \"VideoScribe\"-style explainers \u2014 a hand sketches illustrations and handwriting onto a board, stroke by stroke, paced to narration. |\n| [isometric-animation](./skills/isometric-animation) | Isometric / 2.5D scenes \u2014 stacked layers, extruded blocks, exploded diagrams, and isometric grids with staggered reveals and camera drift. |\n\n## When it activates\n\n- You ask to make an explainer, how-it-works, onboarding, or concept video.\n- You ask for a year-in-review / wrapped recap, or per-user stat videos from a data table.\n- You ask to animate a diagram, flowchart, architecture, or chart step by step.\n- You ask to sync narration and captions, or batch-render personalized videos.\n\n## Example prompts\n\n- \"Make a 60s explainer video for our release tool \u2014 script, storyboard, and build it.\"\n- \"Turn this feature into a short narrated how-it-works video with captions.\"\n- \"Build a Spotify Wrapped style year-in-review video from this CSV of users.\"\n- \"Animate this architecture diagram so it reveals node by node.\"\n- \"Grow these bars and count up the numbers in a chart that draws on.\"\n\n## Skills\n\n- explainer-video\n- wrapped-video\n- diagram-animation\n- whiteboard-animation\n- isometric-animation\n\n## Topics\n\n`explainer-video` `whiteboard-animation` `isometric-animation` `wrapped-video` `diagram-animation` `year-in-review` `motion-graphics` `claude-skill`\n\n## More packs\n\nPart of a 19-pack open-source collection: install only what you need. Browse every pack and skill at **[iart.ai/skills](https://www.iart.ai/skills?utm_source=github&utm_medium=readme&utm_campaign=explainer-video-skills&utm_content=more-packs)**, or the hub at **[github.com/iart-ai/motion-skills](https://github.com"
+ }
+}

@@ -1,0 +1,98 @@
+{
+  "durationSec": 32.024,
+  "beats": [
+    {
+      "id": "b01",
+      "emotion": "comedy",
+      "rawSec": 3.2,
+      "trimmedStart": 0.16,
+      "trimmedEnd": 0.2,
+      "gapsTightened": 0,
+      "gapSecRemoved": 0,
+      "breathSec": 0,
+      "finalSec": 2.84,
+      "t0": 0.8
+    },
+    {
+      "id": "b02",
+      "emotion": "warm",
+      "rawSec": 4.2,
+      "trimmedStart": 0.09,
+      "trimmedEnd": 0.28,
+      "gapsTightened": 0,
+      "gapSecRemoved": 0,
+      "breathSec": 0.242,
+      "finalSec": 3.83,
+      "t0": 4.222
+    },
+    {
+      "id": "b03",
+      "emotion": "sadness",
+      "rawSec": 5.32,
+      "trimmedStart": 0,
+      "trimmedEnd": 0.28,
+      "gapsTightened": 0,
+      "gapSecRemoved": 0,
+      "breathSec": 0.278,
+      "finalSec": 5.04,
+      "t0": 8.65
+    },
+    {
+      "id": "b04",
+      "emotion": "tension",
+      "rawSec": 4.92,
+      "trimmedStart": 0.25,
+      "trimmedEnd": 0.31,
+      "gapsTightened": 0,
+      "gapSecRemoved": 0,
+      "breathSec": 0,
+      "finalSec": 4.36,
+      "t0": 14.24
+    },
+    {
+      "id": "b05",
+      "emotion": "mystery",
+      "rawSec": 4.56,
+      "trimmedStart": 0.14,
+      "trimmedEnd": 0,
+      "gapsTightened": 1,
+      "gapSecRemoved": 0.04,
+      "breathSec": 0,
+      "finalSec": 4.38,
+      "t0": 19
+    },
+    {
+      "id": "b06",
+      "emotion": "reveal",
+      "rawSec": 3.28,
+      "trimmedStart": 0.16,
+      "trimmedEnd": 0.31,
+      "gapsTightened": 0,
+      "gapSecRemoved": 0,
+      "breathSec": 0.272,
+      "finalSec": 2.81,
+      "t0": 24.202
+    },
+    {
+      "id": "b07",
+      "emotion": "resolve",
+      "rawSec": 4.24,
+      "trimmedStart": 0.23,
+      "trimmedEnd": 0.23,
+      "gapsTightened": 1,
+      "gapSecRemoved": 0.01,
+      "breathSec": 0.242,
+      "finalSec": 3.77,
+      "t0": 27.854
+    }
+  ],
+  "alignMethods": {
+    "b01": "pocketsphinx/whisper per-beat",
+    "b02": "pocketsphinx/whisper per-beat",
+    "b03": "pocketsphinx/whisper per-beat",
+    "b04": "pocketsphinx/whisper per-beat",
+    "b05": "pocketsphinx/whisper per-beat",
+    "b06": "pocketsphinx/whisper per-beat",
+    "b07": "pocketsphinx/whisper per-beat"
+  }
+}

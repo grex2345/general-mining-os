@@ -1,0 +1,86 @@
+{
+  "id": "energy-2026-11-25",
+  "asOf": "2026-11-25",
+  "topic": "Bitcoin mining energy mix and stranded-energy economics",
+  "facts": [
+    {
+      "id": "curtailment_share",
+      "claim": "Flexible mining load is increasingly used as a demand-response asset, absorbing power during curtailment windows rather than competing for it at peak.",
+      "value": 0.42,
+      "unit": "share of surveyed miners running demand-response programs",
+      "source": {
+        "name": "Pickaxe",
+        "url": "https://www.pickaxe.io/resources/news/bitcoin-mining-hashrate-holds-steady-amid-difficulty-shift",
+        "date": "2026-11-04"
+      }
+    },
+    {
+      "id": "flared_gas",
+      "claim": "Flared-gas and stranded-gas sites remain the cheapest power source for containerised mining, because the operator is paid to remove a waste stream.",
+      "value": 0.021,
+      "unit": "USD per kWh at stranded-gas sites",
+      "source": {
+        "name": "bitcoin.com",
+        "url": "https://www.bitcoin.com/what-is-bitcoin-mining/",
+        "date": "2026-11-06"
+      }
+    },
+    {
+      "id": "energy_per_hash",
+      "claim": "Efficiency of the installed fleet is roughly 22 joules per terahash, which sets the floor on how cheap power must be to stay profitable at current hashprice.",
+      "value": 22,
+      "unit": "J/TH fleet average",
+      "source": {
+        "name": "Cointribune",
+        "url": "https://www.cointribune.com/en/bitcoin-network-power-surges-as-mining-profits-vanish/",
+        "date": "2026-11-22"
+      }
+    },
+    {
+      "id": "breakeven_power",
+      "claim": "At a hashprice of 26.16 USD per PH/s per day, a 22 J/TH machine needs power below roughly 0.05 USD per kWh to cover power cost alone.",
+      "value": 0.05,
+      "unit": "USD per kWh power breakeven",
+      "source": {
+        "name": "Cointribune",
+        "url": "https://www.cointribune.com/en/bitcoin-network-power-surges-as-mining-profits-vanish/",
+        "date": "2026-11-22"
+      }
+    }
+  ],
+  "series": [
+    {
+      "id": "power_price_curve",
+      "label": "Power cost, USD per kWh, by site type",
+      "unit": "USD/kWh",
+      "points": [
+        { "date": "2026-11-25", "label": "Stranded gas", "y": 0.021 },
+        { "date": "2026-11-25", "label": "Curtailed wind", "y": 0.034 },
+        { "date": "2026-11-25", "label": "Grid industrial", "y": 0.061 },
+        { "date": "2026-11-25", "label": "Grid retail", "y": 0.112 }
+      ],
+      "source": {
+        "name": "Pickaxe / bitcoin.com",
+        "url": "https://www.pickaxe.io/resources/news/bitcoin-mining-hashrate-holds-steady-amid-difficulty-shift",
+        "date": "2026-11-04"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "name": "Cointribune",
+      "url": "https://www.cointribune.com/en/bitcoin-network-power-surges-as-mining-profits-vanish/",
+      "date": "2026-11-22"
+    },
+    {
+      "name": "Pickaxe",
+      "url": "https://www.pickaxe.io/resources/news/bitcoin-mining-hashrate-holds-steady-amid-difficulty-shift",
+      "date": "2026-11-04"
+    },
+    {
+      "name": "bitcoin.com",
+      "url": "https://www.bitcoin.com/what-is-bitcoin-mining/",
+      "date": "2026-11-06"
+    }
+  ]
+}
