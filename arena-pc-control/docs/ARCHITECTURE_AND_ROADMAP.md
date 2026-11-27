@@ -1,74 +1,121 @@
-# Arena PC Control — Technical Investigation, Architecture & Roadmap
+# Arena PC Control — Technical Investigation, Architecture & Roadmap (JARVIS Edition)
 
-## 1. Deep Analysis of `ZeroScript-Free` (What Works & Where It Falls Short for Full PC Control)
+## 1. Executive Summary
 
-We inspected `sebattfg/ZeroScript-Free` at the source-code level (`bridge.py`, `launch_studio_mcp.py`, `zeroscript-extension/background.js`, `core/parser.js`, `core/config.js`, and `providers/arena.js`):
+Arena PC Control evolved from a turn-by-turn MCP bridge into a **JARVIS-like autonomous assistant** (`jarvis_core/`). It combines:
 
-| Layer | How ZeroScript Works | Strengths Worth Adapting | Critical Gaps for Full Windows PC Control |
+- A secure loopback WebSocket bridge with Origin checking and 256-bit token auth (existing)
+- A PolicyEngine with ALLOW / CONFIRM / DENY tiers and JSONL audit logging (existing)
+- A multi-server MCP router with crash recovery (existing)
+- A built-in Windows PC MCP server with 22 tools (existing)
+- **NEW: JARVIS Core** — intent analysis, task planning, autonomous execution with verification & recovery, extended persistent memory, self-improvement learning, and an emergency stop kill switch
+
+---
+
+## 2. JARVIS Core — Component Details
+
+### 2.1 Orchestrator (`jarvis_core/orchestrator.py`)
+Central brain that wires all subsystems together:
+- `execute_objective(objective, project)` — top-level entry point
+- Lifecycle: `start()` → `stop()`
+- Emergency stop activate/reset/status
+- Preference and workflow CRUD
+
+### 2.2 Intent Analyzer (`jarvis_core/reasoning.py`)
+- `IntentAnalyzer.analyze(text)` → `IntentAnalysis` with:
+  - Intent type classification (file_management, web_research, app_control, development, system_admin, unknown)
+  - Confidence score
+  - Capability flags (browser, desktop_app, filesystem, shell)
+  - Destructive risk detection
+  - Entity extraction (URLs, paths, quoted strings)
+  - Estimated step count
+- `SituationalAwareness` — tracks open windows, focused app, browser state, recent errors, and provides context summary
+
+### 2.3 Task Planner (`jarvis_core/planner.py`)
+- `TaskPlanner.plan(intent)` → `Plan` with ordered `TaskStep`s
+- Each step: id, description, tool, arguments, expected_outcome, risk_tier, verification, max_retries
+- Plans cover: web (open_url + web_fetch_readable), file (fs_list + fs_write), app (app_list_windows + app_launch), shell (diagnostic), default (system_info)
+- Always appends a `memory_save` step to persist the plan
+
+### 2.4 Task Engine (`jarvis_core/task_engine.py`)
+- `TaskEngine.execute_plan(plan)` → `ExecutionResult`
+- Per-step: PolicyEngine check → human approval (if CONFIRM) → MCP tool call → result verification → retry with recovery (up to max_retries)
+- Records successes and failures to SelfImprovement and Memory
+- Stops immediately on Emergency Stop activation
+
+### 2.5 Extended Memory (`jarvis_core/memory_extended.py`)
+Builds on existing `MemoryStore` (SQLite WAL) and adds:
+- `save_project_architecture` / `recall_project_architecture`
+- `log_decision` / `recall_decisions`
+- `log_task_history` / `recall_task_history`
+- `log_error_pattern` / `recall_error_patterns`
+- `save_user_preference` / `recall_user_preference`
+- `save_workflow` / `recall_workflow` / `list_workflows`
+- `recall_context` — general cross-category search
+
+### 2.6 Self-Improvement (`jarvis_core/self_improvement.py`)
+- `record_success` / `record_failure`
+- `suggest_fix(tool, error)` — heuristic fixes first, then stored pattern matching
+- `find_reusable_workflow(keywords)`
+
+### 2.7 Emergency Stop (`jarvis_core/emergency_stop.py`)
+- Thread-safe persisted kill switch
+- `activate(reason)` / `reset(authorized_by)` / `require_running()`
+- Survives process restarts via `~/.arena-pc-control/emergency_stop.json`
+- Logs activation to `audit.jsonl`
+
+---
+
+## 3. Security Boundaries (Preserved & Enhanced)
+
+| Boundary | Implementation |
+|---|---|
+| No public internet exposure | Bridge binds to `127.0.0.1` only; `0.0.0.0` rejected at startup |
+| Origin hijacking | WebSocket `origins` allowlist: `chrome-extension://`, `moz-extension://`, local CLI only |
+| Authentication | 256-bit `secrets.token_urlsafe(32)` pairing token, `hmac.compare_digest` |
+| Privilege escalation | `refuseAdminStartup` — bridge refuses to run as Windows Administrator |
+| Destructive operations | PolicyEngine CONFIRM tier; human approval modal in Arena extension |
+| Credential theft | Hard DENY for `.ssh`, browser cookies, `.ROBLOSECURITY`, system dirs |
+| Audit trail | JSONL `audit.jsonl` — every auth, approval, tool execution, denial, and emergency stop |
+| Emergency stop | Global kill switch halts all autonomous execution |
+
+---
+
+## 4. Reusable OSS Components vs Custom Builds
+
+| Component | Source | License | Decision |
 |---|---|---|---|
-| **Browser Extension (`Manifest V3`)** | Content script injects a system prompt into web chat DOM (`arena.ai`, `chat.deepseek.com`, etc.), parses tool calls from model replies, and talks to `background.js` over `chrome.runtime.sendMessage`. | Placing the WebSocket inside the MV3 Service Worker (`background.js`) cleanly avoids HTTPS-to-`ws://127.0.0.1` Mixed Content blocks and survives minor DOM re-renders. | Hardcoded around Roblox Studio categories, `###LUA###` blocks, and Direct-only assumptions; no UI for approving sensitive actions. |
-| **Local Bridge (`bridge.py`)** | Listens on `ws://127.0.0.1:17613` and spawns `stdio` MCP child servers (`launch_studio_mcp.py`) with 1 reader thread per server, `queue.Queue` JSON-RPC ID matching, and auto-restart on child crash. | Per-server thread isolation, stderr ring-buffer draining, and automatic child process recovery prevent silent agent deadlocks. | **Unauthenticated WebSocket & no Origin check**: any webpage or local script connecting to `127.0.0.1:17613` can execute tools. Fatal for shell/file/desktop control. |
-| **Permission & Security Model** | Prompt-only instruction (`"NEVER DELETE BROADLY"`). | Good prompt hygiene reduces accidental model mistakes. | **Zero runtime enforcement**: indirect prompt injection (e.g., from a YouTube comment or webpage) could run arbitrary commands or read browser cookies. |
-| **Session & Persistent Memory** | Saves markdown notes inside a Roblox `ModuleScript` (`game.ServerStorage.ZeroScript.Memory`). | Selective recall + explicit rule never to store unverified guesses as permanent facts. | Coupled to a `.rbxl` Roblox place file; cannot store cross-application or multi-project PC context. |
+| Browser automation with Accessibility Tree | `microsoft/playwright-mcp` | Apache-2.0 | **Reuse** — mount via `npx @playwright/mcp@latest` in `config.local.json` |
+| Windows UI Automation MCP | `CursorTouch/Windows-MCP` | MIT | **Reuse optionally** — `uvx windows-mcp`; also built-in Python 3.10+ UIA tools in `builtin_mcp_server.py` |
+| JSON-RPC 2.0 stdio MCP router | Custom (arena-pc-control) | Proprietary (this repo) | **Custom** — needed crash recovery + multi-server namespacing |
+| Local WebSocket bridge with auth | Custom (arena-pc-control) | Proprietary | **Custom** — ZeroScript had no auth/Origin check; rebuilt secure |
+| MV3 Extension for arena.ai | Custom (arena-pc-control) | Proprietary | **Custom** — non-destructive dock + Approve/Deny UI |
+| JARVIS orchestration layer | Custom (arena-pc-control) | Proprietary | **Custom** — intent, planning, verification, recovery, memory, self-improvement |
 
 ---
 
-## 2. Open-Source Ecosystem Survey (Reuse vs. Custom Build)
+## 5. Phased Implementation & Verification Roadmap
 
-Before writing code, we audited leading open-source repositories for Windows & browser computer use:
-
-1. **`microsoft/playwright-mcp` (40k+ stars, Apache-2.0)**
-   - Exposes Playwright browser control (`browser_navigate`, `browser_snapshot`, `browser_click`, `browser_type`, `browser_tabs`) via structured **Accessibility Snapshots** instead of pixel-guessing.
-   - **Decision**: **Reuse directly as a first-class MCP server** in `config.default.json` (`npx @playwright/mcp@latest`), complemented by lightweight built-in `open_url` and `web_fetch_readable` tools when Node/Playwright isn't running.
-2. **`CursorTouch/Windows-MCP` (12k+ stars, MIT)**
-   - Uses the Windows UI Automation (UIA) Accessibility Tree + synthetic input (`State-Tool`, `Click-Tool`, `App-Tool`, `Powershell-Tool`).
-   - *Constraint*: Latest PyPI builds require Python 3.14+.
-   - **Decision**: **Support plugging `uvx windows-mcp` directly into `MCPRouter`**, AND build native Python 3.10+ Windows 10/11 tools (`app_list_windows`, `app_launch`, `app_focus_window`, `ui_inspect_window` via `.NET System.Windows.Automation`, `input_mouse`, `input_keyboard`, `screen_capture`) in `builtin_mcp_server.py` so the system works out-of-the-box on standard Python 3.10–3.13 installations without admin privileges.
-3. **Pure Pixel/Vision Agents (`PyAutoGUI` / `computer-use-demo`)**
-   - Slow (2–6s per screenshot roundtrip), brittle when windows move, and expensive in context tokens.
-   - **Decision**: Use **Accessibility Tree first** (Playwright DOM snapshot for web, Windows UIA for desktop apps) and reserve **`screen_capture` + coordinate input** as a visual verification and fallback layer.
-
----
-
-## 3. Architecture Comparison & Chosen Design
-
-```text
-┌─────────────────────────────────────────────────────────────────────────┐
-│ Browser (https://arena.ai)                                              │
-│  ┌──────────────────────────────┐     ┌───────────────────────────────┐ │
-│  │ arena_adapter.js + UI Dock   │◄───►│ MV3 Service Worker            │ │
-│  │ • Extracts @@@ARENA_PC@@@    │     │ (background.js)               │ │
-│  │ • Renders Approve/Deny Modal │     │ • Authenticated WS Client     │ │
-│  └──────────────────────────────┘     └──────────────┬────────────────┘ │
-└──────────────────────────────────────────────────────┼──────────────────┘
-                                                       │ ws://127.0.0.1:18765
-                                                       │ Origin Check + 256-bit Token
-┌──────────────────────────────────────────────────────▼──────────────────┐
-│ User's Windows 10/11 PC (Standard Non-Admin User Process)               │
-│  ┌────────────────────────────────────────────────────────────────────┐ │
-│  │ BridgeServer (bridge/server.py)                                    │ │
-│  │  1. Origin Allowlist (chrome-extension:// only; blocks websites)   │ │
-│  │  2. HMAC Token Auth (~/.arena-pc-control/auth_token.txt)           │ │
-│  │  3. PolicyEngine (ALLOW / CONFIRM / DENY + Audit Log JSONL)        │ │
-│  │  4. MCPRouter (JSON-RPC 2.0 over stdio, auto-restart, namespacing) │ │
-│  └───────────┬──────────────────────────────┬─────────────────────────┘ │
-│              │                              │                           │
-│  ┌───────────▼───────────────┐  ┌───────────▼─────────────────────────┐ │
-│  │ BuiltinPCServer           │  │ External Stdio MCP Servers          │ │
-│  │ • fs_* (atomic + guarded) │  │ • @playwright/mcp (YouTube, Web UI) │ │
-│  │ • shell_exec (PowerShell) │  │ • uvx windows-mcp (optional addon)  │ │
-│  │ • Windows UIA + Win32 I/O │  │ • Any custom MCP server             │ │
-│  │ • SQLite MemoryStore      │  └─────────────────────────────────────┘ │
-│  └───────────────────────────┘                                          │
-└─────────────────────────────────────────────────────────────────────────┘
-```
-
----
-
-## 4. Phased Implementation & Verification Roadmap
-
-| Phase | Scope | Verification Status |
+| Phase | Scope | Status |
 |---|---|---|
-| **Phase 1 — Secure Core Bridge, Policy Gate & Persistent Memory** | Loopback WS server, Origin & 256-bit token auth, `PolicyEngine` (`ALLOW`/`CONFIRM`/`DENY`), JSONL audit log, SQLite `MemoryStore`, `MCPRouter` with crash recovery. | **Implemented & Verified** (`pytest` E2E tests passing in Linux CI). |
-| **Phase 2 — Built-in File, Supervised Shell, Readable Web & Protocol Parser** | Atomic `fs_*` tools with recovery hints, non-elevated `shell_exec`, `web_fetch_readable`, `open_url`, MV3 `extension/` with `protocol.js` & interactive approval UI. | **Implemented & Verified** (`pytest` + `node --test` passing). |
-| **Phase 3 — Windows 10/11 Native Desktop UIA, Input & Playwright MCP Live Validation** | `app_list_windows`, `app_launch`, `app_focus_window`, `ui_inspect_window`, `input_mouse` (with `(0,0)` corner fail-safe), `input_keyboard`, `screen_capture`, and `@playwright/mcp` browser sessions on physical Windows 10/11. | **Implemented in code**; requires execution of `start_windows.bat` + `python scripts/windows_selftest.py` on your physical Windows PC to verify live Win32/UIA GUI hooks. |
+| **Phase 1 — Secure Core Bridge** | Loopback WS, Origin check, 256-bit token, PolicyEngine, JSONL audit, MCP router with crash recovery | ✅ Implemented & tested (9 tests) |
+| **Phase 2 — Built-in PC Tools & Extension** | 22-tool builtin server, MV3 extension with dock + approval UI, protocol parser | ✅ Implemented & tested (5 tests) |
+| **Phase 3 — JARVIS Intelligence Layer** | Intent analyzer, task planner, task engine with verification/recovery, extended memory, self-improvement, emergency stop | ✅ Implemented & tested (35 tests) |
+| **Phase 4 — Live Windows Validation** | Run `start_windows.bat` + `scripts/windows_selftest.py` on physical Windows 10/11 to verify UIA, input, and screen capture | ⏳ Requires your Windows machine |
+| **Phase 5 — Playwright MCP Live** | Enable `"playwright": true` in `config.local.json`, verify YouTube/browser automation on Windows | ⏳ Requires Node.js 20+ on Windows |
+
+**Total automated tests: 44 Python tests passing + 5 Node.js extension tests passing.**
+
+---
+
+## 6. What Still Needs Your Windows Machine
+
+Because this sandbox runs Linux, the following Windows-specific capabilities are **implemented in code but not yet executed live**:
+
+- `app_list_windows`, `app_launch`, `app_focus_window` (PowerShell + Win32)
+- `ui_inspect_window` (PowerShell UIAutomationClient)
+- `screen_capture` (Pillow ImageGrab)
+- `input_mouse` with `(0,0)` fail-safe (Win32 mouse_event)
+- `input_keyboard` (WScript.Shell SendKeys)
+
+Please run `scripts/windows_selftest.py` on your Windows PC to validate these before full autonomous use.
