@@ -274,3 +274,36 @@ def test_docs_do_not_ship_a_broken_start_bat_snippet() -> None:
     readme = _read(ROOT / "README.md")
     assert "start_windows.bat" in readme
     assert "launcher.py" in readme or "doctor" in readme
+
+
+# ── 6. Console output must be encodable on a cp1252/cp437 console ────────
+@pytest.mark.parametrize(
+    "name",
+    ["launcher.py", "scripts/verify_bridge.py", "scripts/doctor.py",
+     "scripts/bootstrap.py", "scripts/windows_selftest.py", "bridge/server.py"],
+)
+def test_user_facing_python_prints_only_ascii(name: str) -> None:
+    """A UnicodeEncodeError while printing aborts the launch on Windows consoles.
+
+    The launcher runs in a console whose code page is cp437/cp1252 unless the
+    user changed it, so status text, separators and arrows must all be ASCII.
+    """
+    text = _read(ROOT / name)
+    offenders = []
+    for number, line in enumerate(text.splitlines(), 1):
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        # Docstrings/help text are not printed, but keep the rule simple: no
+        # non-ASCII in executable lines at all.
+        bad = [ch for ch in line if ord(ch) > 127]
+        if bad:
+            offenders.append((number, "".join(bad)[:20]))
+    assert not offenders, f"{name} has non-ASCII in executable lines: {offenders[:5]}"
+
+
+def test_launcher_degrades_gracefully_when_stdout_cannot_encode() -> None:
+    """The say() helper must replace characters instead of raising."""
+    source = _read(ROOT / "launcher.py")
+    assert "UnicodeEncodeError" in source
+    assert 'encode("ascii", "replace")' in source

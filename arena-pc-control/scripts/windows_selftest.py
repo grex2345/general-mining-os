@@ -44,7 +44,7 @@ class Report:
     def add(self, status: str, name: str, detail: str = "") -> None:
         self.rows.append({"status": status, "check": name, "detail": detail})
         if not self.as_json:
-            print(f"[{status}] {name}" + (f" — {detail}" if detail else ""), flush=True)
+            print(f"[{status}] {name}" + (f" - {detail}" if detail else ""), flush=True)
 
     @property
     def failures(self) -> int:
@@ -114,7 +114,7 @@ def main() -> int:
     report = Report(args.json)
 
     if not args.json:
-        print("=== Arena PC Control — Live Self-Test ===")
+        print("=== Arena PC Control - Live Self-Test ===")
         print(f"    OS: {sys.platform} | Python: {sys.version.split()[0]} | Root: {ROOT}")
 
     client = MCPStdioClient(
@@ -182,7 +182,7 @@ def main() -> int:
 
         # ── filesystem round trip (unicode + spaces + nested dirs) ──
         with tempfile.TemporaryDirectory() as tmp:
-            base = Path(tmp) / "ت جربة" / "nested dir"
+            base = Path(tmp) / "? ????" / "nested dir"
             target = base / "probe.txt"
             steps = [
                 ("fs_write", {"path": str(target), "content": "line1\nline2\n"}),
@@ -200,7 +200,7 @@ def main() -> int:
             if ok:
                 read_back = client.call_tool("fs_read", {"path": str(target)})
                 if "line2_edited" in (read_back.get("text") or ""):
-                    report.add("PASS", "filesystem round trip", "write → read → edit verified (unicode path)")
+                    report.add("PASS", "filesystem round trip", "write -> read -> edit verified (unicode path)")
                 else:
                     report.add("FAIL", "filesystem round trip", "edited content not found")
 

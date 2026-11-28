@@ -7,7 +7,7 @@ Run this first whenever something does not work:
     python scripts/doctor.py --port 18765 --deep
 
 It checks, in order, everything that has to be true for the chain
-Arena page → extension → bridge → MCP server → Windows to function, and prints
+Arena page -> extension -> bridge -> MCP server -> Windows to function, and prints
 one line per check with a concrete remedy. Exit code 0 means "no blocking
 problem found".
 """
@@ -48,11 +48,11 @@ class Doctor:
 
     def add(self, status: str, name: str, detail: str = "", fix: str = "") -> None:
         self.rows.append((status, name, detail))
-        line = f"[{status}] {name}" + (f" — {detail}" if detail else "")
+        line = f"[{status}] {name}" + (f" - {detail}" if detail else "")
         print(line)
         if fix and status in (FAIL, WARN):
             for chunk in fix.splitlines():
-                print(f"       → {chunk}")
+                print(f"       -> {chunk}")
 
     # ── config ────────────────────────────────────────────────────────────
     def check_config(self) -> None:
@@ -135,10 +135,10 @@ class Doctor:
         scripts = data.get("content_scripts", [{}])[0].get("js", [])
         ordered = ["protocol.js", "providers/base_adapter.js", "providers/arena_direct.js", "arena_adapter.js"]
         if scripts == ordered:
-            self.add(OK, "content script order", " → ".join(scripts))
+            self.add(OK, "content script order", " -> ".join(scripts))
         else:
-            self.add(FAIL, "content script order", " → ".join(scripts),
-                     "Order must be: " + " → ".join(ordered))
+            self.add(FAIL, "content script order", " -> ".join(scripts),
+                     "Order must be: " + " -> ".join(ordered))
         missing = [p for p in scripts if not (EXT_DIR / p).exists()]
         self.add(FAIL if missing else OK, "content script files",
                  f"missing: {missing}" if missing else f"{len(scripts)} files present")
@@ -194,7 +194,7 @@ class Doctor:
             except (json.JSONDecodeError, OSError):
                 active = False
             if active:
-                self.add(WARN, "emergency stop", "ACTIVE — all tool execution is halted",
+                self.add(WARN, "emergency stop", "ACTIVE - all tool execution is halted",
                          "python scripts/emergency_stop.py --reset")
             else:
                 self.add(OK, "emergency stop", "inactive")
@@ -287,7 +287,7 @@ class Doctor:
         elif warnings:
             print(f"RESULT: no blocking problems, {warnings} warning(s).")
         else:
-            print("RESULT: everything needed for the Arena ↔ PC chain is in place.")
+            print("RESULT: everything needed for the Arena ? PC chain is in place.")
         print("=" * 70)
         return 1 if failures else 0
 
@@ -320,7 +320,7 @@ def main(argv: list[str] | None = None) -> int:
                         help="Also authenticate against the bridge and spawn the MCP server")
     args = parser.parse_args(argv)
 
-    print("Arena PC Control — diagnostics")
+    print("Arena PC Control - diagnostics")
     print(f"Project root: {ROOT}")
     print(f"Python      : {sys.executable}")
     print("-" * 70)

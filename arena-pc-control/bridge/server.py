@@ -194,7 +194,7 @@ class BridgeServer:
 
         Without this, a tab that closes (or crashes) while an approval card is
         on screen leaves the tool call blocked until `approvalTimeoutSeconds`
-        expires — the agent looks frozen for two minutes. The approval is
+        expires - the agent looks frozen for two minutes. The approval is
         resolved as *denied* immediately and the decision is audited.
         """
         cancelled = 0
@@ -951,7 +951,7 @@ async def _main_async(config_path: Path | None, port_override: int = 0) -> None:
     statuses = await bridge.start()
 
     print("=" * 68)
-    print("  ARENA PC CONTROL — LOCAL SECURE MCP BRIDGE (Multi-Session)")
+    print("  ARENA PC CONTROL - LOCAL SECURE MCP BRIDGE (Multi-Session)")
     print("=" * 68)
     print(f"  Listening on : ws://{bridge.host}:{bridge.port} (loopback only)")
     print(f"  Audit log    : {bridge.audit_path}")

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Windows launcher helper — everything the .bat files must not do inline.
+"""Windows launcher helper - everything the .bat files must not do inline.
 
 CMD quoting is fragile: a multi-line `python -c`, a `>` inside a quoted
 argument or a missing `^` escape silently breaks the launcher. The batch files

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Arena PC Control — one-command startup, implemented in Python.
+"""Arena PC Control - one-command startup, implemented in Python.
 
 WHY THIS FILE EXISTS
 --------------------
@@ -12,13 +12,13 @@ The original launchers were large CMD scripts. CMD is a hostile parser:
     `.gitattributes` rule) make every following line be swallowed into the
     previous command, which produces exactly the same class of garbage.
   * `%VAR%` expanded inside a `( )` block breaks the block when the value
-    contains `)` or `&` — i.e. any path such as "C:\\Users\\Tom & Jerry\\...".
+    contains `)` or `&` - i.e. any path such as "C:\\Users\\Tom & Jerry\\...".
   * Multi-line `python -c "..."` is split into separate commands.
 
 Instead of hardening that parser, we stop feeding it logic. Every `.bat` file in
 this project is now a ~10 line, ASCII-only, CRLF, `goto`-based stub whose only
 job is to find Python and call this file. Everything else happens here, in
-Python, with argument lists instead of shell strings — so spaces, `&`, `(`,
+Python, with argument lists instead of shell strings - so spaces, `&`, `(`,
 `^`, Arabic text and long paths cannot break quoting.
 
 This module must run on a *bare* Python (stdlib only) because it creates the

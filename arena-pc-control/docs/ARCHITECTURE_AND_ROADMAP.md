@@ -277,6 +277,8 @@ also re-checks that a launched app actually created a window.
 | 22 | `windows_selftest.py` required a pre-existing token and used broken text encoding | Could not verify a fresh install | Token created on demand, UTF-8 everywhere, PASS/FAIL/SKIP report, `--json` |
 | 23 | `start.bat` embedded a multi-line `python -c` and a `start "" /min cmd /c ^"… > log^"` redirect | CMD split the code into separate commands / the redirect never applied → launch failed or produced no logs | All fragile steps moved out of CMD |
 | 35 | **The launcher itself was UTF-8 with an em dash, stored LF-only, and ran `chcp 65001`** | On the user's Windows PC CMD desynchronised and executed fragments of comments: `'rena' is not recognized`, `'This' is not recognized`, `'itle' is not recognized`, then `Bridge startup failed (exit code 1)` | Every `.bat` is now ASCII-only, CRLF, 30 lines, `goto`-based and contains **no logic**; `.gitattributes` pins `*.bat` to CRLF; `launcher.py` does the work |
+| 37 | Status lines printed non-ASCII (`-`, arrows) from Python | A cp437:strict console raises `UnicodeEncodeError` and aborts the launch | All executable output is ASCII; `say()` degrades with `encode("ascii", "replace")` |
+| 38 | `scripts/start.bat` was deleted but extension popup, README and doctor still pointed at it | Users followed instructions to a file that no longer existed | Every message now names `start_windows.bat`; a test checks the docs |
 | 36 | The launcher ran under the *system* Python while verifying with the venv's packages | `pip install` succeeded, then verification failed with "websockets library is not installed" | The launcher re-execs itself inside `.venv`, detected via `sys.prefix` (comparing `sys.executable` fails because the venv python is a symlink) |
 | 24 | `open_url` was ALLOW for any http(s) GET | One-click side-effecting links (unsubscribe/delete/CSRF) executed with the user's cookies | `open_url` is CONFIRM; `web_fetch_readable` stays frictionless |
 | 25 | Pending approval futures outlived a dying socket | A closed tab froze the agent for the full 120 s approval timeout | `_cancel_approvals_for(ws)` resolves them as denied and audits `approval_cancelled` |
@@ -327,7 +329,7 @@ also re-checks that a launched app actually created a window.
 
 | Type | Count | Status |
 |---|---|---|
-| Python unit + integration (incl. regressions + CLI tools) | 118 | ✅ passing |
+| Python unit + integration (incl. launcher/CMD regressions) | 132 | ✅ passing |
 | Extension end-to-end (jsdom + real bridge) | 16 scenarios | ✅ passing |
 | Node.js parser / adapter unit | 12 | ✅ passing |
 | Windows desktop GUI probes | 7 tools | ⏳ requires a Windows desktop |

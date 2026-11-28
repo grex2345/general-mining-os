@@ -142,7 +142,7 @@ def run_verification(
             print(msg)
 
     tcp_ok, tcp_msg = check_tcp(host, port, timeout=timeout)
-    say(f"[1/4] TCP check: {'PASS' if tcp_ok else 'FAIL'} — {tcp_msg}")
+    say(f"[1/4] TCP check: {'PASS' if tcp_ok else 'FAIL'} - {tcp_msg}")
     if not tcp_ok:
         say()
         say("VERIFICATION FAILED: Bridge is not listening on the configured port.")
@@ -156,7 +156,7 @@ def run_verification(
     token = load_token()
     if token is None:
         say(
-            "[2/4] WebSocket+Auth+Ops: FAIL — "
+            "[2/4] WebSocket+Auth+Ops: FAIL - "
             "pairing token not found at ~/.arena-pc-control/auth_token.txt"
         )
         say()
@@ -169,7 +169,7 @@ def run_verification(
     ws_ok, ws_msg = asyncio.run(
         check_websocket_and_auth(host, port, token, timeout=timeout)
     )
-    say(f"[2/4] WebSocket+Auth+Ops: {'PASS' if ws_ok else 'FAIL'} — {ws_msg}")
+    say(f"[2/4] WebSocket+Auth+Ops: {'PASS' if ws_ok else 'FAIL'} - {ws_msg}")
     if not ws_ok:
         say()
         say("VERIFICATION FAILED: Bridge is not fully operational.")
