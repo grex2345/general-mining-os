@@ -1,28 +1,29 @@
 @echo off
-chcp 65001 >nul
-setlocal EnableExtensions DisableDelayedExpansion
-
-:: ============================================================================
-:: Arena PC Control - EMERGENCY STOP
-:: Halts every tool execution immediately, even while the bridge keeps running.
-:: Double-click this if the agent starts doing something you did not intend.
-:: ============================================================================
-
-set "SCRIPT_DIR=%~dp0"
-if "%SCRIPT_DIR:~-1%"=="\" set "SCRIPT_DIR=%SCRIPT_DIR:~0,-1%"
-for %%I in ("%SCRIPT_DIR%") do set "ROOT_DIR=%%~fI"
-set "PYTHON=%ROOT_DIR%\.venv\Scripts\python.exe"
-if not exist "%PYTHON%" set "PYTHON=python"
-
+rem Arena PC Control - EMERGENCY STOP - add --reset to resume
+rem All logic lives in launcher.py. This file only locates Python.
+setlocal
+cd /d "%~dp0"
+set "APC_PY="
+if exist "%~dp0.venv\Scripts\python.exe" set "APC_PY=%~dp0.venv\Scripts\python.exe"
+if defined APC_PY goto run
+where py >nul 2>nul
+if not errorlevel 1 set "APC_PY=py -3"
+if defined APC_PY goto run
+where python >nul 2>nul
+if not errorlevel 1 set "APC_PY=python"
+if defined APC_PY goto run
 echo.
-echo   ============================================================
-echo    EMERGENCY STOP - halting all tool execution now
-echo   ============================================================
-echo.
-"%PYTHON%" "%ROOT_DIR%\scripts\emergency_stop.py" --activate
-echo.
-echo   To resume later: "%PYTHON%" "%ROOT_DIR%\scripts\emergency_stop.py" --reset
+echo   Python 3.10+ was not found on PATH.
+echo   Install it from https://www.python.org/downloads/
+echo   and tick "Add python.exe to PATH" during setup.
 echo.
 pause
-endlocal
-exit /b 0
+exit /b 1
+:run
+%APC_PY% "%~dp0launcher.py" kill %*
+set "APC_RC=%ERRORLEVEL%"
+if not "%APC_RC%"=="0" echo.
+if not "%APC_RC%"=="0" echo   Failed with exit code %APC_RC%.
+echo.
+pause
+exit /b %APC_RC%

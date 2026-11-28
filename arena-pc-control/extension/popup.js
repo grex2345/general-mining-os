@@ -16,7 +16,7 @@ const hint = document.getElementById("hint");
 
 function render(st) {
   if (!st || !st.connected) {
-    statusBox.textContent = "Offline — start the bridge (scripts/start.bat) on your PC.";
+    statusBox.textContent = "Offline - start the bridge (start_windows.bat) on your PC.";
     statusBox.style.borderLeft = "3px solid #ef4444";
     return;
   }

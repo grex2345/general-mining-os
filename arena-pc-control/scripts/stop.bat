@@ -1,26 +1,29 @@
 @echo off
-chcp 65001 >nul
-setlocal EnableExtensions DisableDelayedExpansion
-
-:: ============================================================================
-:: Arena PC Control - stop the local bridge and free port 18765.
-:: ============================================================================
-
-set "SCRIPT_DIR=%~dp0"
-if "%SCRIPT_DIR:~-1%"=="\" set "SCRIPT_DIR=%SCRIPT_DIR:~0,-1%"
-for %%I in ("%SCRIPT_DIR%\..") do set "ROOT_DIR=%%~fI"
-set "PYTHON=%ROOT_DIR%\.venv\Scripts\python.exe"
-set "BRIDGE_PORT=18765"
-
-if not exist "%PYTHON%" (
-    echo   .venv not found - nothing to stop.
-    pause
-    exit /b 0
-)
-
-echo   Stopping the Arena PC Control bridge ...
-"%PYTHON%" "%ROOT_DIR%\scripts\bootstrap.py" stop --port %BRIDGE_PORT%
+rem Arena PC Control - stop the bridge and free its port
+rem All logic lives in launcher.py. This file only locates Python.
+setlocal
+cd /d "%~dp0"
+set "APC_PY="
+if exist "%~dp0.venv\Scripts\python.exe" set "APC_PY=%~dp0.venv\Scripts\python.exe"
+if defined APC_PY goto run
+where py >nul 2>nul
+if not errorlevel 1 set "APC_PY=py -3"
+if defined APC_PY goto run
+where python >nul 2>nul
+if not errorlevel 1 set "APC_PY=python"
+if defined APC_PY goto run
+echo.
+echo   Python 3.10+ was not found on PATH.
+echo   Install it from https://www.python.org/downloads/
+echo   and tick "Add python.exe to PATH" during setup.
 echo.
 pause
-endlocal
-exit /b 0
+exit /b 1
+:run
+%APC_PY% "%~dp0launcher.py" stop %*
+set "APC_RC=%ERRORLEVEL%"
+if not "%APC_RC%"=="0" echo.
+if not "%APC_RC%"=="0" echo   Failed with exit code %APC_RC%.
+echo.
+pause
+exit /b %APC_RC%

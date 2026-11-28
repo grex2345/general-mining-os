@@ -41,7 +41,11 @@ async def check_websocket_and_auth(
 ) -> tuple[bool, str]:
     """Stages 2-4: WebSocket handshake, authentication, operational check."""
     if connect is None:
-        return False, "websockets library is not installed."
+        return False, (
+            "the 'websockets' package is not installed for this interpreter.\n"
+            "  Use the project venv (.venv/bin/python, Windows: "
+            ".venv\\Scripts\\python.exe) or restart with start_windows.bat."
+        )
 
     ws_url = f"ws://{host}:{port}"
     try:
@@ -145,7 +149,7 @@ def run_verification(
         say(f"  Host: {host}")
         say(f"  Port: {port}")
         say()
-        say("  Start the Bridge with: scripts/start.bat")
+        say("  Start the Bridge with: start_windows.bat")
         say("  Check logs: logs/bridge.stderr.log")
         return False, "\n".join(lines)
 
@@ -157,7 +161,7 @@ def run_verification(
         )
         say()
         say("VERIFICATION FAILED: Bridge authentication token is missing.")
-        say("  Run: python scripts/bootstrap.py token")
+        say("  Run: python launcher.py start")
         say("  Then pair that token in the Arena PC Control extension popup.")
         say("  Without authentication, SYSTEM READY must NOT be reported.")
         return False, "\n".join(lines)

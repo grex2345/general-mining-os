@@ -124,7 +124,7 @@ The following open-source projects were examined to inform architecture decision
 | Memory | `jarvis_core/memory_extended.py` | Persistent SQLite memory for session context, project history, preferences | ✅ Implemented & tested |
 | Self-Improvement | `jarvis_core/self_improvement.py` | Failure analysis, fix suggestions, workflow reuse | ✅ Implemented & tested |
 | Emergency Stop | `jarvis_core/emergency_stop.py` | Persisted kill switch, halts all execution | ✅ Implemented & tested |
-| Unified Launcher | root `start_windows.bat` → `scripts/start.bat` | One implementation: admin refusal, venv, port, token, bridge, `verify_bridge.py` | ✅ Implemented (Windows machine still required to click it) |
+| Unified Launcher | `launcher.py` (called by every `.bat`) | One implementation: admin refusal, venv+deps, venv handoff, port, token, bridge, 4-stage verification, readable failures | ✅ Implemented & tested |
 
 ---
 
@@ -228,11 +228,12 @@ python -m pytest -q
 
 | Command | Purpose |
 |---|---|
-| `start_windows.bat` / `scripts/start.bat` | One launcher: refuse admin → venv → free port → token → start → verify → print token |
+| `start_windows.bat` | ASCII/CRLF stub that finds Python and runs `launcher.py start` (all logic is Python) |
 | `scripts/stop.bat` | Stop the bridge from its pid file and free the port |
 | `kill.bat` | Emergency stop: halts every tool call immediately (bridge stays up but blocked) |
 | `scripts/doctor.py --deep` (`scripts/doctor.bat`) | 20-point diagnosis of config, deps, extension files, token, process, port, handshake and MCP tools — prints the exact fix for each failure |
-| `scripts/bootstrap.py {token,launch,wait,stop,selfcheck,status}` | CMD-safe primitives the `.bat` files call (no inline multi-line Python, no redirection inside quoted `start` commands) |
+| `launcher.py {start,stop,status,doctor,selftest,kill}` | The single startup implementation (also callable directly with any Python) |
+| `scripts/bootstrap.py {token,launch,wait,stop,selfcheck,status}` | Small helper primitives used by tests and tooling (delegates to `launcher.py`) |
 | `scripts/verify_bridge.py --port N` | TCP → WebSocket → auth → `list_tools` verification used by the launcher |
 | `scripts/windows_selftest.py [--json]` | Live capability test of the 22 MCP tools on the target machine |
 | `scripts/emergency_stop.py --activate/--reset` | Global kill switch |
@@ -274,7 +275,9 @@ also re-checks that a launched app actually created a window.
 | 20 | `ui_inspect_window`/`app_list_windows` JSON parsing broke on single objects/empty output | UIA inspection crashed on one-element trees | `_safe_json` normalisation and `ArrayList` collection in PowerShell |
 | 21 | Popup only read state once, before the handshake finished | Users always saw "Offline" even when paired | Polling + explicit pairing feedback + refresh-tools button |
 | 22 | `windows_selftest.py` required a pre-existing token and used broken text encoding | Could not verify a fresh install | Token created on demand, UTF-8 everywhere, PASS/FAIL/SKIP report, `--json` |
-| 23 | `start.bat` embedded a multi-line `python -c` and a `start "" /min cmd /c ^"… > log^"` redirect | CMD split the code into separate commands / the redirect never applied → launch failed or produced no logs | All fragile steps moved to `bootstrap.py` (token / launch / wait / selfcheck / stop); the `.bat` only calls it |
+| 23 | `start.bat` embedded a multi-line `python -c` and a `start "" /min cmd /c ^"… > log^"` redirect | CMD split the code into separate commands / the redirect never applied → launch failed or produced no logs | All fragile steps moved out of CMD |
+| 35 | **The launcher itself was UTF-8 with an em dash, stored LF-only, and ran `chcp 65001`** | On the user's Windows PC CMD desynchronised and executed fragments of comments: `'rena' is not recognized`, `'This' is not recognized`, `'itle' is not recognized`, then `Bridge startup failed (exit code 1)` | Every `.bat` is now ASCII-only, CRLF, 30 lines, `goto`-based and contains **no logic**; `.gitattributes` pins `*.bat` to CRLF; `launcher.py` does the work |
+| 36 | The launcher ran under the *system* Python while verifying with the venv's packages | `pip install` succeeded, then verification failed with "websockets library is not installed" | The launcher re-execs itself inside `.venv`, detected via `sys.prefix` (comparing `sys.executable` fails because the venv python is a symlink) |
 | 24 | `open_url` was ALLOW for any http(s) GET | One-click side-effecting links (unsubscribe/delete/CSRF) executed with the user's cookies | `open_url` is CONFIRM; `web_fetch_readable` stays frictionless |
 | 25 | Pending approval futures outlived a dying socket | A closed tab froze the agent for the full 120 s approval timeout | `_cancel_approvals_for(ws)` resolves them as denied and audits `approval_cancelled` |
 | 26 | `session_lock()` returned a fresh lock for unknown sessions | "Exclusive" tool calls could run concurrently after a session was reaped | Locks are registered on demand |

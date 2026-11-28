@@ -29,7 +29,7 @@ USER → Arena.ai Agent → Extension (content script + service worker)
 ## 🚀 التشغيل (Windows 10/11)
 
 1. انسخ مجلد `arena-pc-control` إلى جهازك.
-2. شغّل **`start_windows.bat`** أو **`scripts\start.bat`** بنقرة مزدوجة
+2. شغّل **`start_windows.bat`** بنقرة مزدوجة (كل المنطق داخل `launcher.py`، وملف الـBAT مجرّد مُشغّل صغير)
    (**كمستخدم عادي — ليس Administrator**، البرنامج يرفض العمل بصلاحيات إدارية).
    - ينشئ `.venv`، يثبّت المتطلبات، يحرّر المنفذ 18765، يشغّل الجسر،
      ثم يتحقق فعلياً من أربع طبقات: TCP → WebSocket → المصادقة → الأدوات.
@@ -45,9 +45,10 @@ USER → Arena.ai Agent → Extension (content script + service worker)
 
 | الملف | الوظيفة |
 |---|---|
-| `start_windows.bat` | التشغيل الكامل (تحقق من 4 طبقات ثم يطبع رمز الإقران) |
+| `start_windows.bat` | التشغيل الكامل (يستدعي `launcher.py`: تحقق من 4 طبقات ثم رمز الإقران) |
 | `scripts\stop.bat` | إيقاف الجسر وتحرير المنفذ 18765 |
 | `scripts\doctor.bat` | تشخيص شامل يطبع سبب المشكلة وحلّها |
+| `scripts\selftest.bat` | اختبار حي لأدوات Windows |
 | `kill.bat` | **إيقاف طارئ**: يوقف كل تنفيذ فوراً دون إغلاق الجسر |
 
 ### إيقاف طارئ
@@ -91,11 +92,13 @@ python scripts/verify_bridge.py --port 18765
 # تشخيص شامل عند وجود أي مشكلة (يعطيك سبب المشكلة والحل بالضبط)
 python scripts/doctor.py --deep
 
-# أوامر مساعدة
-python scripts/bootstrap.py token        # إنشاء/طباعة رمز الإقران
-python scripts/bootstrap.py launch       # تشغيل الجسر في الخلفية
-python scripts/bootstrap.py stop         # إيقاف الجسر وتحرير المنفذ
-python scripts/bootstrap.py status       # حالة الجسر بصيغة JSON
+# المُشغّل الموحّد (نفس ما يفعله start_windows.bat)
+python launcher.py start     # تجهيز + تشغيل + تحقق + طباعة رمز الإقران
+python launcher.py stop      # إيقاف الجسر وتحرير المنفذ
+python launcher.py status    # حالة الجسر بصيغة JSON
+python launcher.py doctor    # تشخيص شامل
+python launcher.py selftest  # اختبار حي لأدوات الجهاز
+python launcher.py kill      # إيقاف طارئ  (‎--reset للعودة)
 ```
 
 `tests/test_extension_e2e.py` يشغّل **ملفات الإضافة الحقيقية** (background.js +

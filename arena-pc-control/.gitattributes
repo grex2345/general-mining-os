@@ -1,0 +1,6 @@
+# Windows batch files MUST be CRLF and ASCII. With LF-only line endings CMD
+# merges lines and executes fragments of comments as commands:
+#   'rena' is not recognized as an internal or external command
+# Keep this rule even on Linux/macOS checkouts (text=auto would strip the CR).
+*.bat text eol=crlf
+*.cmd text eol=crlf

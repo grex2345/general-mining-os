@@ -246,7 +246,7 @@
 
     if (!bridgeState.connected) {
       statusDotEl.classList.add("apc-dot-offline");
-      statusTextEl.textContent = "Bridge offline — run scripts/start.bat";
+      statusTextEl.textContent = "Bridge offline - run start_windows.bat";
     } else if (!bridgeState.authenticated) {
       statusDotEl.classList.add("apc-dot-warn");
       statusTextEl.textContent =

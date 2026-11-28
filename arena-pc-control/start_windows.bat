@@ -1,39 +1,29 @@
 @echo off
-chcp 65001 >nul
-setlocal EnableExtensions DisableDelayedExpansion
-
-:: ============================================================================
-:: Arena PC Control — Windows entry point
-:: ============================================================================
-:: This is the file referenced by the extension popup and the README.
-:: It performs the same security check as scripts\start.bat (never run elevated)
-:: and then delegates to it, so every launch path goes through one verified flow.
-:: ============================================================================
-
-set "SCRIPT_DIR=%~dp0"
-if "%SCRIPT_DIR:~-1%"=="\" set "SCRIPT_DIR=%SCRIPT_DIR:~0,-1%"
-
-title Arena PC Control — Local Secure Bridge
-
-net session >nul 2>&1
-if not errorlevel 1 (
-    echo.
-    echo   [SECURITY BLOCK] Do NOT run start_windows.bat as Administrator.
-    echo   Double-click it normally as a standard Windows user.
-    echo.
-    pause
-    exit /b 1
-)
-
-call "%SCRIPT_DIR%\scripts\start.bat" %*
-set "RC=%ERRORLEVEL%"
-if not "%RC%"=="0" (
-    echo.
-    echo   Bridge startup failed ^(exit code %RC%^).
-    echo   Review the messages above, then check:
-    echo     %SCRIPT_DIR%logs\bridge.stderr.log
-    pause
-    exit /b %RC%
-)
-endlocal
-exit /b 0
+rem Arena PC Control - Windows entry point: set up and start the bridge
+rem All logic lives in launcher.py. This file only locates Python.
+setlocal
+cd /d "%~dp0"
+set "APC_PY="
+if exist "%~dp0.venv\Scripts\python.exe" set "APC_PY=%~dp0.venv\Scripts\python.exe"
+if defined APC_PY goto run
+where py >nul 2>nul
+if not errorlevel 1 set "APC_PY=py -3"
+if defined APC_PY goto run
+where python >nul 2>nul
+if not errorlevel 1 set "APC_PY=python"
+if defined APC_PY goto run
+echo.
+echo   Python 3.10+ was not found on PATH.
+echo   Install it from https://www.python.org/downloads/
+echo   and tick "Add python.exe to PATH" during setup.
+echo.
+pause
+exit /b 1
+:run
+%APC_PY% "%~dp0launcher.py" start %*
+set "APC_RC=%ERRORLEVEL%"
+if not "%APC_RC%"=="0" echo.
+if not "%APC_RC%"=="0" echo   Failed with exit code %APC_RC%.
+echo.
+pause
+exit /b %APC_RC%

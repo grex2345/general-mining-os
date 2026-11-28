@@ -110,7 +110,7 @@ function broadcastState() {
 function sendFrame(payload, timeoutMs = 135000, tabId = null) {
   return new Promise((resolve) => {
     if (!socket || socket.readyState !== 1 /* OPEN */) {
-      resolve({ ok: false, error: "Local bridge is offline. Start it with scripts/start.bat." });
+      resolve({ ok: false, error: "Local bridge is offline. Start it with start_windows.bat." });
       return;
     }
     const id = seqId++;

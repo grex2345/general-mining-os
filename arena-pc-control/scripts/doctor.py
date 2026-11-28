@@ -167,7 +167,7 @@ class Doctor:
         if not TOKEN_FILE.exists():
             self.add(FAIL, "pairing token", f"missing at {TOKEN_FILE}",
                      "Start the bridge (start_windows.bat) once, or run:\n"
-                     "python scripts/bootstrap.py token")
+                     "start_windows.bat")
             return
         try:
             token = TOKEN_FILE.read_text(encoding="utf-8").strip()

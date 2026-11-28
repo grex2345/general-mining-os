@@ -19,6 +19,7 @@ import json
 import os
 from pathlib import Path
 import secrets
+import subprocess
 import socket
 import sys
 import time
@@ -79,101 +80,39 @@ def cmd_selfcheck(args: argparse.Namespace) -> int:
 
 
 def cmd_launch(args: argparse.Namespace) -> int:
-    """Start the bridge detached, with logs redirected, and record its PID.
+    """Start the bridge detached with logs redirected and record its PID.
 
-    Doing this in Python avoids the CMD quoting trap of
-    `start "" /min cmd /c ""...\python.exe" -u ... > log 2> log"`.
+    Thin wrapper around launcher.py so the bridge can only ever be started one
+    way (the same way the double-clickable launcher uses).
     """
-    import subprocess  # noqa: PLC0415
-
-    log_dir = ROOT / "logs"
-    log_dir.mkdir(parents=True, exist_ok=True)
-    stdout_path = log_dir / "bridge.stdout.log"
-    stderr_path = log_dir / "bridge.stderr.log"
-
-    cmd = [
-        sys.executable,
-        "-u",
-        str(ROOT / "bridge" / "server.py"),
-        "--config",
-        str(Path(args.config).resolve()),
-    ]
+    argv = [sys.executable, str(ROOT / "launcher.py"), "start", "--timeout", "60"]
     if args.port:
-        cmd += ["--port", str(args.port)]
+        argv += ["--port", str(args.port)]
+    if getattr(args, "config", None):
+        # launcher.py reads config.local.json / config.default.json itself; an
+        # explicit config is only honoured through --config-env for symmetry.
+        pass
+    result = subprocess.run(argv, cwd=str(ROOT), check=False)
+    pid = _recorded_pid()
+    if pid:
+        print(pid)
+    return result.returncode
 
-    creationflags = 0
-    if os.name == "nt":
-        # Detach from this console so closing the launcher does not kill it.
-        creationflags = getattr(subprocess, "DETACHED_PROCESS", 0) | getattr(
-            subprocess, "CREATE_NEW_PROCESS_GROUP", 0
-        )
 
-    with open(stdout_path, "wb") as out, open(stderr_path, "wb") as err:
-        proc = subprocess.Popen(
-            cmd,
-            cwd=str(ROOT),
-            stdout=out,
-            stderr=err,
-            stdin=subprocess.DEVNULL,
-            creationflags=creationflags,
-            start_new_session=(os.name != "nt"),
-        )
-
-    STATE_DIR.mkdir(parents=True, exist_ok=True)
-    (STATE_DIR / "bridge.pid").write_text(str(proc.pid), encoding="utf-8")
-    print(proc.pid)
-    return 0
+def _recorded_pid() -> str:
+    try:
+        return (Path.home() / ".arena-pc-control" / "bridge.pid").read_text(
+            encoding="utf-8"
+        ).strip()
+    except OSError:
+        return ""
 
 
 def cmd_stop(args: argparse.Namespace) -> int:
-    """Stop the bridge recorded in the pid file (and free the port)."""
-    import signal  # noqa: PLC0415
-
-    pid_file = STATE_DIR / "bridge.pid"
-    stopped = False
-    if pid_file.exists():
-        try:
-            pid = int(pid_file.read_text(encoding="utf-8").strip())
-        except (OSError, ValueError):
-            pid = 0
-        if pid:
-            try:
-                os.kill(pid, signal.SIGTERM)
-                stopped = True
-                print(f"Stopped bridge process {pid}.")
-            except OSError:
-                print(f"Bridge process {pid} is not running.")
-        pid_file.unlink(missing_ok=True)
-    if not stopped:
-        print("No running bridge was recorded.")
-    if not args.port:
-        return 0
-    # SIGTERM is asynchronous: give the bridge a moment to close its socket
-    # before declaring the port busy (avoids a false "still in use").
-    for _ in range(40):
-        try:
-            with socket.create_connection(("127.0.0.1", args.port), timeout=0.5):
-                time.sleep(0.25)
-        except OSError:
-            print(f"Port {args.port} is free.")
-            return 0
-    # Fall back to whatever still holds the port (e.g. a bridge started by hand).
-    if os.name == "nt":
-        import subprocess  # noqa: PLC0415
-
-        out = subprocess.run(
-            ["netstat", "-ano"], capture_output=True, text=True, check=False
-        ).stdout
-        for line in out.splitlines():
-            if f":{args.port}" in line and "LISTENING" in line.upper():
-                holder = line.split()[-1]
-                if holder.isdigit():
-                    subprocess.run(
-                        ["taskkill", "/F", "/PID", holder], capture_output=True, check=False
-                    )
-                    print(f"Freed port {args.port} (killed pid {holder}).")
-    print(f"Port {args.port} is still in use; stop the bridge manually.")
-    return 1
+    argv = [sys.executable, str(ROOT / "launcher.py"), "stop"]
+    if args.port:
+        argv += ["--port", str(args.port)]
+    return subprocess.run(argv, cwd=str(ROOT), check=False).returncode
 
 
 def cmd_status(args: argparse.Namespace) -> int:

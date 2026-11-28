@@ -96,7 +96,7 @@ def test_doctor_reports_blockers_without_crashing(tmp_path: Path) -> None:
     output = result.stdout
     assert result.returncode == 1, output
     assert "[FAIL] pairing token" in output
-    assert "bootstrap.py token" in output, "doctor must print the exact remedy"
+    assert "start_windows.bat" in output, "doctor must print the exact remedy"
     assert "RESULT:" in output
 
 
