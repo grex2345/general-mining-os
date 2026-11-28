@@ -1,0 +1,54 @@
+{
+  "manifest_version": 3,
+  "name": "Arena PC Control — Secure Local MCP Bridge",
+  "version": "0.3.0",
+  "description": "Connects the Arena AI agent to your local Windows PC via an authenticated, permission-gated MCP bridge (files, apps, browser, PowerShell, screen, mouse/keyboard, memory).",
+  "minimum_chrome_version": "102",
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://arena.ai/*",
+    "https://www.arena.ai/*",
+    "http://127.0.0.1/*",
+    "http://localhost/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Arena PC Control"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://arena.ai/*",
+        "https://www.arena.ai/*"
+      ],
+      "js": [
+        "protocol.js",
+        "providers/base_adapter.js",
+        "providers/arena_direct.js",
+        "arena_adapter.js"
+      ],
+      "css": [
+        "styles.css"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "providers/*.js"
+      ],
+      "matches": [
+        "https://arena.ai/*",
+        "https://www.arena.ai/*"
+      ]
+    }
+  ]
+}
