@@ -92,6 +92,44 @@ _PS_ENCODING_PRELUDE = (
 )
 
 
+# Typed text is passed to PowerShell as base64 so no quoting, no code page and
+# no keyboard-layout conversion can corrupt it (Arabic, accents, quotes, emoji).
+_PS_TYPE_TEXT = r"""
+Add-Type -AssemblyName System.Windows.Forms
+$text = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('{b64}'))
+# SendInput with KEYEVENTF_UNICODE types any code point regardless of layout.
+if (-not ([System.Management.Automation.PSTypeName]'ApcInput').Type) {{
+Add-Type -TypeDefinition @'
+using System;
+using System.Runtime.InteropServices;
+public class ApcInput {{
+  [StructLayout(LayoutKind.Sequential)] public struct INPUT {{
+    public int type; public ushort wVk; public ushort wScan;
+    public uint dwFlags; public uint time; public IntPtr dwExtraInfo;
+  }}
+  [DllImport("user32.dll", SetLastError=true)] public static extern uint SendInput(
+      uint nInputs, INPUT[] pInputs, int cbSize);
+  public static void UnicodeChar(char c) {{
+    INPUT down = new INPUT(); INPUT up = new INPUT();
+    down.type = 1; down.wScan = c; down.dwFlags = 4;
+    up.type = 1; up.wScan = c; up.dwFlags = 4 | 2;
+    SendInput(2, new INPUT[] {{ down, up }}, Marshal.SizeOf(typeof(INPUT)));
+  }}
+}}
+'@ }}
+foreach ($ch in $text.ToCharArray()) {{
+  if ([int]$ch -eq 10) {{ [ApcInput]::UnicodeChar([char]13) }}
+  else {{ [ApcInput]::UnicodeChar($ch) }}
+  Start-Sleep -Milliseconds 8
+}}
+"""
+
+
+def _type_text_script(text: str) -> str:
+    b64 = base64.b64encode(str(text).encode("utf-8")).decode("ascii")
+    return _PS_TYPE_TEXT.format(b64=b64)
+
+
 def _powershell(argv_ps: str) -> list[str]:
     """Build a PowerShell argv that always emits UTF-8 (non-ASCII paths)."""
     return [
@@ -1042,17 +1080,12 @@ class BuiltinPCServer:
         if not text and not hotkey:
             return (_json_text({"ok": False, "error": "Provide 'text' or 'hotkey'."}), True)
 
-        if text:
-            # SendKeys is unreliable for punctuation and non-ASCII text, so
-            # send the string as a here-string and let .NET type it verbatim.
+        if text is not None and str(text) != "":
+            # Type the text as Unicode key events: SendKeys interprets
+            # characters such as ^ % + ~ ( ) { } as control codes and cannot
+            # type Arabic at all, so it is only used for hotkeys below.
             body = str(text)
-            esc = body.replace("'", "''").replace("@'", "@ ''").replace('@"', '@ ""')
-            ps = (
-                "$ws = New-Object -ComObject WScript.Shell;"
-                f"$t = @'\n{esc}\n'@; foreach ($ch in $t.ToCharArray()) "
-                "{ if ($ch -eq \"`n\") { $ws.SendKeys('{ENTER}') } "
-                "else { $ws.SendKeys([string]$ch) } }"
-            )
+            ps = _type_text_script(body)
             res = subprocess.run(
                 _powershell(ps),
                 capture_output=True,
@@ -1071,7 +1104,7 @@ class BuiltinPCServer:
                     }),
                     True,
                 )
-            return (_json_text({"ok": True, "sent_text": body}), False)
+            return (_json_text({"ok": True, "sent_text": body, "method": "SendInput/unicode"}), False)
         else:
             hk = str(hotkey).lower().strip()
             mod_map = {"ctrl": "^", "control": "^", "alt": "%", "shift": "+"}

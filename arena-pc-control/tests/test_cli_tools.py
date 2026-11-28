@@ -125,3 +125,26 @@ def test_doctor_passes_against_a_live_bridge(tmp_path: Path) -> None:
     finally:
         _run(str(BOOTSTRAP), "stop", "--port", str(port), env_home=home)
         time.sleep(0.5)
+
+
+# ── Windows typing path ───────────────────────────────────────────────────
+def test_keyboard_text_is_passed_as_base64_unicode_not_sendkeys() -> None:
+    """SendKeys cannot type Arabic or literal ^ % + { } — the tool must use
+    SendInput with KEYEVENTF_UNICODE and transport text as base64."""
+    import base64 as b64
+    import sys as _sys
+
+    _sys.path.insert(0, str(ROOT))
+    from bridge.builtin_mcp_server import _type_text_script  # noqa: PLC0415
+
+    sample = 'مرحبا "quoted" ^%+ (x) {ENTER} 100% ✅\nnext line'
+    script = _type_text_script(sample)
+
+    assert "SendInput" in script, "must type via SendInput, not WScript.Shell.SendKeys"
+    assert "dwFlags = 4" in script, "KEYEVENTF_UNICODE (0x0004) is what makes Arabic work"
+    assert "SendKeys" not in script
+    encoded = b64.b64encode(sample.encode("utf-8")).decode("ascii")
+    assert encoded in script, "text must ride along as base64 (no quoting/code-page damage)"
+    # Nothing outside ASCII may leak into the script itself.
+    script.encode("ascii")  # raises UnicodeEncodeError if raw text slipped in
+    assert "Convert]::FromBase64String" in script
