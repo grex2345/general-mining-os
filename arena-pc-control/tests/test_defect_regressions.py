@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import os
 import threading
 import textwrap
 from pathlib import Path
@@ -336,3 +337,27 @@ async def test_emergency_stop_blocks_tool_calls_through_the_bridge(tmp_path, mon
             assert (await call(4)).get("ok") is not False
     finally:
         await bridge.stop()
+
+
+# ── Instance lock / pid advertisement (defect 33) ──────────────────────────
+@pytest.mark.asyncio
+async def test_bridge_publishes_and_cleans_up_its_pid(tmp_path) -> None:
+    """doctor.py, stop.bat and the emergency CLI rely on a truthful pid file."""
+    state = tmp_path / "state"
+    bridge = BridgeServer(
+        _approval_cfg(tmp_path),
+        base_dir=Path(__file__).resolve().parent.parent,
+        state_dir=state,
+        auth_token=TOKEN,
+    )
+    await bridge.start()
+    try:
+        pid_file = state / "bridge.pid"
+        assert pid_file.exists(), "the bridge must advertise its pid"
+        assert int(pid_file.read_text(encoding="utf-8").strip()) == os.getpid()
+        # The lock file must be separate so a stale pid can never block startup.
+        assert (state / "bridge.lock").exists()
+        assert bridge.lock_path != bridge.pid_path
+    finally:
+        await bridge.stop()
+    assert not (state / "bridge.pid").exists(), "pid file must not outlive the bridge"

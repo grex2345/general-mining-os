@@ -281,6 +281,7 @@ also re-checks that a launched app actually created a window.
 | 28 | Content script read the bridge state once at load | A tab opened before pairing showed "not paired" forever | `refreshBridgeState()` poll every 3 s |
 | 29 | Launcher had no diagnosis path when a user's setup failed | Users could not tell token vs. port vs. extension problems | `doctor.py` with per-check remedies + `stop.bat` |
 | 30 | `EmergencyStop` cached its flag in memory | `emergency_stop.py --activate` did **nothing** to an already-running bridge — the kill switch failed exactly when needed | State file is re-read on every check |
+| 33 | `bridge.pid` doubled as the instance-lock file and was never written by the bridge | `doctor.py`, `stop.bat` and the emergency CLI could not tell whether a bridge was alive; a stale pid could also block startup | Lock is `bridge.lock`; the bridge publishes/cleans up `bridge.pid` (truncated before writing) |
 | 32 | Typing used `SendKeys` per character | Punctuation, `^ % + { }` and Arabic text came out mangled or missing | `SendInput` + `KEYEVENTF_UNICODE`, payload sent as base64; SendKeys only for hotkeys |
 | 31 | Arena Direct adapter required a `<textarea>` | If Arena ships a contenteditable composer the adapter reports "not detected" and the extension silently does nothing | `getComposer()` accepts both, `setEditableText()` drives ProseMirror-style editors |
 
@@ -321,7 +322,7 @@ also re-checks that a launched app actually created a window.
 
 | Type | Count | Status |
 |---|---|---|
-| Python unit + integration (incl. regressions + CLI tools) | 117 | ✅ passing |
+| Python unit + integration (incl. regressions + CLI tools) | 118 | ✅ passing |
 | Extension end-to-end (jsdom + real bridge) | 15 scenarios | ✅ passing |
 | Node.js parser / adapter unit | 12 | ✅ passing |
 | Windows desktop GUI probes | 7 tools | ⏳ requires a Windows desktop |

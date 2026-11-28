@@ -112,7 +112,11 @@ class BridgeServer:
 
         self.auth_token = auth_token or load_or_create_token(self.state_dir)
         self.audit_path = self.state_dir / "audit.jsonl"
-        self.lock_path = self.state_dir / "bridge.pid"
+        self.lock_path = self.state_dir / "bridge.lock"
+        # BridgeLock is held for the lifetime of the process; `bridge.pid` is
+        # written separately by the launcher. Keeping them distinct avoids an
+        # os.kill(pid, 0) race when a previous bridge is still exiting.
+        self.pid_path = self.state_dir / "bridge.pid"
         self._lock_fd: int | None = None
 
         self.policy = PolicyEngine(config.get("policy"))
@@ -274,14 +278,32 @@ class BridgeServer:
                     f"Another Arena PC Control bridge is already running "
                     f"(lock: {self.lock_path}). Stop it before starting a new one."
                 ) from exc
+        # Truncate first: a stale, longer pid would otherwise leave digits
+        # behind ("12345" → "999" reads as "99945").
+        try:
+            os.ftruncate(fd, 0)
+            os.lseek(fd, 0, os.SEEK_SET)
+        except OSError:
+            pass
         os.write(fd, str(os.getpid()).encode("ascii"))
         os.fsync(fd)
         self._lock_fd = fd
+        # Advertise the pid so `doctor.py`, `stop.bat` and the emergency-stop CLI
+        # can tell whether a bridge is alive (the lock file itself is often empty
+        # or locked in ways other processes cannot inspect).
+        try:
+            self.pid_path.write_text(str(os.getpid()), encoding="utf-8")
+        except OSError:
+            pass
 
     def _release_instance_lock(self) -> None:
         fd, self._lock_fd = self._lock_fd, None
         if fd is None:
             return
+        try:
+            self.pid_path.unlink(missing_ok=True)
+        except OSError:
+            pass
         try:
             os.close(fd)
         except OSError:
