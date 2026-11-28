@@ -319,7 +319,7 @@ also re-checks that a launched app actually created a window.
 
 | Type | Count | Status |
 |---|---|---|
-| Python unit + integration (incl. regressions + CLI tools) | 100 | ✅ passing |
+| Python unit + integration (incl. regressions + CLI tools) | 115 | ✅ passing |
 | Extension end-to-end (jsdom + real bridge) | 15 scenarios | ✅ passing |
 | Node.js parser / adapter unit | 12 | ✅ passing |
 | Windows desktop GUI probes | 7 tools | ⏳ requires a Windows desktop |
