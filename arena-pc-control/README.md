@@ -41,6 +41,15 @@ USER → Arena.ai Agent → Extension (content script + service worker)
 5. افتح `https://arena.ai`، ستظهر لوحة **Arena PC Control** فوق مربع الكتابة.
    اضغط **Start PC Session** ثم أعطِ الوكيل مهمة.
 
+### 🆘 أوامر Windows الجاهزة
+
+| الملف | الوظيفة |
+|---|---|
+| `start_windows.bat` | التشغيل الكامل (تحقق من 4 طبقات ثم يطبع رمز الإقران) |
+| `scripts\stop.bat` | إيقاف الجسر وتحرير المنفذ 18765 |
+| `scripts\doctor.bat` | تشخيص شامل يطبع سبب المشكلة وحلّها |
+| `kill.bat` | **إيقاف طارئ**: يوقف كل تنفيذ فوراً دون إغلاق الجسر |
+
 ### إيقاف طارئ
 
 ```bat
@@ -71,7 +80,7 @@ USER → Arena.ai Agent → Extension (content script + service worker)
 
 ```bash
 # كل شيء: وحدات + تكامل + الإضافة الحقيقية عبر jsdom مقابل جسر حقيقي
-python -m pytest -q            # 112 اختباراً
+python -m pytest -q            # 117 اختباراً
 
 # اختبار حي على الجهاز نفسه (يكشف قدرات Windows الحقيقية)
 python scripts/windows_selftest.py

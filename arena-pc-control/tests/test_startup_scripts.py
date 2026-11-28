@@ -457,3 +457,9 @@ if __name__ == "__main__":
             failed += 1
     print(f"\n{passed} passed, {failed} failed")
     sys.exit(1 if failed else 0)
+
+
+def test_kill_bat_activates_the_emergency_stop() -> None:
+    text = (ROOT / "kill.bat").read_text(encoding="utf-8")
+    assert "emergency_stop.py" in text and "--activate" in text
+    assert "--reset" in text, "the user must be told how to resume"

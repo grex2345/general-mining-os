@@ -28,6 +28,22 @@ if str(ROOT) not in sys.path:
 from jarvis_core.emergency_stop import EmergencyStop  # noqa: E402
 
 
+def _print_bridge_state() -> None:
+    """Tell the user whether a bridge is still running after the switch flips."""
+    pid_file = Path.home() / ".arena-pc-control" / "bridge.pid"
+    if not pid_file.exists():
+        print("   (no bridge process is running)")
+        return
+    try:
+        import os
+
+        pid = int(pid_file.read_text(encoding="utf-8").strip())
+        os.kill(pid, 0)
+        print(f"   bridge process {pid} is still running and now blocking tool calls.")
+    except (OSError, ValueError):
+        print("   (no bridge process is running)")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Arena PC Control — Emergency Stop control."
@@ -55,12 +71,16 @@ def main() -> int:
 
     if args.status:
         print(f"Emergency stop: {'ACTIVE' if es.is_stopped else 'INACTIVE'}")
+        _print_bridge_state()
         return 0
 
     if args.activate:
         es.activate(reason="cli_requested")
         print("🛑 EMERGENCY STOP activated. All autonomous tool execution halted.")
+        print("   The running bridge refuses every tool call immediately; you do")
+        print("   not need to restart it.")
         print("   Reset with: python scripts/emergency_stop.py --reset")
+        _print_bridge_state()
         return 0
 
     if args.reset:

@@ -229,6 +229,7 @@ python -m pytest -q
 |---|---|
 | `start_windows.bat` / `scripts/start.bat` | One launcher: refuse admin → venv → free port → token → start → verify → print token |
 | `scripts/stop.bat` | Stop the bridge from its pid file and free the port |
+| `kill.bat` | Emergency stop: halts every tool call immediately (bridge stays up but blocked) |
 | `scripts/doctor.py --deep` (`scripts/doctor.bat`) | 20-point diagnosis of config, deps, extension files, token, process, port, handshake and MCP tools — prints the exact fix for each failure |
 | `scripts/bootstrap.py {token,launch,wait,stop,selfcheck,status}` | CMD-safe primitives the `.bat` files call (no inline multi-line Python, no redirection inside quoted `start` commands) |
 | `scripts/verify_bridge.py --port N` | TCP → WebSocket → auth → `list_tools` verification used by the launcher |
@@ -320,7 +321,7 @@ also re-checks that a launched app actually created a window.
 
 | Type | Count | Status |
 |---|---|---|
-| Python unit + integration (incl. regressions + CLI tools) | 116 | ✅ passing |
+| Python unit + integration (incl. regressions + CLI tools) | 117 | ✅ passing |
 | Extension end-to-end (jsdom + real bridge) | 15 scenarios | ✅ passing |
 | Node.js parser / adapter unit | 12 | ✅ passing |
 | Windows desktop GUI probes | 7 tools | ⏳ requires a Windows desktop |
