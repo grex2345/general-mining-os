@@ -87,3 +87,11 @@
   gap: 8px;
   justify-content: flex-end;
 }
+
+/* Approval countdown: the bridge auto-denies when it reaches zero. */
+.apc-approval-timer {
+  margin: 6px 0 2px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #b45309;
+}

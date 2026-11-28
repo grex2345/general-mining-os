@@ -475,3 +475,68 @@ test("contenteditable composer: prompts are delivered when Arena drops the texta
   assert.match(sent[0], /@@@ARENA_PC@@@/);
   assert.match(sent[0], /fs_write|system_info/, "the tool catalog must reach the agent");
 });
+
+test("two approval requests queue up and each shows a countdown", { skip: SKIP }, async () => {
+  const { window, sent, bus } = await boot();
+  const doc = window.document;
+  await waitFor(
+    () => window.__arenaPC && window.__arenaPC.state().bridgeState.authenticated,
+    { label: "authenticated", timeout: 30000 }
+  );
+  doc.querySelector(".apc-btn").click();
+  await waitFor(() => sent.length >= 1, { label: "bootstrap", timeout: 30000 });
+
+  // Deliver exactly what background.js sends to the tab for an approval.
+  const pushApproval = (id, file) => {
+    const payload = {
+      type: "approval_required",
+      approval: {
+        id,
+        tool: "fs_write",
+        arguments: { path: file, content: "x" },
+        reason: "Outside allowed workspace roots.",
+        riskCategory: "filesystem",
+        timeoutSeconds: 5,
+      },
+    };
+    const listeners = bus.tabListeners.get(1) || [];
+    for (const fn of listeners) fn(payload, {}, () => {});
+  };
+
+  pushApproval("a1", "C:/one.txt");
+  pushApproval("a2", "C:/two.txt");
+
+  const card = await waitFor(() => doc.querySelector(".apc-approval-code"), {
+    label: "first approval card",
+    timeout: 20000,
+  });
+  assert.match(card.textContent, /C:\/one\.txt/, "the first request must be shown first");
+  const timer = doc.querySelector(".apc-approval-timer");
+  assert.match(timer.textContent, /5s to decide/);
+
+  // The countdown must actually tick down (no frozen card) ...
+  const firstValue = Number(timer.textContent.match(/(\d+)s/)[1]);
+  await waitFor(() => Number(doc.querySelector(".apc-approval-timer").textContent.match(/(\d+)s/)[1]) < firstValue, {
+    label: "countdown ticking",
+    timeout: 5000,
+  });
+  // ... and mention the request waiting behind this one.
+  assert.match(doc.querySelector(".apc-approval-timer").textContent, /1 more waiting/);
+
+  // Denying the first must reveal the second, not drop it.
+  doc.querySelector(".apc-btn-deny").click();
+  const second = await waitFor(
+    () => {
+      const el = doc.querySelector(".apc-approval-code");
+      return el && /C:\/two\.txt/.test(el.textContent) ? el : null;
+    },
+    { label: "second approval card", timeout: 20000 }
+  );
+  assert.ok(second);
+  assert.equal(window.__arenaPC.state().sessionActive, true, "the session must survive a denial");
+  doc.querySelector(".apc-btn-deny").click();
+  await waitFor(() => doc.querySelector(".apc-approval-code") === null, {
+    label: "queue drained",
+    timeout: 10000,
+  });
+});

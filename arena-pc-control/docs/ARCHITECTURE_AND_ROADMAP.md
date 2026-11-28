@@ -220,8 +220,9 @@ python -m pytest -q
 11. reconnect after the bridge restarts
 12. two Arena tabs: sessions isolated, approvals routed only to the owning tab
 13. contenteditable composer: prompts still reach the agent when there is no `<textarea>`
-14. popup pairs with the live bridge ("Paired & Ready")
-15. popup surfaces a wrong token instead of claiming readiness
+14. two simultaneous approval requests queue (no card is overwritten) and each shows a live countdown
+15. popup pairs with the live bridge ("Paired & Ready")
+16. popup surfaces a wrong token instead of claiming readiness
 
 ### Operational tooling
 
@@ -281,6 +282,7 @@ also re-checks that a launched app actually created a window.
 | 28 | Content script read the bridge state once at load | A tab opened before pairing showed "not paired" forever | `refreshBridgeState()` poll every 3 s |
 | 29 | Launcher had no diagnosis path when a user's setup failed | Users could not tell token vs. port vs. extension problems | `doctor.py` with per-check remedies + `stop.bat` |
 | 30 | `EmergencyStop` cached its flag in memory | `emergency_stop.py --activate` did **nothing** to an already-running bridge — the kill switch failed exactly when needed | State file is re-read on every check |
+| 34 | A second approval request overwrote the card on screen; a pending approval showed no deadline | Two risky actions at once meant one could be approved blind; a silent 120 s timeout looked like a hang | Approvals are queued and shown one at a time with a countdown; the queue is cleared when the session ends |
 | 33 | `bridge.pid` doubled as the instance-lock file and was never written by the bridge | `doctor.py`, `stop.bat` and the emergency CLI could not tell whether a bridge was alive; a stale pid could also block startup | Lock is `bridge.lock`; the bridge publishes/cleans up `bridge.pid` (truncated before writing) |
 | 32 | Typing used `SendKeys` per character | Punctuation, `^ % + { }` and Arabic text came out mangled or missing | `SendInput` + `KEYEVENTF_UNICODE`, payload sent as base64; SendKeys only for hotkeys |
 | 31 | Arena Direct adapter required a `<textarea>` | If Arena ships a contenteditable composer the adapter reports "not detected" and the extension silently does nothing | `getComposer()` accepts both, `setEditableText()` drives ProseMirror-style editors |
@@ -323,7 +325,7 @@ also re-checks that a launched app actually created a window.
 | Type | Count | Status |
 |---|---|---|
 | Python unit + integration (incl. regressions + CLI tools) | 118 | ✅ passing |
-| Extension end-to-end (jsdom + real bridge) | 15 scenarios | ✅ passing |
+| Extension end-to-end (jsdom + real bridge) | 16 scenarios | ✅ passing |
 | Node.js parser / adapter unit | 12 | ✅ passing |
 | Windows desktop GUI probes | 7 tools | ⏳ requires a Windows desktop |
 | Live arena.ai DOM session | — | ⏳ manual |

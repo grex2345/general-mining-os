@@ -48,6 +48,11 @@
   let activeAdapter = null;
   let keepAliveTimer = null;
   let pendingApprovals = 0;
+  /** Approvals waiting for the user, oldest first (a second request must not
+   *  overwrite the card the user is currently reading). */
+  const approvalQueue = [];
+  let activeApproval = null;
+  let approvalTimer = null;
 
   const actionedTurnKeys = new Set();
   const promptQueue = [];
@@ -264,8 +269,58 @@
     if (!approvalBoxEl) return;
     approvalBoxEl.hidden = true;
     approvalBoxEl.textContent = "";
-    pendingApprovals = 0;
+    pendingApprovals = approvalQueue.length + (activeApproval ? 1 : 0);
     renderDockState();
+  }
+
+  function stopApprovalTimer() {
+    if (approvalTimer) {
+      clearInterval(approvalTimer);
+      approvalTimer = null;
+    }
+  }
+
+  /** Count down the bridge's approval deadline: silence would look like a hang. */
+  function startApprovalTimer(approval, banner) {
+    stopApprovalTimer();
+    const total = Number(approval.timeoutSeconds) || 120;
+    let left = total;
+    const paint = () => {
+      const queued = approvalQueue.length
+        ? ` · ${approvalQueue.length} more waiting`
+        : "";
+      banner.textContent =
+        `You have ${Math.max(0, left)}s to decide, then it is denied automatically${queued}.`;
+    };
+    paint();
+    approvalTimer = setInterval(() => {
+      left -= 1;
+      paint();
+      if (left <= 0) {
+        stopApprovalTimer();
+        // The bridge resolves it as denied; just clear the card.
+        finishApproval(approval.id, "Timed out — denied automatically.");
+      }
+    }, 1000);
+  }
+
+  function finishApproval(approvalId, message) {
+    stopApprovalTimer();
+    if (activeApproval && activeApproval.id === approvalId) activeApproval = null;
+    removeApprovalCard();
+    if (message) setStatus(message);
+    void showNextApproval();
+  }
+
+  async function showNextApproval() {
+    if (activeApproval || approvalQueue.length === 0) {
+      pendingApprovals = approvalQueue.length;
+      return;
+    }
+    const next = approvalQueue.shift();
+    activeApproval = next;
+    pendingApprovals = approvalQueue.length;
+    await showApprovalCard(next);
   }
 
   function showApprovalCard(approval) {
@@ -279,7 +334,6 @@
       prettyArgs = String(approval.arguments);
     }
 
-    pendingApprovals += 1;
     approvalBoxEl.hidden = false;
     approvalBoxEl.textContent = "";
 
@@ -295,6 +349,10 @@
     pre.className = "apc-approval-code";
     pre.textContent = `Tool: ${approval.tool}\n${prettyArgs}`;
 
+    const countdown = document.createElement("div");
+    countdown.className = "apc-approval-timer";
+    startApprovalTimer(approval, countdown);
+
     const actions = document.createElement("div");
     actions.className = "apc-approval-actions";
     const approveBtn = document.createElement("button");
@@ -306,7 +364,7 @@
     denyBtn.className = "apc-btn apc-btn-deny";
     denyBtn.textContent = "Deny";
     actions.append(approveBtn, denyBtn);
-    approvalBoxEl.append(header, pre, actions);
+    approvalBoxEl.append(header, pre, countdown, actions);
 
     const decide = async (approved) => {
       approveBtn.disabled = true;
@@ -316,12 +374,13 @@
         approvalId: approval.id,
         approved,
       });
-      if (res && res.type === "error") {
-        setStatus(res.error || "Approval was rejected by the bridge.");
-      } else {
-        setStatus(approved ? "Approved — executing…" : "Denied by user.");
-      }
-      removeApprovalCard();
+      const message =
+        res && res.type === "error"
+          ? res.error || "Approval was rejected by the bridge."
+          : approved
+            ? "Approved — executing…"
+            : "Denied by user.";
+      finishApproval(approval.id, message);
     };
     approveBtn.addEventListener("click", () => void decide(true));
     denyBtn.addEventListener("click", () => void decide(false));
@@ -385,6 +444,11 @@
     sessionActive = false;
     bridgeSessionId = null;
     promptQueue.length = 0;
+    // Any approval still on screen is moot once the session is gone, and its
+    // bridge-side deadline must not be left counting down in the UI.
+    approvalQueue.length = 0;
+    activeApproval = null;
+    stopApprovalTimer();
     if (activeAdapter && activeAdapter.endSession) activeAdapter.endSession();
     if (keepAliveTimer) {
       clearInterval(keepAliveTimer);
@@ -505,7 +569,9 @@
       bridgeState = msg.state || bridgeState;
       renderDockState();
     } else if (msg.type === "approval_required") {
-      showApprovalCard(msg.approval || {});
+      approvalQueue.push(msg.approval || {});
+      pendingApprovals = approvalQueue.length + (activeApproval ? 1 : 0);
+      void showNextApproval();
     }
   });
 
