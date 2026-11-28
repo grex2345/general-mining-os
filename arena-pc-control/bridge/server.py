@@ -489,7 +489,7 @@ class BridgeServer:
             if session_id:
                 self._disassociate_ws(ws)
             else:
-                self._authed_clients.discard(ws)
+                self._authed_clients.pop(ws, None)
 
     async def _execute_tool_request(
         self,

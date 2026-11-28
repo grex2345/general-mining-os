@@ -362,3 +362,57 @@ async def test_e2e_bridge_health_and_port_listening(tmp_path: Path) -> None:
             assert pong["authed"] is True
     finally:
         await bridge.stop()
+
+
+@pytest.mark.asyncio
+async def test_websocket_disconnect_cleanup_without_auth(tmp_path: Path) -> None:
+    """WebSocket connection that closes without auth must clean up _authed_clients
+    without raising AttributeError (dict has no discard).
+
+    Regression test: _handle_client's finally block used .discard() on a dict,
+    which crashes on disconnect for unauthenticated clients.
+    """
+    cfg = {
+        "bridge": {
+            "host": "127.0.0.1",
+            "port": 0,
+            "approvalTimeoutSeconds": 5,
+            "refuseAdminStartup": False,
+        },
+        "policy": {},
+        "mcpServers": {},
+    }
+    bridge = BridgeServer(
+        cfg, base_dir=ROOT, state_dir=tmp_path / "state_cleanup", auth_token="test_token"
+    )
+
+    class MockWS:
+        """Minimal async WebSocket mock for disconnect cleanup test."""
+
+        def __init__(self) -> None:
+            self.remote_address = ("127.0.0.1", 12345)
+            self.messages: list[str] = []
+
+        async def __aiter__(self):
+            # Empty stream: connection closes immediately without sending anything
+            return
+            yield  # pragma: no cover - makes this an async generator
+
+        async def send(self, data: str) -> None:
+            self.messages.append(data)
+
+    mock_ws = MockWS()
+
+    # The _handle_client must not raise AttributeError when the connection
+    # closes without authentication (session_id is None).
+    try:
+        await bridge._handle_client(mock_ws)
+    except AttributeError as exc:
+        pytest.fail(f"_handle_client raised AttributeError on disconnect: {exc}")
+
+    # Unauthenticated ws must never have been added to _authed_clients
+    assert mock_ws not in bridge._authed_clients, (
+        "Unauthenticated ws should not remain in _authed_clients after disconnect"
+    )
+
+    await bridge.stop()
