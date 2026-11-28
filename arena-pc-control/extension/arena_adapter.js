@@ -397,6 +397,14 @@
     if (activeAdapter && activeAdapter.isStreamingIncomplete && activeAdapter.isStreamingIncomplete(latestReply)) return;
 
     processedTurnCount = assistantTurns.length;
+
+    // Resolve any A/B comparison carousel before parsing (commit candidate A).
+    if (activeAdapter && activeAdapter.resolveBattle && activeAdapter.resolveBattle()) {
+      // Battle resolved — wait for the chosen reply to land as a normal turn,
+      // then parse it on the next poll cycle.
+      return;
+    }
+
     const outcome = Protocol.extractAction(latestReply);
 
     if (outcome.kind === "final_answer") {

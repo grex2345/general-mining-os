@@ -16,6 +16,8 @@ class ArenaDirectAdapter extends BaseProviderAdapter {
     super({ ...options, name: "arena_direct", provider: "arena" });
     // Bridge session ID (set after successful create_session on the Bridge)
     this.bridgeSessionId = null;
+    // A/B battle throttle timestamp (ms)
+    this._battleAt = 0;
   }
 
   /* ── Bridge Session ID ────────────────────────────────────────── */
@@ -70,7 +72,7 @@ class ArenaDirectAdapter extends BaseProviderAdapter {
     const assistantProse = [];
     for (const item of items) {
       if (item.classList.contains("justify-end")) continue; // User turn
-      const prose = item.querySelector(".prose");
+      const prose = this._proseOf(item);
       if (prose) {
         assistantProse.push(prose.innerText || prose.textContent || "");
       }
@@ -82,6 +84,48 @@ class ArenaDirectAdapter extends BaseProviderAdapter {
       this.lastProcessedMessageIndex = assistantProse.length;
     }
     return newMessages;
+  }
+
+  /* ── 3b. A/B comparison carousel support (inspired by ZeroScript arena.js) ──
+   * Arena sometimes renders a reply as an A/B comparison carousel: two candidate
+   * slides side by side with "Continue with A / Ignore / Continue with B" controls.
+   * We always commit candidate A (the first slide) so the rest of the loop parses
+   * it as a normal turn with zero special-casing.
+   */
+  _carouselSel = '[role="region"][aria-roledescription="carousel"]';
+  _slideSel = '[aria-roledescription="slide"]';
+  _continueARe = /^\s*(continuer avec a|continue with a)\s*$/i;
+
+  _proseOf(item) {
+    if (!item) return null;
+    // For a comparison carousel, ALWAYS read candidate A = the FIRST slide's .prose.
+    const slide = item.querySelector(this._slideSel);
+    return slide ? slide.querySelector(".prose") : item.querySelector(".prose");
+  }
+
+  _isCarouselItem(item) {
+    return !!item && !!item.querySelector(this._carouselSel);
+  }
+
+  /* Resolve an A/B battle by clicking "Continue with A" (first slide).
+   * Returns true if a battle was resolved (click attempted). */
+  resolveBattle() {
+    if (typeof window === "undefined") return false;
+    const now = Date.now();
+    // Throttle: at most once per 6s to avoid tripping backend rate limits.
+    if (this._battleAt && now - this._battleAt < 6000) return false;
+    this._battleAt = now;
+    const buttons = [...document.querySelectorAll("button")];
+    for (const b of buttons) {
+      if (b.offsetParent === null) continue;
+      if (b.disabled || b.getAttribute("aria-disabled") === "true") continue;
+      const label = (b.textContent || b.getAttribute("aria-label") || "").trim();
+      if (this._continueARe.test(label)) {
+        try { b.click(); } catch {}
+        return true;
+      }
+    }
+    return false;
   }
 
   /* ── 4. Tool-Call Instruction Delivery ─────────────────────────── */

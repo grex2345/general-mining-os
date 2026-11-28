@@ -158,6 +158,27 @@
     return `[OBSERVATION — ${toolName} — ${status}]\n${body.slice(0, 12000)}${imgNote}`;
   }
 
+  // ── Large-output truncation (inspired by ZeroScript's arena truncation) ──
+  // Arena's composer hard-caps the message at ~120000 chars: past that the
+  // submit button stays disabled and a large tool result silently wedges the
+  // loop. Truncate outgoing text to a safe margin below the cap, keeping head
+  // AND tail so neither the start nor the end of a result is lost, and mark
+  // the gap so the model knows content was dropped.
+  const SEND_CAP = 120000;   // composer hard limit
+  const SEND_MAX = 118000;   // leave margin for the truncation marker
+
+  function truncateForSend(text) {
+    if (!text || text.length <= SEND_CAP) return text;
+    const omitted = text.length - SEND_MAX;
+    const marker =
+      `\n\n[…Arena PC Control: result truncated to fit Arena's input limit - ` +
+      `${omitted} of ${text.length} characters omitted…]\n\n`;
+    const budget = SEND_MAX - marker.length;
+    const headLen = Math.floor(budget * 0.85);
+    const tailLen = budget - headLen;
+    return text.slice(0, headLen) + marker + text.slice(text.length - tailLen);
+  }
+
   function buildBootstrapPrompt(tools, customNotes) {
     const toolLines = (tools || []).map((t) => {
       const req = (t.inputSchema && t.inputSchema.required) || [];
@@ -199,5 +220,6 @@
     buildCorrectionPrompt,
     formatToolObservation,
     buildBootstrapPrompt,
+    truncateForSend,
   };
 });

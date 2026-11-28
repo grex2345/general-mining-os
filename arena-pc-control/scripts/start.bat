@@ -28,7 +28,7 @@ set "VENV_DIR=%ROOT_DIR%\.venv"
 set "LOG_DIR=%ROOT_DIR%\logs"
 set "BRIDGE_SCRIPT=%ROOT_DIR%\bridge\server.py"
 set "CONFIG_FILE=%ROOT_DIR%\config.default.json"
-set "PYTHON=%VENV_DIR%\\Scripts\\python.exe"
+set "PYTHON=%VENV_DIR%\Scripts\python.exe"
 set "VERIFY_SCRIPT=%ROOT_DIR%\scripts\verify_bridge.py"
 set "STDOUT_LOG=%LOG_DIR%\bridge.stdout.log"
 set "STDERR_LOG=%LOG_DIR%\bridge.stderr.log"
@@ -101,19 +101,23 @@ if errorlevel 1 (
     echo   Check error log: %STDERR_LOG%
 )
 
-:: ---- Step 4: Verify Bridge is listening ----
+:: ---- Step 4: Verify Bridge is operational (multi-stage) ----
 echo.
-echo   [4/5] Verifying Bridge is listening on port %BRIDGE_PORT%...
+echo   [4/5] Verifying Bridge is operational...
+echo   Stage 1/4: TCP port listening...
+echo   Stage 2/4: WebSocket handshake...
+echo   Stage 3/4: Authentication...
+echo   Stage 4/4: MCP tools operational...
 "%PYTHON%" "%VERIFY_SCRIPT%" --port %BRIDGE_PORT% --timeout 8
 if errorlevel 1 (
     echo.
-    echo   ERROR: Bridge verification failed. Bridge is not accepting connections.
+    echo   ERROR: Bridge verification failed. Bridge is not fully operational.
     echo   Check error log: %STDERR_LOG%
     echo   Check output log: %STDOUT_LOG%
     pause
     exit /b 1
 )
-echo   Bridge is listening on ws://127.0.0.1:%BRIDGE_PORT%
+echo   Bridge is fully operational on ws://127.0.0.1:%BRIDGE_PORT%
 
 :: ---- Step 5: SYSTEM READY ----
 echo.

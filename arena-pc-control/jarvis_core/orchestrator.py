@@ -129,7 +129,17 @@ class ArenaPCOrchestrator:
         arguments: dict[str, Any] | None = None,
         timeout: float = 60.0,
     ) -> dict[str, Any]:
-        """Route a tool call to the appropriate MCP server."""
+        """Route a tool call to the appropriate MCP server.
+
+        Emergency stop is enforced here *before* routing: when the kill
+        switch is active, no tool call reaches the MCP server.
+        """
+        # Emergency stop: block all tool execution before the tool runs.
+        if self.emergency.is_stopped:
+            raise RuntimeError(
+                "EMERGENCY STOP is ACTIVE. All tool execution is halted. "
+                "Reset with emergency-stop --reset before continuing."
+            )
         return self.router.call_tool(tool_name, arguments or {}, timeout=timeout)
 
     def server_statuses(self) -> list[dict[str, Any]]:

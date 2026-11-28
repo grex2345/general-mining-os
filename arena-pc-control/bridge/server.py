@@ -42,6 +42,7 @@ if str(_ROOT_DIR) not in sys.path:
 from bridge.mcp_client import MCPRouter  # noqa: E402
 from bridge.policy import ActionTier, PolicyEngine  # noqa: E402
 from bridge.session_manager import session_manager  # noqa: E402
+from jarvis_core.emergency_stop import EmergencyStop  # noqa: E402
 
 
 ALLOWED_ORIGIN_PATTERNS = [
@@ -114,12 +115,27 @@ class BridgeServer:
         self.policy = PolicyEngine(config.get("policy"))
         self.router = MCPRouter(base_dir=self.base_dir)
         self.router.load_servers(config.get("mcpServers") or {})
+        self.emergency = EmergencyStop()
 
         self._authed_clients: dict[ServerConnection, str] = {}  # ws -> session_id
         self._session_ws: dict[str, ServerConnection] = {}  # session_id -> ws
         self._pending_approvals: dict[str, asyncio.Future[bool]] = {}
         self._approval_owner: dict[str, ServerConnection] = {}  # approval_id -> owning WS
         self._ws_server: Any = None
+        # ── MCP server health monitoring (inspired by ZeroScript server_watch) ──
+        # Poll every configured MCP server; auto-restart any that died
+        # unexpectedly so a dead server is not discovered only on the next
+        # real tool call. Never raises — best effort only.
+        self._monitor_stop = asyncio.Event()
+        self._monitor_task: asyncio.Task[None] | None = None
+        self._monitor_interval = float(bridge_cfg.get("serverMonitorIntervalSeconds", 5.0))
+        # Crash-loop detection: LOOP_N deaths within LOOP_WINDOW seconds means
+        # something is killing (or instantly crashing) the server every time we
+        # bring it back. We keep restarting but name the problem loudly.
+        self._monitor_loop_n = int(bridge_cfg.get("serverMonitorLoopN", 3))
+        self._monitor_loop_window = float(bridge_cfg.get("serverMonitorLoopWindowSeconds", 60.0))
+        self._monitor_restart_times: dict[str, list[float]] = {}
+        self._monitor_loop_warned_at: dict[str, float] = {}
 
     # ── Session management ─────────────────────────────────────────────
     def _create_session(
@@ -180,6 +196,9 @@ class BridgeServer:
         )
         if self._ws_server.sockets:
             self.port = self._ws_server.sockets[0].getsockname()[1]
+        # Start MCP server health monitor (best-effort, never raises).
+        self._monitor_stop.clear()
+        self._monitor_task = asyncio.create_task(self._monitor_servers())
         self.write_audit(
             "bridge_started",
             {"host": self.host, "port": self.port, "servers": statuses},
@@ -187,6 +206,7 @@ class BridgeServer:
         return statuses
 
     async def stop(self) -> None:
+        self._monitor_stop.set()
         for fut in list(self._pending_approvals.values()):
             if not fut.done():
                 fut.set_result(False)
@@ -483,6 +503,37 @@ class BridgeServer:
         timeout = float(msg.get("timeout") or 60.0)
         correlation_id = str(msg.get("correlation_id") or session_manager.new_correlation_id(session_id or ""))
 
+        # Emergency stop: block ALL tool execution paths — including the direct
+        # WebSocket path — before any policy check or router dispatch.
+        if self.emergency.is_stopped:
+            self.write_audit(
+                "tool_blocked_emergency",
+                {
+                    "tool": tool_name,
+                    "reason": "Emergency stop is active",
+                    "session_id": session_id,
+                    "correlation_id": correlation_id,
+                },
+            )
+            await ws.send(
+                json.dumps(
+                    {
+                        "type": "tool_result",
+                        "id": req_id,
+                        "session_id": session_id,
+                        "correlation_id": correlation_id,
+                        "ok": False,
+                        "userDenied": True,
+                        "text": (
+                            "EMERGENCY STOP is ACTIVE. All tool execution is halted. "
+                            "Reset with emergency-stop --reset before continuing."
+                        ),
+                        "images": [],
+                    }
+                )
+            )
+            return
+
         # Resource locking: check if this tool requires exclusive access to a resource
         resource_id = str(msg.get("resource_id") or "")
         if resource_id:
@@ -612,6 +663,88 @@ class BridgeServer:
             if resource_id and session_id:
                 session_manager.release_resource(resource_id, session_id)
 
+
+    # ── MCP server health monitoring ───────────────────────────────────
+    # Inspired by ZeroScript's server_watch(): polls every MCP server and
+    # auto-restarts any that died unexpectedly. Detects crash loops and
+    # names the real cause (exit code, stderr tail, port squatter) instead
+    # of silently restarting forever.
+    async def _monitor_servers(self) -> None:
+        while not self._monitor_stop.is_set():
+            try:
+                await asyncio.sleep(self._monitor_interval)
+                for sid, client in list(self.router.clients.items()):
+                    try:
+                        if client.is_running():
+                            continue
+                        # Server is dead — decide whether this is a crash loop.
+                        now = time.time()
+                        window = self._monitor_restart_times.setdefault(sid, [])
+                        window[:] = [t for t in window if now - t < self._monitor_loop_window]
+                        looping = len(window) >= self._monitor_loop_n
+                        if looping:
+                            warned_at = self._monitor_loop_warned_at.get(sid, 0.0)
+                            if now - warned_at > self._monitor_loop_window:
+                                self._monitor_loop_warned_at[sid] = now
+                                self.write_audit(
+                                    "server_crash_loop",
+                                    {
+                                        "server": sid,
+                                        "deaths": len(window),
+                                        "window_seconds": self._monitor_loop_window,
+                                        "last_exit": client.last_error,
+                                    },
+                                )
+                                print(
+                                    f"[bridge] SERVER CRASH LOOP: '{sid}' died "
+                                    f"{len(window)} times in {self._monitor_loop_window}s "
+                                    f"(last error: {client.last_error or 'unknown'})",
+                                    flush=True,
+                                )
+                        if looping and window and now - window[-1] < 15.0:
+                            # Clearly hopeless right now — slow cadence, but keep retrying
+                            # (the cause may clear, e.g. the user finally opens the app).
+                            continue
+                        window.append(now)
+                        self.write_audit(
+                            "server_dead_restart",
+                            {"server": sid, "reason": client.last_error or "process exited"},
+                        )
+                        print(
+                            f"[bridge] MCP server '{sid}' found dead - auto-restarting...",
+                            flush=True,
+                        )
+                        await asyncio.to_thread(client.start)
+                        self.router.rebuild_routes()
+                        await self._broadcast_to_authed(
+                            {
+                                "type": "mcp_status",
+                                "alive": self.router.any_alive(),
+                                "servers": self.router.server_statuses(),
+                                "tools": self.router.list_tools(),
+                            }
+                        )
+                    except Exception as exc:
+                        self.write_audit(
+                            "server_restart_failed",
+                            {"server": sid, "error": f"{type(exc).__name__}: {exc}"},
+                        )
+            except asyncio.CancelledError:
+                break
+            except Exception:
+                # Never let the monitor kill the bridge.
+                pass
+
+    async def _broadcast_to_authed(self, payload: dict[str, Any]) -> None:
+        raw = json.dumps(payload, ensure_ascii=False)
+        stale: list[ServerConnection] = []
+        for ws in list(self._authed_clients.keys()):
+            try:
+                await ws.send(raw)
+            except Exception:
+                stale.append(ws)
+        for ws in stale:
+            self._disassociate_ws(ws)
 
 def load_config(config_path: Path | None = None) -> dict[str, Any]:
     local_cfg = _ROOT_DIR / "config.local.json"
