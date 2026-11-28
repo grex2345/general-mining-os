@@ -70,8 +70,8 @@ if not exist "%PYTHON%" (
         exit /b 1
     )
 )
-echo   Installing dependencies (websockets, pillow)...
-"%PYTHON%" -m pip install --quiet websockets>=14.0 pillow>=10.0.0
+echo   Installing dependencies from requirements.txt...
+"%PYTHON%" -m pip install --quiet -r "%ROOT_DIR%\requirements.txt"
 if errorlevel 1 (
     echo.
     echo   WARNING: Dependency installation may have failed. Continuing anyway...

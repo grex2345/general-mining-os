@@ -153,14 +153,14 @@ def main() -> int:
     token = load_token()
     if token is None:
         print(
-            f"[2/4] WebSocket+Auth+Ops: SKIP — "
+            f"[2/4] WebSocket+Auth+Ops: FAIL — "
             f"pairing token not found at ~/.arena-pc-control/auth_token.txt"
         )
-        print(
-            "\nVERIFICATION PARTIAL: TCP port is open, but authentication could not be verified."
-        )
-        print("  Generate/pair the token by running the Bridge once, then re-run this check.")
-        return 0
+        print("\nVERIFICATION FAILED: Bridge authentication token is missing.")
+        print("  Run the Bridge once to generate ~/.arena-pc-control/auth_token.txt")
+        print("  Then pair the token in the Arena PC Control Extension.")
+        print("  Without authentication, SYSTEM READY must NOT be reported.")
+        return 1
 
     ws_ok, ws_msg = asyncio.run(
         check_websocket_and_auth(args.host, args.port, token, timeout=args.timeout)

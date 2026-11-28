@@ -111,7 +111,7 @@ node --test tests/test_provider_adapter.mjs
 python scripts/windows_selftest.py
 ```
 
-**النتيجة الحالية: 66 اختبار بايثون ناجح + 11 اختبار Node.js ناجح.**
+**النتيجة الحالية: 58 اختبار بايثون ناجح + 12 اختبار Node.js ناجح = 70/70.**
 
 ---
 
